@@ -8,6 +8,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+if ($Launch) {
+    throw "Direct launch is retired. Use scripts/physical-session.mjs start with the exact physical artifact manifest and FFmpeg; it records and collects automatically."
+}
+
 $exe = (Resolve-Path $Executable).Path
 $repoRoot = (Resolve-Path ".").Path
 $stamp = Get-Date -Format "yyyyMMdd-HHmmss"
@@ -29,30 +33,6 @@ if (-not [string]::IsNullOrWhiteSpace($ExpectedSha256)) {
     if ($hash -ne $expected) {
         throw "Executable SHA-256 mismatch. Expected $expected but found $hash."
     }
-}
-
-$roamingRoot = [Environment]::GetFolderPath([Environment+SpecialFolder]::ApplicationData)
-if ([string]::IsNullOrWhiteSpace($roamingRoot)) {
-    throw "Windows did not resolve the Roaming AppData directory."
-}
-$productionAppDataDir = Join-Path $roamingRoot "com.mariosg.Narro"
-$backupDir = Join-Path $sessionDir "production-appdata-backup"
-$backupFiles = @()
-
-if (Test-Path $productionAppDataDir -PathType Container) {
-    Copy-Item -LiteralPath $productionAppDataDir -Destination $backupDir -Recurse -Force
-    $backupFiles = @(
-        Get-ChildItem -LiteralPath $productionAppDataDir -File -Recurse -Force |
-            Sort-Object FullName |
-            ForEach-Object {
-                $relative = $_.FullName.Substring($productionAppDataDir.Length).TrimStart([char[]]"\\/")
-                [ordered]@{
-                    relativePath = $relative
-                    length = $_.Length
-                    sha256 = (Get-FileHash -Algorithm SHA256 -LiteralPath $_.FullName).Hash.ToLowerInvariant()
-                }
-            }
-    )
 }
 
 $os = Get-CimInstance Win32_OperatingSystem
@@ -89,109 +69,64 @@ $manifest = [ordered]@{
         buildNumber = $os.BuildNumber
     }
     monitors = $monitors
-    productionData = [ordered]@{
-        identifier = "com.mariosg.Narro"
-        appDataDir = $productionAppDataDir
-        existedBeforeSession = (Test-Path $productionAppDataDir -PathType Container)
-        backupDirectory = if (Test-Path $backupDir -PathType Container) { $backupDir } else { $null }
-        fileCount = $backupFiles.Count
-        files = $backupFiles
-    }
-    note = "Production Roaming AppData was snapshotted while Narro was not running. Keep this backup until the physical session is accepted. Do not restore it over a running Narro process."
+    dataPolicy = "User-authorized disposable Narro test data in the normal Windows profile; no automatic backup or reset"
+
 }
 $manifest | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 (Join-Path $sessionDir "environment.json")
 
-$backupStatus = if (Test-Path $backupDir -PathType Container) {
-    "Created production AppData safety backup: $backupDir ($($backupFiles.Count) file(s))."
-} else {
-    "No pre-existing production AppData directory was present; no data backup was needed."
-}
-
 $checklist = @"
-# Narro consolidated Windows physical acceptance — PA-01–PA-08
+# Fresh Narro Windows physical session - PA-01..PA-09
 
 Executable SHA-256: $hash
 Evidence directory: $sessionDir
-Production AppData: $productionAppDataDir
-$backupStatus
+Narro test data: normal Windows profile; no backup, alternate profile or automatic reset.
 
-STATUS: PA-01–PA-09 AUTHORIZED by the user on 2026-10-22; individual cases remain OPEN/NOT RUN until evidenced.
-ChatGPT owns static source-vs-Narro screenshot/icon/layout checks and all implementation. Codex
-owns only actual native Windows interactions, continuous motion/video, OS state and packaging
-acceptance after ChatGPT's corrected candidate passes exact source Windows CI. This script
-only prepares a case manifest; actual app launch is still opt-in (-Launch) and production
-AppData must not be overwritten or used for speculative fixture testing.
-Use -ExpectedSha256 to verify the exact resulting-main release before any physical session.
-Preserve the backup and environment.json; prefer disposable test data/profile and avoid
-altering the user's live data. Record monitor identity, DPI, Windows build, theme and motion.
-For PA-01 and PA-02 native transitions, timer expiry/action timing and other motion,
-Codex captures continuous time-stamped video with aligned HWND/UIA, screenshots and logs.
-For static icons, colors, card geometry, single-frame state and source screenshot parity,
-ChatGPT compares existing exact-build Windows screenshots; DO NOT demand video solely
-for a static claim. Mark unavoidable restart/installer segment boundaries.
-PASS requires direct evidence from this exact binary; CI/fixtures are not a physical PASS.
+STATUS: PA-01..PA-09 ACTIVE; every new case starts NOT RUN.
+Current controller: docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md
+Read current main HANDOFF and admit the exact source/CI/artifact before execution.
+This helper records environment and optional launch identity; it is NOT the full source admission.
+Copy source SHA, CI run/attempt, artifact ID/ZIP digest and EXE path/hash into this session's admission record.
+Recheck that the selected live PR head matches its verified manifest before launching.
+Use -ExpectedSha256 from the admitted artifact, never filename/version or merely the latest main build.
+This helper prepares only. Launch with scripts/physical-session.mjs start for automatic recording/log collection; no preparation is physical PASS.
 
-## PA-01 — continuous Focus Panel and Floating Timer host identity (C4)
-- [ ] Capture Panel -> compact Timer -> expanded Timer -> Panel with the same HWND/WebView.
-- [ ] Check no blank/stale/clipped frames, proper focus and normal/reduced motion.
+The ordinary Windows account and normal Narro data paths are disposable Narro test data.
+Reset only Narro data with Narro stopped if a case needs clean state; retain it for restart/persistence cases.
+Do not change unrelated files, global OS settings, hardware or installers outside the actual case authority.
+Physical agents acquire and report native evidence; application fixes remain with the assigned source owner
+unless the latest user instruction explicitly reassigns source work.
 
-## PA-02 — initial Board to Focus transition (M6)
-- [ ] Capture first Board-to-Focus morph, timing, main geometry restoration, stable task/session owner.
+## Candidate and tool admission
+- [ ] Exact selected source/CI/artifact/EXE SHA recorded and live head/hash rechecked.
+- [ ] Real process/recorder/partial-session state checked; no duplicate active capture or wrong executable.
+- [ ] Capture/input health, actual monitor/work-area/DPI, theme and renderer normal/reduced motion recorded.
+- [ ] Fresh ignored session root and compatible case batch prepared using ordinary Narro UI/test data.
 
-## PA-03 — real timer expiry and Time's Up (F35)
-- [ ] Observe real expiry at compact 340x110 and expanded 340x300.
-- [ ] Verify zero clock, visible unclipped Time's Up and contextual Extend; no synthetic fixture shortcut.
+## Fresh case matrix - use the canonical protocol for complete assertions
+- [ ] PA-01: Panel/compact/expanded/return, same HWND/task, normal/reduced at available 100%/125%, continuous first/settled frames.
+- [ ] PA-02: real Main-to-Focus entry, geometry, committed identity and actually exercised retry/error path.
+- [ ] PA-03: real expiry/Time's Up/Extend/Pause/Break transitions; do not substitute a synthetic fixture.
+- [ ] PA-04: PP44-F01 Taken/history edit/delete zero/nonnegative persistence; Settings/Reports/dialog/notes/focus.
+- [ ] PA-05: measured nonzero HWND displacement from real drag, differing positions, SNAP, monitor naming/fallback/reconnect; unavailable hardware NOT RUN.
+- [ ] PA-06: real notifications and audible sound/volume/mute/foreground/background observations.
+- [ ] PA-07: actual tray Quit/process exit and same-EXE restart; OFF/ON placement and task/session recovery.
+- [ ] PA-08: exact installer identity and only actually scheduled/authorized MSI/NSIS native installation cases.
+- [ ] PA-09: NEW Narro screenshots/continuous intervals versus authentic original Blitzit sources only.
+- [ ] A/PR389 and B/PR419: independent eight-case compositor suites on their own exact binaries; never score from PR437.
 
-## PA-04 — pending Reports Add Session and Escape (F29)
-- [ ] Capture foreground/UIA focus, trigger a delayed real mutation and press Escape while pending.
-- [ ] Verify retained modal owner, no duplicate insertion and focus restored after resolution.
-
-## PA-05 — named secondary monitor / DPI (F27)
-- [ ] Select a nonprimary monitor at 125%, change that same screen to 100% without app restart.
-- [ ] Check no offscreen/wrong-display placement, stale device handling and saved Timer position.
-- [ ] If physical hardware is unavailable, record NOT RUN rather than PASS.
-
-## PA-06 — real OS notifications and audible sound (M8)
-- [ ] Observe Windows toast, WebView2/local sound, volume/mute, foreground/background.
-- [ ] Test notifications-disabled behavior and safe listener recovery where feasible.
-
-## PA-07 — normal quit/restart, persistence and Timer position
-- [ ] Quit via tray, relaunch this exact executable, verify timer/session/data recovery.
-- [ ] Confirm Timer restores to a safe visible placement; preserve original AppData backup.
-
-## PA-08 — genuine NSIS/MSI installation
-- [ ] With explicit installer authorization and protected data, smoke-test both actual installers.
-- [ ] Verify installer/release identity and safe launch/uninstall behavior; otherwise NOT RUN.
-
-## PA-09 — separate existing-evidence Blitzit comparison, NOT a PA-01–PA-08 PASS
-- [ ] ChatGPT compares static screenshot/icon/color/layout states directly against matching
-      original retained Blitzit evidence with exact build and frame identity.
-- [ ] Codex later validates source motion/animations only when continuous native video is needed.
-- [ ] Preserve SOURCE_PARITY_OPEN for unobserved or version-dependent details.
-- [ ] Optional live Blitzit M11 remains inactive without separate explicit authorization.
-
-## Results and safeguards
-- [ ] For each PA record PASS/FAIL/INCONCLUSIVE/NOT RUN with timestamps and evidence links.
-- [ ] If data appears damaged, stop Narro, preserve evidence and restore backup ONLY while stopped.
-- [ ] Never infer physical PASS from a successful build or visual fixture.
-- [ ] Do not restore production data merely because a test passed.
-- [ ] Follow docs/CURRENT_WINDOWS_RESIDUAL_PHYSICAL_SESSION.md and
-      docs/PRE_CODEX_RISK_AUDIT_2026-10-11.md for full scenario details.
+## Evidence, analysis and checkpoint
+- [ ] Continuous original video/actual PTS for motion; fresh exact-build screenshots are sufficient only for static claims.
+- [ ] HWND/UIA/log/chronology receipts corroborate actual actions; zero drag displacement is not movement coverage.
+- [ ] Quiet performance measurements use their separate non-recording protocol.
+- [ ] Record independent PASS/FAIL/INCONCLUSIVE/NOT RUN per requirement, source, environment and exercised state.
+- [ ] Freeze useful segments, analyze the full relevant intervals and hand confirmed failures to the source owner.
+- [ ] Publish a safe-boundary HANDOFF checkpoint; do not interrupt useful capture for Git updates.
+- [ ] Keep generated raw evidence outside tracked Git; keep all original Blitzit media untouched.
+- [ ] Retired Narro films, old USER-PAUSED/profile requirements and dated packet candidates are historical.
+- [ ] Strict per-PR native holds remain; preparation/CI does not close them or activate M10/M11/M12.
 "@
 $checklist | Set-Content -Encoding UTF8 (Join-Path $sessionDir "checklist.md")
 
 Write-Host "Prepared M7 final physical evidence session:"
 Write-Host "  $sessionDir"
 Write-Host "Executable SHA-256: $hash"
-Write-Host $backupStatus
-
-if ($Launch) {
-    $process = Start-Process -FilePath $exe -WorkingDirectory (Split-Path $exe) -PassThru
-    Start-Sleep -Seconds 2
-    $running = @(Get-Process -Name "narro" -ErrorAction SilentlyContinue)
-    if ($running.Count -ne 1) {
-        Write-Warning "Expected exactly one Narro process after launch; observed $($running.Count)."
-    } else {
-        Write-Host "Narro launched as PID $($running[0].Id). Begin the recording and follow checklist.md."
-    }
-}

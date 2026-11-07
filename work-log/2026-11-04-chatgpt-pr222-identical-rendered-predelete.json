@@ -1,0 +1,93 @@
+{
+  "review_date": "2026-11-04",
+  "frozen_source_family": "work-log/evidence/m7-pr222-final-local-20261003",
+  "predelete_main_sha": "41f46d37a61d1a51c755d054c632348b2d278223",
+  "historical_pr_222": "MERGED 2026-10-03",
+  "scope": "Only dated Narro-generated headless rendered endpoint static PNG duplicates of identical normal/reduced view. Source original Blitzit/native physical or existing safety-blocked bulk operation not involved.",
+  "tracked_family_files": 70,
+  "published_manifest_sha256_entries": 69,
+  "unlisted_family_source_paths": 0,
+  "per_case_html_both_preserved": true,
+  "source_log": "work-log/evidence/m7-pr222-final-local-20261003/README.md",
+  "current_open_pr_direct_family_reference": 0,
+  "published_digest_same_family_duplicates": 8,
+  "removed_logical_bytes": 162592,
+  "retained_and_removed_blob_sha_equal_for_all": true,
+  "absolute_safety": "Keep README, two review contact sheets, motion-state-specific HTML contracts, manifest, provenance, failed environment logs, unique screenshot outcomes and all other evidence. Historic README demonstrates reduced-motion behavior and case assertions, but screenshot bytes are identical to retained normal-motion counterparts for only these eight paths. No physical acceptance regrade.",
+  "one_to_one_pairs": [
+    {
+      "remove": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-panel-timerCompact-dark-reduced.png",
+      "retain": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-panel-timerCompact-dark.png",
+      "git_blob": "ee8efd7f7db7f68ebd36b8201d26dc64e45beee4",
+      "bytes": 5422,
+      "published_sha256": "f4248c75db89cb5501b2a8aa3b44b80d032679b8e886072a2c47a1d97e892001",
+      "removed_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-panel-timerCompact-dark-reduced.html",
+      "retained_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-panel-timerCompact-dark.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-panel-timerCompact-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-panel-timerCompact-light.png",
+      "git_blob": "5c81eba7952afc1b8c794df24c3bb77fa5d56e96",
+      "bytes": 5497,
+      "published_sha256": "e141c06ff8da827c211982a8b00506e87f727e8a2be49e5047b547337083db2c",
+      "removed_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-panel-timerCompact-light-reduced.html",
+      "retained_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-motion-panel-timerCompact-light.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-compact-dark-reduced.png",
+      "retain": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-compact-dark.png",
+      "git_blob": "9b6f5518b50cda0b316a1cee08131048ccc01752",
+      "bytes": 29421,
+      "published_sha256": "0691cf414cae9a01dc73212edb73d93beebfb9278f240408f53bddfa2b479389",
+      "removed_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-compact-dark-reduced.html",
+      "retained_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-compact-dark.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-compact-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-compact-light.png",
+      "git_blob": "3254b10119b500c0f2fac4c053f307ec94188830",
+      "bytes": 34565,
+      "published_sha256": "643a9c6710ea996598d8d0014c72aaa7665ab04df2c5fdcf98c31993401ff443",
+      "removed_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-compact-light-reduced.html",
+      "retained_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-compact-light.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-large-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-large-light.png",
+      "git_blob": "3ff42574e9e7f80b6783673b3d6455c7104bc583",
+      "bytes": 31314,
+      "published_sha256": "c3d8a7fd716ea8b38f5718b55045c8be9ee3b39e89c9f297665a9b22711154a2",
+      "removed_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-large-light-reduced.html",
+      "retained_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-panel-large-light.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-compact-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-compact-light.png",
+      "git_blob": "7815c08a3318be70ca3c4cd1f25dde413459e179",
+      "bytes": 10469,
+      "published_sha256": "18a8621a66c453cc4b80d6473ec032af9edad304d7616987e1b7939d5e24f998",
+      "removed_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-compact-light-reduced.html",
+      "retained_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-compact-light.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-large-dark-reduced.png",
+      "retain": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-large-dark.png",
+      "git_blob": "853d43ee806a5c47f7b86cb4705e602de931c36a",
+      "bytes": 21091,
+      "published_sha256": "b51088a1064fcac716bee61968ff6d3f9c89f02d095de29b9be5a1aecd8c0fd0",
+      "removed_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-large-dark-reduced.html",
+      "retained_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-large-dark.html"
+    },
+    {
+      "remove": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-large-light-reduced.png",
+      "retain": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-large-light.png",
+      "git_blob": "98f84c94b998c8d9eaa89da88ba33356c3210b2f",
+      "bytes": 24813,
+      "published_sha256": "4674734c2d3d323b3c4dd2fe62fe874989d3d989a945938f5325ee0713cc7b7d",
+      "removed_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-large-light-reduced.html",
+      "retained_case_html": "work-log/evidence/m7-pr222-final-local-20261003/focus-editor-notes-timerExpanded-large-light.html"
+    }
+  ],
+  "decision": "Approved for exact-path generated image dedup conditional on guarded PR and resulting-main identity validation; all other evidence HOLD.",
+  "no_full_cleanup_claim": "Overall cross-chat x/5 remains 1/5; stage 2 is still in progress."
+}

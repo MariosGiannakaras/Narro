@@ -4,7 +4,7 @@ Status: **INITIAL CORPUS INGESTION COMPLETE — 19/19 pairs analyzed, reconciled
 
 Raw source location:
 
-- `reference/original-blitzit-videos/inbox/`
+- `reference/original-blitzit/videos/inbox/`
 
 Coverage tracker:
 

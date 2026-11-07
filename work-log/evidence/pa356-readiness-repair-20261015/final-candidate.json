@@ -1,9 +1,0 @@
-{
-  "state": "FINAL_READINESS_SOURCE_CI_PENDING",
-  "head": "f7456738b8b8498387d4d9637409c4a384f95ba3",
-  "run": 38688646540,
-  "pr": 356,
-  "failedRun": 38684913852,
-  "supersededCancellationRequested": 38688218496,
-  "newPhysical": "0/2"
-}

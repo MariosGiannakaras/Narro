@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const definitions = Object.freeze({
   physical: {
-    required: ["src-tauri/target-physical/release/narro.exe"],
+    required: ["src-tauri/target-physical/release/narro.exe", "scripts/physical-session.mjs"],
     bundles: [
       { directory: "src-tauri/target-physical/release/bundle/msi", extension: ".msi" },
       { directory: "src-tauri/target-physical/release/bundle/nsis", extension: ".exe" },
@@ -84,6 +84,7 @@ export function buildArtifactManifest(kind, { root, sourceSha, runId, attempt })
   return {
     schema: "narro-ci-artifact-provenance/v1",
     kind,
+    observationFeatures: kind === "physical" || kind === "validation" ? ["physical-observability"] : [],
     sourceSha: sourceSha.toLowerCase(),
     githubRunId: String(runId),
     githubRunAttempt: Number(attempt),

@@ -1,0 +1,14 @@
+# PR480 — eight exact-duplicate historical PR222 rendered PNGs removed
+
+**2026-11-04 / owner ChatGPT cleanup / MERGED & VERIFIED.** Project-wide five-gate cleanup **1/5** remains unchanged.
+
+- Source: historical merged PR222, generated 2026-10-03 headless rendered static PNGs under `work-log/evidence/m7-pr222-final-local-20261003/`; excludes Blitzit originals, recent physical/native sources and previously blocked 27-folder/29-media operations.
+- [Immutable exact eight-pair predelete record](2026-11-04-chatgpt-pr222-identical-rendered-predelete.json): each removed reduced-motion PNG has a retained normal-motion PNG identical by Git SHA, byte size, published SHA256; all independent normal/reduced scenario HTML, README/review sheets, provenance, immutable checksum manifest, negatives and remaining unique images protected.
+- Original manifest: 69 nonself entries for 70 tracked family files before deletion; all corresponding byte lengths matched the original current Git tree. No currently open PR body links directly to this family. No native/physical acceptance was regraded.
+- Feature branch `cleanup/pr222-identical-reduced-png-20261104`, parent `5a7d9bf36821563503c76537de5924e8b1378b81`, exact head `09aa2ba3a673da9f2d7202c10dca07e5550ae88c`.
+- Candidate tree `e3d93521a29b3b239a5732204cfdfb8eacf801e4` vs source tree `a5d5df4e4165bf46fb33fc4ccecc6f4cf54557e1`: independent SHA comparison of root/work-log/evidence/family, exactly 8 expected files removed, zero additions, zero modifications (70→62 family files; 162,592 logical bytes). All other siblings unmodified.
+- [PR480](https://github.com/MariosGiannakaras/Narro/pull/480): 8/8 exact changed filenames, all removed only; clean mergeable head and exact base; 0 exact-head CI checks (`[skip ci]` archival-only). CI and Windows native tests **NOT RUN**, no PASS inferred.
+- Expected-head guarded squash MERGED at `b9349ace98061aa0619d14348c9334106f8c306c`. Resulting main ref equals this merge SHA; resulting-main commit tree equals proven deletion-only candidate tree `e3d93521a29b3b239a5732204cfdfb8eacf801e4`.
+- Counters: originally inventoried/technically checked 15,690/15,690; surviving tracked evidence **15,643 /9,003,889,543 logical bytes**; total historical checkout retirements **20,960 paths /7,649,007,054 logical bytes**. This user-requested session: PR479 11 + PR480 8 = **19 newly deleted files /348,708 bytes**. Separate original fixed 700 video/ZIP cohort **117 deleted /583 retained**.
+- Git recovery from predelete parent main `5a7d9bf36821563503c76537de5924e8b1378b81`; original manifest unchanged; no history rewrite.
+- Continue overall stage 2/5 source/consumer eligibility proof on independent nonblocked evidence; do not retry/bypass prior safety refusals. Active PR389/419/431/436/437 physical/source consumers and original Blitzit remain HOLD. Keep durable five-gate temporary tracker; final cleanup not closed.

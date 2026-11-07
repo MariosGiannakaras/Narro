@@ -1,0 +1,578 @@
+{
+  "scope": "Batch A read-only family-level Git-tree + source/consumer README assessment. Full path/blob inventories already in baseline paths.csv. Classifies still-unreviewed nonconventional paths as defensively held after checking family native evidence and current acceptance consumers. Not per-file content/byte SHA256 proof, not final deletion disposition.",
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "current_family_tree_same_as_frozen_baseline": true,
+  "files_added_to_reviewed_counter": 4007,
+  "bytes_added_to_reviewed_counter": 206774181,
+  "previous_nonmedia_remaining": 10599,
+  "new_nonmedia_remaining": 6592,
+  "previous_deleted_since_PR445": 20913,
+  "newly_deleted": 0,
+  "fixed_700_deleted": 117,
+  "no_deletion_or_move": true,
+  "tools_used": "GitHub read-only family recursive trees and source README, then one new audit summary file",
+  "original_blitzit_protected": true,
+  "limits": "A family tree path+Git blob identity and README provide bounded technical retention classification, not exhaustive distinct consumer checks or physical Windows/parity proof. No source media replay, SHA256 binary rehash, link exhaustiveness, native execution or safety-block bypass.",
+  "families": [
+    {
+      "family": "all-remaining-physical-20261026",
+      "git_tree_sha": "a8a7fb16669d841330ca6502b2fba7caae4e460e",
+      "tree_complete": true,
+      "tracked_paths": 923,
+      "tracked_bytes": 484454197,
+      "nonzip_nonconventional_paths": 911,
+      "nonzip_nonconventional_bytes": 44898921,
+      "previously_preclassified_nonmedia": 0,
+      "new_nonmedia_technically_reviewed": 911,
+      "new_nonmedia_reviewed_bytes": 44898921,
+      "conventional_media_and_zip_paths": 12,
+      "sources": [
+        {
+          "relative_path": "main-board/native-original.mkv",
+          "git_blob": "d93fe6a0703dddfae32f28a24e0b93f1af057fed",
+          "bytes": 18352583
+        },
+        {
+          "relative_path": "main-break/native-original.mkv",
+          "git_blob": "a39743fc1f1cbdcf28a99f7bed971a3eac7b5e59",
+          "bytes": 52778383
+        },
+        {
+          "relative_path": "main-focus/native-original.mkv",
+          "git_blob": "b017463f03ab4fde1ff7050b4c60860ca3cd9b58",
+          "bytes": 49555137
+        },
+        {
+          "relative_path": "main-lists/native-original.mkv",
+          "git_blob": "a8d487fa2181182f6a1e7d7ad2685680c72a3be0",
+          "bytes": 32981207
+        },
+        {
+          "relative_path": "main-topology/native-original.mkv",
+          "git_blob": "bc5b79ccbd2b41c8e479e18c028ffe0e9b384b8b",
+          "bytes": 31143313
+        },
+        {
+          "relative_path": "resume-01/final-relaunch-persistence/native-original.mkv",
+          "git_blob": "a02ce986516e1717325934a0ac4fea3ab9243936",
+          "bytes": 11463798
+        },
+        {
+          "relative_path": "resume-01/manual-break-expiry/native-original.mkv",
+          "git_blob": "1c56a50a9241e78d3d529137008201cede728b29",
+          "bytes": 96640037
+        },
+        {
+          "relative_path": "resume-01/preferences-write-failure/native-original.mkv",
+          "git_blob": "fe28b2ec2475b0585e3e5d5eae4688286454a23f",
+          "bytes": 27293803
+        },
+        {
+          "relative_path": "resume-01/restart-persistence/native-original.mkv",
+          "git_blob": "a8097bb24e4f6ed5287498e7adb276135ec654c1",
+          "bytes": 43209800
+        },
+        {
+          "relative_path": "resume-01/standard-alert-loopback.wav",
+          "git_blob": "f9059c0f8cf087d2b61b58fb6a88a624b9cda853",
+          "bytes": 1011756
+        },
+        {
+          "relative_path": "resume-01/timer-boundaries/native-original.mkv",
+          "git_blob": "2449d1df83bd78d14eb217ca54ee8acf1d21ea37",
+          "bytes": 74936999
+        },
+        {
+          "relative_path": "standard-alert-loopback.wav",
+          "git_blob": "562250d9c33dd1c21ab2c4d234f35bf61e7e9b3c",
+          "bytes": 188460
+        }
+      ],
+      "sample_readme": "work-log/evidence/all-remaining-physical-20261026/README.md",
+      "retention_basis": "Latest Oct26 18/20 P journeys partly exercised, 10 original native MKVs; no overall PA/M7 PASS, Wav audio incomplete, strict A/B holds open.",
+      "disposition": "FAMILY_LEVEL_HOLD_NO_DELETION_CLEARANCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "m5-remaining-native-20261017",
+      "git_tree_sha": "e713f2e468c3fa510e5bd30494d0023b1268a6d3",
+      "tree_complete": true,
+      "tracked_paths": 575,
+      "tracked_bytes": 76369700,
+      "nonzip_nonconventional_paths": 572,
+      "nonzip_nonconventional_bytes": 23985850,
+      "previously_preclassified_nonmedia": 0,
+      "new_nonmedia_technically_reviewed": 572,
+      "new_nonmedia_reviewed_bytes": 23985850,
+      "conventional_media_and_zip_paths": 3,
+      "sources": [
+        {
+          "relative_path": "raw-structured-evidence.zip",
+          "git_blob": "668a6b0884905b36be309f688fec93d21c85e125",
+          "bytes": 1565004
+        },
+        {
+          "relative_path": "video/segment1-actions-180s.mkv",
+          "git_blob": "da4712c61f233b35b5c315c9accf90533791495d",
+          "bytes": 22957930
+        },
+        {
+          "relative_path": "video/segment2-complete.mkv",
+          "git_blob": "b57a07839a97398401c3f7da8c95226d8561db1e",
+          "bytes": 27860916
+        }
+      ],
+      "sample_readme": "work-log/evidence/m5-remaining-native-20261017/README.md",
+      "retention_basis": "8/8 raw acquisition with analysis pending; segment1 is a derivative and 2.31GB full source is historically local, original proof not independently recovered.",
+      "disposition": "FAMILY_LEVEL_HOLD_NO_DELETION_CLEARANCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "pr389-native-20261021",
+      "git_tree_sha": "e75c6036522590561bf662b8eb3616aa81cf663e",
+      "tree_complete": true,
+      "tracked_paths": 595,
+      "tracked_bytes": 42814694,
+      "nonzip_nonconventional_paths": 591,
+      "nonzip_nonconventional_bytes": 31141469,
+      "previously_preclassified_nonmedia": 60,
+      "new_nonmedia_technically_reviewed": 531,
+      "new_nonmedia_reviewed_bytes": 28413490,
+      "conventional_media_and_zip_paths": 4,
+      "sources": [
+        {
+          "relative_path": "executed-acquisition-helper.zip",
+          "git_blob": "6cba088d5c174918bd248bef204954fb87fbcaed",
+          "bytes": 2320
+        },
+        {
+          "relative_path": "normal/native-original.mkv",
+          "git_blob": "ac18b8727065fd43bcc86c68073a96ea5f0e6c04",
+          "bytes": 5739791
+        },
+        {
+          "relative_path": "original-text-receipts.zip",
+          "git_blob": "e92e064b17584fcf68c11bdfc71f406d6c5613fb",
+          "bytes": 43938
+        },
+        {
+          "relative_path": "reduced/native-original.mkv",
+          "git_blob": "c19bd9cebf202c353a7425e66bcaf16e0975224a",
+          "bytes": 5887176
+        }
+      ],
+      "sample_readme": "work-log/evidence/pr389-native-20261021/README.md",
+      "retention_basis": "Strict compositor physical-before-merge; 8/8 examined, 4/8 visual failures in native candidate. Preserve original native source and diagnostics.",
+      "disposition": "FAMILY_LEVEL_HOLD_NO_DELETION_CLEARANCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "m7-ci953-theme-20261005",
+      "git_tree_sha": "35abcb15f4003fa0bd1762460b849d6dc77fd095",
+      "tree_complete": true,
+      "tracked_paths": 412,
+      "tracked_bytes": 99027660,
+      "nonzip_nonconventional_paths": 405,
+      "nonzip_nonconventional_bytes": 22658352,
+      "previously_preclassified_nonmedia": 0,
+      "new_nonmedia_technically_reviewed": 405,
+      "new_nonmedia_reviewed_bytes": 22658352,
+      "conventional_media_and_zip_paths": 7,
+      "sources": [
+        {
+          "relative_path": "Narro-M7-Logs.zip",
+          "git_blob": "ec37eb0f9c384d3be12c0241605acdc57f6033af",
+          "bytes": 19491
+        },
+        {
+          "relative_path": "clips/100-save-main-recreation.mp4",
+          "git_blob": "a5e065c92d31e0cc90f56a484e90e8c682b4c70b",
+          "bytes": 9526680
+        },
+        {
+          "relative_path": "clips/c5-drag-quit-relaunch.mp4",
+          "git_blob": "59a6753dfb60e4dcbf6eb63cf4d5743d6277a82f",
+          "bytes": 10540429
+        },
+        {
+          "relative_path": "clips/dark-focus-normal-reduced.mp4",
+          "git_blob": "7dbf30b0fbd89d036ce18a5ac4e69b11702a7b05",
+          "bytes": 3416781
+        },
+        {
+          "relative_path": "clips/system-theme-change.mp4",
+          "git_blob": "1aa9abb1944b6e307191caad9f22414e255c83d8",
+          "bytes": 5785139
+        },
+        {
+          "relative_path": "video/2026-10-05 11-02-01.mkv",
+          "git_blob": "f58a17b60cd779a2bbcfdb6bcd3c57deef559fea",
+          "bytes": 23204632
+        },
+        {
+          "relative_path": "video/2026-10-05 11-16-21.mkv",
+          "git_blob": "46d87c6c58b5fd23d2c1c3e44b33d774128436db",
+          "bytes": 23876156
+        }
+      ],
+      "sample_readme": "work-log/evidence/m7-ci953-theme-20261005/README.md",
+      "retention_basis": "Two original OBS films and source comparison of 44/70 original visual cells, 26 open; no complete source parity.",
+      "disposition": "FAMILY_LEVEL_HOLD_NO_DELETION_CLEARANCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "pr360-native-20261016",
+      "git_tree_sha": "328f3392481bc709c2395c69d547aa5e54dd0a1e",
+      "tree_complete": true,
+      "tracked_paths": 325,
+      "tracked_bytes": 62798770,
+      "nonzip_nonconventional_paths": 323,
+      "nonzip_nonconventional_bytes": 10717589,
+      "previously_preclassified_nonmedia": 0,
+      "new_nonmedia_technically_reviewed": 323,
+      "new_nonmedia_reviewed_bytes": 10717589,
+      "conventional_media_and_zip_paths": 2,
+      "sources": [
+        {
+          "relative_path": "raw-structured-evidence.zip",
+          "git_blob": "fe68023d068d28b461e51447b05c501e591216f3",
+          "bytes": 574975
+        },
+        {
+          "relative_path": "video/2026-10-16 09-51-08.mkv",
+          "git_blob": "a96539808a9dc1a2e1fbefb9446a153c02691e6a",
+          "bytes": 51506206
+        }
+      ],
+      "sample_readme": "work-log/evidence/pr360-native-20261016/README.md",
+      "retention_basis": "Native five-group review identified actual cross-window subtask mismatch; original video and observations not retired.",
+      "disposition": "FAMILY_LEVEL_HOLD_NO_DELETION_CLEARANCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "pa01-08-20261013",
+      "git_tree_sha": "3a62de968030aac406fb03ca4c0c8f12caece0d4",
+      "tree_complete": true,
+      "tracked_paths": 350,
+      "tracked_bytes": 469052463,
+      "nonzip_nonconventional_paths": 326,
+      "nonzip_nonconventional_bytes": 344223907,
+      "previously_preclassified_nonmedia": 5,
+      "new_nonmedia_technically_reviewed": 321,
+      "new_nonmedia_reviewed_bytes": 38825550,
+      "conventional_media_and_zip_paths": 24,
+      "sources": [
+        {
+          "relative_path": "analysis/PA01-cycle1-to-panel.mp4",
+          "git_blob": "25d1532c1c764f6b7e7a1ec9369a987c125333d8",
+          "bytes": 383847
+        },
+        {
+          "relative_path": "analysis/PA01-cycles2-3.mp4",
+          "git_blob": "8af13c8cab636768bc95ba9f754844e358cae51d",
+          "bytes": 1445501
+        },
+        {
+          "relative_path": "analysis/PA01-expansion.mp4",
+          "git_blob": "758ea90c5267e996b45fc96e6490345afc1175fb",
+          "bytes": 1294717
+        },
+        {
+          "relative_path": "analysis/PA01-reduced-motion.mp4",
+          "git_blob": "391ff80470870426d47811019538a3464eef4a5b",
+          "bytes": 917507
+        },
+        {
+          "relative_path": "analysis/PA02-main-entry.mp4",
+          "git_blob": "fffcd7ca7eb43016bf45c440dfeea9cb40181b25",
+          "bytes": 900208
+        },
+        {
+          "relative_path": "analysis/PA03-expired-views.mp4",
+          "git_blob": "c0e0d28059ee3d22eabb9edd6cf5fd923bdd610a",
+          "bytes": 789767
+        },
+        {
+          "relative_path": "analysis/PA03-extend-pause.mp4",
+          "git_blob": "3dc4bd0ee54cffe69c94e1bbaaa3c137dec94a6d",
+          "bytes": 872901
+        },
+        {
+          "relative_path": "analysis/PA03-time-up.mp4",
+          "git_blob": "c5edfd6e9a34428ba895a0584b773c9bbcaa0610",
+          "bytes": 766507
+        },
+        {
+          "relative_path": "analysis/PA04-pending-lock.mp4",
+          "git_blob": "d8809a1aaecb40b7d995eb6913d592ec3c5715f0",
+          "bytes": 1262649
+        },
+        {
+          "relative_path": "analysis/PA05-unavailable.mp4",
+          "git_blob": "cd71f312e773bb9b4b87bf2e5368da333c191b89",
+          "bytes": 1141566
+        },
+        {
+          "relative_path": "analysis/PA06-audio-previews.mp4",
+          "git_blob": "b94cf5c49f49b8c4ac3732477cffdf3727add21c",
+          "bytes": 2968280
+        },
+        {
+          "relative_path": "analysis/PA06-break-expiry.mp4",
+          "git_blob": "2e490dc785ecba71e84d6e209325eee00e9106ef",
+          "bytes": 1278762
+        },
+        {
+          "relative_path": "analysis/PA07-drag.mp4",
+          "git_blob": "cc4eec8d1c14ced3a15f6a78ffbcf3d4665bb86b",
+          "bytes": 458725
+        },
+        {
+          "relative_path": "analysis/PA07-quit-relaunch.mp4",
+          "git_blob": "2ffd1a840cf19eb8c79d89b7cb0ead2998fd4abe",
+          "bytes": 4163572
+        },
+        {
+          "relative_path": "analysis/PA08-nsis-installed-launch.mp4",
+          "git_blob": "fcfbe43aac60fa9e00a941c21678bcf0ad3d0ba9",
+          "bytes": 822819
+        },
+        {
+          "relative_path": "analysis/raw-sidecars-media.zip",
+          "git_blob": "5b476955fd8cccaf0451a954876e90d94089ee76",
+          "bytes": 42790809
+        },
+        {
+          "relative_path": "continuous.mkv",
+          "git_blob": "9cf25b3713b8ea439fd76b826108d5ac6b01163b",
+          "bytes": 15048654
+        },
+        {
+          "relative_path": "corrections/local-regressions-and-ci-31fc1ef9.zip",
+          "git_blob": "d30b9d7bed5b53ec9513d6a989fa2846a197273d",
+          "bytes": 1969506
+        },
+        {
+          "relative_path": "corrections/main-accepted-artifacts-35528dea.zip",
+          "git_blob": "aa415807e855e746acd6fc55e0bfa30200b17164",
+          "bytes": 28655404
+        },
+        {
+          "relative_path": "corrections/main-attempt2-fast-artifact-verifier.zip",
+          "git_blob": "9a13d85e257c3e4769d609f1bb33006fd00f9a7e",
+          "bytes": 1395
+        },
+        {
+          "relative_path": "corrections/main-attempt2-fast-dist.zip",
+          "git_blob": "f9d46fdec032aadc42115bdba26eb1db72ffdf97",
+          "bytes": 346370
+        },
+        {
+          "relative_path": "corrections/pr349-final-ci-and-capture-preparation.zip",
+          "git_blob": "26d9ffc8cd1118c47c1ad729bbe9de237a7e1a5f",
+          "bytes": 5506969
+        },
+        {
+          "relative_path": "corrections/pr349-main-rerun-and-fresh-physical-tools.zip",
+          "git_blob": "ab6d8bd99570eb4de2e8c697eef92fc2532013cf",
+          "bytes": 40441
+        },
+        {
+          "relative_path": "corrections/recorder-health-20261013.mkv",
+          "git_blob": "a1931365d5942463fba1d8f42ad61397ddbff9f3",
+          "bytes": 11001680
+        },
+        {
+          "relative_path": "recording/continuous.mkv.part001",
+          "git_blob": "3457373aee524b4978a50226cd83ce9c5485b7df",
+          "bytes": 62914560
+        },
+        {
+          "relative_path": "recording/continuous.mkv.part002",
+          "git_blob": "a3dc007d5d1b9eab8f4c123dd273991fb696c0cd",
+          "bytes": 62914560
+        },
+        {
+          "relative_path": "recording/continuous.mkv.part003",
+          "git_blob": "2af556e6fd8f42b74d4e4a5c7c72b4b3dd809291",
+          "bytes": 62914560
+        },
+        {
+          "relative_path": "recording/continuous.mkv.part004",
+          "git_blob": "0402d449bc15ccc60f058640a5e87e86ed4176a3",
+          "bytes": 62914560
+        },
+        {
+          "relative_path": "recording/continuous.mkv.part005",
+          "git_blob": "7903dc4ccc5f8f5df30777e356efd46c89832b0f",
+          "bytes": 53740117
+        }
+      ],
+      "sample_readme": "work-log/evidence/pa01-08-20261013/recording/README.md",
+      "retention_basis": "Historical multi-PA capture, five nonconventional original parts already separately held; original/derived identification remains protective, physical holds not auto-closed.",
+      "disposition": "FAMILY_LEVEL_HOLD_NO_DELETION_CLEARANCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "pr364-native-20261017",
+      "git_tree_sha": "44b4bbb4844149333979de8ac0d2abe8333a24a1",
+      "tree_complete": true,
+      "tracked_paths": 286,
+      "tracked_bytes": 26445683,
+      "nonzip_nonconventional_paths": 283,
+      "nonzip_nonconventional_bytes": 9787524,
+      "previously_preclassified_nonmedia": 0,
+      "new_nonmedia_technically_reviewed": 283,
+      "new_nonmedia_reviewed_bytes": 9787524,
+      "conventional_media_and_zip_paths": 3,
+      "sources": [
+        {
+          "relative_path": "raw-structured-evidence.zip",
+          "git_blob": "6b5b4348273d8f00e0dd48db24fc7865d223c603",
+          "bytes": 692999
+        },
+        {
+          "relative_path": "video/2026-10-17 10-01-01.mkv",
+          "git_blob": "0093cb7aa7c738e3f7f42265ab2dc158aa75e12f",
+          "bytes": 11427339
+        },
+        {
+          "relative_path": "video/segment1-actions-170s.mkv",
+          "git_blob": "7bf8d4144b1a0008a8a168439aa0b3530a285f3d",
+          "bytes": 4537821
+        }
+      ],
+      "sample_readme": "work-log/evidence/pr364-native-20261017/README.md",
+      "retention_basis": "4/4 acquisition but analysis/PASS-FAIL grading explicitly NOT RUN; one full continuation recording plus one source excerpt; source outside checkout.",
+      "disposition": "FAMILY_LEVEL_HOLD_NO_DELETION_CLEARANCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "pr362-native-20261016",
+      "git_tree_sha": "853250a7f14e67312bd2a0eaf7a84882bd424942",
+      "tree_complete": true,
+      "tracked_paths": 238,
+      "tracked_bytes": 81362634,
+      "nonzip_nonconventional_paths": 236,
+      "nonzip_nonconventional_bytes": 12973441,
+      "previously_preclassified_nonmedia": 0,
+      "new_nonmedia_technically_reviewed": 236,
+      "new_nonmedia_reviewed_bytes": 12973441,
+      "conventional_media_and_zip_paths": 2,
+      "sources": [
+        {
+          "relative_path": "raw-structured-evidence.zip",
+          "git_blob": "981bdf9322b5250a615960b9e6395ad7729c6e47",
+          "bytes": 754883
+        },
+        {
+          "relative_path": "video/2026-10-16 14-55-36.mkv",
+          "git_blob": "721fc7f601f6a7a31087efaa2291892ed0d08e92",
+          "bytes": 67634310
+        }
+      ],
+      "sample_readme": "work-log/evidence/pr362-native-20261016/README.md",
+      "retention_basis": "3/3 native cross-window correction acceptance scoped; original full video and native UIA/source receipts still case evidence.",
+      "disposition": "FAMILY_LEVEL_HOLD_NO_DELETION_CLEARANCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "physical-ab-20261024",
+      "git_tree_sha": "03945cedee0f4408b27e034ce078566868b28c13",
+      "tree_complete": true,
+      "tracked_paths": 227,
+      "tracked_bytes": 121424417,
+      "nonzip_nonconventional_paths": 217,
+      "nonzip_nonconventional_bytes": 7765656,
+      "previously_preclassified_nonmedia": 0,
+      "new_nonmedia_technically_reviewed": 217,
+      "new_nonmedia_reviewed_bytes": 7765656,
+      "conventional_media_and_zip_paths": 10,
+      "sources": [
+        {
+          "relative_path": "raw-text-originals.zip",
+          "git_blob": "a6b99c9bc28e03b435c29dbc6df230d200a6bb78",
+          "bytes": 306987
+        },
+        {
+          "relative_path": "recordings/A-board-residual/native-original.mkv",
+          "git_blob": "620b1a00e098180d67654ddc09d89131c8ee6d30",
+          "bytes": 14618356
+        },
+        {
+          "relative_path": "recordings/A-functional-completion/native-original.mkv",
+          "git_blob": "ed88892b2e46802daf8c5e7e52dd4a8eaa796b9e",
+          "bytes": 14154681
+        },
+        {
+          "relative_path": "recordings/A-functional/native-original.mkv",
+          "git_blob": "29277f8f0c4239f7459e90bd3db8f8fbbd3e11e1",
+          "bytes": 14878980
+        },
+        {
+          "relative_path": "recordings/A-normal-verified/native-original.mkv",
+          "git_blob": "26e08afad3ccbc15bfe05e5b6bea5d00dfa522ba",
+          "bytes": 7138293
+        },
+        {
+          "relative_path": "recordings/A-normal/native-original.mkv",
+          "git_blob": "0fde23b95141cc3e4e336c4960299060abbb4fb8",
+          "bytes": 25261175
+        },
+        {
+          "relative_path": "recordings/A-panel-residual/native-original.mkv",
+          "git_blob": "aa5aab756b9857f92654c884c955e291454745b7",
+          "bytes": 25118246
+        },
+        {
+          "relative_path": "recordings/A-reduced-verified/native-original.mkv",
+          "git_blob": "20089d7c755ee4037c483123af19251290b27dec",
+          "bytes": 4852370
+        },
+        {
+          "relative_path": "recordings/B-normal/native-original.mkv",
+          "git_blob": "33dd2b02ad9844f2a704ce06e6ffa38fd9b5ce05",
+          "bytes": 3933964
+        },
+        {
+          "relative_path": "recordings/B-reduced/native-original.mkv",
+          "git_blob": "2edae2dc33e924256691463af9d3a9b8b774267d",
+          "bytes": 3395709
+        }
+      ],
+      "sample_readme": "work-log/evidence/physical-ab-20261024/README.md",
+      "retention_basis": "Separate A/B binaries 16/16 routes captured, not sixteen visual PASS; PR389/419 strict native holds open.",
+      "disposition": "FAMILY_LEVEL_HOLD_NO_DELETION_CLEARANCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "m6-quick-native-20261017",
+      "git_tree_sha": "a1bc669134c382110357a42185c9754e96386c6e",
+      "tree_complete": true,
+      "tracked_paths": 210,
+      "tracked_bytes": 21723959,
+      "nonzip_nonconventional_paths": 208,
+      "nonzip_nonconventional_bytes": 6747808,
+      "previously_preclassified_nonmedia": 0,
+      "new_nonmedia_technically_reviewed": 208,
+      "new_nonmedia_reviewed_bytes": 6747808,
+      "conventional_media_and_zip_paths": 2,
+      "sources": [
+        {
+          "relative_path": "raw-structured-evidence.zip",
+          "git_blob": "4936c3bc93083686107033e21327cd44db667273",
+          "bytes": 413485
+        },
+        {
+          "relative_path": "video/2026-10-17 10-09-41.mkv",
+          "git_blob": "b4e8d40c20fa6abbe9fe1b0db2cb00fd9ffda30c",
+          "bytes": 14562666
+        }
+      ],
+      "sample_readme": "work-log/evidence/m6-quick-native-20261017/README.md",
+      "retention_basis": "3/3 raw acquisition with analysis/PASS-FAIL NOT RUN; preserve source native video and observations.",
+      "disposition": "FAMILY_LEVEL_HOLD_NO_DELETION_CLEARANCE",
+      "deletion_approved": 0
+    }
+  ]
+}

@@ -1,2 +1,0 @@
-{"utc": "2026-10-15T08:53:14.272619+00:00", "label": "d1-lg-real-drag", "command": ["drag", "Narro", "d1-lg-real-drag", "400", "-15", "-1510", "-15"], "window": {"hwnd": 2492748, "title": "Narro", "pid": 54592, "rect": [52, 52, 1068, 791]}, "foreground": 2492748}
-{"utc": "2026-10-15T08:54:10.838523+00:00", "label": "d1-final-positive-home", "command": ["snap", "Narro", "d1-final-positive-home"], "window": {"hwnd": 2492748, "title": "Narro", "pid": 54592, "rect": [-1959, 52, -691, 974]}, "foreground": 2492748}

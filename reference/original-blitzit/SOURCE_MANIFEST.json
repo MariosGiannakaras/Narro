@@ -1,0 +1,618 @@
+{
+  "date": "2026-11-06",
+  "main_before": "b78502e17af86ee8c89b1d10447970bca585e221",
+  "canonical_root": "reference/original-blitzit/",
+  "sums": {
+    "screenshots": 46,
+    "videos": 19,
+    "transcripts": 19,
+    "derived_frames": 2,
+    "total": 86,
+    "bytes": 256345969
+  },
+  "raw_source_policy": "Original image/video/transcript byte identity unchanged. Original Git blobs reused with no recompression. Two extracted frames explicitly tagged derived, not original image assets.",
+  "file_moves": [
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-archived-done-tasks-filter-empty.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-archived-done-tasks-filter-empty.png",
+      "sha": "4bc5a4e5e3e7c7cba970b25a7f923cf93180d975",
+      "bytes": 94676,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-archived-lists-empty.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-archived-lists-empty.png",
+      "sha": "a8ea9816a9f9738a183ea601d2f241785f6a1894",
+      "bytes": 83838,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-create-list-dialog.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-create-list-dialog.png",
+      "sha": "c18b1b27e601508d1d8a928ff8a8769255dbd8e9",
+      "bytes": 44352,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-create-list-tile.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-create-list-tile.png",
+      "sha": "75d2d6a096b3c52215ed6c1491d8016715afd56d",
+      "bytes": 8857,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-floating-timer-collapsed.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-floating-timer-collapsed.png",
+      "sha": "c51be38c19479ad27544aaaecc3c3fe7c47508a4",
+      "bytes": 62484,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-floating-timer-expanded-subtasks.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-floating-timer-expanded-subtasks.png",
+      "sha": "6887c347c1503c8a527f2cfc42fcc5352907889e",
+      "bytes": 104760,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-focus-panel-full.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-focus-panel-full.png",
+      "sha": "aa9e3b0a18e5bc53d0a7cd5ac597cc7901e8569e",
+      "bytes": 185740,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-focus-panel-notes-expanded.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-focus-panel-notes-expanded.png",
+      "sha": "682b1aa62635c0873a0a3f198e9e054ee3428165",
+      "bytes": 183851,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-home-dark.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-home-dark.png",
+      "sha": "af4d59b9cec3613bad4595e40dc79c9bb365af29",
+      "bytes": 145265,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-home-light-list-hover.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-home-light-list-hover.png",
+      "sha": "23c6db27600e373b9b7ceb3b53d9fa65aa524275",
+      "bytes": 132479,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-list-card-hover-overflow-menu.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-list-card-hover-overflow-menu.png",
+      "sha": "1cbe3528e2b8d4d8cc923e85dbda2f8a903d9fee",
+      "bytes": 25947,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-preferences-alerts-celebration.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-preferences-alerts-celebration.png",
+      "sha": "fbb5eaded95a169178b838b0ede40eb16ca383bf",
+      "bytes": 51542,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-preferences-blitz-mode-alerts.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-preferences-blitz-mode-alerts.png",
+      "sha": "3ff1001ebdb61dc52af9775f57dfb0ed09cfbb12",
+      "bytes": 51901,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-preferences-general.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-preferences-general.png",
+      "sha": "b315b2f834aa9e243522021c90293b89f0d511f2",
+      "bytes": 68692,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-reports-date-range-picker.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-reports-date-range-picker.png",
+      "sha": "a6dbe8fb7037e148b0d802e2f396349c421546cb",
+      "bytes": 49298,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-reports-list-filter-open.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-reports-list-filter-open.png",
+      "sha": "ace657cf8f2912d07b95f2847835b003b186b19e",
+      "bytes": 109731,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-reports-overview-chart-tooltip.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-reports-overview-chart-tooltip.png",
+      "sha": "0d5f58e52965f0d2859b1f90f92c2284b099581a",
+      "bytes": 103397,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-reports-overview-lower-panels.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-reports-overview-lower-panels.png",
+      "sha": "d470848b6a4cde002e7459fb1ff993e48558a705",
+      "bytes": 69399,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-search-command-palette.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-search-command-palette.png",
+      "sha": "66361b7323dd273632771cf314735ae2fdff8953",
+      "bytes": 95705,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-sessions-dashboard-empty.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-sessions-dashboard-empty.png",
+      "sha": "634f7750a67ef9106c06ed1069f30173d85946a4",
+      "bytes": 63254,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-sessions-task-detail-inline-edit.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-sessions-task-detail-inline-edit.png",
+      "sha": "df493a8ef693f87c432da7271be2fd98186005aa",
+      "bytes": 1003499,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/current-v2.6.69-windows-shortcuts-dialog.png",
+      "to": "reference/original-blitzit/screenshots/current-v2.6.69-windows-shortcuts-dialog.png",
+      "sha": "4f79dd5ea3aac846cfd4084c61d5d0be2db60593",
+      "bytes": 49849,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-archived-done-tasks-populated.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-archived-done-tasks-populated.png",
+      "sha": "d82a13aa151a7755753356bff2e3d4556f425057",
+      "bytes": 169378,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-archived-lists-unarchive-delete-forever.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-archived-lists-unarchive-delete-forever.png",
+      "sha": "2bc17022013b7325604f7843127778a4adba54bb",
+      "bytes": 117093,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-board-four-columns-dark.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-board-four-columns-dark.png",
+      "sha": "1297e79f4ea9234633d79e4d6cbe9a161cf22730",
+      "bytes": 46836,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-floating-timer-action-strip-notes-selected.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-floating-timer-action-strip-notes-selected.png",
+      "sha": "9075a11a60afa8e4581359a8406f80f968acf2a3",
+      "bytes": 63079,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-focus-panel-docked-left-desktop-context.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-focus-panel-docked-left-desktop-context.png",
+      "sha": "23509f36ce088e99695becfff8e24577934c2eb0",
+      "bytes": 126182,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-focus-panel-list-selector-open.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-focus-panel-list-selector-open.png",
+      "sha": "a14a550b263e4b4f4a055bd98a2a2b0df75f3bcc",
+      "bytes": 158051,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-focus-panel-quick-preferences-open.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-focus-panel-quick-preferences-open.png",
+      "sha": "b04bedff907227ab5557f47a3fa28c05afeb8b3d",
+      "bytes": 137358,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-preferences-pomodoro-settings-expanded.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-preferences-pomodoro-settings-expanded.png",
+      "sha": "ed314153958c31a8b6b0835f3db1a07a177a40b8",
+      "bytes": 20250,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-recurrence-no-repeat-delete-existing-tasks.jpg",
+      "to": "reference/original-blitzit/screenshots/help-v2x-recurrence-no-repeat-delete-existing-tasks.jpg",
+      "sha": "7ff0e0876efe42bf3be75adeaaf5853376f11031",
+      "bytes": 64938,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-schedule-date-picker.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-schedule-date-picker.png",
+      "sha": "34b32f7177c036b5ae107a2009321777f985bb00",
+      "bytes": 30840,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-sessions-add-session-task-picker-open.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-sessions-add-session-task-picker-open.png",
+      "sha": "4359d7bf1b0c4c04e64cd9e7d1ca8fe7f4fd964a",
+      "bytes": 24930,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-sessions-dashboard-populated-export-pdf.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-sessions-dashboard-populated-export-pdf.png",
+      "sha": "da36cedf434cb5612667e0341d07328d20f71aca",
+      "bytes": 226578,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-subtasks-expanded-progress-actions.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-subtasks-expanded-progress-actions.png",
+      "sha": "42a3b91729d94e98635f797c907035dfabea7696",
+      "bytes": 11665,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-subtasks-inline-add-input.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-subtasks-inline-add-input.png",
+      "sha": "f2c778fa49423eef41e37ed0d2310fc3487db9d3",
+      "bytes": 9973,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-task-notes-inline-expanded.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-task-notes-inline-expanded.png",
+      "sha": "52d741867c3ff9715db53f4d0d801aada7cd7d49",
+      "bytes": 19039,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-task-overflow-menu-open.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-task-overflow-menu-open.png",
+      "sha": "d812716a3279ec26e8de1cbfef14c7fb0bc297eb",
+      "bytes": 43197,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/help-v2x-today-column-task-progress-dark.png",
+      "to": "reference/original-blitzit/screenshots/help-v2x-today-column-task-progress-dark.png",
+      "sha": "1c0e4b4d2736e8c76021936901f82fa05ca6eec9",
+      "bytes": 69301,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/historical-tool-finder-board-four-columns-light.png",
+      "to": "reference/original-blitzit/screenshots/historical-tool-finder-board-four-columns-light.png",
+      "sha": "3340887ed53bafe4bc5cf30dff589feb50b3c607",
+      "bytes": 90664,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/historical-tool-finder-board-notes-inline-expanded.png",
+      "to": "reference/original-blitzit/screenshots/historical-tool-finder-board-notes-inline-expanded.png",
+      "sha": "f72a243c9e21df45e305ed5cea0c5f0b92cb843b",
+      "bytes": 133370,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/historical-tool-finder-focus-panel-task-hover-actions.png",
+      "to": "reference/original-blitzit/screenshots/historical-tool-finder-focus-panel-task-hover-actions.png",
+      "sha": "f9dc5754a75920912c67129469f4a3b6448c2866",
+      "bytes": 79485,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/historical-tool-finder-focus-task-overflow-schedule-menu.png",
+      "to": "reference/original-blitzit/screenshots/historical-tool-finder-focus-task-overflow-schedule-menu.png",
+      "sha": "6848492cf20a8888112f6e9e626ca014c84a47ec",
+      "bytes": 41697,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/historical-tool-finder-inline-task-create.png",
+      "to": "reference/original-blitzit/screenshots/historical-tool-finder-inline-task-create.png",
+      "sha": "0b79ca6ee44785f43c9fe2a5e3ef3f9d3bfaa2f6",
+      "bytes": 148259,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/historical-tool-finder-preferences-full.png",
+      "to": "reference/original-blitzit/screenshots/historical-tool-finder-preferences-full.png",
+      "sha": "b4eb165800810df04ed11d5de7c9eb676424b10a",
+      "bytes": 77409,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-screenshots/historical-tool-finder-task-card-est-time-taken.png",
+      "to": "reference/original-blitzit/screenshots/historical-tool-finder-task-card-est-time-taken.png",
+      "sha": "249c0ddbd169222a1a85368af7a536d427bb869c",
+      "bytes": 117628,
+      "source": "canonical-original-screenshot"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Explained Simplify Your Tasks and Stay in Flow.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Explained Simplify Your Tasks and Stay in Flow.mp4",
+      "sha": "5448f6e22e643f8dbc406457665c26ecf558493e",
+      "bytes": 43646225,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Explained Simplify Your Tasks and Stay in Flow.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Explained Simplify Your Tasks and Stay in Flow.srt",
+      "sha": "b54ad4dbf6b783975e30067bd91b78589f2e006e",
+      "bytes": 5037,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Add Estimated Time Directly in Task Name.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Add Estimated Time Directly in Task Name.mp4",
+      "sha": "70380857a1b735db94b0681b517e79f3865edc0f",
+      "bytes": 1101999,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Add Estimated Time Directly in Task Name.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Add Estimated Time Directly in Task Name.srt",
+      "sha": "71bafb1a86bf5e63d29a0114e8acb25e24f10347",
+      "bytes": 2112,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Blitz Mode.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Blitz Mode.mp4",
+      "sha": "bf72ff81e3b9b2fcde2e78c76c5a6758b965ae9d",
+      "bytes": 12786538,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Blitz Mode.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Blitz Mode.srt",
+      "sha": "22e55697905b0dcce90770b4615bafe4bce1d5ed",
+      "bytes": 6218,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Getting Started with Blitzit.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Getting Started with Blitzit.mp4",
+      "sha": "646facce9667f1d5ccfe0b16cd5819d1f37eef3e",
+      "bytes": 13464618,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Getting Started with Blitzit.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Getting Started with Blitzit.srt",
+      "sha": "59d4c9f1a55313445e6231bc20fda65d46903ac5",
+      "bytes": 7493,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Add & Manage Tasks and Lists in Blitzit.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Add & Manage Tasks and Lists in Blitzit.mp4",
+      "sha": "c94bd6a2b5b202ffd58014124b846eac7edb5bf3",
+      "bytes": 14916021,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Add & Manage Tasks and Lists in Blitzit.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Add & Manage Tasks and Lists in Blitzit.srt",
+      "sha": "99087752721f81188269e0b46efd3cff0c54a728",
+      "bytes": 6943,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Delete & Archive Tasks and Lists.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Delete & Archive Tasks and Lists.mp4",
+      "sha": "52354afe62d5f29335f59726be4c32b89f046f16",
+      "bytes": 3525465,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Delete & Archive Tasks and Lists.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Delete & Archive Tasks and Lists.srt",
+      "sha": "43fcdc17c9bc8d0e8e5cb2be18e9de3dea1434ef",
+      "bytes": 2628,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Schedule Task Reminders.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Schedule Task Reminders.mp4",
+      "sha": "17138f294103bedc3952644fafce0188237dba8a",
+      "bytes": 9833855,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Schedule Task Reminders.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Schedule Task Reminders.srt",
+      "sha": "7cf78fb8fa0d91f4fb4285fc3b2fa3c88676f138",
+      "bytes": 5319,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Set Up Recurring Tasks.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Set Up Recurring Tasks.mp4",
+      "sha": "769905266beaea7115bfbc329fd69462d263cf3a",
+      "bytes": 8448965,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Set Up Recurring Tasks.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Set Up Recurring Tasks.srt",
+      "sha": "233709a0a27060eb1bc829be018563f968a03d49",
+      "bytes": 5320,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Use Custom Recurring Schedules.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Use Custom Recurring Schedules.mp4",
+      "sha": "f09644ca150caf641cf532bae7a0bb02f2bebb43",
+      "bytes": 8920040,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Use Custom Recurring Schedules.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Use Custom Recurring Schedules.srt",
+      "sha": "bb592c4b46355b5041814df3c1e7b0e43a473d27",
+      "bytes": 4702,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Use Notes.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Use Notes.mp4",
+      "sha": "d59fea991c5612701c1a26b2e963b8aba44920b2",
+      "bytes": 5285942,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Use Notes.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Use Notes.srt",
+      "sha": "1a245a681f4f35aa56b3db847fb8d8cfa2199315",
+      "bytes": 2332,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Use Reports -Update Improved Sessions and Stats.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Use Reports -Update Improved Sessions and Stats.mp4",
+      "sha": "e66538c861503725fc53669fd08c2b271503a4ba",
+      "bytes": 27618956,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Use Reports -Update Improved Sessions and Stats.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Use Reports -Update Improved Sessions and Stats.srt",
+      "sha": "2ca922ad4e55802c7a5723f73501dc8820ce4acb",
+      "bytes": 13089,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Use Reports.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Use Reports.mp4",
+      "sha": "428388a761e2506418580579f9007042f93b5b9d",
+      "bytes": 8938856,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Use Reports.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Use Reports.srt",
+      "sha": "e3c14bea48a5b321b9cbe0f4dd54ab6974a9165a",
+      "bytes": 6212,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Use Subtasks in Blitzit.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Use Subtasks in Blitzit.mp4",
+      "sha": "07ab84e687fc654e6780212e999a372bf4c65d2c",
+      "bytes": 8898649,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial How to Use Subtasks in Blitzit.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial How to Use Subtasks in Blitzit.srt",
+      "sha": "8099c8896127ff45b65689e2f0e2951e2c67e4ec",
+      "bytes": 4245,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Preferences.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Preferences.mp4",
+      "sha": "d773c8c44abd50ac9da4911baf5e2a06bf755633",
+      "bytes": 12611389,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Preferences.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Preferences.srt",
+      "sha": "379d74e0a90e269234f620b142bc14fd241361f0",
+      "bytes": 5420,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Sessions Walkthrough.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Sessions Walkthrough.mp4",
+      "sha": "7859e03839681c66052e87b9331bf1ef6aa74853",
+      "bytes": 13198353,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Sessions Walkthrough.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Sessions Walkthrough.srt",
+      "sha": "b03e21d574ad1c8bdea01e8a8073d36d4ee66e03",
+      "bytes": 5021,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Timer Modes.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Timer Modes.mp4",
+      "sha": "f5a701f88e00cb3a5f35a2a66fb21e050dfb4d16",
+      "bytes": 12403795,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Timer Modes.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Timer Modes.srt",
+      "sha": "d1f1a18f326e528969e441c874df3670107197e2",
+      "bytes": 5375,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Update Recurring Schedules.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Update Recurring Schedules.mp4",
+      "sha": "ea88e11992d10ce6a3a9d01b42fa4b1d2ce9e280",
+      "bytes": 11748827,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Blitzit Tutorial Update Recurring Schedules.srt",
+      "to": "reference/original-blitzit/videos/inbox/Blitzit Tutorial Update Recurring Schedules.srt",
+      "sha": "a6fc7330e64bafaf7b92ba36030f4ab7dd641516",
+      "bytes": 5422,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Daniel's Productive Planning Workflow with Blitzit.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Daniel's Productive Planning Workflow with Blitzit.mp4",
+      "sha": "671d92623a54a4ac3874e5b427b7351d2f95585e",
+      "bytes": 11672641,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Daniel's Productive Planning Workflow with Blitzit.srt",
+      "to": "reference/original-blitzit/videos/inbox/Daniel's Productive Planning Workflow with Blitzit.srt",
+      "sha": "ee7e66e4a061b106642a05b3a2039e3fbffe70f7",
+      "bytes": 6422,
+      "source": "original-transcript"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Oct Update Light mode and more!🚀.mp4",
+      "to": "reference/original-blitzit/videos/inbox/Oct Update Light mode and more!🚀.mp4",
+      "sha": "ac52ea40ea70841576f405391bcc09eda187a667",
+      "bytes": 22030201,
+      "source": "original-video"
+    },
+    {
+      "from": "reference/original-blitzit-videos/inbox/Oct Update Light mode and more!🚀.srt",
+      "to": "reference/original-blitzit/videos/inbox/Oct Update Light mode and more!🚀.srt",
+      "sha": "9b22b85edab0f40111f48d73f836f7d24559ecc9",
+      "bytes": 5146,
+      "source": "original-transcript"
+    },
+    {
+      "from": "work-log/evidence/pr358-residual-source-compare-20261016/VE005-0070.png",
+      "to": "reference/original-blitzit/extracted-frames/VE005-0070.png",
+      "sha": "c4cbb940e4f7fa9a253afc289203575e2f9e1919",
+      "bytes": 197909,
+      "source": "derived-video-frame"
+    },
+    {
+      "from": "work-log/evidence/pr358-residual-source-compare-20261016/VE005-0074.png",
+      "to": "reference/original-blitzit/extracted-frames/VE005-0074.png",
+      "sha": "11ad80039397a246157bee950254f37d308addf4",
+      "bytes": 176553,
+      "source": "derived-video-frame"
+    }
+  ]
+}

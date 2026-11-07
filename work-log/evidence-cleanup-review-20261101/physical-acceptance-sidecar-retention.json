@@ -1,0 +1,3206 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "family": "work-log/evidence/physical-acceptance-20261025/",
+  "scope": "375 non-ZIP and nonconventional-media evidence files, alongside contextual 7 ZIPs and 13 original media files from same frozen 395-file family",
+  "source_docs": [
+    "work-log/evidence-cleanup-review-20261101/paths.csv",
+    "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+    "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.reassemble.json",
+    "work-log/evidence/physical-acceptance-20261025/README.md",
+    "work-log/2026-10-25-chatgpt-frozen-17-case-original-video-analysis-final.md",
+    "work-log/2026-10-25-codex-bulk-acceptance-freeze.md"
+  ],
+  "method": "Reconcile all 395 frozen path/size identities to 394 published SHA256SUMS entries plus the checksum manifest itself; validate all ten ordered analysis-v2.zip parts by path/size and matching published per-part SHA256; protect source sidecars and methods without regrading physical outcomes.",
+  "totals": {
+    "all_tracked_paths": 395,
+    "zip_containers": 7,
+    "media_files": 13,
+    "nonzip_nonconventional_paths": 375,
+    "sidecar_paths": 365,
+    "derived_archive_parts": 10,
+    "nonzip_nonconventional_bytes": 420919403,
+    "derived_archive_bytes": 412179575,
+    "manifest_matched_entries": 394,
+    "manifest_self_excluded": 1,
+    "manifest_size_mismatch": 0
+  },
+  "analysis_v2_archive": {
+    "sha256_published": "5f5958e1fd1a70b87916e91190363bd73157ad636990adf78133b79d8fc07022",
+    "original_files_declared": 1836,
+    "parts": [
+      {
+        "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part000",
+        "order": 1,
+        "bytes": 41943040,
+        "sha256": "e54ddeb2e9cc7eb9b997aec8bb08361052198e7d07c5f7c15a40511e52593cca"
+      },
+      {
+        "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part001",
+        "order": 2,
+        "bytes": 41943040,
+        "sha256": "f3e630b3a50661fc133428a746c28c03ae41acda5c8eddf88bf6434b96e29653"
+      },
+      {
+        "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part002",
+        "order": 3,
+        "bytes": 41943040,
+        "sha256": "0ed33c6bd84b286eea36fd3855eb9b7b8c3c386f5981eab4fc205757a36a226e"
+      },
+      {
+        "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part003",
+        "order": 4,
+        "bytes": 41943040,
+        "sha256": "dcff23117ea46828d4687e4a59a5ce1d4ff653b6fe220b46aafc6323f4bad6b0"
+      },
+      {
+        "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part004",
+        "order": 5,
+        "bytes": 41943040,
+        "sha256": "172ae31b3dcae3ba0175e785c5b4caad416c236ae9b65a451b81deb8968ae7c1"
+      },
+      {
+        "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part005",
+        "order": 6,
+        "bytes": 41943040,
+        "sha256": "61b46db5f946b57e557db11b16089082207791993d397b0bc4fb9489f14eff08"
+      },
+      {
+        "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part006",
+        "order": 7,
+        "bytes": 41943040,
+        "sha256": "bb8c5729c6accb6eb5bd49361463a11620433be36b11d0dfe2a7482b459108a6"
+      },
+      {
+        "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part007",
+        "order": 8,
+        "bytes": 41943040,
+        "sha256": "75cc400abcfd0e79fb37a9ef21d68a70b48c7ef53ec6b609f8e9f04024327764"
+      },
+      {
+        "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part008",
+        "order": 9,
+        "bytes": 41943040,
+        "sha256": "aae3e0fda0a5a1165491037453f355fec693e5f845c11ba44a123dfc35f7f506"
+      },
+      {
+        "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part009",
+        "order": 10,
+        "bytes": 34692215,
+        "sha256": "7ec51fc4e4dd25d5157f9b0d67bf831bb50a426003beaaa57e531ecfc0a7d45f"
+      }
+    ],
+    "combined_bytes": 412179575,
+    "status": "HOLD_CORRECTED_DERIVED_V2_REVIEW_EVIDENCE"
+  },
+  "sidecar_groups": {
+    "README.md": {
+      "count": 1,
+      "bytes": 6715
+    },
+    "SHA256SUMS.json": {
+      "count": 1,
+      "bytes": 67703
+    },
+    "acceptance": {
+      "count": 284,
+      "bytes": 7416947
+    },
+    "inventory.json": {
+      "count": 1,
+      "bytes": 1531
+    },
+    "topology": {
+      "count": 78,
+      "bytes": 1246932
+    }
+  },
+  "sidecar_extension_counts": {
+    "md": {
+      "paths": 1,
+      "bytes": 6715
+    },
+    "json": {
+      "paths": 103,
+      "bytes": 1689453
+    },
+    "jpg": {
+      "paths": 61,
+      "bytes": 2545128
+    },
+    "txt": {
+      "paths": 146,
+      "bytes": 1751828
+    },
+    "stop": {
+      "paths": 22,
+      "bytes": 0
+    },
+    "ready": {
+      "paths": 4,
+      "bytes": 20
+    },
+    "jsonl": {
+      "paths": 27,
+      "bytes": 2013991
+    },
+    "part000": {
+      "paths": 1,
+      "bytes": 41943040
+    },
+    "part001": {
+      "paths": 1,
+      "bytes": 41943040
+    },
+    "part002": {
+      "paths": 1,
+      "bytes": 41943040
+    },
+    "part003": {
+      "paths": 1,
+      "bytes": 41943040
+    },
+    "part004": {
+      "paths": 1,
+      "bytes": 41943040
+    },
+    "part005": {
+      "paths": 1,
+      "bytes": 41943040
+    },
+    "part006": {
+      "paths": 1,
+      "bytes": 41943040
+    },
+    "part007": {
+      "paths": 1,
+      "bytes": 41943040
+    },
+    "part008": {
+      "paths": 1,
+      "bytes": 41943040
+    },
+    "part009": {
+      "paths": 1,
+      "bytes": 34692215
+    },
+    "png": {
+      "paths": 1,
+      "bytes": 732693
+    }
+  },
+  "original_media_context": {
+    "original_recordings": 11,
+    "captured_audio_wav": 2,
+    "conventional_media_bytes": 264978066,
+    "status": "HOLD_PUBLISHED_NATIVE_ORIGINALS_OR_AUDIO; exact physical acceptance not inferred"
+  },
+  "records": [
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/README.md",
+      "git_blob": "0b01ce6718ec2b64a0f18bbbabe95fc63bad325a",
+      "bytes": 6715,
+      "sha256_published": "1bbcacba561a2468d03bbf3aa4cdf19e022b915921c9d246a18617dafc471bd7",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/SHA256SUMS.json",
+      "git_blob": "de1cf3c0eaf30b147d323c4cd4f022ab082755d1",
+      "bytes": 67703,
+      "sha256_published": null,
+      "category": "HOLD_SELF_CHECKSUM_MANIFEST",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-board.jpg",
+      "git_blob": "65f2ae0533a9db03db4e5f667945266bbe6ed10e",
+      "bytes": 182417,
+      "sha256_published": "fabb12bfb79d29a0eab1cd8bb379f5bffc0750f5a2084ff0846bbb2f12b76c8d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-board.uia.txt",
+      "git_blob": "3f4d3a7770cad6eb634e1cdfe9d08d91d1cadb8c",
+      "bytes": 87122,
+      "sha256_published": "9b0cc63eb753cbbd445995891a0f26581467270b7428c1b16e51828eb97c449d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-first.stderr.txt",
+      "git_blob": "efb4312440b0761da917263a660f9ba71bb76099",
+      "bytes": 122148,
+      "sha256_published": "3dd80e0c9b23eef8dd10df7df5c2adb51ab37f12eb7184d42a3979caed682730",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-first.stdout.txt",
+      "git_blob": "7e5a1415138662b98b7e046ff3044bb567e5d4d2",
+      "bytes": 99,
+      "sha256_published": "117a2b8cd231b1078b8b5be29281cf1006aa0ec6d1efca118352908200e74913",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-launch.json",
+      "git_blob": "4e3ad41871887a33d6ae683843e22f92fdb10c40",
+      "bytes": 1435,
+      "sha256_published": "203745433baad462a2d2abf041400f19052b002fe5807ee5ac26a51dc3347099",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-main-ready.jpg",
+      "git_blob": "eca0ecf5763818a784cb5acdbea9f0638ce8a8af",
+      "bytes": 71698,
+      "sha256_published": "40792810aefd77a10605034886dda97ec29297a815f6dac933ee9e3992990e98",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-main-ready.uia.txt",
+      "git_blob": "14cda4c542a5c39ed78386d1775391d6b0754327",
+      "bytes": 9967,
+      "sha256_published": "6a78d1c8c5db06b60d5d2f605fc01e1be27f8b7fc016ab2007fdde0067084f97",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-collapsed-settled.jpg",
+      "git_blob": "34587658b59a67f8b40b4c37a7ba05dedb409063",
+      "bytes": 9893,
+      "sha256_published": "66aa9836ca79552c9d360e122acf79471221cf3c8a9556e6d9952ad1af0dcb6c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-collapsed-settled.uia.txt",
+      "git_blob": "6eb5d139ad21265cf9ff0ea5d48fa93f74fe9067",
+      "bytes": 2152,
+      "sha256_published": "788ef86a868edf6b80b3e3f2f92b3729209c959f1e7e58d8cc7d22174a9a96a2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-compact-settled.jpg",
+      "git_blob": "88f5af05210b0c9648a74ee9c3676caf574a9236",
+      "bytes": 9752,
+      "sha256_published": "9cde11055fa6fed74e432066aa1015ade99dafed21e47c1596e54425bcfbda1b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-compact-settled.uia.txt",
+      "git_blob": "ea0373412b2e0889eabc1a92ca5cfa5123dc42a2",
+      "bytes": 1531,
+      "sha256_published": "c88caf9c6d3638d8e97bc56631f7272cdc6caff32e962a973df7776ec8c3feea",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-compact.jpg",
+      "git_blob": "a11424faa0e1d17144a953700f2f0008f3f305de",
+      "bytes": 29882,
+      "sha256_published": "551f19be2bbcf5a19f97259662774a20d6a7cdfdb4f1db3866f35852a8a75c1a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-compact.uia.txt",
+      "git_blob": "a6b48e8f79f70f45bf5d9d20edd1d74c7d96f1a1",
+      "bytes": 18439,
+      "sha256_published": "926ba691805bee9282b70abb1ab28de1ff43dd73717881cb92753e5da1df1418",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-expanded-settled.jpg",
+      "git_blob": "76cde02fff3619d38551c8ceb8fc88309eaa7c26",
+      "bytes": 14023,
+      "sha256_published": "3ad61f07f2b173d89bf18e84c0c6d9d74f36559dbbf2547a37b392cdf21fb74a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-expanded-settled.uia.txt",
+      "git_blob": "b515201e242b50d038d46b6ee4308763734879fc",
+      "bytes": 3341,
+      "sha256_published": "85f411b6d3779ff76da22b09254791a3b39559614e094a38df1c85bc17a19e8e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-frames.json",
+      "git_blob": "d947d135aff3ab351eb499da3f50c318c6b4a170",
+      "bytes": 517793,
+      "sha256_published": "bbab3a7b7367a0a25de0831c1f98cd3babd1d04287dcc595f590ed6a9ea66128",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-motion.json",
+      "git_blob": "b2ab8e395081551782482e4eb408e00c18e005fe",
+      "bytes": 437,
+      "sha256_published": "b9b4b3f09c343a0806ec4c3880b993129a70ac4a5afd34f2a07f4888147e0a22",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-motion.json.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-motion.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-panel-before.jpg",
+      "git_blob": "9ca2c5fd1983e99b0c3cc8cfa011e8135347b15e",
+      "bytes": 29891,
+      "sha256_published": "67a5a0e9326f7baf74b603d86aee43c16e33cf866d6c6805197fd659cf785e59",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-panel-before.uia.txt",
+      "git_blob": "c19832f3b195f81868f21bf7aab213df3b4909e3",
+      "bytes": 26591,
+      "sha256_published": "d90c1d1f2bf3d40bea36fc530e30d120d24d388ed510d0d67eb33f08166f1f4f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-panel-return-settled.jpg",
+      "git_blob": "9ca2c5fd1983e99b0c3cc8cfa011e8135347b15e",
+      "bytes": 29891,
+      "sha256_published": "67a5a0e9326f7baf74b603d86aee43c16e33cf866d6c6805197fd659cf785e59",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-panel-return-settled.uia.txt",
+      "git_blob": "c3ecf3ace0226b892e2bebb7abc524415359f9db",
+      "bytes": 26679,
+      "sha256_published": "ffdd0419f4a2fbd01070db3c7baae57347ecff11aa33ba309479a8a8767b9478",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-qpc.ready",
+      "git_blob": "ad50b53407197828b2a130a6ba58b9a4a4a62617",
+      "bytes": 5,
+      "sha256_published": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-qpc.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal-qpc.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal/start.json",
+      "git_blob": "988e9e3e1552ac137b9fe5b4159a8e58160b70e7",
+      "bytes": 160,
+      "sha256_published": "993f98c542ccebd367b65a6ea4936cad27759faae07f8f7d5ec7570fe8502ba3",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal/stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-normal/stop.json",
+      "git_blob": "0d0e22a2e1b0bde74fe4d3915edf6987c4d96017",
+      "bytes": 54,
+      "sha256_published": "32286c8480699a5c3e2d2189504ed695feaa377b43d29733ce7616eb1f76d9f5",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-receipt.json",
+      "git_blob": "18118c3ae6714500ea0429c21825bd28d58ebc76",
+      "bytes": 1314,
+      "sha256_published": "5c7663e63d8bf08d639902ed831dece48e7cd42e9e3b76b6c3e08dc00cb151ba",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-collapsed.jpg",
+      "git_blob": "34587658b59a67f8b40b4c37a7ba05dedb409063",
+      "bytes": 9893,
+      "sha256_published": "66aa9836ca79552c9d360e122acf79471221cf3c8a9556e6d9952ad1af0dcb6c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-collapsed.uia.txt",
+      "git_blob": "7193f8fb93f9fb30b7ae8f8a0aa901dd303f8e88",
+      "bytes": 2152,
+      "sha256_published": "2f101a5c55a6ce0fe4ac917914709207935c26735bc407bfec3f1b51234199fe",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-compact.jpg",
+      "git_blob": "88f5af05210b0c9648a74ee9c3676caf574a9236",
+      "bytes": 9752,
+      "sha256_published": "9cde11055fa6fed74e432066aa1015ade99dafed21e47c1596e54425bcfbda1b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-compact.uia.txt",
+      "git_blob": "edb26d04a23c12023817458839a895857b064955",
+      "bytes": 1531,
+      "sha256_published": "cc08bcd9ad236dd6f569e4930f2a5aa8434492793b1f0d6b0778a24723564f8b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-expanded.jpg",
+      "git_blob": "76cde02fff3619d38551c8ceb8fc88309eaa7c26",
+      "bytes": 14023,
+      "sha256_published": "3ad61f07f2b173d89bf18e84c0c6d9d74f36559dbbf2547a37b392cdf21fb74a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-expanded.uia.txt",
+      "git_blob": "67ee4406c0964962f1c6bda21eff4e3223a67b4b",
+      "bytes": 3341,
+      "sha256_published": "f7bf871236a5db4b14d831cb662bfaf2a6d3a0088e6987b471fa87cd93a7250c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-frames.json",
+      "git_blob": "f116c423fc2b856c56c1b5a9eb87426ea906ded1",
+      "bytes": 356606,
+      "sha256_published": "10b338824b6bc581d762a516be25e039b5132ec3ba9c253b41aac615d39d341c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-motion.json",
+      "git_blob": "b563577668579901a67facb9f68d165a7c4df4f0",
+      "bytes": 421,
+      "sha256_published": "e94a3f43e594ab26b43c6c79b14e6c3df3ebe223c1a21f83ae98d6e9bab82194",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-motion.json.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-motion.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-panel-return.jpg",
+      "git_blob": "9ca2c5fd1983e99b0c3cc8cfa011e8135347b15e",
+      "bytes": 29891,
+      "sha256_published": "67a5a0e9326f7baf74b603d86aee43c16e33cf866d6c6805197fd659cf785e59",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-panel-return.uia.txt",
+      "git_blob": "e070527f1196364eab9366d5bac1c3b39f6f20ad",
+      "bytes": 26721,
+      "sha256_published": "d46e70ad12439553c73bb8572bb1a19c7c074667bbb04aad68666bae9613f849",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-qpc.ready",
+      "git_blob": "ad50b53407197828b2a130a6ba58b9a4a4a62617",
+      "bytes": 5,
+      "sha256_published": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-qpc.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced-qpc.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced/start.json",
+      "git_blob": "c4fcc1ca0e743364b045fe53e0f597319ca52145",
+      "bytes": 160,
+      "sha256_published": "ad44e8b708cac3f26ab2905a3ad61b98b7af6449c368531d18d288e48e195f29",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced/stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/A-reduced/stop.json",
+      "git_blob": "123679f1779031bd8630660ebff3348c835b00d2",
+      "bytes": 54,
+      "sha256_published": "56d993d89d4cd35ac50e393d96d46727666506368f8c1223852957863a1ebf9e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-first-main.jpg",
+      "git_blob": "306b9624a3123c22883c6b60ba2e3503c2a8f442",
+      "bytes": 70891,
+      "sha256_published": "2cd4b6dd48dc7f689e3f6b0e658cd6443235ae252280823153b09db63e66dda5",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-first-main.uia.txt",
+      "git_blob": "ff571964f6107933da81193162cff374ab9448af",
+      "bytes": 9967,
+      "sha256_published": "59d8fe44fef9fbc98bf9700dccb8efe66de853dd655275c3f20533c82c06f429",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-first.stderr.txt",
+      "git_blob": "4c36e8f6bd1cd3e0bccdefc2a7c330ee3446d4d9",
+      "bytes": 92988,
+      "sha256_published": "604296fc8c579caa0b30ee43681504cd7fd87e3f65419863e6f6088b32806993",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-first.stdout.txt",
+      "git_blob": "73756e4eb0000ecc049d4bf57868043a089f9fbb",
+      "bytes": 99,
+      "sha256_published": "833182784fed1157d7dcaa75cbc2074b6bb37d4e5bbd6cd5adc03a8018e94759",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-launch.json",
+      "git_blob": "ba40d7563cf715d2222e174b76fe1f297a0dbebe",
+      "bytes": 1435,
+      "sha256_published": "72f0571a2d027935af32751aa5554d1e1292ad24fce21febdc7d5d4ffc3ae19f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-collapsed.jpg",
+      "git_blob": "cde0eff93f1d3b76ab6eddce6e61298ebe3e379f",
+      "bytes": 9582,
+      "sha256_published": "99b6387eab655970844f14f6583c9c7b0e83b2f7e8259bbc6399a424fcef8294",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-collapsed.uia.txt",
+      "git_blob": "46fd9de660a6dd8d5e3dae012800bf502bdd4df6",
+      "bytes": 2088,
+      "sha256_published": "832503256fc4e206a58b706244aa2ed46eb9dd4ed93f1a475a6de0c32ac68ac5",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-compact.jpg",
+      "git_blob": "88f5af05210b0c9648a74ee9c3676caf574a9236",
+      "bytes": 9752,
+      "sha256_published": "9cde11055fa6fed74e432066aa1015ade99dafed21e47c1596e54425bcfbda1b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-compact.uia.txt",
+      "git_blob": "ea0373412b2e0889eabc1a92ca5cfa5123dc42a2",
+      "bytes": 1531,
+      "sha256_published": "c88caf9c6d3638d8e97bc56631f7272cdc6caff32e962a973df7776ec8c3feea",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-expanded.jpg",
+      "git_blob": "df7a9bebb3c7dfe415ac783eaad27c1920db265b",
+      "bytes": 13639,
+      "sha256_published": "5254a1899fda3c01bab0e9a3d226486f2ce6c60f59041fd4b69a5cb0ce31acf9",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-expanded.uia.txt",
+      "git_blob": "83d3e142d162ecf96fdb01f86cdff483825cfeb9",
+      "bytes": 3243,
+      "sha256_published": "b43523406b665b1ee584d9df0f3f259a8aae30fc6aa85e1604f4161085e68a12",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-frames.json",
+      "git_blob": "30717c2628d39d43d6c07743dff77e1456743ae6",
+      "bytes": 131008,
+      "sha256_published": "4bd884e160c137737c4b6dda2d0b9533cedb4250acb8940478998493fc1c06ab",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-motion.json",
+      "git_blob": "b2ab8e395081551782482e4eb408e00c18e005fe",
+      "bytes": 437,
+      "sha256_published": "b9b4b3f09c343a0806ec4c3880b993129a70ac4a5afd34f2a07f4888147e0a22",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-motion.json.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-motion.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-panel-before.jpg",
+      "git_blob": "9ca2c5fd1983e99b0c3cc8cfa011e8135347b15e",
+      "bytes": 29891,
+      "sha256_published": "67a5a0e9326f7baf74b603d86aee43c16e33cf866d6c6805197fd659cf785e59",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-panel-before.uia.txt",
+      "git_blob": "c19832f3b195f81868f21bf7aab213df3b4909e3",
+      "bytes": 26591,
+      "sha256_published": "d90c1d1f2bf3d40bea36fc530e30d120d24d388ed510d0d67eb33f08166f1f4f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-panel-return.jpg",
+      "git_blob": "9ca2c5fd1983e99b0c3cc8cfa011e8135347b15e",
+      "bytes": 29891,
+      "sha256_published": "67a5a0e9326f7baf74b603d86aee43c16e33cf866d6c6805197fd659cf785e59",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-panel-return.uia.txt",
+      "git_blob": "c3ecf3ace0226b892e2bebb7abc524415359f9db",
+      "bytes": 26679,
+      "sha256_published": "ffdd0419f4a2fbd01070db3c7baae57347ecff11aa33ba309479a8a8767b9478",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-qpc.ready",
+      "git_blob": "ad50b53407197828b2a130a6ba58b9a4a4a62617",
+      "bytes": 5,
+      "sha256_published": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-qpc.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal-qpc.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal/start.json",
+      "git_blob": "9dafcfd82952b8147f370b664c3fcd0ffface573",
+      "bytes": 160,
+      "sha256_published": "3316dc0ca095c7127307b46b0a44fbe4c36861fbf7dbeb89d73c9e5f41872292",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal/stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-normal/stop.json",
+      "git_blob": "eb1e41c01c78db6d1ec3b11acb4d3c2bc966cf05",
+      "bytes": 54,
+      "sha256_published": "2f0b71558ca3381fd361191d1ff66938a04a7df8a86b8bd0797115786c3f112b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-receipt.json",
+      "git_blob": "38ff6f10efe23a93dd15a878cc771f62567d2e18",
+      "bytes": 1314,
+      "sha256_published": "6c7421ccd5a1723931d1a2b780f8e9c9230a97d4e4975852aa4e5fe22f0c44ed",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-collapsed.jpg",
+      "git_blob": "34587658b59a67f8b40b4c37a7ba05dedb409063",
+      "bytes": 9893,
+      "sha256_published": "66aa9836ca79552c9d360e122acf79471221cf3c8a9556e6d9952ad1af0dcb6c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-collapsed.uia.txt",
+      "git_blob": "a68058ff09b6318623687663da49a7b092fb870e",
+      "bytes": 2152,
+      "sha256_published": "ef6aece66efc4cd8364c99bee757bae820d1e7a7d9368f9b4afda252fee5dae6",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-compact.jpg",
+      "git_blob": "88f5af05210b0c9648a74ee9c3676caf574a9236",
+      "bytes": 9752,
+      "sha256_published": "9cde11055fa6fed74e432066aa1015ade99dafed21e47c1596e54425bcfbda1b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-compact.uia.txt",
+      "git_blob": "edb26d04a23c12023817458839a895857b064955",
+      "bytes": 1531,
+      "sha256_published": "cc08bcd9ad236dd6f569e4930f2a5aa8434492793b1f0d6b0778a24723564f8b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-expanded.jpg",
+      "git_blob": "76cde02fff3619d38551c8ceb8fc88309eaa7c26",
+      "bytes": 14023,
+      "sha256_published": "3ad61f07f2b173d89bf18e84c0c6d9d74f36559dbbf2547a37b392cdf21fb74a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-expanded.uia.txt",
+      "git_blob": "517f659a2ce65318a2dc6691dfcc213395745273",
+      "bytes": 3341,
+      "sha256_published": "9522a9482b4ca87baf79c3a229489909572159b441de17593ae8d65c69257ecd",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-frames.json",
+      "git_blob": "7a56aee8844abbe8b42e9cc48050c80a08aaadca",
+      "bytes": 560082,
+      "sha256_published": "f63957527e4a147ea8960dc213e20f478cab4b3ee93d02d121597fe33b67453c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-motion.json",
+      "git_blob": "b563577668579901a67facb9f68d165a7c4df4f0",
+      "bytes": 421,
+      "sha256_published": "e94a3f43e594ab26b43c6c79b14e6c3df3ebe223c1a21f83ae98d6e9bab82194",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-motion.json.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-motion.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-panel-return.jpg",
+      "git_blob": "9ca2c5fd1983e99b0c3cc8cfa011e8135347b15e",
+      "bytes": 29891,
+      "sha256_published": "67a5a0e9326f7baf74b603d86aee43c16e33cf866d6c6805197fd659cf785e59",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-panel-return.uia.txt",
+      "git_blob": "5cc818ee597d4d92fbe1d817dae499fabe09764f",
+      "bytes": 26714,
+      "sha256_published": "032e5b07bb6010a6e8530568ed61d3eb9c55f0cc17c015548bbd734ebb194b4a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-qpc.ready",
+      "git_blob": "ad50b53407197828b2a130a6ba58b9a4a4a62617",
+      "bytes": 5,
+      "sha256_published": "b24d6d33736ecd5604a4b17bc9c6481039fac362bb7df044ef1c10a2bfd21db6",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-qpc.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced-qpc.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced/start.json",
+      "git_blob": "d2b16d8532da28ace3db43fe48446b6da5510c2e",
+      "bytes": 160,
+      "sha256_published": "5f74612e2351fa25518e526b92083bdcf73c19c9378ef0ef0ee17853a4e93c06",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced/stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/B-reduced/stop.json",
+      "git_blob": "1b0bf6866e88d70cfbd02ccd89b703851ed6ef93",
+      "bytes": 54,
+      "sha256_published": "925046cbbe9d46c646fb55eb00d71310e8c59fd344b07fec271af8f7cdba1fc8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/LATEST.txt",
+      "git_blob": "e87990f925c806c280c9510b03c422131a1eb897",
+      "bytes": 36,
+      "sha256_published": "a9ecf6e548bfea76b30c55b7f6dcde1359bdbf9bbf2ea12b1389751aaf331947",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/README.txt",
+      "git_blob": "220b56980799595f7d938d7df3b98f69747de12d",
+      "bytes": 765,
+      "sha256_published": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/m7-c5-latest-result.json",
+      "git_blob": "d469bb4b4ebad2600f6edf62ecd8c67d02766964",
+      "bytes": 396,
+      "sha256_published": "fa0395f7b856037fe458b337bf14bbf838af88c9be493dab66365910fc1262d1",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-125830.292Z-27996/events.jsonl",
+      "git_blob": "9531e9ec47cc26fa270160f7478ef5331cc84227",
+      "bytes": 7188,
+      "sha256_published": "006eec35316d6d48fc07c77a549b0e8bf7bdd3bd82520e453bc11f6429c92229",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-125830.292Z-27996/m7-c5-result.json",
+      "git_blob": "255e9c1be518b163578a4637cea6fc68edb94c00",
+      "bytes": 396,
+      "sha256_published": "50f366d7bbc27ee7c36fc319e641446321e9c21833b00be3777b1cfed34514b6",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-125830.292Z-27996/session.json",
+      "git_blob": "64211ee4e12fee7b309f79099602c711eccb3756",
+      "bytes": 489,
+      "sha256_published": "1a7faa874fc68b67d7b327eb8985df59a02aad8c19de50ef71dee98cc4c0b0cc",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-131334.229Z-72916/events.jsonl",
+      "git_blob": "abc6f47a44c2bc9248b3be195637869024ad3ef8",
+      "bytes": 13755,
+      "sha256_published": "8f0f4745ef8c6e6fcb5e6f7dcabb4bd4166ddafc72213e9c1ca589b563e2c6ca",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-131334.229Z-72916/m7-c5-result.json",
+      "git_blob": "20f8c2ae62ecabd9fe4308bf5c8ec2db709e9476",
+      "bytes": 396,
+      "sha256_published": "88e4a51b2947dad4d18800043caaf8c931872978e2b7f20f25fd9aa4f5356d64",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-131334.229Z-72916/session.json",
+      "git_blob": "e19fe969b2e4488e9c9853a06854e17da1474f9a",
+      "bytes": 489,
+      "sha256_published": "a8a421d670a6456e2411060d62dcde662f93913a87dde43a4c097303779fba3e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-134200.946Z-85936/events.jsonl",
+      "git_blob": "b595ad269dbaf894279ec7cb9db017c17f05e011",
+      "bytes": 613,
+      "sha256_published": "e323a57958dd8deb07348d75cf8cb04a23a61cf617f229f2c00ee5d49ec10364",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-134200.946Z-85936/m7-c5-result.json",
+      "git_blob": "a26d7d926fa32d50263768cc23585050af4d247a",
+      "bytes": 396,
+      "sha256_published": "851903ab8d04f60da8959ff08aee46e83e7e2f2af9c5a0615abcb823160e2414",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-134200.946Z-85936/session.json",
+      "git_blob": "a4518cda10385dab294a73f574aee9340403a4f0",
+      "bytes": 489,
+      "sha256_published": "58cce1247e0f5f99b962a6d01c47be749758dcda82d85297a430d55cb85ff131",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-134401.493Z-79308/events.jsonl",
+      "git_blob": "ff58ce72e5a1aa83dce8d584819b568ae8bb8693",
+      "bytes": 611,
+      "sha256_published": "dd6e49468b67115c54a74f75ab2e6dc9015e4b94620f63278f63da99f1ee68cf",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-134401.493Z-79308/m7-c5-result.json",
+      "git_blob": "f16c35e7b0e177a4d426c904ab8e23090e256f67",
+      "bytes": 396,
+      "sha256_published": "bd7ed1c65885231a3ff6894aec2e62a90871f95ae65581746ed65195a4b343bf",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-134401.493Z-79308/session.json",
+      "git_blob": "e5bcb0db93b99daaf20f8937bbc245f9f5825653",
+      "bytes": 489,
+      "sha256_published": "c3053269b2a81f7c8164b630273a43d3201010c29c7378daba1be54dc4b2730a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-202903.432Z-18316/events.jsonl",
+      "git_blob": "79bc873ffc5fa41626f1cbbcaacccb27b9e1f14f",
+      "bytes": 6514,
+      "sha256_published": "9c52bc081da789ccc680d457b2a735662cbe5c3b4acbc339e0c59a7fd5454a70",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-202903.432Z-18316/m7-c5-result.json",
+      "git_blob": "71f3a8d994a9f321c66455cf5d4f0da203bf24ff",
+      "bytes": 396,
+      "sha256_published": "310a56711138f8cecc6ef8e0402236447a924c62ca4f95540f7ebc8dd3bd8162",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261024-202903.432Z-18316/session.json",
+      "git_blob": "92c77630e5d49e1eeaca1de7dbd7ac2de2f38eae",
+      "bytes": 489,
+      "sha256_published": "0b19c329be7a57567dc48a692c1af12ba6b9c2a01947cd91fba6ec4679daeca3",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261025-112341.191Z-64232/events.jsonl",
+      "git_blob": "8c655612654dd52828a36a5ce568947fd8d3f847",
+      "bytes": 32147,
+      "sha256_published": "d56b8c385ea4831ddef9e7279344672103a370a0119db514af97f66a4a4d6d41",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261025-112341.191Z-64232/m7-c5-result.json",
+      "git_blob": "d469bb4b4ebad2600f6edf62ecd8c67d02766964",
+      "bytes": 396,
+      "sha256_published": "fa0395f7b856037fe458b337bf14bbf838af88c9be493dab66365910fc1262d1",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-A/session-20261025-112341.191Z-64232/session.json",
+      "git_blob": "8b020e752a56ac73dc32d0c8acd8c1a5124e4abd",
+      "bytes": 489,
+      "sha256_published": "04ab485af6f241d49684e927d4911669a6ae926a1a1b272af109bc170a228dfc",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/LATEST.txt",
+      "git_blob": "64c3d90bd08a7cad1ebd7bc8d8950c27aa79c207",
+      "bytes": 36,
+      "sha256_published": "2bc17ed013ca9e4080546cd2574dad91d901b7b3c233761e96fa6aecd986cc0d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/README.txt",
+      "git_blob": "220b56980799595f7d938d7df3b98f69747de12d",
+      "bytes": 765,
+      "sha256_published": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/m7-c5-latest-result.json",
+      "git_blob": "2a09543f112a5eb229e62def0e2516a59fe01fe8",
+      "bytes": 396,
+      "sha256_published": "4360d09bb9654c0943577065aefdc0418c8d9538ec5e0feeaf611b2a22c3eb37",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-130947.152Z-85108/events.jsonl",
+      "git_blob": "89fe034c0d8d0a87cfbc01a58a9429ff0fcca6f1",
+      "bytes": 13151,
+      "sha256_published": "106d68a0123e1a744e2a5c594601d53b2d4a0ac018d5f55dc1c11049e2156e65",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-130947.152Z-85108/m7-c5-result.json",
+      "git_blob": "8cacfef0dc21c338807f3a60c7be6059184d194b",
+      "bytes": 396,
+      "sha256_published": "ccb73953d97cb2c0440538ad57abf898e885e6b962dbd5b07bf47b265a4c0408",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-130947.152Z-85108/session.json",
+      "git_blob": "e8f17688b7701ce88cfc512ba54434298bb7f7ee",
+      "bytes": 489,
+      "sha256_published": "5f7fda98468c5af647aff967099d587687371465b96f554886d5367717f21486",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-135127.137Z-43080/events.jsonl",
+      "git_blob": "73b8649e60127f6e6320acc81984e4779387f9d7",
+      "bytes": 7848,
+      "sha256_published": "661c638924dc21218d2cb1153a41a2f03fade7432b89eb1f7b315c73b6040820",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-135127.137Z-43080/m7-c5-result.json",
+      "git_blob": "ed945b959b89fd21a68982bc76a098f9c04b3346",
+      "bytes": 396,
+      "sha256_published": "321f7e617af49b3b13044f790750ba8503cefaa71705e0cc295ae83168ad7f22",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-135127.137Z-43080/session.json",
+      "git_blob": "1b3e26e4b3c667a8cec5cd34ee727189261cb991",
+      "bytes": 489,
+      "sha256_published": "bb3e30ed42a75f7aa2e3529e28b2e74656ab449aacc88c0050af8a88f07b8278",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-192044.846Z-25384/events.jsonl",
+      "git_blob": "a85359e3b52cc4517ccba42cd4de1b881aa588ec",
+      "bytes": 1844,
+      "sha256_published": "62b66b765340f12ed8d4e7f92420c40dd5e681c519737400e47ec9d1d6f99e4c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-192044.846Z-25384/m7-c5-result.json",
+      "git_blob": "1913e1903ed10c8f42132fc303e09dd3e0e89e01",
+      "bytes": 396,
+      "sha256_published": "2022da4382655cb5b54283858e464b2e13dd1bcca8d0e35fca8086150466ee40",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-192044.846Z-25384/session.json",
+      "git_blob": "05bb79b3279f7b8e6bd48ece538fa571eb1681c3",
+      "bytes": 489,
+      "sha256_published": "0a42d2f2144f44393fd2beb678b10051e24443d8147f27ed1d768bd44cad7a5e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-192631.872Z-36848/events.jsonl",
+      "git_blob": "5cd324249e9061c4b2160338169e418b432b7623",
+      "bytes": 613,
+      "sha256_published": "753b9c60d424936ad2ba135674676b0777f91c64cebf86d7f9b515af35f3e646",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-192631.872Z-36848/m7-c5-result.json",
+      "git_blob": "f2bec5b228cbfbad03b22c8a8e31cb934469e785",
+      "bytes": 396,
+      "sha256_published": "d299286169e17ba63fe59e887c88d4f1e462eda02533de6373ef6db635dd4d71",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-192631.872Z-36848/session.json",
+      "git_blob": "111d2dbb8c4fc5b17eebf7f61a9961060b40fc6f",
+      "bytes": 489,
+      "sha256_published": "0d607904881815cf49f8a302a97ce9cd9518aca0f1fbf3fab77e2c0f9d02a4bd",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-201533.084Z-16104/events.jsonl",
+      "git_blob": "a53723d9e8d610fcad70b44e80fc9fe3076e6c59",
+      "bytes": 812,
+      "sha256_published": "44ec8312fd4a74e767a98dcb0000ded3f5d7ca5492ad8f82f3c7dc597f883549",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-201533.084Z-16104/m7-c5-result.json",
+      "git_blob": "44f59996baff8c11ffb3015f6ed0879792c7f019",
+      "bytes": 396,
+      "sha256_published": "bbdbe9d3215af0fa2a629973b7ffc7a0b965f7d93de1de51b76c23b9203adff3",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-201533.084Z-16104/session.json",
+      "git_blob": "eee11d5455e97c56488e79e33a6b43da08eee707",
+      "bytes": 489,
+      "sha256_published": "0f47db723b494ce17a0eecaf9fecb623de69e134837da29cebf72e7fad659d97",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-201700.127Z-63288/events.jsonl",
+      "git_blob": "57db48ff612de3fa6b5e83a59bd1addca7b2e679",
+      "bytes": 81912,
+      "sha256_published": "96cb8da13d9d398f23f1e9648697541eb4da62387ada07fe50111579d93d5dde",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-201700.127Z-63288/m7-c5-result.json",
+      "git_blob": "44ede1ce61088205b222e721851a30452c21e4ef",
+      "bytes": 396,
+      "sha256_published": "77cfb1ea4ac63af1d3b7cf0d80694fd7473bbb4c056f6d167bfb37fd0c807af7",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261024-201700.127Z-63288/session.json",
+      "git_blob": "df328cb9d3d582317bc41d60136b447dac125e4a",
+      "bytes": 489,
+      "sha256_published": "dca288a736c688204ec71270ac987b4fec67b1ee6f085282d205ee85d1af1b85",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261025-112657.006Z-37896/events.jsonl",
+      "git_blob": "86d33dc663e1b4ce1f1dcce4e214b0a579318276",
+      "bytes": 45004,
+      "sha256_published": "e721e3d819220cf91692848ee5768783ba7bb961c5ec70eca30703eb9e29cc6e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261025-112657.006Z-37896/m7-c5-result.json",
+      "git_blob": "2a09543f112a5eb229e62def0e2516a59fe01fe8",
+      "bytes": 396,
+      "sha256_published": "4360d09bb9654c0943577065aefdc0418c8d9538ec5e0feeaf611b2a22c3eb37",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-B/session-20261025-112657.006Z-37896/session.json",
+      "git_blob": "16e83f19238ed0280a1742d10d24eaad52a35fcc",
+      "bytes": 489,
+      "sha256_published": "b3fbe37882e697ded3eeabdc166e8d38e0fda4d99ddd65f8a5eae16211182eff",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-main/LATEST.txt",
+      "git_blob": "95c94d6f31668041d968e63ed54da2cd535c8e77",
+      "bytes": 36,
+      "sha256_published": "d313dab819b3552298009f6988dad37afc70f78da3a621b46516f51960a4d30f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-main/README.txt",
+      "git_blob": "220b56980799595f7d938d7df3b98f69747de12d",
+      "bytes": 765,
+      "sha256_published": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-main/m7-c5-latest-result.json",
+      "git_blob": "c79a15f5558580f6c167fa98e9cade616b5a91f2",
+      "bytes": 396,
+      "sha256_published": "75e0659459a571f94e358617deaa7c74c3c6f73f9ab2ed601f8360c3c33d4160",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-main/session-20261025-103431.809Z-23364/events.jsonl",
+      "git_blob": "430aebd95f08a7f6aa5ef45305748617daa14968",
+      "bytes": 812,
+      "sha256_published": "939825fdfecc8b6537f8b5bea5399a46542ef3ab8853b23bd876e4bde5ba20c5",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-main/session-20261025-103431.809Z-23364/m7-c5-result.json",
+      "git_blob": "3ac21f147cbef0f7c0139a291bafc8daeb154bd7",
+      "bytes": 396,
+      "sha256_published": "53b36fb104e6aea356c6fe21308129def44c62b4d5248f6502a4d4963da118e3",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-main/session-20261025-103431.809Z-23364/session.json",
+      "git_blob": "930fba73b2e8c99ec0180c69511ec48002c4e344",
+      "bytes": 489,
+      "sha256_published": "e69b154665d7aa3f6654058d1bbdbbba146bf9109c448f9ea9b35ec17b42d8bd",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-main/session-20261025-110342.125Z-23380/events.jsonl",
+      "git_blob": "165d2395b21ece692be96e214aa0ea4f98da29b0",
+      "bytes": 2441,
+      "sha256_published": "6ceb9737e3017c76cfd8dcfcb8b92fe3a37e7ffee264b26d3e0161118ad7e5f8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-main/session-20261025-110342.125Z-23380/m7-c5-result.json",
+      "git_blob": "c79a15f5558580f6c167fa98e9cade616b5a91f2",
+      "bytes": 396,
+      "sha256_published": "75e0659459a571f94e358617deaa7c74c3c6f73f9ab2ed601f8360c3c33d4160",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/Narro-M7-Logs-main/session-20261025-110342.125Z-23380/session.json",
+      "git_blob": "1cb557ecad95eb469d60542fa475b84a650f5ba9",
+      "bytes": 489,
+      "sha256_published": "7bd64f493ef3a2319fa34514519d35e6d76d305df9564fb63f09d3a977bc1daf",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/actions.jsonl",
+      "git_blob": "b3e2701726a7611528fe10220b6ae4972b4799e8",
+      "bytes": 5467,
+      "sha256_published": "074ef215d4d0494ecf6c0b7484dfc01f850f6b2be014511c57b66d934432daf4",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part000",
+      "git_blob": "8c2cedaaa59e5b1b288aafd5fc1b779595b49fbc",
+      "bytes": 41943040,
+      "sha256_published": "e54ddeb2e9cc7eb9b997aec8bb08361052198e7d07c5f7c15a40511e52593cca",
+      "category": "HOLD_DERIVED_ANALYSIS_V2_ARCHIVE_PART",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part001",
+      "git_blob": "1bed19e11b25f7a6fca8467a50fc081113f051ca",
+      "bytes": 41943040,
+      "sha256_published": "f3e630b3a50661fc133428a746c28c03ae41acda5c8eddf88bf6434b96e29653",
+      "category": "HOLD_DERIVED_ANALYSIS_V2_ARCHIVE_PART",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part002",
+      "git_blob": "58b13c63b99796259ebd2290834e22c2585ee844",
+      "bytes": 41943040,
+      "sha256_published": "0ed33c6bd84b286eea36fd3855eb9b7b8c3c386f5981eab4fc205757a36a226e",
+      "category": "HOLD_DERIVED_ANALYSIS_V2_ARCHIVE_PART",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part003",
+      "git_blob": "8413f7ef724f71b86a779f22d00ca68d6cf30a9e",
+      "bytes": 41943040,
+      "sha256_published": "dcff23117ea46828d4687e4a59a5ce1d4ff653b6fe220b46aafc6323f4bad6b0",
+      "category": "HOLD_DERIVED_ANALYSIS_V2_ARCHIVE_PART",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part004",
+      "git_blob": "6e219483567bc64aea9fcac1dd7584d879bb02a2",
+      "bytes": 41943040,
+      "sha256_published": "172ae31b3dcae3ba0175e785c5b4caad416c236ae9b65a451b81deb8968ae7c1",
+      "category": "HOLD_DERIVED_ANALYSIS_V2_ARCHIVE_PART",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part005",
+      "git_blob": "23862decd6bf1282d42ffd27aa74d2c72b0fc89d",
+      "bytes": 41943040,
+      "sha256_published": "61b46db5f946b57e557db11b16089082207791993d397b0bc4fb9489f14eff08",
+      "category": "HOLD_DERIVED_ANALYSIS_V2_ARCHIVE_PART",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part006",
+      "git_blob": "3fd5abe6925b16f6ed2095ffc58fc6ba798df7ed",
+      "bytes": 41943040,
+      "sha256_published": "bb8c5729c6accb6eb5bd49361463a11620433be36b11d0dfe2a7482b459108a6",
+      "category": "HOLD_DERIVED_ANALYSIS_V2_ARCHIVE_PART",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part007",
+      "git_blob": "744a621302e51734395c1000596037c83f924a2d",
+      "bytes": 41943040,
+      "sha256_published": "75cc400abcfd0e79fb37a9ef21d68a70b48c7ef53ec6b609f8e9f04024327764",
+      "category": "HOLD_DERIVED_ANALYSIS_V2_ARCHIVE_PART",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part008",
+      "git_blob": "b02905e53f13f1eaa1ea8f2667de3f21c9560647",
+      "bytes": 41943040,
+      "sha256_published": "aae3e0fda0a5a1165491037453f355fec693e5f845c11ba44a123dfc35f7f506",
+      "category": "HOLD_DERIVED_ANALYSIS_V2_ARCHIVE_PART",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.part009",
+      "git_blob": "92fd672a1aed5f70ffbae5c0ac736372fda73032",
+      "bytes": 34692215,
+      "sha256_published": "7ec51fc4e4dd25d5157f9b0d67bf831bb50a426003beaaa57e531ecfc0a7d45f",
+      "category": "HOLD_DERIVED_ANALYSIS_V2_ARCHIVE_PART",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/analysis-v2.zip.reassemble.json",
+      "git_blob": "d9640d05d49338a4ac2e6100332746dab88a27ce",
+      "bytes": 1893,
+      "sha256_published": "64ee682122986a4c3a3eb700b9d473cebf499cff0e25b01379bad60b2431aef2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/audio-start.json",
+      "git_blob": "40165c58abc8f96c65aa1bd0d367294548de36de",
+      "bytes": 606,
+      "sha256_published": "e637c2427b1e18523a0632a779ec22614a5237fd04a0102d64090412f03bffbc",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/audio-stop.json",
+      "git_blob": "1672bb98c4573592befb2321fe217f288f49fa86",
+      "bytes": 86,
+      "sha256_published": "c722c8eb5673f290829bc1e67b12f200ab5d0b6fcf7319894927f398fe787fcf",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/audio.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/audio.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/dda-primary-health.png",
+      "git_blob": "a752e00d410add8e5269af88f4a3fd43652ebc7b",
+      "bytes": 732693,
+      "sha256_published": "2c1420c11eb180aff537e74b9d31054d6a3f69bee9a497c3c3fa0c8eee66043f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/first-launch.json",
+      "git_blob": "dd51ebd9eee34dd36b365ab246057fb0b1211ad9",
+      "bytes": 243,
+      "sha256_published": "11683cd350716b4cb068b32a6d53d6223660ab1a7802856b006bddfa230ed7ca",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/first-process.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/first-process.stdout.txt",
+      "git_blob": "68aaca6560b1909702c5f7f3410f68c14322ba0d",
+      "bytes": 99,
+      "sha256_published": "126e5d074013c0d9f33daf3dbe33ee2dad603ebfa719e36f3674d4a955d7db8d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/keyboard-alternate.json",
+      "git_blob": "8b074d756e89699f124d0816a313112153ea5f7b",
+      "bytes": 111,
+      "sha256_published": "088f8401a072c4f5e6a43a563650d44ca1db0dc53bdd2aa17767de951a7479e3",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/keyboard-before.json",
+      "git_blob": "59621f341f7158d5c6e7e7f269290c11aacc40a8",
+      "bytes": 111,
+      "sha256_published": "b4d10b74a4417cca6d577310fdd33e807fbe764df96677a2e71beb57e8426aec",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-shortcut-layout.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-shortcut-layout/start.json",
+      "git_blob": "e1fa2ccff936c58fdb1547e6047a15d834069986",
+      "bytes": 136,
+      "sha256_published": "e56f5b71ad6ef30216b4dd84dc977e08429c40b1925c67ff5848b76474dae8f5",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-shortcut-layout/stderr.txt",
+      "git_blob": "5922fc23133b215cdc534f21ff5b74c1b42ab2d5",
+      "bytes": 112,
+      "sha256_published": "c6afe3ae95e30ac9d8a12dd412c1dec2e1e127762c8e4e676bc5469b2115401a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-shortcut-layout/stop.json",
+      "git_blob": "6f4e72d25691693e63e53f4cf64f9867722ca04a",
+      "bytes": 54,
+      "sha256_published": "258381075a1030c9a6fa644c37eee1d86e19f1dadeae9b8b8019f294a4c598eb",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-standard-alert.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-standard-alert/start.json",
+      "git_blob": "09d374fce176a3de67e0bb299af348c7fa67e309",
+      "bytes": 136,
+      "sha256_published": "f0aa2e6aa12cc62172c421daadb43d3181211156090f38b2e0664b5da508de0c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-standard-alert/stderr.txt",
+      "git_blob": "0ccb0b8539a186b60a5108f8ce26b9bfcf7d350e",
+      "bytes": 112,
+      "sha256_published": "6f5083b17eb8e51294300508304d9fbbd07899182c64e619462f53d6f599a589",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-standard-alert/stop.json",
+      "git_blob": "ce84aeb7de77ae4efd4e77d313e366a3cfd0e9c7",
+      "bytes": 54,
+      "sha256_published": "4aaea7353f946d8d24daa80ecaa02e8fad8c05b6c35ba1751b722ae2b5d8d4a6",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-timed-alert-boundary.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-timed-alert-boundary/start.json",
+      "git_blob": "3e5dc6bcf1c8367e5bdbe4fe8cee44b5e574f9d0",
+      "bytes": 136,
+      "sha256_published": "94c95521d4ccc5d50a2de1091f0131edb88501eb55ff0f89411670f954fa78a1",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-timed-alert-boundary/stderr.txt",
+      "git_blob": "5976ffe0ffd2fa6e016dfe0b690cd70b1c5a3da0",
+      "bytes": 112,
+      "sha256_published": "c67a9394da55356aa8a46ba728fcec33f9975210a8475fbc4710d51b8722e725",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-timed-alert-boundary/stop.json",
+      "git_blob": "5c9afe237b8e36e71c397b645592f43257dbc327",
+      "bytes": 54,
+      "sha256_published": "3e7194a4d141a38744922f545f8fc5915d87bffc8a8afd9f335106dbdfa0dd89",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-timed-alert.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-timed-alert/start.json",
+      "git_blob": "3d974f394c3626ee32d875d9ba6f1088685977c5",
+      "bytes": 136,
+      "sha256_published": "ad1a6d94f3aeeec9b8a55e36fd294a6a3f5e4570e175a29aaed90aebcc27b9a2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-timed-alert/stderr.txt",
+      "git_blob": "95aedf394d184a1609013d57aadd41f2828f5b4b",
+      "bytes": 112,
+      "sha256_published": "b1b0d3e21814579b6c4d3f4b9ae148381fe781c4025e095a94726f8e1faf7668",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/main-timed-alert/stop.json",
+      "git_blob": "864af0ad77949c8b89064a86558a8beaf1854a6c",
+      "bytes": 54,
+      "sha256_published": "16a95234703048f778df5d7054d8f2a211c3e9366b77589f4960bc4be653314c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/analyze-alert.py.txt",
+      "git_blob": "6b4e2dbb862961567fde0c54079b517142baf348",
+      "bytes": 1985,
+      "sha256_published": "bcace6336938b5a1f46d7f754ca750495e2aa4ec71af0ff92015a3000c5e54d8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/analyze-transitions-v2.py.txt",
+      "git_blob": "837c7ce381a3d0d4d08a257af72027b54a0c84ef",
+      "bytes": 3238,
+      "sha256_published": "db541464e0d45f527780d5800ea8dbd40584276bf8035ca0fd0dda220c2abb00",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/analyze-transitions.py.txt",
+      "git_blob": "4e3eae8af1bd9416e74865e287c157423b62394a",
+      "bytes": 3076,
+      "sha256_published": "22eb285b6ad8bf28e43424a3aa124491942a0d27ec0f495541b4d98ba7479883",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/audio-loopback.py.txt",
+      "git_blob": "accf486e1e3eeb9eed49917ee762f2df4b608a22",
+      "bytes": 1284,
+      "sha256_published": "c8ed925c9f36e6d92a61f9c3a395386d8a7c56e04f50ad8e3ad1f13abc5bc889",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/checkpoint-frozen.py.txt",
+      "git_blob": "beee0b2a529f3c4885264cb3de60c0c25bc0ba63",
+      "bytes": 1369,
+      "sha256_published": "80c688821e93a10676f2b24fdc99587e553286fbc5fa507b5124bfbabf49c4cb",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/checkpoint.py.txt",
+      "git_blob": "7e3d057f3f132ec8d69c290a97e4ec7c0db07110",
+      "bytes": 1036,
+      "sha256_published": "d2207af477e25dabf0ba1da8da2545b88d8f2c14a0df571c493876c855421964",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/collapse-headers.py.txt",
+      "git_blob": "dabcb4c2306bf3deb63ab0f5cd024e134089cd07",
+      "bytes": 606,
+      "sha256_published": "2ab3f9ff2d5a878dfdd9c6ace8059a339c998ccb2e5d9d793000f2601082ce58",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/focus-sample-surface.cjs.txt",
+      "git_blob": "4057a54710e016c72901b375c411c91629957145",
+      "bytes": 1674,
+      "sha256_published": "28f309b42d2d7e8340b714a009515a080776aeca30d0f30bcfaa20d2fa19644a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/focus-sample.cjs.txt",
+      "git_blob": "dea6ab14812282c1ef187e4f2d37106467b1f2ec",
+      "bytes": 1662,
+      "sha256_published": "f8699ff7fdc278b73ff9691a93fc8084befd9bc7fafb5bc8a71c29cf8f2b1346",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/isolate-fresh-profile.py.txt",
+      "git_blob": "9ae98f099e29ef0a2e6dee4310814facf889b3c3",
+      "bytes": 2607,
+      "sha256_published": "a5a51f0e95c769baf610faa4d097d18bafa04ed7922c166920c5dd73ab73b47b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/keyboard-probe.py.txt",
+      "git_blob": "beff37228e0ffcc8526c661b46f7fe73cbd76086",
+      "bytes": 495,
+      "sha256_published": "ac108359a0f599c354a5ccf5060906b1ab2e09a799321cf88cbcafdcdd73b7f8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/launch-ab.py.txt",
+      "git_blob": "4d38b7220c60e50d4a8efd915d925bf522348b13",
+      "bytes": 1044,
+      "sha256_published": "27ca972dca7e9b195959b8862c5992753a44ddd110a2c9d6ef99d9dbc8f10ebc",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/launch.py.txt",
+      "git_blob": "20374c413dec1e581a9e4b552e7893b118deceeb",
+      "bytes": 932,
+      "sha256_published": "8bb6fffd2dc3760e93b878e857c98d48fbda33a20363246784a2d31a7836ba4f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/motion-config.cjs.txt",
+      "git_blob": "6ee8d2e6416c129a5b11e352b6b870be1da57afc",
+      "bytes": 898,
+      "sha256_published": "aac44f84c3a285bb8af1db17e92807e9f46e127b70fd6ac2695044ad4c24e04f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/probe.py.txt",
+      "git_blob": "b3c6e72a03a0f088383ce81a01c046323779e7db",
+      "bytes": 1133,
+      "sha256_published": "743d0d83b04c8de060b566e1d2c00fe2affad85afcc69fcabde268ff7d3bae0f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/qpc-capture.ps1.txt",
+      "git_blob": "d31e9aa2dd182dcb04d2b40828edcb0fa32c27da",
+      "bytes": 4903,
+      "sha256_published": "81ce283591de82ddce052aa03c56397abe708856f09c280f71962f6e6ddd507a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/qpc-sheets.py.txt",
+      "git_blob": "523687fa470e3a3b94f7485da6971b107505381b",
+      "bytes": 1124,
+      "sha256_published": "f8c31ebec379b67e878a0ecb74e30689da093a2d10a5899042dd68bf154f8ec2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/read-motion.cjs.txt",
+      "git_blob": "6d91ab11863c63154efa756ed4eaf73521d02eb2",
+      "bytes": 771,
+      "sha256_published": "ba8eb63633bc888bcc72b11e89a84dd05bfc4d45c2460380b05f09506a26acb4",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/read-running.py.txt",
+      "git_blob": "923aceea7a746bc9778e7bb282a173112cffa07c",
+      "bytes": 500,
+      "sha256_published": "171baf0e0eb663edf2e2ba98628fc926c8d57e05e83f786e221a1251458a2c06",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/read-timer.py.txt",
+      "git_blob": "f70349dc8befcf410b1f746249e0189b690b93ca",
+      "bytes": 498,
+      "sha256_published": "f143cdea7e7af70fc45bf7131d89aa73cd9fd0b7a849cf3c3a67b1326820393d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/record-dda.py.txt",
+      "git_blob": "b0ec239d56e2fd91c31e3af775ae6b80f6b299cf",
+      "bytes": 1066,
+      "sha256_published": "0dd8bd2e983423b35889b4bff53f3d6799cd782ed1510c885314b037dcd7245b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/record-five-minute.py.txt",
+      "git_blob": "54a845ce85d7a521a55a2c60765e96cfc2ab02f6",
+      "bytes": 1233,
+      "sha256_published": "94c1fb9c1aa3747091ed6a47847caae17bb2404c3f0a34ec42286688220a3263",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/record.py.txt",
+      "git_blob": "51b939551dbb18bed50a3fabb81f6b5d33747433",
+      "bytes": 1231,
+      "sha256_published": "f830ab6fb8c4fe3a5caa322cabc60875ca09ec2d427b7f64522bab93e3046726",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/reduced-first-target.py.txt",
+      "git_blob": "351f7d056b19f84b5ae3304c7e68bdb286a7520c",
+      "bytes": 764,
+      "sha256_published": "a17fdea4bc900542c174b0a01970fd2f9dac627bb35226730e1f770d4d098ab2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/repair-handoff-encoding.py.txt",
+      "git_blob": "21811b3e29c581386f6f0b40a362df98506bbd72",
+      "bytes": 475,
+      "sha256_published": "210aa3b19ee57ab225799ae99998f837e5a72c1fdd58581a35eb43ef6aa3ca5b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/reset-ab-fixture.py.txt",
+      "git_blob": "6722e641d796c464ca86f4d3dea0f0679cf147d1",
+      "bytes": 1035,
+      "sha256_published": "54ad030f1b3769fbd8a1a59cc70e8c4aa852135efb5a28f94ffa5ce613e26185",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/restore-profile.py.txt",
+      "git_blob": "b750048cfb480a3bc11fddb84228794db97ad914",
+      "bytes": 2232,
+      "sha256_published": "90b481b4dbcb5bd5c40177666d7e26f0b4f4ba5a054d1e61a6e3236c8caecc90",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/ring-crosscheck.py.txt",
+      "git_blob": "1e7a566b420c59ccf9aa5891253e673a12fb6228",
+      "bytes": 1237,
+      "sha256_published": "ed3f1e6218169c9a7803c708547fb2eb911589e20d1414e1354767dd0e762d95",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/seed.py.txt",
+      "git_blob": "de11722d81752904acb820c11983512fa97597eb",
+      "bytes": 845,
+      "sha256_published": "c86ff2eb2f6cd68d2adc095227fda7fa45f5834701cb4012685e204d0e501bfe",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/method/timer-observe.py.txt",
+      "git_blob": "5dcad91038c24ecc0847b3478e9f6b04c5df94be",
+      "bytes": 763,
+      "sha256_published": "23a08265185c67c202f0e4e08f3342ba861222f757eb88320cd33bdb813e839e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/native-traces-A/focus-transition-trace.jsonl",
+      "git_blob": "02ae9b364088da4318dd4a5c534ffe1212bec355",
+      "bytes": 110839,
+      "sha256_published": "cd14e2996d3e8a87c97606f0cfc4e132b42b7f70447360c1b9336c2a73f38f23",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/native-traces-B/focus-transition-trace.jsonl",
+      "git_blob": "c084a6eddb486ff22732677f1e77d2bafbdccd3e",
+      "bytes": 202500,
+      "sha256_published": "9066dcc00936dd3bbf617025c3bf9b49fd390464c77b08a046c20257bcd8186b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/new-task-title-focus.jsonl",
+      "git_blob": "8799e41e95e7dea810a37d124078308303393ef8",
+      "bytes": 2430,
+      "sha256_published": "126280b19862ea76b09905046b904a100cd3c4f2308c62482f7783f6133b1932",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/original-profile-restoration-proof.json",
+      "git_blob": "6042f9a502e470129f3f31b30702e1eacb29ebad",
+      "bytes": 208,
+      "sha256_published": "481bdb3bb12c3cedd99a990d3fbbe97c9affd12ec1c4b4fdb742e95ab67f1004",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/owned-app-pid.txt",
+      "git_blob": "8ea859a5620ffeef3780db2e8933419d5414db01",
+      "bytes": 5,
+      "sha256_published": "39220fc51eb17d1eae9e46ebd599791357b8fbc8da4fd77473876c73b5bd30f8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/pomodoro-break-running-controls.jpg",
+      "git_blob": "b19f3005ea3075c62f03a26cbdeb0cf82c28d011",
+      "bytes": 27949,
+      "sha256_published": "fd165c0b203182c59cf59de7d68c90362f923ff7252e6304ed760cb8f36c80d8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/pomodoro-break-running-controls.uia.txt",
+      "git_blob": "26f52bd71bb732d5f3121ccc4a11f2159e71f06a",
+      "bytes": 29749,
+      "sha256_published": "6b2a63cf52b4b42b684367da75407c4cbaf96ef2b2c3826d0e543ff6ad41b9ab",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/quick-pomo-switch-before.jpg",
+      "git_blob": "b42ac229cb5217b418375ec006c4c4b582a4ca65",
+      "bytes": 23967,
+      "sha256_published": "36e0c7c00932bc235ee55baa5f7f3bf968db356077e30f4f10171557c867e9bc",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/quick-pomo-switch-before.uia.txt",
+      "git_blob": "f849e2e3f3d5eb034cf1a5aec0d8fd7015e45deb",
+      "bytes": 2180,
+      "sha256_published": "d7991bf7a2c7f1b24d1aca857b2f3c484b3eae60c7c9ca369fd7c375cfef72e9",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/seed-proof.json",
+      "git_blob": "3324ed506e5bb04e6ffbdc2e00d16753b460387c",
+      "bytes": 103,
+      "sha256_published": "eccc760c89dae0a5e105f25330f0c84646b85b515362b4651d4fa960d48c8dda",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/session-meta.json",
+      "git_blob": "4e64ac8c5eaec532bc238615382213639e1536aa",
+      "bytes": 1327,
+      "sha256_published": "bc5e129f615b159f1b229fc5546774389bebfc61d59945c61b97aae1046ab68d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/shortcut-original-layout.jpg",
+      "git_blob": "5e61cb30857e8483a66f59f564a95de1dbadd901",
+      "bytes": 27176,
+      "sha256_published": "3518f42b670b83af93d40cba2f2f1e01c12cb94a563abfce4c10710af86de45c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/shortcut-original-layout.uia.txt",
+      "git_blob": "c0f5bdd89dc043dcb7ea1fe15af36e63fda420ab",
+      "bytes": 30329,
+      "sha256_published": "36fc8a20b6c4b7c9dc51bdab29ea750c02e26c726564dee1ca8395e1d069299d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-boundary.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-boundary/start.json",
+      "git_blob": "41273f49275d54a0a9b4fc7a63064d549c1071ee",
+      "bytes": 136,
+      "sha256_published": "1de1a55d0c531a3a1352111d937900879e9791d926beb1499099d7f3316fd938",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-boundary/stderr.txt",
+      "git_blob": "7fcb86dca556a58e6184d2f34b1347778329bcea",
+      "bytes": 112,
+      "sha256_published": "104c02add210896f3428f4b828fce96bd8f78271485768d76801b0ef5cc4e5bf",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-boundary/stop.json",
+      "git_blob": "df97d1942a035bd3653e101bafc9d7ec093734e7",
+      "bytes": 54,
+      "sha256_published": "51905090b40519467f07aae12a4b2b2d5d817570d9c9560d75bf06e57ce6fa9c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-post-boundary.jpg",
+      "git_blob": "fd4c7f829b77c616ab0eb428a89bfc8223591305",
+      "bytes": 27180,
+      "sha256_published": "db77a886f7224309f409d2cf31514f7b1b724a0b004e25c2ccf539d1515c2c6e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-post-boundary.uia.txt",
+      "git_blob": "255147d5be7d2fc891d082c20fa8ebd5be60a0c6",
+      "bytes": 30329,
+      "sha256_published": "82c511393e6f4dd01da8bdad768f08899b062070fed1d8f487c442e9439a5b2c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-pre-boundary.jpg",
+      "git_blob": "22f80f7b9b9966a0af20d193b1941d7794188b9c",
+      "bytes": 27131,
+      "sha256_published": "7c3f8d05c9aedfce0c78a6536e7f55cc68b550c8d6fbfc202968c80f59903daa",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-pre-boundary.uia.txt",
+      "git_blob": "e58fd0d1461c8d0f79022d71cc9b7b1d5cf2c947",
+      "bytes": 30329,
+      "sha256_published": "a353e311811f98b39ff5b59e30e568664156a67e0ca4182b21b31f5bc6289050",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-start.jpg",
+      "git_blob": "2cf7e261a6ed3cfd74e41dbef22d1bdb27664bcb",
+      "bytes": 29491,
+      "sha256_published": "e08e1ca1da06638849023bd74d91618e988aa351e6a6bfafc876e367fbb15c5e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-alert-start.uia.txt",
+      "git_blob": "7319be9440dd743316cf04b96afba35c25eddc1b",
+      "bytes": 26736,
+      "sha256_published": "1f194601abfe4ad00390201fc1df7b3e5e180d9098d3d7c6676369b03b2f5d81",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-countup-confirmed.jpg",
+      "git_blob": "63b2b4e7e9ad55d77ca6e4f95839a109f854ba17",
+      "bytes": 27275,
+      "sha256_published": "580b4236aad6b1e79ca82bb3f0b35daf6443fa389e8a727becc53900a27a9721",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-countup-confirmed.uia.txt",
+      "git_blob": "d5477f441f4d1f903f5a810d9f1673ec813475a8",
+      "bytes": 26445,
+      "sha256_published": "001967d694a0097553d28a9cf91074e0450f5dddacaadf796071864d588bade8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-create-task.jpg",
+      "git_blob": "adb0cc5153d58f6cec9d494be9dee668c4112d2e",
+      "bytes": 29683,
+      "sha256_published": "c2dbf6c91e4a8317371eaaf5df928d14b6a82f554a8c61bd786a211de4c6c6cd",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-create-task.uia.txt",
+      "git_blob": "3d60330262706c85678c62661627446b1e42730c",
+      "bytes": 21109,
+      "sha256_published": "f6b019fb92258da372f2df3f1f0696e10e3ec146d8ab6f81b79b80cb63baca34",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-created.jpg",
+      "git_blob": "46482ad7a78580226783bf4df9965ed376a8bae4",
+      "bytes": 26987,
+      "sha256_published": "634c1bcfb7e7270264ad7c39e5739cd94a781f225f71ddcdbf3e15802004c6d2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-created.uia.txt",
+      "git_blob": "f3c22f3853ed8dac316cff184aa6abd107bf660f",
+      "bytes": 29102,
+      "sha256_published": "21001abc4269c0a38e13ec497d284671a6e743488a49e753c2fdfeb6ddd10cb1",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-live-mode.jpg",
+      "git_blob": "07a58dab529a826c059ddd70a6ecd8130dcba374",
+      "bytes": 27523,
+      "sha256_published": "895cea89af298b0578f0e6a370492501f14036f15b64942bb078941ffbfcd91f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-live-mode.uia.txt",
+      "git_blob": "8317d422937334068251ce5600564d65f26c7a81",
+      "bytes": 29931,
+      "sha256_published": "aee5e89ed3cbad86439e20c2ecca63ab419b22f2be7e0add4cfe275f9026a75f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-make-live-ready.jpg",
+      "git_blob": "8430bd3f8dee44dad1f7c86a41bec5e2d9e75d24",
+      "bytes": 28568,
+      "sha256_published": "a2de5abe0ac36e89fd90b23efe181f74e4ba861a6632652a8538063800c7c123",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-make-live-ready.uia.txt",
+      "git_blob": "78cbb99e08c3503a4ef0436cc24fd162460c18c2",
+      "bytes": 30469,
+      "sha256_published": "42c40fdf932862876e8e644bc53be457a0fefadc651d1967b249ba5fd53608c0",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-start-controls.jpg",
+      "git_blob": "f9456e8d2611bc134d8b57f4c8efb19f96f438c8",
+      "bytes": 27494,
+      "sha256_published": "b69b783cc61a9a70cdaff55f963e29a2959c06b1c755f07670cdde3e55699c59",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-start-controls.uia.txt",
+      "git_blob": "7f5b69f2f8063c0a1e45439c1443ebd1fd6f6d73",
+      "bytes": 29887,
+      "sha256_published": "5023b785e699dc689181da1ec24daa90bb5fe911eb5efca47b18f04c6fa25027",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-task-actions.jpg",
+      "git_blob": "f220702796ad30f971ba8f0362ff0ed921b2fb4a",
+      "bytes": 28403,
+      "sha256_published": "36a9186e0a1d5a1f31363fe3e1358c4874e6f17bd44c32151571d07e975a13c1",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-task-actions.uia.txt",
+      "git_blob": "2815148b08a28163c872dc428c3596522aa1a39f",
+      "bytes": 26160,
+      "sha256_published": "efffb1cd8bce2cf009dfabcc11a40abdc61d933c04b431f9e2db7797743caa08",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-task-title-entered.jpg",
+      "git_blob": "8685e4a3992f6bc8d6116cb8b56aac338f997bfa",
+      "bytes": 30670,
+      "sha256_published": "0b30c3b7c97fca5f87669e4caf2f2194d8290ead0dbdb340323fcb8caa32f35a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/standard-task-title-entered.uia.txt",
+      "git_blob": "37d26822d376aaf3369fe597abb30789320e31b9",
+      "bytes": 21169,
+      "sha256_published": "7814c261aed4cc622dd2a2a6444e9e8a3dc5b45f5c2e3898d3f40d4a58ea279c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-alert-interval-control.jpg",
+      "git_blob": "514d678fce95163d6c5a3ea14cffbf5eda4ca09e",
+      "bytes": 147993,
+      "sha256_published": "942e0591b2fb35bd40ce5a38950d1b047a7ab086a4fe825b78b18d44454de7f2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-alert-interval-control.uia.txt",
+      "git_blob": "d26ef11eff24b0d737fb9cf2eb6c5f035b406f3e",
+      "bytes": 67870,
+      "sha256_published": "f38b5bb90709a3a7610bd1c0888272e548bf4f5e901252780dc450725d200332",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-board-paused.jpg",
+      "git_blob": "d351b5c1679a651cfaf255d1efad6a74f2362f8d",
+      "bytes": 179675,
+      "sha256_published": "7bc541263c3af3c495ad35fe7381fd017834eda039c14ac6787ab493f1410ac6",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-board-paused.uia.txt",
+      "git_blob": "93e109d045a4e4cbb0884b18ea48a4ef1b000129",
+      "bytes": 53524,
+      "sha256_published": "47237f2b7531e7ae399d29ca006527271c848089f88d0f142c63bcd113c799ea",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-first-launch.jpg",
+      "git_blob": "ea96d9718a56c9a80ff66d1cb2ba70757fe16ce6",
+      "bytes": 68327,
+      "sha256_published": "d70203d0f9cf2c83e23076763b39a004bbd99f79af40c23774eba0b7753c9578",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-first-launch.uia.txt",
+      "git_blob": "136eef7aeb3fced25af84dd9a49fc7ae30d6f7cb",
+      "bytes": 11047,
+      "sha256_published": "486a5fd473893306cac17e57d9ef1cf49c888fe38034edc8b081ce72461a82a4",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-focus-before-resume.jpg",
+      "git_blob": "9ca2c5fd1983e99b0c3cc8cfa011e8135347b15e",
+      "bytes": 29891,
+      "sha256_published": "67a5a0e9326f7baf74b603d86aee43c16e33cf866d6c6805197fd659cf785e59",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-focus-before-resume.uia.txt",
+      "git_blob": "7c8be0bc6f10bf3c6304708a0e72bed90d5f31d3",
+      "bytes": 29219,
+      "sha256_published": "33fd563bef3a70df84f10fdfcbc64071ee427834a00fd8fa522ac0d4eae1dc05",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-home-max.jpg",
+      "git_blob": "5f392ed32b73b6f6ec59de0423289eb5ea70647d",
+      "bytes": 64425,
+      "sha256_published": "faed96c2cc66ea823e442e43344d7dbd62eb544131a033974dd5bc30180391c2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-home-max.uia.txt",
+      "git_blob": "8165828a67e8d67b9d9118f2721c25a3d168b6bb",
+      "bytes": 2030,
+      "sha256_published": "2c86b3f23198bd173545e0e9084ccdb85ead6242984ef1df634a6129c41b9d9e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-interval-open.jpg",
+      "git_blob": "976b6966052d772390c2de7f06eb494f9f3074d9",
+      "bytes": 151603,
+      "sha256_published": "5a6bcc2953246c799f771fd72899d658e92a89a243863fb2270b038e6d4ad5c9",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-interval-open.uia.txt",
+      "git_blob": "ac83f22a3d3cd1bab4a89cf96f618374fc6b388a",
+      "bytes": 68576,
+      "sha256_published": "98bf78c3032cbe046dc4b0b2844a055a5b380d854f40d9d42d7195cc282ebb5e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-interval-options-location.jpg",
+      "git_blob": "b8a6ef3cde8191c12188014bbb00f34f08849335",
+      "bytes": 147935,
+      "sha256_published": "f47969b000413e2eab5057ee6b03ff77d0a9c0f808a20b76002c8814b275abc0",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-interval-options-location.uia.txt",
+      "git_blob": "d26ef11eff24b0d737fb9cf2eb6c5f035b406f3e",
+      "bytes": 67870,
+      "sha256_published": "f38b5bb90709a3a7610bd1c0888272e548bf4f5e901252780dc450725d200332",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-midpoint.jpg",
+      "git_blob": "d48bfe03b73aa58e8baaa34f566ae02a802a9813",
+      "bytes": 29448,
+      "sha256_published": "67a0de64b884312da73a7db5ed1cc855a67ba7efed26928fd93c1c53e5c9af35",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-midpoint.uia.txt",
+      "git_blob": "0088f32cefc56c4cf8f9df9123a8158cd0043a1f",
+      "bytes": 29319,
+      "sha256_published": "578d86937f25381c40beadba8c26a7e249ca443820fecacbe5fca51fe35100cd",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-pomodoro-boundary-near.jpg",
+      "git_blob": "50da5671565e8b80871a8cf6d6403a4eac4001b9",
+      "bytes": 27151,
+      "sha256_published": "e1f500fae808d4c8c9e4f9036fd46fe330be3f609288b5ed11490b9923940995",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-pomodoro-boundary-near.uia.txt",
+      "git_blob": "db24edd4d09db274501cfdcdf96e321fc7a3cdcd",
+      "bytes": 29871,
+      "sha256_published": "f518718089c2728e579e2ffbd75c9653c1243f1c5a77a925e0584897eefb8e06",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-preferences-open-attempt.jpg",
+      "git_blob": "602ccd1508ed2204863d568de77eb4e7209d619b",
+      "bytes": 24353,
+      "sha256_published": "6f98bdef089b45194f2a7b9b8a778c331a8d416981ea961c974e457d838771d8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-preferences-open-attempt.uia.txt",
+      "git_blob": "c8b4656bd8d54f8587e0bfe4dd4f5c976400e6eb",
+      "bytes": 3621,
+      "sha256_published": "4b949e65f4192813b0d9ef17149cde19f192b3cc1b00b62f7e65da6fb80592f2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-readable-countdown.jpg",
+      "git_blob": "1356e1051ef6971279292a56fd0a43df204b7815",
+      "bytes": 29049,
+      "sha256_published": "a188fb84ebc652b91255c588dfe8eb64b18d82d332a887aecacc54c9dbf981e5",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-readable-countdown.uia.txt",
+      "git_blob": "5c1062a0e00fd7bb4f976d79c7206969be383aa2",
+      "bytes": 29381,
+      "sha256_published": "7a88a9f6736065924a18d31840aeec7a6ab031ea460a95564b7082d64374cd5d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-resume-control-result.jpg",
+      "git_blob": "d48bfe03b73aa58e8baaa34f566ae02a802a9813",
+      "bytes": 29448,
+      "sha256_published": "67a0de64b884312da73a7db5ed1cc855a67ba7efed26928fd93c1c53e5c9af35",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-resume-control-result.uia.txt",
+      "git_blob": "751bf22f4dae6ebf580d5a6b7df8c877e023e8b0",
+      "bytes": 29319,
+      "sha256_published": "8d34a9cd5e87ce6ff46f9f989287b6471f6df75a7964270598a74fc76eb1dda8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-resumed.jpg",
+      "git_blob": "9ca2c5fd1983e99b0c3cc8cfa011e8135347b15e",
+      "bytes": 29891,
+      "sha256_published": "67a5a0e9326f7baf74b603d86aee43c16e33cf866d6c6805197fd659cf785e59",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-resumed.uia.txt",
+      "git_blob": "7c8be0bc6f10bf3c6304708a0e72bed90d5f31d3",
+      "bytes": 29219,
+      "sha256_published": "33fd563bef3a70df84f10fdfcbc64071ee427834a00fd8fa522ac0d4eae1dc05",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-running-confirmed.jpg",
+      "git_blob": "9ca2c5fd1983e99b0c3cc8cfa011e8135347b15e",
+      "bytes": 29891,
+      "sha256_published": "67a5a0e9326f7baf74b603d86aee43c16e33cf866d6c6805197fd659cf785e59",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timed-running-confirmed.uia.txt",
+      "git_blob": "7c8be0bc6f10bf3c6304708a0e72bed90d5f31d3",
+      "bytes": 29219,
+      "sha256_published": "33fd563bef3a70df84f10fdfcbc64071ee427834a00fd8fa522ac0d4eae1dc05",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timer-before-launch.json",
+      "git_blob": "a5b706ff1dd8ffab5391052f9a264d5032e73fd1",
+      "bytes": 2165,
+      "sha256_published": "51d1cc6bd405680a338276343ab8c2491ca3c5f663e19584ad614a2985684fe6",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timer-completed-B.jpg",
+      "git_blob": "b295c55822ddafc988ff1ad13ef3870bf5a0f6e4",
+      "bytes": 29388,
+      "sha256_published": "4c61f34bc3a6ae4ad95166145032cd92adae7ace0ab549ef4f18a85c92fcedf7",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timer-completed-B.uia.txt",
+      "git_blob": "5c04f630702ffc65d3d1edd7ec52f6407bc7b7c0",
+      "bytes": 29476,
+      "sha256_published": "a5e565edf41149377d33434d6899d008e4edb2af362b2d35824359e041ced629",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timer-idle-after-completions.jpg",
+      "git_blob": "99b07c20a2d394350b597bc4ef08ec309d933841",
+      "bytes": 28512,
+      "sha256_published": "c0483aa33b6c883474ad86a4f9fdce12e0f2628a5651bf17286426884a5cd133",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timer-idle-after-completions.uia.txt",
+      "git_blob": "5b5f9f0067e9bd3f9f929a0e4785b6545091d7ce",
+      "bytes": 29538,
+      "sha256_published": "d135d81c46b2893badf09efc2fee94793905d58c65dd679546544e59746b96d8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timer-observation.jsonl",
+      "git_blob": "e2e6f36cc8dea0a3e7e6286d948d078e49408d7d",
+      "bytes": 968507,
+      "sha256_published": "3050b389181c40bf48914e84069ee53f8439d785ac7a4906265eff41f8c659a6",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timer-observe-second.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timer-observe.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timer-observe.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/acceptance/timer-running-probe.json",
+      "git_blob": "873ff3f15a3493b1e2912a526057f0484167cae7",
+      "bytes": 2169,
+      "sha256_published": "34082431c2beb3f2af3b43723f03b66b5aed82aac201e700534f2756f8b19e71",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/inventory.json",
+      "git_blob": "7ac8488fa541322d21da60447051f7dd761e7798",
+      "bytes": 1531,
+      "sha256_published": "72cf6da4f0ced25e7ad11f1c12c300970e6face36de86685fbd73a8f7a4272e3",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/LATEST.txt",
+      "git_blob": "c2c12e0821973ed0e6d3763db31b0027b46ae184",
+      "bytes": 36,
+      "sha256_published": "a5b03880373bcb16eae7787c69ae992405597b76e29e4ce386ead64f9ed6d4cc",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/README.txt",
+      "git_blob": "220b56980799595f7d938d7df3b98f69747de12d",
+      "bytes": 765,
+      "sha256_published": "5c0aee7569abe031eb56dd238b28f24ae43521c187f852bece86df93f6afa160",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/m7-c5-latest-result.json",
+      "git_blob": "4687fbf629a64329513971081a23a3ce1689bf7e",
+      "bytes": 396,
+      "sha256_published": "51f6ef35e50a76c88491638c35356c532490a8f66f0a03f6d9d75f00b3019b01",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/session-20261025-103431.809Z-23364/events.jsonl",
+      "git_blob": "430aebd95f08a7f6aa5ef45305748617daa14968",
+      "bytes": 812,
+      "sha256_published": "939825fdfecc8b6537f8b5bea5399a46542ef3ab8853b23bd876e4bde5ba20c5",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/session-20261025-103431.809Z-23364/m7-c5-result.json",
+      "git_blob": "3ac21f147cbef0f7c0139a291bafc8daeb154bd7",
+      "bytes": 396,
+      "sha256_published": "53b36fb104e6aea356c6fe21308129def44c62b4d5248f6502a4d4963da118e3",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/session-20261025-103431.809Z-23364/session.json",
+      "git_blob": "930fba73b2e8c99ec0180c69511ec48002c4e344",
+      "bytes": 489,
+      "sha256_published": "e69b154665d7aa3f6654058d1bbdbbba146bf9109c448f9ea9b35ec17b42d8bd",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/session-20261025-110342.125Z-23380/events.jsonl",
+      "git_blob": "165d2395b21ece692be96e214aa0ea4f98da29b0",
+      "bytes": 2441,
+      "sha256_published": "6ceb9737e3017c76cfd8dcfcb8b92fe3a37e7ffee264b26d3e0161118ad7e5f8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/session-20261025-110342.125Z-23380/m7-c5-result.json",
+      "git_blob": "c79a15f5558580f6c167fa98e9cade616b5a91f2",
+      "bytes": 396,
+      "sha256_published": "75e0659459a571f94e358617deaa7c74c3c6f73f9ab2ed601f8360c3c33d4160",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/session-20261025-110342.125Z-23380/session.json",
+      "git_blob": "1cb557ecad95eb469d60542fa475b84a650f5ba9",
+      "bytes": 489,
+      "sha256_published": "7bd64f493ef3a2319fa34514519d35e6d76d305df9564fb63f09d3a977bc1daf",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/session-20261025-115020.408Z-60508/events.jsonl",
+      "git_blob": "2d002eac1f6a5bd213ea3f06e0f2e5d24e129016",
+      "bytes": 2446,
+      "sha256_published": "1556f1287a20d86c68e8a020915d613890728e6f001dbd97ea9c62dbca823a83",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/session-20261025-115020.408Z-60508/m7-c5-result.json",
+      "git_blob": "4687fbf629a64329513971081a23a3ce1689bf7e",
+      "bytes": 396,
+      "sha256_published": "51f6ef35e50a76c88491638c35356c532490a8f66f0a03f6d9d75f00b3019b01",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/Narro-M7-Logs-main/session-20261025-115020.408Z-60508/session.json",
+      "git_blob": "38499bb566b65426cf298f897e3ad2bc51eb3f23",
+      "bytes": 489,
+      "sha256_published": "33a7d7137f7fbd0362d51b7e52bc9846a68c20214fa00497eff2c543f2368a87",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/actions.jsonl",
+      "git_blob": "47a999f60049f73e2f035a9618e9ebab4889d54d",
+      "bytes": 1231,
+      "sha256_published": "a1dbc3e0759239090d4c8190dec487070c16d9186352b1884b05872a079a3e22",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/audio-callbacks.jsonl",
+      "git_blob": "edbff5e8fe6b7c6120ddb8c79786d1d2704e14ec",
+      "bytes": 10242,
+      "sha256_published": "de933fa657006100b77f3f4a4bf76a6e722c6932ef52328a6d5088329a309fb9",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/audio-start.json",
+      "git_blob": "058f99c8b344262fcfb864db0ef7ae78979f54a6",
+      "bytes": 606,
+      "sha256_published": "e44b8ae2e94e38421d4926d5db9f5f8a59b1884b6ed4f69a28cb0e8d8b79fd28",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/audio-stop.json",
+      "git_blob": "6f1db8e4c53ac1d15164e58eea6f634037aad116",
+      "bytes": 99,
+      "sha256_published": "6fc95069e43b8daf5f58e5acfa0f48362e188b0021d9ccefa1e6f08cb7ba72a9",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/audio.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/audio.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/display-actions.jsonl",
+      "git_blob": "14d5cc87e3cde4f62140e0207b87b962e0cc01c6",
+      "bytes": 222,
+      "sha256_published": "128845e98a862205f366587fb2b852de1bec45b97e5a6f35f8dca8627da39c84",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/dual-display-restored.json",
+      "git_blob": "60b9cb54221f468557633f236b6c4995624c2c01",
+      "bytes": 1893,
+      "sha256_published": "91d2c0a76c41905dd4013eec501011e1487c959c1a5fdeb6feb751c1edcb9608",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/first-launch.json",
+      "git_blob": "8d4254ba3031a4204d030ffd1022df6100c7878a",
+      "bytes": 243,
+      "sha256_published": "4615dbad000b8bc6b17e5de907171e2d79343841287391c3484a2e063cc1842e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/first-process.stderr.txt",
+      "git_blob": "79676b22b78e442b142e2d38970863572e7a3f7e",
+      "bytes": 766,
+      "sha256_published": "818584ff9c688987f4e207d586730333c12f046c3c3521eb58f3dc8f840ea13d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/first-process.stdout.txt",
+      "git_blob": "dcc4f08d305c7778769098be247016dbf1ed9ade",
+      "bytes": 217,
+      "sha256_published": "ae44c755f051219506b361d742547fc66714fa40de7f4969926e4db67e4eee63",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/fixture-proof.json",
+      "git_blob": "4b994689395ada70f2e81b34a2e43369f1388307",
+      "bytes": 261,
+      "sha256_published": "f2b8a5d53ecb7b8092d2f02bcd213102acaaa9761a678041beedab241fa3e377",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/logical-removal-first-probe.json",
+      "git_blob": "f3eb52b04b292ac23031971e38d2917bd9820f98",
+      "bytes": 1893,
+      "sha256_published": "07996d848e46447e02c48bc79dbab28052869de72d9389decd0d43fb9327921b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/logical-removal-settled-probe.json",
+      "git_blob": "c31caad097ba2d689fae1691af517558b498b188",
+      "bytes": 1882,
+      "sha256_published": "0e54be0ae95c2be6d55f7a76803072de74bf3e70333b731a529dbf358702cd93",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/logical-removal-settled-window.jpg",
+      "git_blob": "a4de2043f90e7c730b445d30c9c341b6f8c98ca1",
+      "bytes": 28691,
+      "sha256_published": "0690b1b18407173f4c23cc58f8c8f041043dbf82a2c32baad20a8267c5ef6f5d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/logical-removal-settled-window.uia.txt",
+      "git_blob": "e424cf054ff3009a4126eaa24d49765b795962af",
+      "bytes": 29169,
+      "sha256_published": "c3f04f7581a15739469361eaf7a203257e8a06321c2ac676e19398ae5cfc4086",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/logical-topology-alert/start.json",
+      "git_blob": "5e63154532232e6edb5be6c959fb1e73567f7fe7",
+      "bytes": 136,
+      "sha256_published": "b615a0050caae64342f141b409ddcc204c789141653f64ce9b7e2606c334be6d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/logical-topology-alert/stderr.txt",
+      "git_blob": "fef45e493b27298f52b5b563fdccf6e3e47f3302",
+      "bytes": 112,
+      "sha256_published": "33ff2429092d48e2683f34b791164ee05fd399fa2a042337dd04be9efe0362f2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/logical-topology-alert/stop.json",
+      "git_blob": "db8b16fddeafa8038c05602bae2f1604e5f01b18",
+      "bytes": 54,
+      "sha256_published": "02538d9bb33a05d282eb36b68befe4928560a28e03fee94a5c0ee24399fcdafe",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/audio-loopback.py.txt",
+      "git_blob": "4bb7b76ef3d4f491e380a03d3b471bce847d3bf0",
+      "bytes": 1517,
+      "sha256_published": "2b397e81ab1086b32398f3b544683e0805482284b8bbb603f3c59930d1f30114",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/checkpoint.py.txt",
+      "git_blob": "f7de3b30392f27d27151bc31f7e881b1483a4a96",
+      "bytes": 1080,
+      "sha256_published": "e791f35ee4231c8cfe19038a4c6f892f29efa8dc03d0fdcb45b41b6ee97065c3",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/isolate-fresh-profile.py.txt",
+      "git_blob": "9ae98f099e29ef0a2e6dee4310814facf889b3c3",
+      "bytes": 2607,
+      "sha256_published": "a5a51f0e95c769baf610faa4d097d18bafa04ed7922c166920c5dd73ab73b47b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/launch.py.txt",
+      "git_blob": "20374c413dec1e581a9e4b552e7893b118deceeb",
+      "bytes": 932,
+      "sha256_published": "8bb6fffd2dc3760e93b878e857c98d48fbda33a20363246784a2d31a7836ba4f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/motion-config.cjs.txt",
+      "git_blob": "6ee8d2e6416c129a5b11e352b6b870be1da57afc",
+      "bytes": 898,
+      "sha256_published": "aac44f84c3a285bb8af1db17e92807e9f46e127b70fd6ac2695044ad4c24e04f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/probe.py.txt",
+      "git_blob": "b3c6e72a03a0f088383ce81a01c046323779e7db",
+      "bytes": 1133,
+      "sha256_published": "743d0d83b04c8de060b566e1d2c00fe2affad85afcc69fcabde268ff7d3bae0f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/read-motion.cjs.txt",
+      "git_blob": "6d91ab11863c63154efa756ed4eaf73521d02eb2",
+      "bytes": 771,
+      "sha256_published": "ba8eb63633bc888bcc72b11e89a84dd05bfc4d45c2460380b05f09506a26acb4",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/record-primary-safe.py.txt",
+      "git_blob": "2cb5efaafc9822674a29a78d92d8743e2c661c6a",
+      "bytes": 1196,
+      "sha256_published": "b8d4efca69f3cd81b7c80f11c5a820b86cbc043d7d065ef367e2192ff62a05a2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/record-secondary.py.txt",
+      "git_blob": "d8180d7955c2b98b9fc6fa8fee7bd397c5949a6a",
+      "bytes": 1202,
+      "sha256_published": "f99ba8cecdfade14310cdd95c785862b36c5543a62dffba827a066cf62031a43",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/restore-profile.py.txt",
+      "git_blob": "b750048cfb480a3bc11fddb84228794db97ad914",
+      "bytes": 2232,
+      "sha256_published": "90b481b4dbcb5bd5c40177666d7e26f0b4f4ba5a054d1e61a6e3236c8caecc90",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/seed-standard.py.txt",
+      "git_blob": "bc2955a3adc803620e7ea84a0ac68e9fd86f9cb0",
+      "bytes": 1326,
+      "sha256_published": "f91113699b11b3898e9a3a7b8748edb287922fb621dd03a028397b33d9cf2e36",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/method/timer-observe.py.txt",
+      "git_blob": "5dcad91038c24ecc0847b3478e9f6b04c5df94be",
+      "bytes": 763,
+      "sha256_published": "23a08265185c67c202f0e4e08f3342ba861222f757eb88320cd33bdb813e839e",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/normal-motion.json",
+      "git_blob": "b2ab8e395081551782482e4eb408e00c18e005fe",
+      "bytes": 437,
+      "sha256_published": "b9b4b3f09c343a0806ec4c3880b993129a70ac4a5afd34f2a07f4888147e0a22",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/normal-motion.json.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/normal-motion.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/original-profile-restoration-proof.json",
+      "git_blob": "37aa0a7d44607778cb6921bc1ead352dc233682d",
+      "bytes": 208,
+      "sha256_published": "d60e8d6fc4a99610926a33a43578bd80e27057b08e8f33d2a5d50280d21bad49",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/owned-app-pid.txt",
+      "git_blob": "df1f7d1ee19879a2c59413699d69ae6181060e5e",
+      "bytes": 5,
+      "sha256_published": "57a5e7cb3e5451f35e86229cbfa08a5d171701c8400b6d3599746e2bebfd6bfa",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/restore-clone-probe.json",
+      "git_blob": "7503bdbf14239464b5f3a3f8849133a922a749f7",
+      "bytes": 1882,
+      "sha256_published": "a4b174e20e210abd55db7a3cbdd404082b115435399e841402b1a69cc8b51e8f",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/restore-clone-settled.json",
+      "git_blob": "738f31b9ea56e4f4ea0a9a17b25c53ad942359f3",
+      "bytes": 1882,
+      "sha256_published": "2377d1855c8fa20b4ce7702c79f1781ef32fe067c901909b865a08b2399606ed",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/restored-secondary-running.jpg",
+      "git_blob": "d5fe93cacc12bf897065709fb93f080a20b05201",
+      "bytes": 25980,
+      "sha256_published": "78a643a08d3941f2775b2ec439c0fd612000f2cb25a15d19aa3f11d3505997b5",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/restored-secondary-running.uia.txt",
+      "git_blob": "ae307e8ac456d0a8fee6063d91eacf366ad2b445",
+      "bytes": 29127,
+      "sha256_published": "905a86a2a8f22e2774cc5cf7bad2cda72dde4b1a8400d5b37a7f9917fca4f4d2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-125percent-before-logical-removal.jpg",
+      "git_blob": "f980398709e4c993f2011a53338f4e11e667ea96",
+      "bytes": 26015,
+      "sha256_published": "255d40563c361e903fa99323c3fc95ceffa8e0ee3f9f85a22a7736edec7f742d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-125percent-before-logical-removal.uia.txt",
+      "git_blob": "80fe1967dfe1aea33d55bff55f2bcedb3103e180",
+      "bytes": 29127,
+      "sha256_published": "55798f853330d668542deb788fd7b2e0414cbb4136c4b4f177c512c026b172b4",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-before-removal.json",
+      "git_blob": "212bc7130cfff486b77d920b734b019e8c4150bc",
+      "bytes": 1886,
+      "sha256_published": "5c2435eebc79da1a81bc3a3fc868a14e2fe058d2d34e9d721d75d091bc383abd",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-normal-alert.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-normal-alert/start.json",
+      "git_blob": "0bab995c1381e4bd1a4424971ed75fc667a73374",
+      "bytes": 136,
+      "sha256_published": "dfb20f87ac757a833fba63a0fbdd770daba18d29cc1fee24a0b8c7ffc7dee70b",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-normal-alert/stderr.txt",
+      "git_blob": "008ce89f5d02e31dee3c6c0fb4cbe05163e2d4ce",
+      "bytes": 112,
+      "sha256_published": "f9e84bb79cdcc5e891a5e0df7111402fbdc34fdba0ece5cc52cac6a1135c1872",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-normal-alert/stop.json",
+      "git_blob": "6babf62d028acb4c85b821316606ddb855e5e0d0",
+      "bytes": 54,
+      "sha256_published": "9a1c8a84a6020e1446093dd5ae585e6ea4f75da86722fcf413502bb4cdf00881",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-normal-media.json",
+      "git_blob": "f2c92a3e5d021b9e51f6ee2b2f89321360d7e75a",
+      "bytes": 516,
+      "sha256_published": "a546869603ce63b99328c16b0e12c55e9ff6cfe31734b01742570ed5401abda8",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-panel-visible.jpg",
+      "git_blob": "0f350bc01abad7a12dd9f79a2483f833a8a39261",
+      "bytes": 29028,
+      "sha256_published": "c6335e4dca4350caa3ffcbe7c94a427d2aace1f473dfb44973143741cb9e7cfe",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-panel-visible.uia.txt",
+      "git_blob": "699455766b51d323d9715f7a44eef79ca3bdd6e2",
+      "bytes": 3621,
+      "sha256_published": "88c570f1f4eccb1061ee0b1e9ed6caba3d526d24a3d7d5609ecee172f62ab31c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-reentry-placement.json",
+      "git_blob": "b733f8a4563574e4133547035552c975317d24ff",
+      "bytes": 1893,
+      "sha256_published": "17448e8fa86ea05ea1b666a6187d276b9dc19ef0b5792a081b36a17fbccccd51",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/secondary-settled-before-removal.json",
+      "git_blob": "dac90f296be632e85ff89ed6ef7d725f19bd3d19",
+      "bytes": 1886,
+      "sha256_published": "2fbfe962b121cc3fa7e0c8bc21fd4739da0e744c47a2fd90a2edeee59b5ce478",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/session-meta.json",
+      "git_blob": "4e64ac8c5eaec532bc238615382213639e1536aa",
+      "bytes": 1327,
+      "sha256_published": "bc5e129f615b159f1b229fc5546774389bebfc61d59945c61b97aae1046ab68d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/timer-observation.jsonl",
+      "git_blob": "6460b4098acdd2c1ee6c489384f7124e20286956",
+      "bytes": 491589,
+      "sha256_published": "42aa4869dc9dcae3d54451c8d190fb7b0a7a55e465ea9dbae26a16065ae64eed",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/timer-observe.stderr.txt",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/timer-observe.stop",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "bytes": 0,
+      "sha256_published": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "category": "HOLD_CAPTURE_RECEIPT_MARKER",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/topology-first-launch.jpg",
+      "git_blob": "af5d6f4a311340a97ba2957a6074f0ab6a7d4cb5",
+      "bytes": 70681,
+      "sha256_published": "6e871c4e1d89be2edbd6ba938bb5bad6d5fb763cd0e73cfee266eed54081232a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/topology-first-launch.uia.txt",
+      "git_blob": "6426ff84914efd6a3273b759112c0d5989aa94bf",
+      "bytes": 11099,
+      "sha256_published": "1c68d579b13d0ee72b96f145a10763348742c8d6da6f7074a07e2200fcd28edc",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/topology-on-secondary.jpg",
+      "git_blob": "f7504bb2f129dd37019a9d11825839f045e6cb27",
+      "bytes": 23698,
+      "sha256_published": "4ddec251f2798f06463374949b2b928990a8a8b4b5150dd6de1424546fb078a9",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/topology-on-secondary.uia.txt",
+      "git_blob": "699455766b51d323d9715f7a44eef79ca3bdd6e2",
+      "bytes": 3621,
+      "sha256_published": "88c570f1f4eccb1061ee0b1e9ed6caba3d526d24a3d7d5609ecee172f62ab31c",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/topology-paused-before.jpg",
+      "git_blob": "333677a79d0b50298e17ed4b6cc6ba0de7d5fa39",
+      "bytes": 29019,
+      "sha256_published": "c86b7b667338fa214f5259eb3e1933ae60a478d4716d518abd96ec3d39e47840",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/topology-paused-before.uia.txt",
+      "git_blob": "2ab590108e8082e850728c83a9307ce12351ad3c",
+      "bytes": 29055,
+      "sha256_published": "b64e68f8d72ee5439a9c1a6d31cfdacfc47a0b70c3fd6eeff480ec3cb8a35a9a",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/topology-quick-preferences.jpg",
+      "git_blob": "3d564a9cd64e5736827168e9f094e525e2024cd2",
+      "bytes": 23942,
+      "sha256_published": "7cf1ff2651e600808fcb6585c62cda090b5f1150f44da76bcd26e714b15acb93",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/topology-quick-preferences.uia.txt",
+      "git_blob": "5d523c4f9866ebed05ad625fa332127d24e5e199",
+      "bytes": 29229,
+      "sha256_published": "a8a986802bdbe4f1fcf73496755faba82567e70be13d42bc6268c3729c27f7e0",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/topology-reentry-main.jpg",
+      "git_blob": "964602721f9562b45be3ad6f50b0e6269f6157e1",
+      "bytes": 183386,
+      "sha256_published": "5399a9c9bb6233d2bca779068c0add942b65adf9264f32715a4ea470b2c970e2",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/physical-acceptance-20261025/topology/topology-reentry-main.uia.txt",
+      "git_blob": "f7e6efad78128f0478941078a34ec1a1f7eef708",
+      "bytes": 93566,
+      "sha256_published": "4034b10251cefbb460eee2cefde457dbc27dcbf1d33ff17fea112e871398bd4d",
+      "category": "HOLD_NATIVE_EVIDENCE_SIDECAR",
+      "deletion_approved": false
+    }
+  ],
+  "limits": [
+    "SHA256SUMS is a published acquisition snapshot, not a newly computed file-content SHA-256 or proof of current recovery completeness.",
+    "analysis-v2.zip is a repaired analysis derivative, not one of the 11 original native film files. Its original container can be reassembled only after byte-accurate verification; the original analysis.zip frame-lookahead was erroneous.",
+    "Frozen 17/17 cases were bounded analysis completion, not 17 native acceptance PASS; strict PR389/419 gates remain independently constrained.",
+    "Ready/stop marker files include zero-byte values; presence is acquisition context, not product acceptance.",
+    "No evidence removed/extracted, no new CI or physical Windows test. All paths retained until justified provenance/consumer closure."
+  ]
+}

@@ -143,9 +143,11 @@ invariant(
   "M1 diagnostic build must use the isolated Main-diagnostics/product-Focus config without bundling",
 );
 invariant(
-  physicalConfig.build?.beforeBuildCommand === null
+  physicalConfig.build?.beforeBuildCommand === "node scripts/build-physical-frontend.mjs"
+    && physicalConfig.build?.frontendDist === "../dist-physical"
+    && JSON.stringify(physicalConfig.build?.features) === '["physical-observability"]'
     && physicalConfig.app === undefined,
-  "physical validation config may skip frontend rebuild but must not override production windows/URLs",
+  "physical tracing must use separate build inputs while preserving production windows/URLs",
 );
 const diagnosticWindows = diagnosticConfig.app?.windows ?? [];
 const diagnosticMain = diagnosticWindows.find((window) => window.label === "main");

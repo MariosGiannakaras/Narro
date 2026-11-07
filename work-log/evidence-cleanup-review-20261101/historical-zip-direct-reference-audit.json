@@ -1,0 +1,219 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "scope": "14 historical Narro-M7-Logs.zip files with all members matched in frozen tracked tree",
+  "source_manifest": "work-log/evidence-cleanup-review-20261101/matched-zip-consumer-review.json",
+  "method": "Read one scoped Markdown publication/README per ZIP on current main; verify literal family-local ZIP link or exact-path historical HOLD. Member and container identities are inherited from prior exhaustive audits, not rehashed here.",
+  "counts": {
+    "direct_published_zip_links": 12,
+    "explicit_historical_hold": 1,
+    "unresolved_scoped_readme": 1,
+    "provenance_supported_ci950_snapshot_hold": 1
+  },
+  "total_bytes": 1608787,
+  "records": [
+    {
+      "path": "work-log/evidence/2026-10-03-m7-ci873-c5-completed/Narro-M7-Logs.zip",
+      "git_blob": "b47beff4d06a61c97a91caaae61efb45989914c1",
+      "bytes": 672391,
+      "members": 41,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/2026-10-03-codex-m7-ci873-c5-completed.md",
+      "documentary_line": 35,
+      "kind": "DIRECT_PUBLISHED_WORKLOG_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    },
+    {
+      "path": "work-log/evidence/m7-ci884-20261003/Narro-M7-Logs.zip",
+      "git_blob": "5980f3ce3bdf6f2ce6c4eda3f4923ab85e938ac6",
+      "bytes": 4572,
+      "members": 6,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/evidence/m7-ci884-20261003/README.md",
+      "documentary_line": 28,
+      "kind": "DIRECT_FAMILY_README_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    },
+    {
+      "path": "work-log/evidence/m7-ci893-20261003/Narro-M7-Logs.zip",
+      "git_blob": "45e4a1df3e8b943be1b325a08bfd44dcbc0dc890",
+      "bytes": 9373,
+      "members": 11,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/2026-10-03-codex-m7-ci893-physical-batch-evidence.md",
+      "documentary_line": 30,
+      "kind": "DIRECT_PUBLISHED_WORKLOG_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    },
+    {
+      "path": "work-log/evidence/m7-ci950-loading-20261005/Narro-M7-Logs.zip",
+      "git_blob": "f4ff18cfe1fb0dfa9ce0147944611f4851c4ac99",
+      "bytes": 4166,
+      "members": 6,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/evidence/m7-ci950-loading-20261005/README.md",
+      "documentary_line": null,
+      "kind": "SCOPED_README_HAS_NO_DIRECT_ARCHIVE_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_SNAPSHOT_PENDING_TERMINAL_ADDENDUM_AND_CONTAINER_RETIREMENT",
+      "additional_provenance": [
+        {
+          "path": "work-log/evidence/m7-ci950-loading-20261005/README.md",
+          "observation": "Published byte-verified whole current log-folder ZIP; scoped loading-feedback PASS and pending keyboard responsiveness FAIL"
+        },
+        {
+          "path": "work-log/evidence/m7-ci950-loading-20261005/manifest.json",
+          "observation": "Exact 4,166-byte Narro-M7-Logs.zip with SHA-256 29143ec95cd920dc7d7a9108aa9cb7ceec5ebe9fc7d5631c77430932a611ea56"
+        },
+        {
+          "path": "work-log/evidence/m7-ci950-loading-20261005/log-snapshot.json",
+          "observation": "At acquisition, sessionStillActive=true, wholeCurrentFolderIncluded=true, terminalAddendumRequired=true"
+        }
+      ]
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-browser-shortcut-20261005/Narro-M7-Logs.zip",
+      "git_blob": "7b85cd9b76bdc6c9980e73dd9b5770506f256ab2",
+      "bytes": 51125,
+      "members": 14,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/evidence/m7-ci953-browser-shortcut-20261005/README.md",
+      "documentary_line": 10,
+      "kind": "DIRECT_FAMILY_README_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-gaps-20261005/Narro-M7-Logs.zip",
+      "git_blob": "3ea6adf42617e7975e5a6839fc8318042b40f317",
+      "bytes": 20797,
+      "members": 11,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/evidence/m7-ci953-gaps-20261005/README.md",
+      "documentary_line": 11,
+      "kind": "DIRECT_FAMILY_README_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-interfaces-20261005/Narro-M7-Logs.zip",
+      "git_blob": "8af0bf69038ecebe89829166af5e5be373b6310d",
+      "bytes": 20637,
+      "members": 11,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/evidence/m7-ci953-interfaces-20261005/README.md",
+      "documentary_line": 44,
+      "kind": "DIRECT_FAMILY_README_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-layout-20261005/Narro-M7-Logs.zip",
+      "git_blob": "8b67588679413a69a0d68f0314cf805d83ad9605",
+      "bytes": 34111,
+      "members": 11,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/evidence/m7-ci953-layout-20261005/README.md",
+      "documentary_line": 11,
+      "kind": "DIRECT_FAMILY_README_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-theme-20261005/Narro-M7-Logs.zip",
+      "git_blob": "ec37eb0f9c384d3be12c0241605acdc57f6033af",
+      "bytes": 19491,
+      "members": 11,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/evidence/m7-ci953-theme-20261005/README.md",
+      "documentary_line": 37,
+      "kind": "DIRECT_FAMILY_README_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    },
+    {
+      "path": "work-log/evidence/m7-pr235-native-capture-only-20261005/Narro-M7-Logs.zip",
+      "git_blob": "55b3344db198c2757f64fad9177d3717a43523f0",
+      "bytes": 44694,
+      "members": 11,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/evidence/m7-pr235-native-capture-only-20261005/README.md",
+      "documentary_line": 12,
+      "kind": "DIRECT_FAMILY_README_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    },
+    {
+      "path": "work-log/evidence/2026-10-03-m7-ci873-c5-computer-use-attempt/Narro-M7-Logs.zip",
+      "git_blob": "1c50b26d62187481acfec9dd74eb062c09d03156",
+      "bytes": 666865,
+      "members": 36,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/2026-10-03-codex-m7-ci873-c5-physical-attempt.md",
+      "documentary_line": 40,
+      "kind": "DIRECT_PUBLISHED_WORKLOG_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    },
+    {
+      "path": "work-log/evidence/m7-ci893-followup-20261003/Narro-M7-Logs.zip",
+      "git_blob": "68e44ed7eca413a8d03a81955e6c5fa45ce06c3b",
+      "bytes": 10949,
+      "members": 11,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/2026-10-30-chatgpt-cleanup-batch5-last25-predelete-audit.md",
+      "documentary_line": 35,
+      "kind": "EXPLICIT_HISTORICAL_PREDELETE_HOLD",
+      "deletion_approved": false,
+      "retention_status": "HOLD_EXPLICIT_PREDELETE"
+    },
+    {
+      "path": "work-log/evidence/m7-ci942-20261004/Narro-M7-Logs.zip",
+      "git_blob": "6a46dfb7a778b0f79e334c64eb5ae1dc77c9e303",
+      "bytes": 8323,
+      "members": 11,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/evidence/m7-ci942-20261004/README.md",
+      "documentary_line": 5,
+      "kind": "DIRECT_FAMILY_README_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    },
+    {
+      "path": "work-log/evidence/m7-ci953-success125-20261005/Narro-M7-Logs.zip",
+      "git_blob": "5154daba84712a276fcc13ef127c130e0a836cff",
+      "bytes": 41293,
+      "members": 11,
+      "all_members_exact_same_family_suffix": true,
+      "identical_tracked_zip_containers": 0,
+      "documentary_source": "work-log/evidence/m7-ci953-success125-20261005/README.md",
+      "documentary_line": 14,
+      "kind": "DIRECT_FAMILY_README_LINK",
+      "deletion_approved": false,
+      "retention_status": "HOLD_PUBLISHED_HISTORICAL_CONTAINER_LINK"
+    }
+  ],
+  "limitations": [
+    "The 12 direct links and one previous HOLD block immediate retirement; they do not prove permanent necessity.",
+    "No identical ZIP container is present in the frozen tracked tree, even when uncompressed member contents match. Container metadata, order, bytes and historical links are distinct.",
+    "No direct link in CI950's scoped README is not evidence of no consumers elsewhere.",
+    "No evidence removed/moved or extracted, no new CI/Windows native tests; 27-folder safety rejection continues.",
+    "The CI950 snapshot's active-session flag describes 2026-10-05 acquisition, not any current running process. A required terminal addendum has not been independently confirmed by this follow-up."
+  ],
+  "disposition_summary": "14/14 HOLD pending archive/container retirement proof; 12 published direct ZIP links, one pre-deletion explicit HOLD and one CI950 original whole-logs snapshot supported by README, exact SHA-256 manifest and acquisition log-snapshot. None deletion-approved."
+}

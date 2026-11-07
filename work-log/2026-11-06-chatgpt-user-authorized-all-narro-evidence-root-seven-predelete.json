@@ -1,0 +1,48 @@
+{
+  "date": "2026-11-06",
+  "new_user_direction": "Delete all Narro historical evidence, preserve ALL original Blitzit evidence; new native physical capture will replace old Narro physical checks.",
+  "scope": "Seven dated Narro-generated M7 CI191/CI624 checkout root screenshots only; outside previously safety-refused 27-family/4065-path and 10-family/29-media composite. Original Blitzit stored under reference/original-blitzit-videos and other reference canonical sources not touched. Application source/tests, logs, manifests, history not touched by this scoped batch.",
+  "predelete_main": "e1f5fec2476481ee9cda25af0b31f66fc22799b4",
+  "files": [
+    {
+      "path": "work-log/evidence/2026-09-28-m7-ci191-off-resize-tail.png",
+      "sha": "abbe2a94d3ef8de57784c58070b43d20a4a14c7e",
+      "bytes": 47571
+    },
+    {
+      "path": "work-log/evidence/2026-09-28-m7-ci191-r2-on-collapse-tail.png",
+      "sha": "434026da22f9e91dc5b70040a89dbdecb5619bcf",
+      "bytes": 15023
+    },
+    {
+      "path": "work-log/evidence/2026-09-28-m7-ci191-r3-off-white-frames.png",
+      "sha": "9acad9a1e2c6d54a0ed2f70a492ce3fef320ddd5",
+      "bytes": 79732
+    },
+    {
+      "path": "work-log/evidence/2026-09-28-m7-ci191-r4-off-white-frames.png",
+      "sha": "8dc3637de95909dec5f7aac43204ad877ce078a7",
+      "bytes": 98903
+    },
+    {
+      "path": "work-log/evidence/2026-09-28-m7-ci624-mixed-dpi.png",
+      "sha": "8108e4f8fdfa122d73bf02f036935602028276e7",
+      "bytes": 45457
+    },
+    {
+      "path": "work-log/evidence/2026-09-28-m7-ci624-resize-white.png",
+      "sha": "6911ca70d22234a06e45dade65d7be35a9728e77",
+      "bytes": 88867
+    },
+    {
+      "path": "work-log/evidence/2026-09-28-m7-ci624-timer-panel-white.png",
+      "sha": "316b1cb943169eb92d3ba4c401880027cb92ef97",
+      "bytes": 28189
+    }
+  ],
+  "count": 7,
+  "logical_bytes": 403742,
+  "recovery": "All seven bytes available in parent Git commit; no history rewrite.",
+  "continuation": "User overrides prior generic native/physical evidence HOLD but not actual safety tool refusals; next plan independently retire additional Narro-owned original packages only where tool permits, and keep authentic Blitzit reference untouched.",
+  "notes": "Scope is evidence-only. No physical acceptance PASS is claimed. A replacement native recording is expected, not already done. Do not advance x/5 to completed."
+}

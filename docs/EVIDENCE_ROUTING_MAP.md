@@ -1,5 +1,8 @@
 # Narro evidence routing map
 
+**Current unified Blitzit corpus (2026-11-06):** `reference/original-blitzit/` is the single source root for original comparison material. Use `screenshots/` (46 canonical static images), `videos/inbox/` (19 MP4 with 19 paired SRT captions), and `extracted-frames/` (two explicitly derived VE005 video frames). [`SOURCE_MANIFEST.json`](../reference/original-blitzit/SOURCE_MANIFEST.json) tracks every source's original location and exact unchanged Git blob identity. Never compare a new Narro physical capture against retired Narro media; original Blitzit is the reference. Historical immutable work logs may still mention pre-migration paths recoverable from old commits.
+
+
 **User-directed cross-version continuity:** an observed older state/behavior remains the current reconstruction target unless newer evidence actually contradicts it. Newer material being silent is not a source gap for that already demonstrated claim. Keep direct historical provenance separate from assumed present continuity; reserve UNKNOWN for genuinely unobserved/ambiguous details. U01-U41 local coverage is41/41, not41 wholly absent sources. See [current clarification](BLITZIT_UNVERIFIED_BEHAVIOR_REGISTER.md) and AGENTS.md.
 
 Status: **BINDING DISCOVERY MAP**
@@ -18,18 +21,18 @@ Normal bootstrap remains:
 
 `AI_START_HERE.md → AGENTS.md → ENGINEERING_QUALITY.md → AGENT_WORKFLOW.md → HANDOFF.md → active TODO/STATUS`.
 
-**No-repeat gate:** before any *new* research tracker, finding ID, raw capture, alternate source branch or evidence batch, inspect [active-vs-frozen tracker ownership + 20-branch inventory](TRACKER_STATUS_INDEX.md) and the current canonical ID/crosswalk. Reuse existing immutable receipts and source findings; do not open another research stream solely because the earlier one is buried in history. A genuinely new material observation may create a new work log only when its build/protocol/source, affected invariant and exact additional evidence are named. This rule does not authorize deleting evidence or revisiting optional M11.
+**No-repeat gate:** before any *new* research tracker, finding ID, raw capture, alternate source branch or evidence batch, inspect [current-vs-historical tracker ownership](TRACKER_STATUS_INDEX.md) and the current canonical ID/crosswalk. Reuse existing immutable receipts and source findings; do not open another research stream solely because the earlier one is buried in history. A genuinely new material observation may create a new work log only when its build/protocol/source, affected invariant and exact additional evidence are named. Fresh physical sessions follow the current recording protocol; no frozen 20-branch count is a live branch inventory. This rule does not authorize deleting evidence or revisiting optional M11.
 
 When work touches a user-visible surface, Blitzit parity, source evidence, physical visual validation, or a broad set of corrective findings, continue through this map before claiming the surface complete. Use `docs/DEEP_ANALYSIS_IMPLEMENTATION_WORKFLOW.md` for the binding analysis → disposition → causal tracing → implementation campaign standard.
 
-**ChatGPT analysis of repository videos (standing user preference, 2026-10-24):** when original MKV/MP4 binaries are inaccessible through ordinary GitHub file reads, prefer the proven **temporary, analysis-only GitHub Actions original-byte artifact bridge**; download and inspect the real videos and PTS before visual/motion claims. **Adobe is optional, not needed for this path; do not use Canva.** Reuse an existing nonexpired artifact before creating a new run. Procedure and examples: [Windows UI video review — ChatGPT video-analysis access](WINDOWS_UI_VIDEO_REVIEW.md#chatgpt-video-analysis-access-github-artifact-first-standing-user-preference-2026-10-24). No product-code edits, source-parity or physical PASS implied.
+**ChatGPT analysis of repository videos (standing user preference, 2026-10-24):** when original MKV/MP4 binaries are inaccessible through ordinary GitHub file reads, prefer the proven **temporary, analysis-only GitHub Actions original-byte artifact bridge**; download and inspect the real videos and PTS before visual/motion claims. **Adobe is optional, not needed for this path; do not use Canva.** For the new campaign this access route is restricted to authentic Blitzit sources or newly acquired Narro evidence; do not recover retired Narro media as new comparison inputs. Reuse an existing nonexpired software artifact before creating a new build run. Procedure and examples: [Windows UI video review — ChatGPT video-analysis access](WINDOWS_UI_VIDEO_REVIEW.md#chatgpt-video-analysis-access-github-artifact-first-standing-user-preference-2026-10-24). No product-code edits, source-parity or physical PASS implied.
 
 ## Evidence layers
 
 | Layer | Canonical files | Authoritative for | Not authoritative for |
 | --- | --- | --- | --- |
-| Raw static source | `reference/original-blitzit-screenshots/`, `CANONICAL_INDEX.md` | retained screenshot pixels, provenance, dimensions | implementation status |
-| Raw motion source | `reference/original-blitzit-videos/inbox/` | original MP4/SRT corpus | current Pass-3 counters |
+| Raw static source | `reference/original-blitzit/screenshots/`, `CANONICAL_INDEX.md` | retained screenshot pixels, provenance, dimensions | implementation status |
+| Raw motion source | `reference/original-blitzit/videos/inbox/` | original MP4/SRT corpus | current Pass-3 counters |
 | Current exhaustive source forensics | `BLITZIT_FORENSIC_PASS3_TRACKER.md`, `...SCREENSHOTS.md`, `...VIDEOS.md`, `...HANDOFF.md` | current source-inspection state and canonical Pass-3 findings | Narro implementation PASS |
 | Static visual calibration | `BLITZIT_VISUAL_CALIBRATION_PLAN.md`, `BLITZIT_VISUAL_CALIBRATION_TRACKER.md`, `BLITZIT_VISUAL_SYSTEM.md` | representative-source calibration and reusable visual-system rules for high-fidelity reconstruction | runtime correctness |
 | Prior evidence passes | `BLITZIT_VIDEO_EVIDENCE.md`, `BLITZIT_UI_UX_VIDEO_FORENSICS.md`, Help Center evidence, `RESEARCH_EVIDENCE.md`, `SOURCE_AUDIT.md` | prior-pass context and corroboration | current exhaustive completion |

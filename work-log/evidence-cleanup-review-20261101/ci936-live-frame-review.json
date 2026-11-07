@@ -1,0 +1,3066 @@
+{
+  "inventory_baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "source_recovery_commit": "6bef54f79c9d1a0015afabc8e050cc93b40c8584",
+  "source_current_main": "ABSENT",
+  "source_original_sha256": "4c094ab6e671076a8a331ba2d8cf44f7bc2ee608c9f0070b5e8c91a390663efb",
+  "source_bytes": 514153718,
+  "source_parts_verified": 13,
+  "status": "AUDIT_ONLY_NO_DELETION",
+  "limitation": "Duplicate candidates require consumer, source timeline, complete path and policy review before any deletion. Provenance marks source frames unreviewed. Source is available in historical Git, not current main. No physical verdict is inferred.",
+  "sequences": [
+    {
+      "sequence": "100-normal-collapse-1",
+      "declared_frames": 180,
+      "tracked_frames": 180,
+      "provenance_reviewed": false,
+      "distinct_git_blobs": 83,
+      "entries": [
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-001.png",
+          "ordinal": 1,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-002.png",
+          "ordinal": 2,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-003.png",
+          "ordinal": 3,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-004.png",
+          "ordinal": 4,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-005.png",
+          "ordinal": 5,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-006.png",
+          "ordinal": 6,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-007.png",
+          "ordinal": 7,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-008.png",
+          "ordinal": 8,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-009.png",
+          "ordinal": 9,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-010.png",
+          "ordinal": 10,
+          "git_blob": "93574b3be1907f8637f6d84e460ab9bb66247c79",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-011.png",
+          "ordinal": 11,
+          "git_blob": "29dbf06d4f7887e39cbaa5767cedf51d8366b196",
+          "bytes": 21483,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-012.png",
+          "ordinal": 12,
+          "git_blob": "eef68ad58b3c21423263ab9f93e9ce097992f0ae",
+          "bytes": 21477,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-013.png",
+          "ordinal": 13,
+          "git_blob": "8065cedba5ee27442a9020b1e93c44f9a68a534c",
+          "bytes": 20812,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-014.png",
+          "ordinal": 14,
+          "git_blob": "8065cedba5ee27442a9020b1e93c44f9a68a534c",
+          "bytes": 20812,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-015.png",
+          "ordinal": 15,
+          "git_blob": "29d4fe99faf3dc9cb893757b3ebfde23b0040ab8",
+          "bytes": 21373,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-016.png",
+          "ordinal": 16,
+          "git_blob": "b62d1ea96ff6ec0630514cedc6bf9c5bd1927c19",
+          "bytes": 21512,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-017.png",
+          "ordinal": 17,
+          "git_blob": "b04108a2c524c1e21c384cba5880a15b55bc8fb3",
+          "bytes": 21470,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-018.png",
+          "ordinal": 18,
+          "git_blob": "c39bfb747616707477ce8926bf9101ebf01f1fb0",
+          "bytes": 21498,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-019.png",
+          "ordinal": 19,
+          "git_blob": "48b3b8d92f4bb7a4924cc6769c67f7a2aa8109f1",
+          "bytes": 21494,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-020.png",
+          "ordinal": 20,
+          "git_blob": "0fbbdc237cffb87982717fd3c6771bf30870eca1",
+          "bytes": 21485,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-021.png",
+          "ordinal": 21,
+          "git_blob": "c0168205bd73db3aad3125c208a23808bc821c91",
+          "bytes": 21505,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-022.png",
+          "ordinal": 22,
+          "git_blob": "9e9314e96c9201a790f1db7344d419746f195783",
+          "bytes": 21504,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-023.png",
+          "ordinal": 23,
+          "git_blob": "9e9314e96c9201a790f1db7344d419746f195783",
+          "bytes": 21504,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-024.png",
+          "ordinal": 24,
+          "git_blob": "cee5827c332f7a7e8d0a7ff4b9867aeab3f524a4",
+          "bytes": 21497,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-025.png",
+          "ordinal": 25,
+          "git_blob": "cee5827c332f7a7e8d0a7ff4b9867aeab3f524a4",
+          "bytes": 21497,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-026.png",
+          "ordinal": 26,
+          "git_blob": "bff4e5afcd6b243ccbfe4063e79f97211a8bcb91",
+          "bytes": 21525,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-027.png",
+          "ordinal": 27,
+          "git_blob": "2f16f9e285f1cf7f1625b3c6f33daa1c3fb48acd",
+          "bytes": 21545,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-028.png",
+          "ordinal": 28,
+          "git_blob": "e178c24b15306c111d4db69c106611323b30f887",
+          "bytes": 21531,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-029.png",
+          "ordinal": 29,
+          "git_blob": "1fea159dec68eeecd96d2c44bcefd99fe9c92f39",
+          "bytes": 25147,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-030.png",
+          "ordinal": 30,
+          "git_blob": "3bae15b8bdca948ec433f7b2141e164caec76d68",
+          "bytes": 36161,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-031.png",
+          "ordinal": 31,
+          "git_blob": "8393b20db6ad602755ddb462f685d4114dc44e65",
+          "bytes": 40208,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-032.png",
+          "ordinal": 32,
+          "git_blob": "c4ef20a051b3aee8d3b8a2ba9c52baa710efa05c",
+          "bytes": 49040,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-033.png",
+          "ordinal": 33,
+          "git_blob": "3d3380c2f0c13cea290b056d66c8221b39172111",
+          "bytes": 53506,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-034.png",
+          "ordinal": 34,
+          "git_blob": "0748da4c0821b4ec2fae7da341fc1f4ce5239b6c",
+          "bytes": 55245,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-035.png",
+          "ordinal": 35,
+          "git_blob": "8908d12829a0c246091351e70e422fc1aaebec36",
+          "bytes": 57603,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-036.png",
+          "ordinal": 36,
+          "git_blob": "2232cb23dba265b19e4f7fd9481a6ef6d7d6326d",
+          "bytes": 59371,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-037.png",
+          "ordinal": 37,
+          "git_blob": "443ae494b432a8810286e19e130f048e0b6742f7",
+          "bytes": 60147,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-038.png",
+          "ordinal": 38,
+          "git_blob": "5d46f316442a28702a01c9b00ad8ba2d75edef91",
+          "bytes": 60550,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-039.png",
+          "ordinal": 39,
+          "git_blob": "ec95be1d65927899763e39ffb6c516a405379880",
+          "bytes": 60856,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-040.png",
+          "ordinal": 40,
+          "git_blob": "3249bb974ea2d449f7f648ff804752506f183b31",
+          "bytes": 61456,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-041.png",
+          "ordinal": 41,
+          "git_blob": "fcdab5e93fdbfa5f7c042b579a0c6f3b01eb75cb",
+          "bytes": 61365,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-042.png",
+          "ordinal": 42,
+          "git_blob": "28a102d01401c89564c63ea93dd37e2975bc51a9",
+          "bytes": 61190,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-043.png",
+          "ordinal": 43,
+          "git_blob": "ef9b50cf3abad86b9c94d2ffee19f1958100e31c",
+          "bytes": 61266,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-044.png",
+          "ordinal": 44,
+          "git_blob": "d54d4b26a298285974dc196ad8dc9cb6afe583c0",
+          "bytes": 61267,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-045.png",
+          "ordinal": 45,
+          "git_blob": "c635980b34d821d7468e5ec01977e379626befca",
+          "bytes": 61496,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-046.png",
+          "ordinal": 46,
+          "git_blob": "a79c82805170f1a26110db6ca630076baaa28267",
+          "bytes": 61002,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-047.png",
+          "ordinal": 47,
+          "git_blob": "24be84874494bdcd138d9c010c24953689edbdc3",
+          "bytes": 59105,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-048.png",
+          "ordinal": 48,
+          "git_blob": "b9b31dd0f2002eb2dcf4c048d541953a16062e57",
+          "bytes": 58893,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-049.png",
+          "ordinal": 49,
+          "git_blob": "661de0f78fad3371d2f0e2136b02f656ea7dd449",
+          "bytes": 58804,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-050.png",
+          "ordinal": 50,
+          "git_blob": "a7c1388771cacba2e4b3592be58a16037df283b2",
+          "bytes": 58749,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-051.png",
+          "ordinal": 51,
+          "git_blob": "264174e76a5092fb119df6e11a078b75520bbb68",
+          "bytes": 58686,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-052.png",
+          "ordinal": 52,
+          "git_blob": "f901c850bb8195318c89001657f6f68622fc3565",
+          "bytes": 58699,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-053.png",
+          "ordinal": 53,
+          "git_blob": "1d609fb302c43bf27d85a47d9624cab9d7a12eec",
+          "bytes": 58710,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-054.png",
+          "ordinal": 54,
+          "git_blob": "bab8b4b7a647af6adfcbb13e2ebcaf784c6b66d2",
+          "bytes": 58705,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-055.png",
+          "ordinal": 55,
+          "git_blob": "18ec891fd948a3192f0dae61cf6a48447d74b792",
+          "bytes": 58705,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-056.png",
+          "ordinal": 56,
+          "git_blob": "964f5c935c8c8e6c3e2837748d0f79415024aa1c",
+          "bytes": 58702,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-057.png",
+          "ordinal": 57,
+          "git_blob": "1b5d3e2a983a70083c99ce0984dd5f8b959533ea",
+          "bytes": 58743,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-058.png",
+          "ordinal": 58,
+          "git_blob": "1adee570657e07f892abfc3bc4280c8b660a4086",
+          "bytes": 58756,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-059.png",
+          "ordinal": 59,
+          "git_blob": "cae36b1fed0493ebdef0a0641ff80eec4321b5d7",
+          "bytes": 59800,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-060.png",
+          "ordinal": 60,
+          "git_blob": "4d7e726f8ee63911e9fca612b40b60b218e71265",
+          "bytes": 59522,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-061.png",
+          "ordinal": 61,
+          "git_blob": "b23cdfdcb77597b43c976f1f1607702394e9d003",
+          "bytes": 58490,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-062.png",
+          "ordinal": 62,
+          "git_blob": "f4b08b21013f2c71b755b151e06baa82ebb1044f",
+          "bytes": 57514,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-063.png",
+          "ordinal": 63,
+          "git_blob": "8cd950f103cae3acf8a055da7828a1752fa5fef3",
+          "bytes": 56637,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-064.png",
+          "ordinal": 64,
+          "git_blob": "53f74eacdfb8eb41a5d7ef836808436eed0ba2b9",
+          "bytes": 56222,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-065.png",
+          "ordinal": 65,
+          "git_blob": "45fecdac84a7ad34c5614c8f5964a17b1b938550",
+          "bytes": 55916,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-066.png",
+          "ordinal": 66,
+          "git_blob": "09d826712ca954c559e9a0b1f4966cfaaeb98ce5",
+          "bytes": 55649,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-067.png",
+          "ordinal": 67,
+          "git_blob": "376771440f8d9da151d96bd8b641e7d0feeec749",
+          "bytes": 55603,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-068.png",
+          "ordinal": 68,
+          "git_blob": "a831cd6eb5f5d03535aadff6e67d66c2e70f60c1",
+          "bytes": 55599,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-069.png",
+          "ordinal": 69,
+          "git_blob": "1c64ff1ec40d81be6ec6b6703d785db224be90a9",
+          "bytes": 55601,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-070.png",
+          "ordinal": 70,
+          "git_blob": "043c5e8577c7c5285689e71385f96da1edf6e0b1",
+          "bytes": 55586,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-071.png",
+          "ordinal": 71,
+          "git_blob": "cc071f1effb71501036eeb9d304ce1cd4d75251f",
+          "bytes": 55588,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-072.png",
+          "ordinal": 72,
+          "git_blob": "e65d60f80ac23597aff24bad8357fc52915ae372",
+          "bytes": 55601,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-073.png",
+          "ordinal": 73,
+          "git_blob": "084974406ca784044ac84faf8db11610c1371e3f",
+          "bytes": 55600,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-074.png",
+          "ordinal": 74,
+          "git_blob": "9e9eb4f8fc4eba02e051f5af3cb0dd736d9024d7",
+          "bytes": 55607,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png",
+          "ordinal": 75,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-076.png",
+          "ordinal": 76,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-077.png",
+          "ordinal": 77,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-078.png",
+          "ordinal": 78,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-079.png",
+          "ordinal": 79,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-080.png",
+          "ordinal": 80,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-081.png",
+          "ordinal": 81,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-082.png",
+          "ordinal": 82,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-083.png",
+          "ordinal": 83,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-084.png",
+          "ordinal": 84,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-085.png",
+          "ordinal": 85,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-086.png",
+          "ordinal": 86,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-087.png",
+          "ordinal": 87,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-088.png",
+          "ordinal": 88,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-089.png",
+          "ordinal": 89,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-090.png",
+          "ordinal": 90,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-091.png",
+          "ordinal": 91,
+          "git_blob": "1c4f655deefcbc80db9b01054047ffec44603339",
+          "bytes": 55622,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-075.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-092.png",
+          "ordinal": 92,
+          "git_blob": "b819794c026d933dfeadcb828686c6548f12c470",
+          "bytes": 55631,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-093.png",
+          "ordinal": 93,
+          "git_blob": "2520bc38c2482f0cb6003bcaa15748d37be6ed62",
+          "bytes": 55626,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-094.png",
+          "ordinal": 94,
+          "git_blob": "08027fe8f59d6eb2d565682a1ced5eb706c829b9",
+          "bytes": 55628,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png",
+          "ordinal": 95,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-096.png",
+          "ordinal": 96,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-097.png",
+          "ordinal": 97,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-098.png",
+          "ordinal": 98,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-099.png",
+          "ordinal": 99,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-100.png",
+          "ordinal": 100,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-101.png",
+          "ordinal": 101,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-102.png",
+          "ordinal": 102,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-103.png",
+          "ordinal": 103,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-104.png",
+          "ordinal": 104,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-105.png",
+          "ordinal": 105,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-106.png",
+          "ordinal": 106,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-107.png",
+          "ordinal": 107,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-108.png",
+          "ordinal": 108,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-109.png",
+          "ordinal": 109,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-110.png",
+          "ordinal": 110,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-111.png",
+          "ordinal": 111,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-112.png",
+          "ordinal": 112,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-113.png",
+          "ordinal": 113,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-114.png",
+          "ordinal": 114,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-115.png",
+          "ordinal": 115,
+          "git_blob": "794c6fd790c91b2df45c0812d5cbee2fcace8a43",
+          "bytes": 55630,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-095.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-116.png",
+          "ordinal": 116,
+          "git_blob": "2ec4e3cfc859d21181d0736c5b395d5927d1a8e5",
+          "bytes": 55617,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-117.png",
+          "ordinal": 117,
+          "git_blob": "62872f181487844f61c348e432fe4db74603dc37",
+          "bytes": 55610,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-118.png",
+          "ordinal": 118,
+          "git_blob": "b587502605b5c16d6d342bf4917d62d98b1ea67a",
+          "bytes": 55611,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-119.png",
+          "ordinal": 119,
+          "git_blob": "57949e726792a26e138f4bd317e043211093938c",
+          "bytes": 55627,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-120.png",
+          "ordinal": 120,
+          "git_blob": "b1675992f8c23090b84f9c8d4d7771514498725a",
+          "bytes": 55625,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-121.png",
+          "ordinal": 121,
+          "git_blob": "b1675992f8c23090b84f9c8d4d7771514498725a",
+          "bytes": 55625,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-120.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-122.png",
+          "ordinal": 122,
+          "git_blob": "86492e43fe1bc8933de0b229b0df28605dec8ab7",
+          "bytes": 55623,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-123.png",
+          "ordinal": 123,
+          "git_blob": "86492e43fe1bc8933de0b229b0df28605dec8ab7",
+          "bytes": 55623,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-122.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-124.png",
+          "ordinal": 124,
+          "git_blob": "86492e43fe1bc8933de0b229b0df28605dec8ab7",
+          "bytes": 55623,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-122.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-125.png",
+          "ordinal": 125,
+          "git_blob": "86492e43fe1bc8933de0b229b0df28605dec8ab7",
+          "bytes": 55623,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-122.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-126.png",
+          "ordinal": 126,
+          "git_blob": "86492e43fe1bc8933de0b229b0df28605dec8ab7",
+          "bytes": 55623,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-122.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-127.png",
+          "ordinal": 127,
+          "git_blob": "86492e43fe1bc8933de0b229b0df28605dec8ab7",
+          "bytes": 55623,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-122.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-128.png",
+          "ordinal": 128,
+          "git_blob": "86492e43fe1bc8933de0b229b0df28605dec8ab7",
+          "bytes": 55623,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-122.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-129.png",
+          "ordinal": 129,
+          "git_blob": "86492e43fe1bc8933de0b229b0df28605dec8ab7",
+          "bytes": 55623,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-122.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-130.png",
+          "ordinal": 130,
+          "git_blob": "86492e43fe1bc8933de0b229b0df28605dec8ab7",
+          "bytes": 55623,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-131.png",
+          "ordinal": 131,
+          "git_blob": "7e588d13623b8fcdb98466f463bcd586c6731b9f",
+          "bytes": 51864,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-132.png",
+          "ordinal": 132,
+          "git_blob": "108c18feea9270fc33bc0fb788c608a2346561a9",
+          "bytes": 51884,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-133.png",
+          "ordinal": 133,
+          "git_blob": "430fd5c9a51c2682a91ed4d7639c0aba6c01cfbc",
+          "bytes": 51886,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-134.png",
+          "ordinal": 134,
+          "git_blob": "a76295bdd7179edb89af16673596d290af5516ec",
+          "bytes": 51895,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png",
+          "ordinal": 135,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-136.png",
+          "ordinal": 136,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-137.png",
+          "ordinal": 137,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-138.png",
+          "ordinal": 138,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-139.png",
+          "ordinal": 139,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-140.png",
+          "ordinal": 140,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-141.png",
+          "ordinal": 141,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-142.png",
+          "ordinal": 142,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-143.png",
+          "ordinal": 143,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-144.png",
+          "ordinal": 144,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-145.png",
+          "ordinal": 145,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-146.png",
+          "ordinal": 146,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-147.png",
+          "ordinal": 147,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-148.png",
+          "ordinal": 148,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-149.png",
+          "ordinal": 149,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-150.png",
+          "ordinal": 150,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-151.png",
+          "ordinal": 151,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-152.png",
+          "ordinal": 152,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-153.png",
+          "ordinal": 153,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-154.png",
+          "ordinal": 154,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-155.png",
+          "ordinal": 155,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-156.png",
+          "ordinal": 156,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-157.png",
+          "ordinal": 157,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-158.png",
+          "ordinal": 158,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-159.png",
+          "ordinal": 159,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-160.png",
+          "ordinal": 160,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-161.png",
+          "ordinal": 161,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-162.png",
+          "ordinal": 162,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-163.png",
+          "ordinal": 163,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-164.png",
+          "ordinal": 164,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-165.png",
+          "ordinal": 165,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-166.png",
+          "ordinal": 166,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-167.png",
+          "ordinal": 167,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-168.png",
+          "ordinal": 168,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-169.png",
+          "ordinal": 169,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-170.png",
+          "ordinal": 170,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-171.png",
+          "ordinal": 171,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-172.png",
+          "ordinal": 172,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-173.png",
+          "ordinal": 173,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-174.png",
+          "ordinal": 174,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-175.png",
+          "ordinal": 175,
+          "git_blob": "18deceeb7dd9044ba2b110402c67cea7265a5fb2",
+          "bytes": 51902,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-135.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-176.png",
+          "ordinal": 176,
+          "git_blob": "482bcb22c37740ad50e510c3389c74d640b16e61",
+          "bytes": 51907,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-177.png",
+          "ordinal": 177,
+          "git_blob": "c39114bdeb37a789223d6b6ed6098a19358d5ae1",
+          "bytes": 51897,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-178.png",
+          "ordinal": 178,
+          "git_blob": "c20c9d7d5171659f0b27d21b0a2cda95a75b79ef",
+          "bytes": 51895,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-179.png",
+          "ordinal": 179,
+          "git_blob": "2e1f72d4cbf9e10cb8f7da7992434d60c59f33d8",
+          "bytes": 51884,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-1/frame-180.png",
+          "ordinal": 180,
+          "git_blob": "2e1f72d4cbf9e10cb8f7da7992434d60c59f33d8",
+          "bytes": 51884,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        }
+      ]
+    },
+    {
+      "sequence": "100-normal-collapse-2",
+      "declared_frames": 180,
+      "tracked_frames": 180,
+      "provenance_reviewed": false,
+      "distinct_git_blobs": 73,
+      "entries": [
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-001.png",
+          "ordinal": 1,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-002.png",
+          "ordinal": 2,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-003.png",
+          "ordinal": 3,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-004.png",
+          "ordinal": 4,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-005.png",
+          "ordinal": 5,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-006.png",
+          "ordinal": 6,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-007.png",
+          "ordinal": 7,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-008.png",
+          "ordinal": 8,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-009.png",
+          "ordinal": 9,
+          "git_blob": "58cb2d3ea6fae079c6abe3f01df4d304592a40b4",
+          "bytes": 21475,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-010.png",
+          "ordinal": 10,
+          "git_blob": "f7b1cb3438f12711633c28d7017d0d1593bab30d",
+          "bytes": 21479,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-011.png",
+          "ordinal": 11,
+          "git_blob": "3c880c2c34e1b398110df5630354912f6a876a7c",
+          "bytes": 21487,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-012.png",
+          "ordinal": 12,
+          "git_blob": "62eaeaaac304d47860535946545f3b78398e1eb6",
+          "bytes": 21480,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-013.png",
+          "ordinal": 13,
+          "git_blob": "98d8c065c17b09eb412849612d5cb28202afd3e6",
+          "bytes": 21492,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-014.png",
+          "ordinal": 14,
+          "git_blob": "12aa36c4b4fe83fc49522dea3a0c3b8a5793793f",
+          "bytes": 20838,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-015.png",
+          "ordinal": 15,
+          "git_blob": "12aa36c4b4fe83fc49522dea3a0c3b8a5793793f",
+          "bytes": 20838,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-016.png",
+          "ordinal": 16,
+          "git_blob": "c455e851da8228c3b19490fd35c8e2be975cfdc5",
+          "bytes": 21242,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-017.png",
+          "ordinal": 17,
+          "git_blob": "d9454426793dd4645a2005f9a84d13b581ec2560",
+          "bytes": 21386,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-018.png",
+          "ordinal": 18,
+          "git_blob": "05eb9b1d276fc1a95322cd5ff9e0350b48fe8ccf",
+          "bytes": 21451,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-019.png",
+          "ordinal": 19,
+          "git_blob": "b94b7b5ae19a8a1d5e0dfe4d5e1e8b51a6559973",
+          "bytes": 21552,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-020.png",
+          "ordinal": 20,
+          "git_blob": "e65c3b5ccc0db89d6fb012c74613e67f05b44bfb",
+          "bytes": 21555,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-021.png",
+          "ordinal": 21,
+          "git_blob": "7d19842f355a2247a19652a8bbcd4928e0708b7c",
+          "bytes": 21557,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-022.png",
+          "ordinal": 22,
+          "git_blob": "7d19842f355a2247a19652a8bbcd4928e0708b7c",
+          "bytes": 21557,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-023.png",
+          "ordinal": 23,
+          "git_blob": "7d19842f355a2247a19652a8bbcd4928e0708b7c",
+          "bytes": 21557,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-024.png",
+          "ordinal": 24,
+          "git_blob": "7d19842f355a2247a19652a8bbcd4928e0708b7c",
+          "bytes": 21557,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-025.png",
+          "ordinal": 25,
+          "git_blob": "7d19842f355a2247a19652a8bbcd4928e0708b7c",
+          "bytes": 21557,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-026.png",
+          "ordinal": 26,
+          "git_blob": "96893ad039e7df09596450530bd335a4482b7390",
+          "bytes": 21592,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-027.png",
+          "ordinal": 27,
+          "git_blob": "c2145224c9fae74ba110e2f1354ea7989ffc62a2",
+          "bytes": 21614,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-028.png",
+          "ordinal": 28,
+          "git_blob": "a91af070bd668ac297368e8a51782df84509db94",
+          "bytes": 21451,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-029.png",
+          "ordinal": 29,
+          "git_blob": "b4e38e3a7c2ed8f13a8f6d82bf592908a1f14d7a",
+          "bytes": 33838,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-030.png",
+          "ordinal": 30,
+          "git_blob": "f0a600cc2ed5146d02e543ea6c0fb1c288f4f39f",
+          "bytes": 38763,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-031.png",
+          "ordinal": 31,
+          "git_blob": "b0b1de2d9419b7a7ab20a8abcda3b7361064e4b8",
+          "bytes": 44591,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-032.png",
+          "ordinal": 32,
+          "git_blob": "1cf1a691cf24e0cc15af0cbad14272bf53e1e7b8",
+          "bytes": 50142,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-033.png",
+          "ordinal": 33,
+          "git_blob": "8731f709b9f1ccd3b13ca51d14047cd04e07a847",
+          "bytes": 51404,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-034.png",
+          "ordinal": 34,
+          "git_blob": "dd6fd24d295e2ff6bd85b5f8866b8642c468f251",
+          "bytes": 54765,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-035.png",
+          "ordinal": 35,
+          "git_blob": "57684c25ae91e7259fe5f9e143b2990619df9dd7",
+          "bytes": 56377,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-036.png",
+          "ordinal": 36,
+          "git_blob": "d4cb7f4746183487a2c4e855e86bbc463ae483d6",
+          "bytes": 56541,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-037.png",
+          "ordinal": 37,
+          "git_blob": "c145b6fa961b29d33525473bd741d990493ddc59",
+          "bytes": 57450,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-038.png",
+          "ordinal": 38,
+          "git_blob": "b0a97a1caa2015e6bc33c547951ea0aded068371",
+          "bytes": 57581,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-039.png",
+          "ordinal": 39,
+          "git_blob": "254904b5152c9e87d1c6e785bd306fb544eb6203",
+          "bytes": 58034,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-040.png",
+          "ordinal": 40,
+          "git_blob": "2172cb54ba801aaaa2f0743e300429c248d8ca78",
+          "bytes": 57571,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-041.png",
+          "ordinal": 41,
+          "git_blob": "94a0464a2fdb6867d9921f73dde63b1a4f02a76e",
+          "bytes": 57909,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-042.png",
+          "ordinal": 42,
+          "git_blob": "684bce28d911de5f2b8421eac0852bb068813776",
+          "bytes": 57983,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-043.png",
+          "ordinal": 43,
+          "git_blob": "c3557832286fa0c7d51cda68837e52830f60928a",
+          "bytes": 58018,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-044.png",
+          "ordinal": 44,
+          "git_blob": "0d69c018ec9ec8aa3ab3a9cc168be672e5c8b44b",
+          "bytes": 58303,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-045.png",
+          "ordinal": 45,
+          "git_blob": "8a46a5ec2b1c5f43be1f1e52331ff47dd7762c4e",
+          "bytes": 57901,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-046.png",
+          "ordinal": 46,
+          "git_blob": "1e96bba1e5df30bfccb043269fcb9cf55b88c93f",
+          "bytes": 57448,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-047.png",
+          "ordinal": 47,
+          "git_blob": "7ca0fd1437ec0b45a0c8584cfb8b7f9ea6cd156b",
+          "bytes": 57311,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-048.png",
+          "ordinal": 48,
+          "git_blob": "224ef358dfd7faa63ffee54bf1776eb103071a09",
+          "bytes": 57196,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-049.png",
+          "ordinal": 49,
+          "git_blob": "bb06b06f9d0d217da94980ce3fa2182706cbfee4",
+          "bytes": 57202,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-050.png",
+          "ordinal": 50,
+          "git_blob": "f4eff2d6e7f7a67aca9e097ebd693f3c690cd8cd",
+          "bytes": 57225,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-051.png",
+          "ordinal": 51,
+          "git_blob": "b5f0eee46b00fe58e61eb2100f432d0fb4e69db9",
+          "bytes": 57208,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-052.png",
+          "ordinal": 52,
+          "git_blob": "ff4a5d9c6a42dfb8e0d295f8b81968b9afd0d784",
+          "bytes": 57232,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-053.png",
+          "ordinal": 53,
+          "git_blob": "6fb353050511df1affd9a3d9a05e40e661ebf38c",
+          "bytes": 57226,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-054.png",
+          "ordinal": 54,
+          "git_blob": "3a6ba3eba0a67f3c917d173e74d02be9b2a317ca",
+          "bytes": 57222,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-055.png",
+          "ordinal": 55,
+          "git_blob": "2cf2a33fbbf9cac9018c50856bae2b81a0a479a7",
+          "bytes": 57232,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-056.png",
+          "ordinal": 56,
+          "git_blob": "3c04e4f540ba119b6e769e5a8a3389feb08e69dc",
+          "bytes": 57230,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-057.png",
+          "ordinal": 57,
+          "git_blob": "3d11eb8ececab7d4a5f4a84f5084a8572ece7be0",
+          "bytes": 57273,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-058.png",
+          "ordinal": 58,
+          "git_blob": "3bed86102fa4a4b9b3897cd730a39d0c342cae27",
+          "bytes": 58520,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-059.png",
+          "ordinal": 59,
+          "git_blob": "206aed16741b002cea93fbec437061822909f49f",
+          "bytes": 57620,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-060.png",
+          "ordinal": 60,
+          "git_blob": "69b917575f22f7f80c1a823aadd925db5c0b5736",
+          "bytes": 56757,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-061.png",
+          "ordinal": 61,
+          "git_blob": "5fbc26a1e1e7f4c5b0cc3929899b4d5df8d7f7ee",
+          "bytes": 55830,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-062.png",
+          "ordinal": 62,
+          "git_blob": "267ad916923b7e320ca0a96a8346b36e641ef531",
+          "bytes": 54793,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-063.png",
+          "ordinal": 63,
+          "git_blob": "ca391035095f06449e958aca5f33d6b17687709d",
+          "bytes": 54507,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-064.png",
+          "ordinal": 64,
+          "git_blob": "5b83c89e419eb3a10c06b42ef9d147b7dc26331f",
+          "bytes": 53978,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-065.png",
+          "ordinal": 65,
+          "git_blob": "271f2068e91ff6504f70e4edb3beb5b68818289d",
+          "bytes": 53956,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-066.png",
+          "ordinal": 66,
+          "git_blob": "188a777291024dfe606f943312b4a6ccf00e7938",
+          "bytes": 54005,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-067.png",
+          "ordinal": 67,
+          "git_blob": "4030a229613e2b0f1a6ca1791559bfa6774055d3",
+          "bytes": 54029,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-068.png",
+          "ordinal": 68,
+          "git_blob": "d70ac44a73225d64f59e44963b91c3fba9c534bc",
+          "bytes": 54067,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-069.png",
+          "ordinal": 69,
+          "git_blob": "21063b346b9880e7895b7f8c8c3c76cf0bd21bbd",
+          "bytes": 54048,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-070.png",
+          "ordinal": 70,
+          "git_blob": "c29e84e657a3ba3557b39eb416535e36ca495261",
+          "bytes": 54060,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-071.png",
+          "ordinal": 71,
+          "git_blob": "ad91146d56329e98cd71b9e38af88563c375057e",
+          "bytes": 54031,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png",
+          "ordinal": 72,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-073.png",
+          "ordinal": 73,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-074.png",
+          "ordinal": 74,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-075.png",
+          "ordinal": 75,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-076.png",
+          "ordinal": 76,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-077.png",
+          "ordinal": 77,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-078.png",
+          "ordinal": 78,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-079.png",
+          "ordinal": 79,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-080.png",
+          "ordinal": 80,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-081.png",
+          "ordinal": 81,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-082.png",
+          "ordinal": 82,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-083.png",
+          "ordinal": 83,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-084.png",
+          "ordinal": 84,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-085.png",
+          "ordinal": 85,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-086.png",
+          "ordinal": 86,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-087.png",
+          "ordinal": 87,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-088.png",
+          "ordinal": 88,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-089.png",
+          "ordinal": 89,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-090.png",
+          "ordinal": 90,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-091.png",
+          "ordinal": 91,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-092.png",
+          "ordinal": 92,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-093.png",
+          "ordinal": 93,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-094.png",
+          "ordinal": 94,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-095.png",
+          "ordinal": 95,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-096.png",
+          "ordinal": 96,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-097.png",
+          "ordinal": 97,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-098.png",
+          "ordinal": 98,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-099.png",
+          "ordinal": 99,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-072.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-100.png",
+          "ordinal": 100,
+          "git_blob": "c044b41f97b5245e1f10d2ae24134ce5055fb692",
+          "bytes": 54068,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-101.png",
+          "ordinal": 101,
+          "git_blob": "3d042154bb7d90a1f563e96f4c4efaac5ea1acac",
+          "bytes": 54108,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-102.png",
+          "ordinal": 102,
+          "git_blob": "ddaedcdbca0b993c7f2c3aa25cf8257ad2419dc5",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-103.png",
+          "ordinal": 103,
+          "git_blob": "c3725c9d7a07de7076eb20c4c53831e77ee80625",
+          "bytes": 54120,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png",
+          "ordinal": 104,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-105.png",
+          "ordinal": 105,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-106.png",
+          "ordinal": 106,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-107.png",
+          "ordinal": 107,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-108.png",
+          "ordinal": 108,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-109.png",
+          "ordinal": 109,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-110.png",
+          "ordinal": 110,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-111.png",
+          "ordinal": 111,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-112.png",
+          "ordinal": 112,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-113.png",
+          "ordinal": 113,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-114.png",
+          "ordinal": 114,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-115.png",
+          "ordinal": 115,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-116.png",
+          "ordinal": 116,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-117.png",
+          "ordinal": 117,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-118.png",
+          "ordinal": 118,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-119.png",
+          "ordinal": 119,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-120.png",
+          "ordinal": 120,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-121.png",
+          "ordinal": 121,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-122.png",
+          "ordinal": 122,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-123.png",
+          "ordinal": 123,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-124.png",
+          "ordinal": 124,
+          "git_blob": "7cf0dcb28c542f4680e95fe37707613855c08a6a",
+          "bytes": 54128,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-104.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-125.png",
+          "ordinal": 125,
+          "git_blob": "473b27bbc266f508889c4fb38d590f61066f2fff",
+          "bytes": 54137,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-126.png",
+          "ordinal": 126,
+          "git_blob": "fdcde31b199e893ca4728d7fa21b264607358fd9",
+          "bytes": 54145,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-127.png",
+          "ordinal": 127,
+          "git_blob": "cd84d2bdef838d67941112963f3af6e75a846f54",
+          "bytes": 54143,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-128.png",
+          "ordinal": 128,
+          "git_blob": "7c06d82fce7e81d53441288d6bdcc870db8fc3b9",
+          "bytes": 54143,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-129.png",
+          "ordinal": 129,
+          "git_blob": "7c06d82fce7e81d53441288d6bdcc870db8fc3b9",
+          "bytes": 54143,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-128.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-130.png",
+          "ordinal": 130,
+          "git_blob": "7c06d82fce7e81d53441288d6bdcc870db8fc3b9",
+          "bytes": 54143,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-131.png",
+          "ordinal": 131,
+          "git_blob": "7c06d82fce7e81d53441288d6bdcc870db8fc3b9",
+          "bytes": 54143,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-128.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-132.png",
+          "ordinal": 132,
+          "git_blob": "7c06d82fce7e81d53441288d6bdcc870db8fc3b9",
+          "bytes": 54143,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-128.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-133.png",
+          "ordinal": 133,
+          "git_blob": "7c06d82fce7e81d53441288d6bdcc870db8fc3b9",
+          "bytes": 54143,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-128.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-134.png",
+          "ordinal": 134,
+          "git_blob": "7c06d82fce7e81d53441288d6bdcc870db8fc3b9",
+          "bytes": 54143,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-128.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-135.png",
+          "ordinal": 135,
+          "git_blob": "7c06d82fce7e81d53441288d6bdcc870db8fc3b9",
+          "bytes": 54143,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-128.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-136.png",
+          "ordinal": 136,
+          "git_blob": "7c06d82fce7e81d53441288d6bdcc870db8fc3b9",
+          "bytes": 54143,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-128.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-137.png",
+          "ordinal": 137,
+          "git_blob": "1f06532ccef4cdf933cc9bf69214819bca4d7130",
+          "bytes": 54144,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-138.png",
+          "ordinal": 138,
+          "git_blob": "8d8ab4b720def1d43775d372b878cca92ddf4f0d",
+          "bytes": 54143,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-139.png",
+          "ordinal": 139,
+          "git_blob": "77c8b7443f2c27e3372d875aa0095e30934cedda",
+          "bytes": 54142,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-140.png",
+          "ordinal": 140,
+          "git_blob": "3a9cb4221ef0b54f7869eb58ea67936df5d90a31",
+          "bytes": 54141,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-141.png",
+          "ordinal": 141,
+          "git_blob": "c0a9a04fbfc128c3cdfae7c495f9155f5211e57b",
+          "bytes": 54127,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-142.png",
+          "ordinal": 142,
+          "git_blob": "c0a9a04fbfc128c3cdfae7c495f9155f5211e57b",
+          "bytes": 54127,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-141.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png",
+          "ordinal": 143,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-144.png",
+          "ordinal": 144,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-145.png",
+          "ordinal": 145,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-146.png",
+          "ordinal": 146,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-147.png",
+          "ordinal": 147,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-148.png",
+          "ordinal": 148,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-149.png",
+          "ordinal": 149,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-150.png",
+          "ordinal": 150,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-151.png",
+          "ordinal": 151,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-152.png",
+          "ordinal": 152,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-153.png",
+          "ordinal": 153,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-154.png",
+          "ordinal": 154,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-155.png",
+          "ordinal": 155,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-156.png",
+          "ordinal": 156,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-157.png",
+          "ordinal": 157,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-158.png",
+          "ordinal": 158,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-159.png",
+          "ordinal": 159,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-160.png",
+          "ordinal": 160,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-161.png",
+          "ordinal": 161,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-162.png",
+          "ordinal": 162,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-163.png",
+          "ordinal": 163,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-164.png",
+          "ordinal": 164,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-165.png",
+          "ordinal": 165,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-166.png",
+          "ordinal": 166,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-167.png",
+          "ordinal": 167,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-168.png",
+          "ordinal": 168,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-169.png",
+          "ordinal": 169,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-170.png",
+          "ordinal": 170,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-171.png",
+          "ordinal": 171,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-172.png",
+          "ordinal": 172,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-173.png",
+          "ordinal": 173,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-174.png",
+          "ordinal": 174,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-175.png",
+          "ordinal": 175,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "DUPLICATE_REVIEW_CANDIDATE",
+          "same_blob_retained_path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-143.png"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-176.png",
+          "ordinal": 176,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-177.png",
+          "ordinal": 177,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-178.png",
+          "ordinal": 178,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-179.png",
+          "ordinal": 179,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        },
+        {
+          "path": "work-log/evidence/m7-ci936-20261004/live-motion/100-normal-collapse-2/frame-180.png",
+          "ordinal": 180,
+          "git_blob": "4daeaf8446f01c42f21205b6e12fb4c62b97b6c4",
+          "bytes": 54125,
+          "direct_markdown_refs": "",
+          "disposition": "RETAIN_SAMPLE"
+        }
+      ]
+    }
+  ]
+}

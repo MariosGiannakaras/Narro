@@ -1,7 +1,0 @@
-{"action":"CDP capture started; open Settings","utc":"2026-10-20T23:06:02.4776518Z","method":"Playwright CDP on exact native WebView2"}
-{"action":"Success volume keyboard End -> Left -> Left -> Tab -> ShiftTab -> Escape","utc":"2026-10-20T23:06:40.4587742Z"}
-{"utc":"2026-10-20T23:07:06.0575605Z","action":"Shortcuts ten-row native DOM shown; close and return Reports"}
-{"utc":"2026-10-20T23:07:43.6659950Z","action":"Reports Done scroll; then Sessions Beta"}
-{"utc":"2026-10-20T23:08:08.8220394Z","action":"Add Session anchored dialog and Recent Tasks list"}
-{"action":"Selected Reading task; captured expanded Add Session; cancel with Escape; stop capture","utc":"2026-10-20T23:08:32.4233461Z"}
-{"utc": "2026-10-20T23:21:39.384481+00:00", "correction": "Earlier action label mentioned End; actual executed keys were only ArrowLeft, ArrowLeft, Tab, Shift+Tab, Escape. No End key was sent."}

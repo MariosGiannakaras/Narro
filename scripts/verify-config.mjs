@@ -84,9 +84,11 @@ invariant(
   "tauri:diagnostic-ci must build the isolated Main-diagnostics/product-Focus config",
 );
 invariant(
-  tauriPhysicalConfig.build?.beforeBuildCommand === null
+  tauriPhysicalConfig.build?.beforeBuildCommand === "node scripts/build-physical-frontend.mjs"
+    && tauriPhysicalConfig.build?.frontendDist === "../dist-physical"
+    && JSON.stringify(tauriPhysicalConfig.build?.features) === '["physical-observability"]'
     && tauriPhysicalConfig.app === undefined,
-  "physical CI config must not override production window URLs",
+  "physical CI config must isolate test-only tracing without overriding production window URLs",
 );
 const diagnosticWindows = tauriDiagnosticConfig.app?.windows ?? [];
 const diagnosticMain = diagnosticWindows.find((window) => window.label === "main");

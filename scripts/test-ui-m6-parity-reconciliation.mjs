@@ -183,7 +183,7 @@ if (!timerService.includes("focus_home_pause_gate: Mutex<()>")) {
   throw new Error("P3-M6-06 Home provenance serialization must not hold the authoritative lease mutex across storage/event work.");
 }
 
-const tauriHandler = native.slice(native.indexOf(".invoke_handler(tauri::generate_handler!["));
+const tauriHandler = native.slice(native.indexOf("tauri::generate_handler![", native.indexOf(".invoke_handler(")));
 for (const command of ["timer_pause_for_focus_home", "timer_resume_focus_home_pause"]) {
   if (!tauriHandler.includes(command)) {
     throw new Error(`P3-M6-06 Tauri handler registration is missing ${command}`);

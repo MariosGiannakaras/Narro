@@ -1,0 +1,49 @@
+{
+  "review_date": "2026-11-03",
+  "scope": "Current-main Git-object path + published checksum receipt identity, all 21 direct work-log/evidence/pr437-* evidence families. This is a deeper live PR/source consumer-retention subaudit within the already frozen 15,690-path technical inventory, not 785 newly discovered repository paths or final file-removal eligibility.",
+  "reports": [
+    {
+      "path": "work-log/evidence-cleanup-review-20261101/pr437-atomic-native-original-source-manifest-20261103.json",
+      "families": 1,
+      "files": 171,
+      "source_media": 10,
+      "media_bytes": 18637777,
+      "nonself_receipts": 170
+    },
+    {
+      "path": "work-log/evidence-cleanup-review-20261101/pr437-seven-native-families-source-receipt-review-20261103.json",
+      "families": 7,
+      "files": 493,
+      "source_media": 39,
+      "media_bytes": 292834294,
+      "nonself_receipts": 486
+    },
+    {
+      "path": "work-log/evidence-cleanup-review-20261101/pr437-thirteen-remaining-family-receipts-20261103.json",
+      "families": 13,
+      "files": 121,
+      "source_media": 3,
+      "media_bytes": 14556515,
+      "nonself_receipts": 102
+    }
+  ],
+  "checked_families": 21,
+  "exact_tracked_file_paths": 785,
+  "published_receipt_covered_nonself_paths": 758,
+  "receipt_manifests": 20,
+  "files_in_family_without_checksum_manifest": 7,
+  "family_without_checksum_manifest": "pr437-owned-overlay-preflight-20261029",
+  "original_media_source_paths": 52,
+  "original_media_logical_bytes": 326028586,
+  "missing_sha256_receipt_paths_among_manifests": 0,
+  "malformed_manifest_entries": 0,
+  "read_only_checks": "Recursive family Git trees; exact path join of published SHA256SUMS.txt/SHA256SUMS.json/SHA256.json entries, Git object ids and source-file logical byte sizes where manifest provides sizes. Published SHA strings were not independently rehashed. All source media classified as protected original native evidence.",
+  "live_pr_consumer": "PR437 open, remaining native move/SNAP/monitor hardware/strict A-B independent physical gates still have source/consumer needs. PR437 families not safely deletion-approved as a result of manifest coverage.",
+  "deletion_approved_paths": 0,
+  "newly_deleted_paths": 0,
+  "global_technical_inventory_paths_checked": 15690,
+  "global_technical_inventory_paths_total": 15690,
+  "global_historical_deleted_paths": 20913,
+  "separate_700_fixed_cohort_deleted": 117,
+  "limitations": "No Windows physical acceptance, media decoder playback, independent SHA256 validation, production compile, Blitzit parity, migration or consumer retirement; checksum manifests are provenance assertions, not safe deletion proofs. No prior blocked action retried."
+}

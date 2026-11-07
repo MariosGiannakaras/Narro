@@ -1,0 +1,199 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "scope": "14 split original OBS video parts in pa-postfix-35528dea, previously outside conventional media file extensions and prior 33 original recordings",
+  "sources": [
+    "work-log/evidence-cleanup-review-20261101/paths.csv",
+    "work-log/evidence/pa-postfix-35528dea/segment1/freeze-manifest.json",
+    "work-log/evidence/pa-postfix-35528dea/segment2/freeze-manifest.json",
+    "docs/WINDOWS_PA_POSTFIX_REPORT_2026-10-13.md",
+    "work-log/2026-10-13-pa-postfix-segment1-acquisition.md",
+    "work-log/2026-10-13-pa-postfix-acquisition-complete.md"
+  ],
+  "method": "Verify exact tracked Git paths and byte lengths for each part against published original acquisition freeze manifests; validate numeric concatenation order, summed bytes versus each recorded whole OBS source format size; observe documented physical analysis consumers. Manifest SHA256 values are recorded but not recomputed from binary content in this follow-up.",
+  "totals": {
+    "original_whole_sources": 2,
+    "split_parts": 14,
+    "total_split_bytes": 688659003,
+    "original_source_shas": [
+      "70935b35dec775b5d623f0a0467af6d0ecc8b2fc2683bb149ee9aaf958d41f91",
+      "4ea2e4e98e343f0e83a6e121489540663c52cece0c1066833873c97576aefdec"
+    ]
+  },
+  "records": [
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment1/continuous.mkv.part001",
+      "git_blob": "512035b32fc123dd72eb667e6966157896092261",
+      "bytes": 50331648,
+      "manifest_sha256": "6c9e405a1de169bd860572bb10f6ac0ea5bffdfc26834a3882156ea0ac013529",
+      "part_order": 1,
+      "whole_source_sha256": "70935b35dec775b5d623f0a0467af6d0ecc8b2fc2683bb149ee9aaf958d41f91",
+      "whole_source_name": "2026-10-13 15-54-18.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment1/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment1/continuous.mkv.part002",
+      "git_blob": "2454910db306ef56a971bc00dbcfb519d3fb978e",
+      "bytes": 50331648,
+      "manifest_sha256": "fb7cb01be290bcf0307dbd8c138ab08abf13ed8e0e88b5485c7b3466c48c9eb7",
+      "part_order": 2,
+      "whole_source_sha256": "70935b35dec775b5d623f0a0467af6d0ecc8b2fc2683bb149ee9aaf958d41f91",
+      "whole_source_name": "2026-10-13 15-54-18.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment1/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment1/continuous.mkv.part003",
+      "git_blob": "b2fa88918d1d99d3b09819ce2f80ec7d00c03522",
+      "bytes": 50331648,
+      "manifest_sha256": "3aaf42d5d7e8934e0507ac8c1f6b1401ab726e2e90c944cbbee0fde668ce60d5",
+      "part_order": 3,
+      "whole_source_sha256": "70935b35dec775b5d623f0a0467af6d0ecc8b2fc2683bb149ee9aaf958d41f91",
+      "whole_source_name": "2026-10-13 15-54-18.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment1/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment1/continuous.mkv.part004",
+      "git_blob": "15412df71679387c89b9ca3d1d6972c614483e32",
+      "bytes": 50331648,
+      "manifest_sha256": "adf9471ab3de0dd94470048da1638b55d9c936e334e664df8862f793a6eaca92",
+      "part_order": 4,
+      "whole_source_sha256": "70935b35dec775b5d623f0a0467af6d0ecc8b2fc2683bb149ee9aaf958d41f91",
+      "whole_source_name": "2026-10-13 15-54-18.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment1/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment1/continuous.mkv.part005",
+      "git_blob": "a4a0f539dfa3df4143f902c62971821942152aee",
+      "bytes": 50331648,
+      "manifest_sha256": "58eded253c22f3f47b12e57c6254a776e26dd07f9f70fe0775bec55cc0dc4dac",
+      "part_order": 5,
+      "whole_source_sha256": "70935b35dec775b5d623f0a0467af6d0ecc8b2fc2683bb149ee9aaf958d41f91",
+      "whole_source_name": "2026-10-13 15-54-18.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment1/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment1/continuous.mkv.part006",
+      "git_blob": "bd10eed5c69d373769eb7cb5a263a98f7e9177e1",
+      "bytes": 44717077,
+      "manifest_sha256": "a87d264f2f5a48a7a380bace820564534a841e5e3b914bbe48c37897a9f311e5",
+      "part_order": 6,
+      "whole_source_sha256": "70935b35dec775b5d623f0a0467af6d0ecc8b2fc2683bb149ee9aaf958d41f91",
+      "whole_source_name": "2026-10-13 15-54-18.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment1/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment2/continuous.mkv.part001",
+      "git_blob": "3e520a1b260301890f124e30a352b92932c07ca3",
+      "bytes": 50331648,
+      "manifest_sha256": "6d5b7ae1e2f3846a27a45c1ce3e6e92274f4298c5dc61a00b6b0a34fb67563be",
+      "part_order": 1,
+      "whole_source_sha256": "4ea2e4e98e343f0e83a6e121489540663c52cece0c1066833873c97576aefdec",
+      "whole_source_name": "2026-10-13 17-04-20.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment2/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment2/continuous.mkv.part002",
+      "git_blob": "0c77b932cc3811487bf2b99ce4a753e8ecbf015a",
+      "bytes": 50331648,
+      "manifest_sha256": "35f16f59ba802a872225fe60a15229a6181d394f7fbb9850364581c7c8c885ea",
+      "part_order": 2,
+      "whole_source_sha256": "4ea2e4e98e343f0e83a6e121489540663c52cece0c1066833873c97576aefdec",
+      "whole_source_name": "2026-10-13 17-04-20.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment2/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment2/continuous.mkv.part003",
+      "git_blob": "6b3206e58b18ec459731f44edbfc6c6d35072199",
+      "bytes": 50331648,
+      "manifest_sha256": "603625a5dec8ac42a068fca8e935d121d60c8a916f00ab005c36efa4709c1559",
+      "part_order": 3,
+      "whole_source_sha256": "4ea2e4e98e343f0e83a6e121489540663c52cece0c1066833873c97576aefdec",
+      "whole_source_name": "2026-10-13 17-04-20.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment2/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment2/continuous.mkv.part004",
+      "git_blob": "cde0b7842a4a463fd14af4fe0b5247766860dd97",
+      "bytes": 50331648,
+      "manifest_sha256": "0845a2e7cd27f0cfac2cfbf7f028f525d001f6f2097afbbdd0e8d1d8876e27bc",
+      "part_order": 4,
+      "whole_source_sha256": "4ea2e4e98e343f0e83a6e121489540663c52cece0c1066833873c97576aefdec",
+      "whole_source_name": "2026-10-13 17-04-20.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment2/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment2/continuous.mkv.part005",
+      "git_blob": "f5aba334ee282a9f344d497c6623b1ebf0cfeed5",
+      "bytes": 50331648,
+      "manifest_sha256": "e62a80edde6215c5f2d9e8980e33b4dd5fdbb6fd3ff07848f2631d4a9cf2c5fd",
+      "part_order": 5,
+      "whole_source_sha256": "4ea2e4e98e343f0e83a6e121489540663c52cece0c1066833873c97576aefdec",
+      "whole_source_name": "2026-10-13 17-04-20.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment2/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment2/continuous.mkv.part006",
+      "git_blob": "356787a6dceb2432b9f3df3a4079086b7f5a0632",
+      "bytes": 50331648,
+      "manifest_sha256": "a20e41cff043a9ec25f9dbe1032f81f279d67d425f0c17ba8ab4d52741161fcf",
+      "part_order": 6,
+      "whole_source_sha256": "4ea2e4e98e343f0e83a6e121489540663c52cece0c1066833873c97576aefdec",
+      "whole_source_name": "2026-10-13 17-04-20.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment2/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment2/continuous.mkv.part007",
+      "git_blob": "72492e1d505590286f66654c7ef1eb159ce59532",
+      "bytes": 50331648,
+      "manifest_sha256": "63cab582268c990280c8f8f434e1b7285ff6eecbfeace482cf2b9c2403c175ce",
+      "part_order": 7,
+      "whole_source_sha256": "4ea2e4e98e343f0e83a6e121489540663c52cece0c1066833873c97576aefdec",
+      "whole_source_name": "2026-10-13 17-04-20.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment2/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    },
+    {
+      "path": "work-log/evidence/pa-postfix-35528dea/segment2/continuous.mkv.part008",
+      "git_blob": "258374a78ffb77ee4c5059cf4d41ccc6bd84c2e6",
+      "bytes": 39962150,
+      "manifest_sha256": "f9fd71a2c3c2ebf6433c6f9f6bfcea4bfb98008d788b895b60c75e63300f24c4",
+      "part_order": 8,
+      "whole_source_sha256": "4ea2e4e98e343f0e83a6e121489540663c52cece0c1066833873c97576aefdec",
+      "whole_source_name": "2026-10-13 17-04-20.mkv",
+      "freeze_manifest": "work-log/evidence/pa-postfix-35528dea/segment2/freeze-manifest.json",
+      "disposition": "RETAIN_ORIGINAL_SPLIT_SOURCE",
+      "deletion_approved": false
+    }
+  ],
+  "disposition": "HOLD_ALL_14_PARTS_AS_REQUIRED_ORIGINAL_SOURCES; no byte-identical current-main replacement for whole recordings demonstrated",
+  "limits": [
+    "All part SHA-256 and whole recording SHA-256 digests are sourced from published freeze manifests, not rehashed here.",
+    "The manifest's numeric byte reconciliation and recorded continuity cannot replace actual video decode/reassembly or verified recovery alternative.",
+    "Originals preserve historic scoped PASS, FAIL and UNCERTAIN Windows acceptance evidence; no acceptance regrading here.",
+    "No deletion/movement, no CI or Windows native execution."
+  ]
+}

@@ -17,13 +17,13 @@ Use this order when evidence disagrees:
 
 For interaction, motion, animation, transient-state, and window-transition questions, a direct recording is stronger evidence than a static screenshot when the relevant sequence is actually visible. For static layout, typography, spacing, color, and pixel-level visual detail, the clearest direct screenshot/frame remains the stronger visual reference.
 
-A screenshot proves only visible state. A recording proves only what can actually be observed in the captured sequence. Narration/transcript claims, hidden persistence assumptions, and inferred internal behavior must be classified separately. User-supplied video/transcript evidence is indexed in `docs/BLITZIT_VIDEO_EVIDENCE.md` and stored raw under `reference/original-blitzit-videos/inbox/`.
+A screenshot proves only visible state. A recording proves only what can actually be observed in the captured sequence. Narration/transcript claims, hidden persistence assumptions, and inferred internal behavior must be classified separately. User-supplied video/transcript evidence is indexed in `docs/BLITZIT_VIDEO_EVIDENCE.md` and stored raw under `reference/original-blitzit/videos/inbox/`.
 
 ## 2. User-supplied video/transcript evidence
 
 Repository upload inbox:
 
-- `reference/original-blitzit-videos/inbox/`
+- `reference/original-blitzit/videos/inbox/`
 
 Durable timestamped analysis/index:
 
@@ -73,7 +73,7 @@ Source: `blitzit Ss.rar`
 - current direct captures visibly include Blitzit `v2.6.69`
 - archive also contains seven older Tool Finder review captures
 
-Current direct captures win for visual hierarchy/labels when they differ from older review material. The working image corpus is normalized under `reference/original-blitzit-screenshots/`; `reference/original-blitzit-screenshots/CANONICAL_INDEX.md` records the current canonical filename, provenance and duplicate decisions.
+Current direct captures win for visual hierarchy/labels when they differ from older review material. The working image corpus is normalized under `reference/original-blitzit/screenshots/`; `reference/original-blitzit/screenshots/CANONICAL_INDEX.md` records the current canonical filename, provenance and duplicate decisions.
 
 ## 3. Screenshot-by-screenshot inventory
 

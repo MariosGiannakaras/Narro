@@ -1,0 +1,505 @@
+{
+  "baseline": "4fcd2fe084ecdc7b66cad5671da54d63e71aabe3",
+  "scope": "Read-only technically verified native family source/consumer triage for exact frozen Git trees and the already published family READMEs; family protective classification only; no exhaustive per-file consumer retirement.",
+  "family_count": 10,
+  "added_technically_reviewed": 1689,
+  "added_bytes": 131663689,
+  "remaining_nonconventional_after_previous_batch": 6592,
+  "remaining_after": 4903,
+  "deletions_new": 0,
+  "historical_aggregate_deletions": 20913,
+  "fixed_700_deleted": 117,
+  "limitations": "Git path/blob counts and source README checked; no fresh binary SHA256, playback, native acceptance or deletion eligibility decisions. Prior safety-blocked bulk deletion cannot be retried.",
+  "families": [
+    {
+      "family": "pr387-native-20261020",
+      "git_tree_sha": "621290a4f5a109f6f930e9d00ce36ab42c0aeba0",
+      "tree_complete": true,
+      "tracked_paths": 205,
+      "tracked_bytes": 15549053,
+      "nonconventional_paths": 203,
+      "nonconventional_bytes": 9989795,
+      "previously_reviewed": 0,
+      "newly_reviewed": 203,
+      "newly_reviewed_bytes": 9989795,
+      "already_classified_zip_and_media": 2,
+      "source_samples": [
+        {
+          "path": "video/ON-acceptance-original.mkv",
+          "git_blob": "6efe0e1f67f90f84eb9afee5d62fe0b97e018254",
+          "bytes": 2753875
+        },
+        {
+          "path": "video/ON-last-rest-original.mkv",
+          "git_blob": "35ce686ab3e0916253e1ecd9bb38feeaad6d6b66",
+          "bytes": 2805383
+        }
+      ],
+      "source_context": "work-log/evidence/pr387-native-20261020/README.md",
+      "retention_basis": "Original finite Success native recordings, historical 3/3 scoped PASS. Source/actual-image retention for accepted case.",
+      "classification": "HOLD_ON_CONSUMER_AND_ORIGINAL_SOURCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "pr357-native-20261016",
+      "git_tree_sha": "3c8a0dada20affd683d5d868087de687e8c240a2",
+      "tree_complete": true,
+      "tracked_paths": 195,
+      "tracked_bytes": 53576230,
+      "nonconventional_paths": 193,
+      "nonconventional_bytes": 14739674,
+      "previously_reviewed": 0,
+      "newly_reviewed": 193,
+      "newly_reviewed_bytes": 14739674,
+      "already_classified_zip_and_media": 2,
+      "source_samples": [
+        {
+          "path": "raw-observations-original-bytes.zip",
+          "git_blob": "ff1939c0091db1b1af41be3751bfa3740be7b69c",
+          "bytes": 3192285
+        },
+        {
+          "path": "video/2026-10-16 02-21-53.mkv",
+          "git_blob": "9976252ac9888f6d90b8df93d5bc2e2c7ebbdebc",
+          "bytes": 35644271
+        }
+      ],
+      "source_context": "work-log/evidence/pr357-native-20261016/README.md",
+      "retention_basis": "Original 304s full dual-screen MKV with derived MP4 and published primary visual comparisons; four scoped physical PASS; not C5.",
+      "classification": "HOLD_ON_CONSUMER_AND_ORIGINAL_SOURCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "physical-gaps-20261024",
+      "git_tree_sha": "15140edeac78cb736a5f152ec899c8459e9ea2de",
+      "tree_complete": true,
+      "tracked_paths": 198,
+      "tracked_bytes": 93291019,
+      "nonconventional_paths": 192,
+      "nonconventional_bytes": 10536354,
+      "previously_reviewed": 0,
+      "newly_reviewed": 192,
+      "newly_reviewed_bytes": 10536354,
+      "already_classified_zip_and_media": 6,
+      "source_samples": [
+        {
+          "path": "raw-text-originals.zip",
+          "git_blob": "b826a7149b4d044f0cce49d6101dca9dd6fba65d",
+          "bytes": 218012
+        },
+        {
+          "path": "recordings/B-populated-reduced/native-original.mkv",
+          "git_blob": "31a224904da65ad5731cd0e63de3a78655d28c72",
+          "bytes": 17633607
+        },
+        {
+          "path": "recordings/image-and-persistence/native-original.mkv",
+          "git_blob": "d4cd26fb43428090d9b6edeeec0f63116086e23e",
+          "bytes": 15070496
+        },
+        {
+          "path": "recordings/images/native-original.mkv",
+          "git_blob": "58dc428acbf5c900342f272d96bf1236908b4c74",
+          "bytes": 15494543
+        },
+        {
+          "path": "recordings/preference-failures/native-original.mkv",
+          "git_blob": "23688ad2703bee9f3faa56557f8e804b075fc7f9",
+          "bytes": 27909333
+        },
+        {
+          "path": "recordings/preferences/native-original.mkv",
+          "git_blob": "f1bcf989f27205381e997dc8ce2c1b6459ec15d0",
+          "bytes": 6428674
+        }
+      ],
+      "source_context": "work-log/evidence/physical-gaps-20261024/README.md",
+      "retention_basis": "Physical gap groups include 9 fully exercised, 8 partial, 12 open at packet boundary; source/unfinished gaps.",
+      "classification": "HOLD_ON_CONSUMER_AND_ORIGINAL_SOURCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "physical-native-final-20261024",
+      "git_tree_sha": "9ceed37f12344859738861cd86aa04fb5956ab76",
+      "tree_complete": true,
+      "tracked_paths": 443,
+      "tracked_bytes": 96990864,
+      "nonconventional_paths": 437,
+      "nonconventional_bytes": 7821523,
+      "previously_reviewed": 249,
+      "newly_reviewed": 188,
+      "newly_reviewed_bytes": 4816622,
+      "already_classified_zip_and_media": 6,
+      "source_samples": [
+        {
+          "path": "raw-text-originals.zip",
+          "git_blob": "e51e1dc4da23b03ccf59a1938989152a8b412f9d",
+          "bytes": 234407
+        },
+        {
+          "path": "recordings/A-qpc-control/native-original.mkv",
+          "git_blob": "dd0989f7b47045c872aa9183d5d93b5125cc41d2",
+          "bytes": 6164191
+        },
+        {
+          "path": "recordings/break-expiry-dual/native-original.mkv",
+          "git_blob": "e2428c6f44abbb5659c2f836f8329840c4ca3d59",
+          "bytes": 28875559
+        },
+        {
+          "path": "recordings/native-dual-reduced/native-original.mkv",
+          "git_blob": "a9471e49da745cf557d3642ff6e9124ddc5da704",
+          "bytes": 7661436
+        },
+        {
+          "path": "recordings/recovery-reduced/native-original.mkv",
+          "git_blob": "28150aa306e4a96afbe98d1a1707cbf90566e72c",
+          "bytes": 24200099
+        },
+        {
+          "path": "recordings/topmost-break/native-original.mkv",
+          "git_blob": "a3895043769da1683fe38253ee9e3a37298e22cd",
+          "bytes": 22033649
+        }
+      ],
+      "source_context": "work-log/evidence/physical-native-final-20261024/README.md",
+      "retention_basis": "Acquisition 29/29 groups, not 29 visual PASS; A/B physical and HDMI/canonical holds remain separate.",
+      "classification": "HOLD_ON_CONSUMER_AND_ORIGINAL_SOURCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "physical-residual-20261026",
+      "git_tree_sha": "7050e3442b9ea7aef6d417342025b4b6ff4cb9bf",
+      "tree_complete": true,
+      "tracked_paths": 395,
+      "tracked_bytes": 62033680,
+      "nonconventional_paths": 389,
+      "nonconventional_bytes": 9129428,
+      "previously_reviewed": 215,
+      "newly_reviewed": 174,
+      "newly_reviewed_bytes": 4929835,
+      "already_classified_zip_and_media": 6,
+      "source_samples": [
+        {
+          "path": "diagnostics/main-instrumented/native-original.mkv",
+          "git_blob": "07a7dd8478daf34f18642dffa0f2b6a850d2e4c4",
+          "bytes": 14301163
+        },
+        {
+          "path": "residual/A-dwm-provider.etl.zip",
+          "git_blob": "f5356698639655966c281d8bae21d5eabacde6d3",
+          "bytes": 13938841
+        },
+        {
+          "path": "residual/A-present-normal/native-original.mkv",
+          "git_blob": "29686daf31e067781a989dae4947feffd1271645",
+          "bytes": 1039704
+        },
+        {
+          "path": "residual/A-present/native-original.mkv",
+          "git_blob": "53fee876f6e5bb03805392e4973610e46e771e6e",
+          "bytes": 2860240
+        },
+        {
+          "path": "residual/A-residual/native-original.mkv",
+          "git_blob": "5a0d0073650c852b11bd99e8f0d177f80c1f7f47",
+          "bytes": 15965581
+        },
+        {
+          "path": "residual/dwm-target-window.csv.zip",
+          "git_blob": "5b7cb71305650e33cfc72b5b9246095bfc6f5222",
+          "bytes": 4798723
+        }
+      ],
+      "source_context": "work-log/evidence/physical-residual-20261026/README.md",
+      "retention_basis": "Residual native 2 scoped PASS/1 partial; historical poisoned ETW root unresolved; original ETL video/hashes preserved.",
+      "classification": "HOLD_ON_CONSUMER_AND_ORIGINAL_SOURCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "pr437-atomic-native-20261030",
+      "git_tree_sha": "425f8316236882676cb0de353d51aded4f73f6e1",
+      "tree_complete": true,
+      "tracked_paths": 171,
+      "tracked_bytes": 42115407,
+      "nonconventional_paths": 161,
+      "nonconventional_bytes": 23477630,
+      "previously_reviewed": 0,
+      "newly_reviewed": 161,
+      "newly_reviewed_bytes": 23477630,
+      "already_classified_zip_and_media": 10,
+      "source_samples": [
+        {
+          "path": "N100/dda-original.mkv",
+          "git_blob": "2726ad93566535cc653628715884b7a2d64f8cda",
+          "bytes": 1130735
+        },
+        {
+          "path": "N100/gdi-original.mkv",
+          "git_blob": "b55222fef329823234a32b806aa5d500a096de2c",
+          "bytes": 1127893
+        },
+        {
+          "path": "N125/dda-original.mkv",
+          "git_blob": "aa3afc090d2ec78c052f1ed163bcea6e1560acd0",
+          "bytes": 1822473
+        },
+        {
+          "path": "N125/gdi-original.mkv",
+          "git_blob": "d497699f80089dcd408776f794dbbb62f7d920fb",
+          "bytes": 1924158
+        },
+        {
+          "path": "R100/dda-original.mkv",
+          "git_blob": "0e668f055897bf8a7b465539f75254ce6ccb71e3",
+          "bytes": 744947
+        },
+        {
+          "path": "R100/gdi-original.mkv",
+          "git_blob": "6434ad2cc17ac5a567f479f13b02414da4c02a3a",
+          "bytes": 804675
+        },
+        {
+          "path": "R125/dda-original.mkv",
+          "git_blob": "a6b27fe1e50ec5fc21e3c3d7c6ca7c43882fcd8d",
+          "bytes": 1436764
+        },
+        {
+          "path": "R125/gdi-original.mkv",
+          "git_blob": "82e42a31e7f0a376ddfb24922dfb833ff04327de",
+          "bytes": 1536295
+        },
+        {
+          "path": "RMOVE/dda-original.mkv",
+          "git_blob": "0d66ee31ca51f51498d1e7fd78ae29f8e12b382d",
+          "bytes": 5083854
+        },
+        {
+          "path": "RMOVE/gdi-original.mkv",
+          "git_blob": "24ac43c72bf216e247baa0f1d42898feebd33653",
+          "bytes": 3025983
+        }
+      ],
+      "source_context": "work-log/evidence/pr437-atomic-native-20261030/README.md",
+      "retention_basis": "J05 corrected 4/4 groups, 16/16 direction physical scoped PASS; current M7 movement/SNAP and PR389/419 strict holds unchanged.",
+      "classification": "HOLD_ON_CONSUMER_AND_ORIGINAL_SOURCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "pr431-native-20261027",
+      "git_tree_sha": "e7e384953c0946a1dc02215dd87af2d4b9c20a12",
+      "tree_complete": true,
+      "tracked_paths": 155,
+      "tracked_bytes": 127509613,
+      "nonconventional_paths": 147,
+      "nonconventional_bytes": 2115112,
+      "previously_reviewed": 0,
+      "newly_reviewed": 147,
+      "newly_reviewed_bytes": 2115112,
+      "already_classified_zip_and_media": 8,
+      "source_samples": [
+        {
+          "path": "C1-done-settled-08/native-original.mkv",
+          "git_blob": "c4f9eda9a1bf724af7a632a64b3715bb403997c2",
+          "bytes": 18729541
+        },
+        {
+          "path": "C1-focus-04/native-original.mkv",
+          "git_blob": "071bf3a8146e6858ad05617c38578c1fafc2ddb7",
+          "bytes": 21314175
+        },
+        {
+          "path": "C1-keyboard-03/native-original.mkv",
+          "git_blob": "59cfc6dac4c8c20561de43c0f54a2b7fac3be9ee",
+          "bytes": 20395501
+        },
+        {
+          "path": "C1-lifecycle-05/native-original.mkv",
+          "git_blob": "3886fe56142ab5e646950e142c82f0f2159785f5",
+          "bytes": 12878795
+        },
+        {
+          "path": "C1-light-search-reports-06/native-original.mkv",
+          "git_blob": "53371975f9e1c0a2fbbd764c419290a582da1dec",
+          "bytes": 22402873
+        },
+        {
+          "path": "C1-main-preferences-search/native-original.mkv",
+          "git_blob": "2a1aa9f7bf7c6df2cd8d58365be574cabbe2643b",
+          "bytes": 6294458
+        },
+        {
+          "path": "C1-reports-07/native-original.mkv",
+          "git_blob": "2f74af2bd5bbe043a8392a5eddcec7a1cf7b21bd",
+          "bytes": 7925697
+        },
+        {
+          "path": "C1-ui-02/native-original.mkv",
+          "git_blob": "013019f7b072743a211be05f7b49fbbf13fccd4c",
+          "bytes": 15453461
+        }
+      ],
+      "source_context": "work-log/evidence/pr431-native-20261027/README.md",
+      "retention_basis": "10/12 exercise, only three scoped subclaims accepted; seven partial/inconclusive and two NOT RUN, compositor/motion and monitor questions open.",
+      "classification": "HOLD_ON_CONSUMER_AND_ORIGINAL_SOURCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "pr437-owned-overlay-native-20261029",
+      "git_tree_sha": "261f5954fa4cf982acc08cce77a2eb303916edac",
+      "tree_complete": true,
+      "tracked_paths": 156,
+      "tracked_bytes": 38104726,
+      "nonconventional_paths": 146,
+      "nonconventional_bytes": 26065852,
+      "previously_reviewed": 0,
+      "newly_reviewed": 146,
+      "newly_reviewed_bytes": 26065852,
+      "already_classified_zip_and_media": 10,
+      "source_samples": [
+        {
+          "path": "N100-tail/dda-original.mkv",
+          "git_blob": "e9631e5b5bb2af09490534f66b542223c7e55715",
+          "bytes": 719272
+        },
+        {
+          "path": "N100-tail/gdi-original.mkv",
+          "git_blob": "cc67b6aa3b8b4fdbe16b42c00e4a1174a8998d99",
+          "bytes": 677165
+        },
+        {
+          "path": "N100/dda-original.mkv",
+          "git_blob": "d903256b80e9e982c4af0158f8b5100c2a3a0def",
+          "bytes": 1092248
+        },
+        {
+          "path": "N100/gdi-original.mkv",
+          "git_blob": "e1e06fc6b8ccea667c1217fcd684d31b99997b42",
+          "bytes": 1092039
+        },
+        {
+          "path": "N125/dda-original.mkv",
+          "git_blob": "a6fa29b7bbc57acded708fb810316b9ed7c8b6e1",
+          "bytes": 2095793
+        },
+        {
+          "path": "N125/gdi-original.mkv",
+          "git_blob": "60c70f3dce26f7eb6e939358616bf044fc37a108",
+          "bytes": 2018273
+        },
+        {
+          "path": "R100/dda-original.mkv",
+          "git_blob": "354035fedc084a237f007aa7e2aaf22eb4b5c43e",
+          "bytes": 787802
+        },
+        {
+          "path": "R100/gdi-original.mkv",
+          "git_blob": "689dd35759eadcd77401c1cca30065ac3dd229f5",
+          "bytes": 766249
+        },
+        {
+          "path": "R125/dda-original.mkv",
+          "git_blob": "5ffb4b57af8ecbc977ad18770955a317e68cb4f1",
+          "bytes": 1403353
+        },
+        {
+          "path": "R125/gdi-original.mkv",
+          "git_blob": "695a2e2d8edba70ff664a59d9a8b523b864fe29f",
+          "bytes": 1386680
+        }
+      ],
+      "source_context": "work-log/evidence/pr437-owned-overlay-native-20261029/README.md",
+      "retention_basis": "Four sampled groups FAIL with actual Timer→Panel title duplication; earlier PR437 build, subsequent J05 does not erase historic failure.",
+      "classification": "HOLD_ON_CONSUMER_AND_ORIGINAL_SOURCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "physical-gap-restart-20261024",
+      "git_tree_sha": "21a44f44fe85e06e5c62f26440c01b9faf8ea8f1",
+      "tree_complete": true,
+      "tracked_paths": 149,
+      "tracked_bytes": 72513567,
+      "nonconventional_paths": 144,
+      "nonconventional_bytes": 8068513,
+      "previously_reviewed": 0,
+      "newly_reviewed": 144,
+      "newly_reviewed_bytes": 8068513,
+      "already_classified_zip_and_media": 5,
+      "source_samples": [
+        {
+          "path": "raw-text-originals.zip",
+          "git_blob": "09f73831608b6ed315cc3ae975240828fe61f245",
+          "bytes": 230653
+        },
+        {
+          "path": "recordings/common-restart/native-original.mkv",
+          "git_blob": "d5f4b9fc8f595272c7066b3cd5d9110c3406650c",
+          "bytes": 32750162
+        },
+        {
+          "path": "recordings/image-replacement/native-original.mkv",
+          "git_blob": "29befc252852d98031c33e7c080c83928e959b13",
+          "bytes": 5844044
+        },
+        {
+          "path": "recordings/replacement-restart/native-original.mkv",
+          "git_blob": "f771c64566461b79919545a4f33c36f36b66264f",
+          "bytes": 13801809
+        },
+        {
+          "path": "recordings/report-exports/native-original.mkv",
+          "git_blob": "c8b6d5a4e0dd4f83b6800b9fffa0ba690401262e",
+          "bytes": 11818386
+        }
+      ],
+      "source_context": "work-log/evidence/physical-gap-restart-20261024/README.md",
+      "retention_basis": "Supplemental restart group packet, 23/29 acquired, G25 partial and other groups open; need original/derived case provenance.",
+      "classification": "HOLD_ON_CONSUMER_AND_ORIGINAL_SOURCE",
+      "deletion_approved": 0
+    },
+    {
+      "family": "physical-human-20261026",
+      "git_tree_sha": "fb4b44ae7f859f591ec4e3b680c537c85f74b653",
+      "tree_complete": true,
+      "tracked_paths": 146,
+      "tracked_bytes": 137274612,
+      "nonconventional_paths": 141,
+      "nonconventional_bytes": 26924302,
+      "previously_reviewed": 0,
+      "newly_reviewed": 141,
+      "newly_reviewed_bytes": 26924302,
+      "already_classified_zip_and_media": 5,
+      "source_samples": [
+        {
+          "path": "human-input-03/H01-H02-keyboard/native-original.mkv",
+          "git_blob": "a9927455f9d61d777f64da7856f81d100d2d64b2",
+          "bytes": 26599644
+        },
+        {
+          "path": "human-input-03/H03-H04-drag/native-original.mkv",
+          "git_blob": "a6e28e174748b87b86a9e13186802a8ae53534d8",
+          "bytes": 27148303
+        },
+        {
+          "path": "human-input-04/H04B-held-Escape/native-original.mkv",
+          "git_blob": "2239c8294460df74e49f202dda0160caadf851f3",
+          "bytes": 13154427
+        },
+        {
+          "path": "human-input-04/H05-tray-relaunch/native-original.mkv",
+          "git_blob": "e84f0a9129dad1921ac77a44c1c9baf96bad98f0",
+          "bytes": 22280174
+        },
+        {
+          "path": "human-input-04/H06-HDMI/native-original.mkv",
+          "git_blob": "72b7b24a9cc94fde70f3aeb748c8818046cb4200",
+          "bytes": 21167762
+        }
+      ],
+      "source_context": "work-log/evidence/physical-human-20261026/README.md",
+      "retention_basis": "6/6 scoped human physical PASS with actual HDMI/tray/keyboard; not whole milestone or PR389/419 strict candidate-specific acceptance.",
+      "classification": "HOLD_ON_CONSUMER_AND_ORIGINAL_SOURCE",
+      "deletion_approved": 0
+    }
+  ]
+}

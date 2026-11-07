@@ -1,0 +1,58 @@
+{
+  "audit_date": "2026-11-05",
+  "predelete_main": "4b606c5e1004123c8694dce57b851d5a51fab397",
+  "source_family": "work-log/evidence/m7-pr222-local-20261003",
+  "source_original_historical_pr_222_merged": true,
+  "independent_scope": "dated PR222 local browser capture file-name duplicate only, not previously blocked bulk deletion and not native/Blitzit source evidence",
+  "tracked_source_family_files": 42,
+  "manifest_original_nonself_entries": 41,
+  "manifest_git_lengths_matched": 41,
+  "open_pr_body_family_path_mentions": 0,
+  "proposed_files": 5,
+  "logical_checkout_bytes": 32692,
+  "exact_byte_content_proof": "Removed and retained each share exact Git blob object and published SHA256 checksum with matching byte sizes. Other normal/reduced and quick Create scenarios remain independently documented in retained HTML; original historical case index/manifest remains unchanged.",
+  "protected": "KEEP all unique images, remaining 3 exact original images, each event-specific scenario HTML, historical source log/README, original SHA256 manifest and provenance, tests, native physical and Blitzit original material. No acceptance results regraded.",
+  "candidate_disposition": "Eligible only as isolated exact 5-file static generated image dedup with expected-head PR, Git tree scope and resulting-main verification. No global cleanup stage completion.",
+  "pairs": [
+    {
+      "removed": "work-log/evidence/m7-pr222-local-20261003/focus-editor-motion-timerCompact-panel-dark.png",
+      "retained": "work-log/evidence/m7-pr222-local-20261003/focus-editor-motion-panel-timerCompact-dark.png",
+      "git_sha": "ee8efd7f7db7f68ebd36b8201d26dc64e45beee4",
+      "bytes": 5422,
+      "published_sha256": "f4248c75db89cb5501b2a8aa3b44b80d032679b8e886072a2c47a1d97e892001",
+      "retained_and_removed_semantic_html_preserved": true
+    },
+    {
+      "removed": "work-log/evidence/m7-pr222-local-20261003/focus-editor-quick-error-dark.png",
+      "retained": "work-log/evidence/m7-pr222-local-20261003/focus-editor-quick-empty-dark.png",
+      "git_sha": "f6d76d3f9e2d161394255e89b54bf280dbf7df22",
+      "bytes": 6832,
+      "published_sha256": "a01c055c1ad0b58474f45737fa4dd06533354bb6dda65df28f7bc8ea92bc53b3",
+      "retained_and_removed_semantic_html_preserved": true
+    },
+    {
+      "removed": "work-log/evidence/m7-pr222-local-20261003/focus-editor-quick-success-dark.png",
+      "retained": "work-log/evidence/m7-pr222-local-20261003/focus-editor-quick-empty-dark.png",
+      "git_sha": "f6d76d3f9e2d161394255e89b54bf280dbf7df22",
+      "bytes": 6832,
+      "published_sha256": "a01c055c1ad0b58474f45737fa4dd06533354bb6dda65df28f7bc8ea92bc53b3",
+      "retained_and_removed_semantic_html_preserved": true
+    },
+    {
+      "removed": "work-log/evidence/m7-pr222-local-20261003/focus-editor-quick-error-light.png",
+      "retained": "work-log/evidence/m7-pr222-local-20261003/focus-editor-quick-empty-light.png",
+      "git_sha": "ea48396ba02ee722e0eaf8160c1f3d45a9adf189",
+      "bytes": 6803,
+      "published_sha256": "9bb3c7dea0cc8ebec7243ac2288ad4372729e273bcdbc2c68d8d4e7afa00c57f",
+      "retained_and_removed_semantic_html_preserved": true
+    },
+    {
+      "removed": "work-log/evidence/m7-pr222-local-20261003/focus-editor-quick-success-light.png",
+      "retained": "work-log/evidence/m7-pr222-local-20261003/focus-editor-quick-empty-light.png",
+      "git_sha": "ea48396ba02ee722e0eaf8160c1f3d45a9adf189",
+      "bytes": 6803,
+      "published_sha256": "9bb3c7dea0cc8ebec7243ac2288ad4372729e273bcdbc2c68d8d4e7afa00c57f",
+      "retained_and_removed_semantic_html_preserved": true
+    }
+  ]
+}

@@ -1,7 +1,0 @@
-{"utc": "2026-10-19T14:19:52.927181+00:00", "label": "000-open-main", "foreground": 525478, "keys": "0x1B"}
-{"utc": "2026-10-19T14:22:22.872436+00:00", "label": "RA01-N1-cross-lane-activate", "foreground": 525478, "keys": "0x1B"}
-{"utc": "2026-10-19T14:22:26.805755+00:00", "label": "RA01-N2-reorder-activate", "foreground": 525478, "keys": "0x1B"}
-{"utc": "2026-10-19T14:22:30.721102+00:00", "label": "RA01-N3-cancel-activate", "foreground": 525478, "keys": "0x1B"}
-{"utc": "2026-10-19T14:22:36.138763+00:00", "label": "RA01-R1-cross-lane-activate", "foreground": 525478, "keys": "0x1B"}
-{"utc": "2026-10-19T14:22:40.055664+00:00", "label": "RA01-R2-reorder-activate", "foreground": 525478, "keys": "0x1B"}
-{"utc": "2026-10-19T14:22:43.978122+00:00", "label": "RA01-R3-cancel-activate", "foreground": 525478, "keys": "0x1B"}

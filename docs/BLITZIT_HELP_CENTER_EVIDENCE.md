@@ -528,7 +528,7 @@ This Help Center pass is complete when:
 
 ## Local canonical Help Center image set — 2026-09-27
 
-The Help Center image evidence is now materialized beside the supplied screenshots under `reference/original-blitzit-screenshots/`.
+The Help Center image evidence is now materialized beside the supplied screenshots under `reference/original-blitzit/screenshots/`.
 
 Retained official originals: **17**. They use descriptive `help-v2x-...` filenames and were kept only when they add a distinct state/context not already represented better by current direct v2.6.69 evidence.
 
@@ -553,4 +553,4 @@ Retained states:
 
 Nine Help Center images were intentionally not copied into the canonical folder because stronger current/direct references already cover the same state: list-card overflow, Productivity Overview, Time By List crop, Reports date picker, Sessions task detail, Home toolbar, and the three overlapping Preferences crops.
 
-Exact filenames and dimensions: `reference/original-blitzit-screenshots/CANONICAL_INDEX.md`.
+Exact filenames and dimensions: `reference/original-blitzit/screenshots/CANONICAL_INDEX.md`.

@@ -1,1 +1,0 @@
-Capture residuals only: B3 actual keyboard reorder and drag/cancel attempts; B4 Skip/switch; B5 real EST/POMO/break boundaries; A13 drag/tray/relaunch; A14 normal maximized topmost and available DPI controls. Main cdaf85b3 only. No A/B draft acceptance, HDMI hotplug or code changes. Restore originals and publish all originals.

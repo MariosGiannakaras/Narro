@@ -20,7 +20,7 @@ Do not convert planned Blitzit features into Narro parity requirements merely be
 
 ## 1.1 User-supplied current video/transcript reconciliation — 2026-09-27
 
-The uploaded corpus under `reference/original-blitzit-videos/inbox/` contains 19 MP4/SRT pairs. All 19 are inventoried, analyzed, reconciled and dispositioned in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
+The uploaded corpus under `reference/original-blitzit/videos/inbox/` contains 19 MP4/SRT pairs. All 19 are inventoried, analyzed, reconciled and dispositioned in `docs/BLITZIT_VIDEO_ANALYSIS_TRACKER.md` and `docs/BLITZIT_VIDEO_EVIDENCE.md`.
 
 That statement describes the original ingestion pass. The stricter exhaustive Pass 3 is separate and is now **COMPLETE** at 19/19 repository MP4s plus 46/46 canonical screenshot source inspections and 46/46 static calibration dispositions. `docs/BLITZIT_FORENSIC_PASS3_TRACKER.md` remains the authoritative Pass-3 ledger. See `docs/EVIDENCE_ROUTING_MAP.md`.
 
