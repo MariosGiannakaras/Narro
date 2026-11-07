@@ -1,9 +1,0 @@
-{"utc": "2026-10-15T08:52:39.511066+00:00", "action": "held SendInput physical scancode", "hwnd": 2492748, "vk": 27, "scan": 1, "extended": false}
-{"utc": "2026-10-15T08:53:16.810830+00:00", "action": "repeated actual native mouse-wheel", "hwnd": 2492748, "point": [-1300, 540], "delta": -120, "count": 6, "endUtc": "2026-10-15T08:53:17.698357+00:00"}
-{"utc": "2026-10-15T08:53:33.983218+00:00", "action": "held SendInput physical scancode", "hwnd": 2492748, "vk": 9, "scan": 15, "extended": false}
-{"utc": "2026-10-15T08:53:34.921390+00:00", "action": "held SendInput physical scancode", "hwnd": 2492748, "vk": 27, "scan": 1, "extended": false}
-{"utc": "2026-10-15T08:53:53.852356+00:00", "action": "repeated actual native mouse-wheel", "hwnd": 2492748, "point": [-1300, 540], "delta": -120, "count": 6, "endUtc": "2026-10-15T08:53:54.738920+00:00"}
-{"utc": "2026-10-15T08:53:56.337283+00:00", "action": "held SendInput physical scancode", "hwnd": 2492748, "vk": 9, "scan": 15, "extended": false}
-{"utc": "2026-10-15T08:53:57.276014+00:00", "action": "held SendInput physical scancode", "hwnd": 2492748, "vk": 27, "scan": 1, "extended": false}
-{"utc": "2026-10-15T08:54:10.379441+00:00", "action": "held SendInput physical scancode", "hwnd": 2492748, "vk": 27, "scan": 1, "extended": false}
-{"utc": "2026-10-15T08:54:13.158307+00:00", "text": "d1-normal-end", "menu": ["Show Narro", "Show Focus Surface", "Quit Narro"], "clicked_rect": [2353, 1005, 2542, 1027]}
