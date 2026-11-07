@@ -25,6 +25,8 @@ mod main_focus_raster;
 mod normal_shutdown;
 pub mod notifications;
 pub mod persistence;
+#[cfg(feature = "physical-observability")]
+mod physical_trace;
 pub mod preference_settings;
 pub mod recurrence;
 pub mod recurrence_service;
@@ -226,6 +228,8 @@ impl FocusSurfacePresentation {
 }
 
 fn report_state_change(app_handle: &tauri::AppHandle, payload: &AppStatePayload) {
+    #[cfg(feature = "physical-observability")]
+    physical_trace::state_changed("app-state-published", payload);
     if let Err(error) = app_handle.emit(STATE_CHANGED_EVENT, payload.clone()) {
         eprintln!(
             "Warning: authoritative state revision {} changed, but broadcast failed: {error}",
@@ -2698,7 +2702,15 @@ fn initialize_persistence(
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let result = tauri::Builder::default()
+    #[cfg(feature = "physical-observability")]
+    if let Err(error) = physical_trace::initialize() {
+        eprintln!("Cannot initialize required physical trace: {error}");
+        std::process::exit(1);
+    }
+    let builder = tauri::Builder::default();
+    #[cfg(feature = "physical-observability")]
+    let builder = builder.plugin(physical_trace::plugin());
+    let result = builder
         .plugin(tauri_plugin_single_instance::init(
             |app_handle, _argv, _cwd| {
                 validation_log::record_single_instance_attempt(app_handle);
@@ -2744,121 +2756,128 @@ pub fn run() {
         ))
         .manage(AppState::new())
         .manage(ShortcutManager::new())
-        .invoke_handler(tauri::generate_handler![
-            get_state,
-            get_home_snapshot,
-            focus_entry::start_blitz,
-            focus_preferences::get_focus_scrolling_title_preference,
-            list_board::get_list_board_snapshot,
-            board_task_editor::create_list_board_task,
-            board_task_editor::update_list_board_task_title,
-            board_task_metrics::update_list_board_task_estimate,
-            board_task_metrics::update_list_board_task_time_taken,
-            board_task_schedule::get_list_board_task_schedule_editor,
-            board_task_schedule::resolve_list_board_schedule_shortcut,
-            board_task_schedule::update_list_board_task_schedule,
-            board_task_schedule::quick_clear_list_board_task_schedule,
-            board_task_schedule::save_list_board_task_recurrence,
-            board_task_schedule::remove_list_board_task_recurrence,
-            board_task_notes::get_list_board_task_note,
-            board_task_notes::save_list_board_task_note,
-            board_task_notes::delete_list_board_task_note,
-            board_task_subtasks::get_list_board_task_subtasks,
-            board_task_subtasks::create_list_board_subtask,
-            board_task_subtasks::update_list_board_subtask_title,
-            board_task_subtasks::set_list_board_subtask_completion,
-            board_task_subtasks::reorder_list_board_subtasks,
-            board_task_subtasks::delete_list_board_subtask,
-            board_task_mutation::reorder_list_board_task,
-            board_task_mutation::move_list_board_task,
-            board_task_mutation::change_list_board_task,
-            board_task_mutation::duplicate_list_board_task,
-            board_task_mutation::complete_list_board_task,
-            board_task_mutation::permanently_delete_list_board_task,
-            list_editor::create_list_from_editor,
-            list_editor::update_list_from_editor,
-            list_editor::duplicate_list_from_home,
-            list_editor::get_list_icon_asset,
-            list_settings::get_archived_lists_for_settings,
-            list_settings::archive_list_from_settings,
-            list_settings::restore_list_from_settings,
-            list_settings::permanently_delete_list_from_settings,
-            list_settings::permanently_delete_archived_done_task_from_settings,
-            theme_settings::get_theme_preference,
-            theme_settings::set_theme_preference,
-            preference_settings::get_preference_settings,
-            preference_settings::update_preference_settings,
-            report_commands::get_report_history,
-            report_commands::get_focus_done_breaks,
-            report_commands::get_report_overview,
-            report_commands::export_report_overview_pdf,
-            report_commands::get_report_sessions,
-            report_commands::export_report_sessions_csv,
-            report_commands::get_report_task_sessions,
-            report_commands::create_manual_report_session,
-            report_commands::edit_report_session,
-            report_commands::delete_report_session,
-            toggle_timer,
-            mutate_state,
-            send_test_notification,
-            notifications::sound::drain_notification_sounds,
-            schedule_reminder_acceptance_probe,
-            autostart_status,
-            autostart_enable,
-            autostart_disable,
-            global_shortcut_status,
-            global_shortcut_register,
-            global_focus_toggle_register,
-            global_find_timer_register,
-            global_shortcut_unregister,
-            global_shortcut_conflict_probe,
-            shortcut_settings::get_global_shortcut_settings,
-            shortcut_settings::set_global_shortcut_enabled,
-            timer_session_snapshot,
-            timer_start_task,
-            timer_pause,
-            timer_pause_for_focus_home,
-            timer_resume_focus_home_pause,
-            timer_resume,
-            timer_extend,
-            timer_start_manual_break,
-            timer_finish_break,
-            timer_skip_break,
-            timer_complete_task,
-            timer_skip_task,
-            timer_switch_task,
-            timer_set_estimate,
-            timer_set_time_taken,
-            focus_surface_exit_to_main,
-            main_window_show,
-            main_window_hide,
-            main_window_focus,
-            main_window_destroy,
-            main_window_close,
-            main_window_recreate,
-            diagnostic_storage_paths,
-            focus_surface_show,
-            focus_surface_hide,
-            focus_surface_focus,
-            focus_surface_presentation_snapshot,
-            focus_runtime_capture_checkpoint,
-            focus_runtime_capture_acknowledged,
-            focus_runtime_capture_seed_timer_placement,
-            focus_surface_apply_presentation,
-            focus_surface_capture_compact_frame,
-            focus_surface_prepare_mode_raster,
-            focus_surface_animate_presentation,
-            focus_surface_finish_mode_raster,
-            focus_surface_mode_snapshot,
-            focus_surface_mode_panel,
-            focus_surface_mode_timer,
-            list_windows,
-            list_monitors,
-            focus_panel_placement_probe,
-            position_focus_panel,
-            present_focus_panel,
-            present_focus_for_blitz
-        ])
+        .invoke_handler({
+            let handler = tauri::generate_handler![
+                get_state,
+                get_home_snapshot,
+                focus_entry::start_blitz,
+                focus_preferences::get_focus_scrolling_title_preference,
+                list_board::get_list_board_snapshot,
+                board_task_editor::create_list_board_task,
+                board_task_editor::update_list_board_task_title,
+                board_task_metrics::update_list_board_task_estimate,
+                board_task_metrics::update_list_board_task_time_taken,
+                board_task_schedule::get_list_board_task_schedule_editor,
+                board_task_schedule::resolve_list_board_schedule_shortcut,
+                board_task_schedule::update_list_board_task_schedule,
+                board_task_schedule::quick_clear_list_board_task_schedule,
+                board_task_schedule::save_list_board_task_recurrence,
+                board_task_schedule::remove_list_board_task_recurrence,
+                board_task_notes::get_list_board_task_note,
+                board_task_notes::save_list_board_task_note,
+                board_task_notes::delete_list_board_task_note,
+                board_task_subtasks::get_list_board_task_subtasks,
+                board_task_subtasks::create_list_board_subtask,
+                board_task_subtasks::update_list_board_subtask_title,
+                board_task_subtasks::set_list_board_subtask_completion,
+                board_task_subtasks::reorder_list_board_subtasks,
+                board_task_subtasks::delete_list_board_subtask,
+                board_task_mutation::reorder_list_board_task,
+                board_task_mutation::move_list_board_task,
+                board_task_mutation::change_list_board_task,
+                board_task_mutation::duplicate_list_board_task,
+                board_task_mutation::complete_list_board_task,
+                board_task_mutation::permanently_delete_list_board_task,
+                list_editor::create_list_from_editor,
+                list_editor::update_list_from_editor,
+                list_editor::duplicate_list_from_home,
+                list_editor::get_list_icon_asset,
+                list_settings::get_archived_lists_for_settings,
+                list_settings::archive_list_from_settings,
+                list_settings::restore_list_from_settings,
+                list_settings::permanently_delete_list_from_settings,
+                list_settings::permanently_delete_archived_done_task_from_settings,
+                theme_settings::get_theme_preference,
+                theme_settings::set_theme_preference,
+                preference_settings::get_preference_settings,
+                preference_settings::update_preference_settings,
+                report_commands::get_report_history,
+                report_commands::get_focus_done_breaks,
+                report_commands::get_report_overview,
+                report_commands::export_report_overview_pdf,
+                report_commands::get_report_sessions,
+                report_commands::export_report_sessions_csv,
+                report_commands::get_report_task_sessions,
+                report_commands::create_manual_report_session,
+                report_commands::edit_report_session,
+                report_commands::delete_report_session,
+                toggle_timer,
+                mutate_state,
+                send_test_notification,
+                notifications::sound::drain_notification_sounds,
+                schedule_reminder_acceptance_probe,
+                autostart_status,
+                autostart_enable,
+                autostart_disable,
+                global_shortcut_status,
+                global_shortcut_register,
+                global_focus_toggle_register,
+                global_find_timer_register,
+                global_shortcut_unregister,
+                global_shortcut_conflict_probe,
+                shortcut_settings::get_global_shortcut_settings,
+                shortcut_settings::set_global_shortcut_enabled,
+                timer_session_snapshot,
+                timer_start_task,
+                timer_pause,
+                timer_pause_for_focus_home,
+                timer_resume_focus_home_pause,
+                timer_resume,
+                timer_extend,
+                timer_start_manual_break,
+                timer_finish_break,
+                timer_skip_break,
+                timer_complete_task,
+                timer_skip_task,
+                timer_switch_task,
+                timer_set_estimate,
+                timer_set_time_taken,
+                focus_surface_exit_to_main,
+                main_window_show,
+                main_window_hide,
+                main_window_focus,
+                main_window_destroy,
+                main_window_close,
+                main_window_recreate,
+                diagnostic_storage_paths,
+                focus_surface_show,
+                focus_surface_hide,
+                focus_surface_focus,
+                focus_surface_presentation_snapshot,
+                focus_runtime_capture_checkpoint,
+                focus_runtime_capture_acknowledged,
+                focus_runtime_capture_seed_timer_placement,
+                focus_surface_apply_presentation,
+                focus_surface_capture_compact_frame,
+                focus_surface_prepare_mode_raster,
+                focus_surface_animate_presentation,
+                focus_surface_finish_mode_raster,
+                focus_surface_mode_snapshot,
+                focus_surface_mode_panel,
+                focus_surface_mode_timer,
+                list_windows,
+                list_monitors,
+                focus_panel_placement_probe,
+                position_focus_panel,
+                present_focus_panel,
+                present_focus_for_blitz
+            ];
+            move |invoke| {
+                #[cfg(feature = "physical-observability")]
+                let _context = physical_trace::begin_invoke(&invoke);
+                handler(invoke)
+            }
+        })
         .setup(|app| {
             validation_log::initialize(app)
                 .map_err(|error| startup_error("initialize M7 validation logging", error))?;
@@ -2907,10 +2926,14 @@ pub fn run() {
             windows::install_display_change_observer(app)
                 .map_err(|error| startup_error("install display topology observer", error))?;
             shortcuts::install(app, &shortcut_preferences);
+            #[cfg(feature = "physical-observability")]
+            physical_trace::ready();
             Ok(())
         })
         .run(tauri::generate_context!());
 
+    #[cfg(feature = "physical-observability")]
+    physical_trace::finish();
     if let Err(error) = result {
         eprintln!("Fatal Narro runtime error: {error}");
         std::process::exit(1);

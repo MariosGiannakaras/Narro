@@ -16,6 +16,7 @@ function seed(relative, content) {
 }
 try {
   const bundleExe = seed("src-tauri/target-physical/release/narro.exe", "physical exe");
+  seed("scripts/physical-session.mjs", "physical session supervisor");
   seed("src-tauri/target-physical/release/bundle/nsis/Narro_0.1.exe", "nsis installer");
   seed("src-tauri/target-physical/release/bundle/msi/Narro_0.1.msi", "msi installer");
   seed("artifacts/m7-validation/narro-m7-validation.exe", "m7 exe");
@@ -35,7 +36,8 @@ try {
   assert.equal(physical.sourceSha, sourceSha);
   assert.equal(physical.githubRunId, options.runId);
   assert.equal(physical.githubRunAttempt, 2);
-  assert.equal(physical.files.length, 3, "physical upload requires EXE, MSI, NSIS");
+  assert.equal(physical.files.length, 4, "physical upload requires EXE, MSI, NSIS and the standalone supervisor");
+  assert.deepEqual(physical.observationFeatures, ["physical-observability"]);
   assert.deepEqual(physical.files.map(file => file.path), [...physical.files.map(file => file.path)].sort((a,b) => a.localeCompare(b,"en")));
   assert.equal(physical.files.find(x => x.path.endsWith("/release/narro.exe")).sha256,
     createHash("sha256").update(readFileSync(bundleExe)).digest("hex"));

@@ -1131,6 +1131,8 @@ fn parse_expected_total_seconds(value: &str) -> CommandResult<u64> {
 }
 
 fn report_timer_change(app_handle: &tauri::AppHandle, payload: &TimerSessionPayload) {
+    #[cfg(feature = "physical-observability")]
+    crate::physical_trace::state_changed("timer-state-published", payload);
     if let Err(error) = app_handle.emit(TIMER_SESSION_EVENT_NAME, payload.clone()) {
         eprintln!(
             "Warning: timer/session revision {} committed, but broadcast failed: {error}",
