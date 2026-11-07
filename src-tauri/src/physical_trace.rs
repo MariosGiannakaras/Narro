@@ -19,6 +19,7 @@ static NEXT: AtomicU64 = AtomicU64::new(0);
 static LOST: AtomicU64 = AtomicU64::new(0);
 static CONNECTION: AtomicU64 = AtomicU64::new(0);
 static APP_READY: AtomicBool = AtomicBool::new(false);
+static FINISHED: AtomicBool = AtomicBool::new(false);
 static DRAINED: OnceLock<Mutex<BTreeSet<String>>> = OnceLock::new();
 thread_local! { static CONTEXT: RefCell<Option<String>> = const { RefCell::new(None) }; }
 
@@ -49,6 +50,13 @@ fn enter(id: Option<String>) -> ContextGuard {
 /// Do not infer an async worker's caller from the last command on another thread.
 /// A None context is explicitly independent/unlinked, not attributed by timing.
 pub fn record(event: &str, data: Value) {
+    if FINISHED.load(Ordering::Acquire) {
+        return;
+    }
+    record_inner(event, data);
+}
+
+fn record_inner(event: &str, data: Value) {
     let Some(trace) = TRACE.get() else { return };
     let sequence = NEXT.fetch_add(1, Ordering::Relaxed) + 1;
     let row = json!({"schema":SCHEMA,"runId":trace.id,"pid":std::process::id(),
@@ -212,8 +220,11 @@ fn writer(receiver: mpsc::Receiver<Message>, mut chunks: Chunks, root: &Path) {
 }
 
 pub fn finish() {
+    if FINISHED.swap(true, Ordering::AcqRel) {
+        return;
+    }
     if let Some(trace) = TRACE.get() {
-        record("process-end", json!({"reason":"event-loop-returned"}));
+        record_inner("process-end", json!({"reason":"observer-finalized"}));
         // Blocking is restricted to final shutdown, never an interactive product path.
         let _ = trace.sender.send(Message::Finish);
         if let Ok(mut worker) = trace.worker.lock() {
@@ -424,7 +435,11 @@ pub fn plugin() -> TauriPlugin<Wry> {
         .js_init_script(include_str!("physical_trace.js"))
         .on_event(|_, event| match event {
             tauri::RunEvent::Ready => record("native-ready", json!({})),
-            tauri::RunEvent::Exit => record("native-exit", json!({})),
+            tauri::RunEvent::Exit => {
+                record("native-exit", json!({}));
+                // App::run exits the process directly; code after Builder::run is not a Quit hook.
+                finish();
+            }
             tauri::RunEvent::ExitRequested { code, .. } => {
                 record("native-exit-requested", json!({"code":code}))
             }
