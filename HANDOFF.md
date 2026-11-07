@@ -1,3 +1,21 @@
+# HANDOFF — M0–M9 implementation closure audit
+
+## NOW — Codex / 2026-11-07 / ANALYZING
+
+Latest user task: another repository-wide check, especially implementation method and the concrete work remaining until M0–M9 closure. This authorizes the source/requirements/dependency audit; no local Narro/installer, physical capture, AppData or OS/hardware change is being run. M10/M11/M12 remain gated.
+
+Audit base main `c6b396c9621f19beafda34ab2de7ce9589d75ff0`; isolated checkout `E:\SystemFiles\Desktop\Narro Project\narro-m0-m9-closure-audit-20261107`. Current source PR heads remain unchanged. Non-published trial merge of current main + PR437 produced tree `9b5ad06676c6baffc3802328b702f8edddde1301`, local-only commit `45aaed82d28a0f9913d6f969d1aaf79feea5b6b7`. This is audit scaffolding, not an admitted executable or an actual source-PR merge.
+
+Observed so far: 59 open M5–M9 documentary cells, plus one optional M1 harness row; these are not59 missing implementations. PP44-F01 repair, live Taken, native unlock/event, monitor/recovery and other corrections exist on open source branches but are not yet integrated into main. Readiness and physical acceptance remain independent. Trial source merges431/436/437 are mechanically clean; A389/B419 each conflict in package.json. No protected PR was merged or modified.
+
+## NEXT ACTION
+
+Finish the one running combined-tree frontend preflight; log outside Git: `C:\Users\MariosG\.codex\visualizations\2026\11\06\01a1b324-d6de-7583-8b71-e4a2e31a8322\m0-m9-combined-preflight-20261107.log`. Recheck actual process/log completion before retrying. Complete the requirement/source/test/native gap matrix, publish the evidence-backed closure sequence and final audit limits, then recycle the owned temporary checkout. Do not start a physical session or a duplicate audit from this checkpoint. The verified PhysicalCandidates cache and original Blitzit stay untouched.
+
+---
+
+## HISTORICAL — prepared physical handoff before this audit
+
 # HANDOFF — prepare the fresh Windows physical chat
 
 ## NOW — Codex / 2026-11-07 / PREPARED
