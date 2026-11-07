@@ -41,6 +41,11 @@ When a later validated event supersedes a current-state claim:
 A zero-context agent must not need to infer which of two contradictory "current" statements is newer.
 
 
+
+## Automatic observation for physical checks (user decision2026-11-07)
+
+Use [the test-only session contract](docs/PHYSICAL_SESSION_OBSERVABILITY.md). Each physical campaign acquires meaningful full-stack logs from startup through exit automatically, alongside original video/actions/build identity, and the executing/resuming chat consumes the collected index/timeline/video/logs together before diagnosis. Use a validated physical-observability feature artifact and the owned session supervisor; existing older binaries cannot gain missing instrumentation by environment variables. Keep observation out of the final product/default build. Detect gaps/abrupt tails/write failures explicitly; logs are evidence, not proof of pixels, durable commits or unobserved async causality. Preserve actual in-flight files, independent native holds and original Blitzit. Repository-only agents cannot see local packets; ended chats do not monitor/collect them in the background. Implementation/runtime validation remains separate from PA acceptance.
+
 ## Active work phase checkpoints — truthful repository visibility (binding; 2026-10-16)
 
 `HANDOFF.md` is the **single canonical current-work record**, not a real-time process monitor. Another agent can know only the **last pushed/verified checkpoint** plus live GitHub PR/CI state; no repository-only mechanism can determine whether an unreported local Codex recording, analysis or edit is currently running, stopped or hung. **Never present a stale checkpoint as live activity.** Do not add a competing progress tracker or change historical immutable logs.
