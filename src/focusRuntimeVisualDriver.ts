@@ -93,6 +93,8 @@ function runtimeSnapshot() {
       to: coordinator?.getAttribute("data-focus-geometry-motion-to") ?? null,
       phase: coordinator?.getAttribute("data-focus-geometry-motion-phase") ?? null,
     },
+    panelContentState: document.querySelector("[data-focus-panel]")?.getAttribute("data-focus-panel") ?? null,
+    compactActionsVisible: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-compact-actions") ?? null,
     floatingExpanded: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-expanded") ?? null,
     floatingResizePending: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-resize-pending") ?? null,
     floatingRegionExpanded: document.querySelector(".floating-timer-foundation")?.getAttribute("data-floating-region-expanded") ?? null,
@@ -103,16 +105,18 @@ function runtimeSnapshot() {
 }
 
 function runtimeContentReady(presentation: "panel" | "timerCompact" | "timerExpanded") {
-  const panel = presentation === "panel";
-  const button = document.querySelector<HTMLButtonElement>(panel
-    ? '[data-focus-panel="main"] [data-focus-compact-control="true"]'
-    : '[aria-label="Return to Focus Panel"]');
-  const task = document.querySelector(panel
-    ? '.focus-panel__live-card[data-task-id]'
-    : '.floating-timer-foundation[data-floating-live-task-id]');
-  const taskId = task?.getAttribute(panel ? "data-task-id" : "data-floating-live-task-id");
-  return Boolean(button && !button.disabled && !button.closest("[inert]")
-    && button.getClientRects().length && taskId);
+  if (presentation === "panel") {
+    const button = document.querySelector<HTMLButtonElement>('[data-focus-panel="main"] [data-focus-compact-control="true"]');
+    const task = document.querySelector('.focus-panel__live-card[data-task-id]');
+    return Boolean(button && !button.disabled && !button.closest("[inert]")
+      && button.getClientRects().length && task?.getAttribute("data-task-id"));
+  }
+  // Compact actions are intentionally inert until hover/keyboard focus.
+  // Their availability is not Timer-content readiness.
+  const timer = document.querySelector('.floating-timer-foundation[data-floating-live-task-id]');
+  const title = document.querySelector('[data-floating-task-title="true"]');
+  return Boolean(timer && !timer.closest("[inert]") && timer.getClientRects().length
+    && timer.getAttribute("data-floating-live-task-id") && title?.getAttribute("title"));
 }
 
 async function waitForPresentation(presentation: "panel" | "timerCompact" | "timerExpanded") {
@@ -146,6 +150,21 @@ async function clickRealTimerSizeControl(expand: boolean): Promise<void> {
   throw new Error(expand
     ? "Real Timer expand control did not become enabled"
     : "Real Timer collapse control did not become enabled");
+}
+
+async function clickRealReturnControl(): Promise<void> {
+  const deadline = performance.now() + 8_000;
+  while (performance.now() < deadline) {
+    const button = document.querySelector<HTMLButtonElement>('[aria-label="Return to Focus Panel"]');
+    if (button && !button.disabled && !button.closest("[inert]") && button.getClientRects().length) {
+      button.click();
+      return;
+    }
+    // The same tabbable heading exposes actions for an actual keyboard user.
+    document.querySelector<HTMLElement>('.floating-timer-foundation__heading[tabindex="0"]')?.focus({ preventScroll: true });
+    await sleep(25);
+  }
+  throw new Error("Real Return to Focus Panel control did not become enabled");
 }
 
 async function checkpoint(phase: string, snapshot = runtimeSnapshot()) {
@@ -187,9 +206,7 @@ export function startFocusRuntimeVisualDriver() {
     warmCompact.click();
     await waitForPresentation("timerCompact");
     await invoke("focus_runtime_capture_seed_timer_placement");
-    const warmPanel = document.querySelector<HTMLButtonElement>('[aria-label="Return to Focus Panel"]');
-    if (!warmPanel || warmPanel.disabled) throw new Error("Prewarm Panel control unavailable");
-    warmPanel.click();
+    await clickRealReturnControl();
     await checkpoint("panel", await waitForPresentation("panel"));
     await waitForCaptureAck("panel");
 
@@ -216,9 +233,7 @@ export function startFocusRuntimeVisualDriver() {
     await waitForCaptureAck("timer-compact-returned");
     await checkpoint("timer-to-panel-start");
     await waitForCaptureAck("timer-to-panel-start");
-    const returnButton = document.querySelector<HTMLButtonElement>('[aria-label="Return to Focus Panel"]');
-    if (!returnButton) throw new Error("Return to Focus Panel button missing");
-    returnButton.click();
+    await clickRealReturnControl();
     await checkpoint("panel-returned", await waitForPresentation("panel"));
     await waitForCaptureAck("panel-returned");
     await checkpoint("complete");
@@ -227,7 +242,7 @@ export function startFocusRuntimeVisualDriver() {
     try {
       await invoke("focus_runtime_capture_checkpoint", {
         phase: "complete",
-        snapshot: JSON.stringify({ phase: "complete", error: message }, null, 2),
+        snapshot: JSON.stringify({ phase: "complete", error: message, snapshot: runtimeSnapshot() }, null, 2),
       });
     } catch {}
   });
