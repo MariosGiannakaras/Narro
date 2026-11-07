@@ -18,6 +18,11 @@ This file contains durable implementation rules for Narro. Keep changing progres
 
 The current execution route is [the fresh physical protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md), selected by current HANDOFF. Older named CURRENT/session/closure documents are dated case history. Ordinary PA-01–09 remains ACTIVE once exact candidate and operator admission is satisfied; no separate account, temporary DB, automatic backup or repeated blanket permission is required for normal disposable Narro test data. Unrelated OS/files/hardware/install actions retain their actual scenario boundaries. Preparation does not itself run a physical session. Never use old Narro recordings as the comparison side of the fresh campaign.
 
+
+## Automatic observation for physical checks (user decision2026-11-07)
+
+Use [the test-only session contract](docs/PHYSICAL_SESSION_OBSERVABILITY.md). Each physical campaign acquires meaningful full-stack logs from startup through exit automatically, alongside original video/actions/build identity, and the executing/resuming chat consumes the collected index/timeline/video/logs together before diagnosis. Use a validated physical-observability feature artifact and the owned session supervisor; existing older binaries cannot gain missing instrumentation by environment variables. Keep observation out of the final product/default build. Detect gaps/abrupt tails/write failures explicitly; logs are evidence, not proof of pixels, durable commits or unobserved async causality. Preserve actual in-flight files, independent native holds and original Blitzit. Repository-only agents cannot see local packets; ended chats do not monitor/collect them in the background. Implementation/runtime validation remains separate from PA acceptance.
+
 ## Critical product partnership and proactive alternatives (binding)
 
 **User decision, 2026-10-27:** Be an independent, constructive product/UX/engineering partner, not a literal executor that assumes every user-suggested solution is correct. **Respect the user's goal and explicit scope as authoritative; treat their proposed implementation, causal explanation, UI treatment or workflow as a hypothesis to evaluate, not automatically the best answer.** Conversely, do not dismiss a user decision just because the agent prefers another design.
