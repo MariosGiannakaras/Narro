@@ -2,13 +2,13 @@
 
 **Current checkpoint: 2026-11-07.** Use [HANDOFF](HANDOFF.md) for the active branch/PR, exact verification and one next operation. This reconciliation changes **no milestone checkbox**. The detailed ledger below remains the original requirements/disposition record; old dated source/artifact links are provenance, not current executable acceptance.
 
-- Current retired Narro evidence: **27 folders / 4,065 tracked files / 2,340,643,868 logical bytes**. Removal is still **BLOCKED**, not complete. No retry, split or alternate-tool bypass of the recorded safety denial.
-- Protected source: `reference/original-blitzit/` — **46 screenshots, 19 MP4, 19 SRT, 2 explicitly derived VE005 frames**. All **86** manifest Git blob IDs and sizes match the verified base tree; zero mismatches. Never delete or prune originals wherever found.
-- Frozen historical 700 video/ZIP cohort: **562 retired / 138 remain**. Historical Narro-evidence checkout retirements: **32,536**. Cleanup milestone **OPEN 1/5**; do not count removal of helper scripts as evidence-file retirements or reclaimed Git-history storage.
-- Historical recordings are retired from new comparison use. New Narro captures compare only with authentic Blitzit sources; all new recording groups remain **NOT RUN**. Historical verdicts remain dated facts.
+- Historical Narro checkout cleanup: **DONE 5/5**. [PR493](https://github.com/MariosGiannakaras/Narro/pull/493) removed the final **27 folders /4,065 paths /2,340,643,868 logical bytes**; actual merge `cc5138444bbcf41f48a2dbda3229fec7c3e1406c` was verified against the complete candidate tree `fa7c5483fc73342c3545745654ff4b35675e5ac7`. **0 tracked files remain under `work-log/evidence/`**.
+- Original Blitzit: **86/86 manifest assets unchanged** — 46 screenshots, 19 MP4, 19 SRT, two labeled source-derived VE005 frames. All comparison sources stay at `reference/original-blitzit/`.
+- Frozen historical 700 video/ZIP cohort: **700 retired /0 remain in checkout**. Cumulative historical Narro-evidence retirement: **36,601 paths**; the 14 root helpers removed in PR492 are a separate maintenance count. Git history/recovery is preserved; no remote Git object-size saving is claimed.
+- Only fresh Narro acquisitions may provide new native acceptance; historical verdicts remain dated evidence. All new physical recording groups remain **NOT RUN**. Cleanup changes no application behavior or milestone acceptance.
 
-- [ ] Resolve the recorded tool-safety refusal before removing the 27-family cohort; preserve the temporary tracker until real full closure.
-- [x] Independent residual/workflow PR492 integrated after exact-head 3/3 CI SUCCESS and resulting-main tree identity verification; [final receipt](work-log/2026-11-07-codex-cleanup-integration-verification.md). The separate 27-family operation remains BLOCKED.
+- [x] PR493 final 27-family retirement merged and complete resulting-main tree verified; temporary tracker retired at actual 5/5 closure.
+- [x] Independent residual/workflow PR492 integrated after exact-head 3/3 CI SUCCESS and resulting-main tree identity verification; [final receipt](work-log/2026-11-07-codex-cleanup-integration-verification.md). The separate 27-family operation subsequently completed in PR493.
 - [ ] Fresh Windows capture groups remain NOT RUN under the [new baseline](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md); do not run them as part of cleanup.
 - [ ] Preserve PR389/419 strict independent physical-before-merge holds and PR431/436/437 dependent acceptance. Recheck current heads rather than resuming old CI-running text.
 

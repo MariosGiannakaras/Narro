@@ -1,11 +1,11 @@
 # Evidence cleanup — current state and frozen historical cohort
 
-**Verified 2026-11-07 at `e953db3225406cc03e432c2bc0f1715ca743c19f`.**
+**Final removal verified 2026-11-07 at merge `cc5138444bbcf41f48a2dbda3229fec7c3e1406c`.**
 
-- Current retired Narro evidence: **27 folders / 4,065 tracked files / 2,340,643,868 logical bytes**. Removal is still **BLOCKED**, not complete. No retry, split or alternate-tool bypass of the recorded safety denial.
-- Protected source: `reference/original-blitzit/` — **46 screenshots, 19 MP4, 19 SRT, 2 explicitly derived VE005 frames**. All **86** manifest Git blob IDs and sizes match the verified base tree; zero mismatches. Never delete or prune originals wherever found.
-- Frozen historical 700 video/ZIP cohort: **562 retired / 138 remain**. Historical Narro-evidence checkout retirements: **32,536**. Cleanup milestone **OPEN 1/5**; do not count removal of helper scripts as evidence-file retirements or reclaimed Git-history storage.
-- Historical recordings are retired from new comparison use. New Narro captures compare only with authentic Blitzit sources; all new recording groups remain **NOT RUN**. Historical verdicts remain dated facts.
+- Historical Narro checkout cleanup: **DONE 5/5**. [PR493](https://github.com/MariosGiannakaras/Narro/pull/493) removed the final **27 folders /4,065 paths /2,340,643,868 logical bytes**; actual merge `cc5138444bbcf41f48a2dbda3229fec7c3e1406c` was verified against the complete candidate tree `fa7c5483fc73342c3545745654ff4b35675e5ac7`. **0 tracked files remain under `work-log/evidence/`**.
+- Original Blitzit: **86/86 manifest assets unchanged** — 46 screenshots, 19 MP4, 19 SRT, two labeled source-derived VE005 frames. All comparison sources stay at `reference/original-blitzit/`.
+- Frozen historical 700 video/ZIP cohort: **700 retired /0 remain in checkout**. Cumulative historical Narro-evidence retirement: **36,601 paths**; the 14 root helpers removed in PR492 are a separate maintenance count. Git history/recovery is preserved; no remote Git object-size saving is claimed.
+- Only fresh Narro acquisitions may provide new native acceptance; historical verdicts remain dated evidence. All new physical recording groups remain **NOT RUN**. Cleanup changes no application behavior or milestone acceptance.
 
 The tables below are **frozen historical inventory**, including their original HOLD labels and old consumer descriptions. They are retained for cohort provenance, not current deletion permission or current physical acceptance. [Full original inventory prose](https://github.com/MariosGiannakaras/Narro/blob/e953db3225406cc03e432c2bc0f1715ca743c19f/docs/EVIDENCE_CLEANUP_INVENTORY.md) and immutable receipts remain recoverable in Git.
 
