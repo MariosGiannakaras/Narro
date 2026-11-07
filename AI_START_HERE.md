@@ -14,6 +14,10 @@ On an existing chat, `continue`, interruption or status question, resume the las
 4. Recheck the selected live source PR/head, exact CI and actual artifact. Main documentation SHA and an unmerged application candidate SHA are different identities. A newer main build is not automatically a replacement for PR437/389/419.
 5. Perform the one next action in HANDOFF. Expand only into referenced source/evidence needed for that action. A genuine unavailable input, hardware action or product decision may require the user; routine sequencing does not.
 
+## Local physical-test working set
+
+Local cleanup on2026-11-07 retired the21 old checkouts after preserving original Blitzit and source work. On the prepared Windows machine, use `E:\SystemFiles\Desktop\Narro Project\PhysicalChecks\START_HERE.md`, existing `PhysicalCandidates`, `Tools` and persistent `PhysicalEvidence`; verify current remote HANDOFF/live application head first. The kit contains exact canonical86 references and a self-contained preparation helper, not a development checkout. Source-only recovery is separate from admitted binaries. Do not recreate an old checkout or rebuild merely to begin unchanged physical tests. After each completed capture/review/retest, run the retention policy's verified replacement/retirement step.
+
 ## Current physical scope and data policy
 
 - Ordinary M1–M9 PA-01–09 is ACTIVE under existing user authority once candidate/dependency/operator admission is satisfied. Do not invent a blanket pause, a fresh case-by-case permission gate, or an optional whole-app audit prerequisite.
