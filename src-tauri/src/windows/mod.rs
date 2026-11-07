@@ -6,7 +6,13 @@ mod topology;
 #[cfg(windows)]
 pub use topology::install_display_change_observer;
 #[cfg(windows)]
-pub(crate) use topology::{suspend_focus_display_recovery, DisplayRecoveryGuard};
+pub(crate) use topology::{
+    focus_interactive_move_active, suspend_focus_display_recovery, DisplayRecoveryGuard,
+};
+#[cfg(not(windows))]
+pub(crate) fn focus_interactive_move_active() -> bool {
+    false
+}
 #[cfg(not(windows))]
 pub(crate) struct DisplayRecoveryGuard;
 #[cfg(not(windows))]
@@ -51,6 +57,10 @@ pub struct MonitorDescriptor {
     pub key: String,
     pub index: usize,
     pub name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub friendly_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub desktop_preview_data_url: Option<String>,
     pub scale_factor: f64,
     pub position: PhysicalPoint,
     pub size: PhysicalSize,
@@ -163,6 +173,38 @@ pub fn focus_panel_edge_position(
     clamp_top_left(work_area, window_size, desired)
 }
 
+/** Insets an edge-anchored Panel without leaving the work area.
+ * The inset is physical pixels, supplied by the DPI-aware native caller.
+ * If a work area cannot fit two margins, preserve its safe geometry instead.
+ */
+pub fn focus_panel_inset_position(
+    work_area: PhysicalRect,
+    window_size: PhysicalSize,
+    side: FocusPanelSide,
+    inset_pixels: u32,
+) -> Result<PhysicalPoint, WindowGeometryError> {
+    let edge = focus_panel_edge_position(work_area, window_size, side)?;
+    let inset_x =
+        i32::try_from(inset_pixels.min(work_area.size.width.saturating_sub(window_size.width) / 2))
+            .map_err(|_| WindowGeometryError::CoordinateOverflow)?;
+    let inset_y = i32::try_from(
+        inset_pixels.min(work_area.size.height.saturating_sub(window_size.height) / 2),
+    )
+    .map_err(|_| WindowGeometryError::CoordinateOverflow)?;
+    let desired = PhysicalPoint {
+        x: match side {
+            FocusPanelSide::Left => edge.x.checked_add(inset_x),
+            FocusPanelSide::Right => edge.x.checked_sub(inset_x),
+        }
+        .ok_or(WindowGeometryError::CoordinateOverflow)?,
+        y: edge
+            .y
+            .checked_add(inset_y)
+            .ok_or(WindowGeometryError::CoordinateOverflow)?,
+    };
+    clamp_top_left(work_area, window_size, desired)
+}
+
 pub fn recover_window_top_left(
     current_window: PhysicalRect,
     work_areas: &[PhysicalRect],
@@ -212,6 +254,56 @@ mod tests {
             height: 1040,
         },
     };
+
+    #[test]
+    fn panel_inset_respects_both_edges_and_top_on_primary_and_negative_monitors() {
+        assert_eq!(
+            focus_panel_inset_position(PRIMARY_WORK_AREA, PANEL, FocusPanelSide::Left, 16),
+            Ok(PhysicalPoint { x: 16, y: 16 })
+        );
+        assert_eq!(
+            focus_panel_inset_position(PRIMARY_WORK_AREA, PANEL, FocusPanelSide::Right, 16),
+            Ok(PhysicalPoint { x: 1504, y: 16 })
+        );
+        let secondary = PhysicalRect {
+            position: PhysicalPoint { x: -1920, y: -120 },
+            size: PhysicalSize {
+                width: 1920,
+                height: 1080,
+            },
+        };
+        assert_eq!(
+            focus_panel_inset_position(secondary, PANEL, FocusPanelSide::Right, 20),
+            Ok(PhysicalPoint { x: -420, y: -100 })
+        );
+    }
+
+    #[test]
+    fn panel_inset_gracefully_shrinks_when_window_nearly_fills_work_area() {
+        let tight = PhysicalRect {
+            position: PhysicalPoint { x: 100, y: 50 },
+            size: PhysicalSize {
+                width: 410,
+                height: 710,
+            },
+        };
+        assert_eq!(
+            focus_panel_inset_position(tight, PANEL, FocusPanelSide::Left, 16),
+            Ok(PhysicalPoint { x: 105, y: 55 })
+        );
+        assert_eq!(
+            focus_panel_inset_position(tight, PANEL, FocusPanelSide::Right, 16),
+            Ok(PhysicalPoint { x: 105, y: 55 })
+        );
+        let exactly_fits = PhysicalRect {
+            position: PhysicalPoint { x: -900, y: 100 },
+            size: PANEL,
+        };
+        assert_eq!(
+            focus_panel_inset_position(exactly_fits, PANEL, FocusPanelSide::Right, 16),
+            Ok(exactly_fits.position)
+        );
+    }
 
     #[test]
     fn positions_panel_at_left_edge() {

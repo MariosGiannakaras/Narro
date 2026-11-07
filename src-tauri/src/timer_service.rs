@@ -106,6 +106,39 @@ pub struct TimerService {
     monotonic_origin: Instant,
 }
 
+// Persist Timer transitions under the authoritative mutex, but defer consumer
+// callbacks until the mutex guard has gone out of scope. Even an error after a
+// committed boundary must publish the committed revision exactly once.
+struct DeferredTimerReports<F: FnMut(&TimerSessionPayload)> {
+    emit: F,
+    pending: Vec<TimerSessionPayload>,
+}
+
+impl<F: FnMut(&TimerSessionPayload)> DeferredTimerReports<F> {
+    fn new(emit: F) -> Self {
+        Self {
+            emit,
+            pending: Vec::new(),
+        }
+    }
+
+    fn record(&mut self, payload: &TimerSessionPayload) {
+        self.pending.push(payload.clone());
+    }
+
+    fn publish(&mut self) {
+        for payload in self.pending.drain(..) {
+            (self.emit)(&payload);
+        }
+    }
+}
+
+impl<F: FnMut(&TimerSessionPayload)> Drop for DeferredTimerReports<F> {
+    fn drop(&mut self) {
+        self.publish();
+    }
+}
+
 impl TimerService {
     pub fn recover(connection: Connection) -> Result<Self, TimerServiceRecoverError> {
         let wall_time = current_wall_time();
@@ -203,6 +236,9 @@ impl TimerService {
         app_handle: &tauri::AppHandle,
     ) -> CommandResult<TimerSessionPayload> {
         let trace = crate::timer_diagnostics::Scope::enter("checkpoint_before_normal_exit");
+        // Declare before the mutex guard to ensure safe error-path drop order.
+        let mut reports =
+            DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
         trace.stage("lock-state");
         let mut state = self.state.lock().map_err(|_| {
             crate::timer_diagnostics::poisoned("state", "checkpoint_before_normal_exit")
@@ -223,13 +259,16 @@ impl TimerService {
             observed_ms,
             now_ms,
             &wall_time,
-            |payload| report_timer_change(app_handle, payload),
+            |payload| reports.record(payload),
         )?;
         Ok(controller.snapshot())
     }
 
     pub fn advance_and_report(&self, app_handle: &tauri::AppHandle) -> CommandResult<()> {
         let trace = crate::timer_diagnostics::Scope::enter("advance_and_report");
+        // Declare before the mutex guard to ensure safe error-path drop order.
+        let mut reports =
+            DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
         trace.stage("read-clock");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
@@ -252,7 +291,7 @@ impl TimerService {
             observed_ms,
             now_ms,
             &wall_time,
-            |payload| report_timer_change(app_handle, payload),
+            |payload| reports.record(payload),
         )?;
         trace.stage("claim-effects");
         let projection = controller.snapshot();
@@ -261,6 +300,7 @@ impl TimerService {
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         trace.stage("release-lock");
         drop(state);
+        reports.publish();
         submit_claimed_timed_alerts(app_handle, timed_alerts);
         submit_claimed_notifications(app_handle, pending);
         Ok(())
@@ -272,6 +312,9 @@ impl TimerService {
         power_tick_ms: u64,
     ) -> CommandResult<()> {
         let trace = crate::timer_diagnostics::Scope::enter("handle_power_suspend");
+        // Declare before the mutex guard to ensure safe error-path drop order.
+        let mut reports =
+            DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
         trace.stage("lock-state");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
@@ -300,7 +343,7 @@ impl TimerService {
             observed_ms,
             now_ms,
             &wall_time,
-            |payload| report_timer_change(app_handle, payload),
+            |payload| reports.record(payload),
         )?;
         trace.stage("persist-suspend-checkpoint");
         controller
@@ -312,6 +355,7 @@ impl TimerService {
         let timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
+        reports.publish();
         submit_claimed_timed_alerts(app_handle, timed_alerts);
         submit_claimed_notifications(app_handle, pending);
         Ok(())
@@ -323,6 +367,9 @@ impl TimerService {
         power_tick_ms: u64,
     ) -> CommandResult<()> {
         let trace = crate::timer_diagnostics::Scope::enter("handle_power_resume");
+        // Declare before the mutex guard to ensure safe error-path drop order.
+        let mut reports =
+            DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
         trace.stage("lock-state");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
@@ -354,7 +401,7 @@ impl TimerService {
             observed_ms,
             now_ms,
             &wall_time,
-            |payload| report_timer_change(app_handle, payload),
+            |payload| reports.record(payload),
         )?;
         trace.stage("persist-resume-checkpoint");
         controller
@@ -367,6 +414,7 @@ impl TimerService {
         let timed_alerts = claim_timed_alerts_best_effort(effects_connection, &wall_time);
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         drop(state);
+        reports.publish();
         submit_claimed_timed_alerts(app_handle, timed_alerts);
         submit_claimed_notifications(app_handle, pending);
         Ok(())
@@ -636,6 +684,9 @@ impl TimerService {
         P: FnOnce(&TimerSessionPayload) -> bool,
     {
         let trace = crate::timer_diagnostics::Scope::enter("transition_if");
+        // Declare before the mutex guard to ensure safe error-path drop order.
+        let mut reports =
+            DeferredTimerReports::new(|payload| report_timer_change(app_handle, payload));
         trace.stage("read-clock");
         let raw_ms = self.raw_now_ms()?;
         let wall_time = current_wall_time();
@@ -662,7 +713,7 @@ impl TimerService {
             observed_ms,
             now_ms,
             &wall_time,
-            |payload| report_timer_change(app_handle, payload),
+            |payload| reports.record(payload),
         )?;
 
         trace.stage("claim-prior-effects");
@@ -673,6 +724,7 @@ impl TimerService {
         if !predicate(&before_transition) {
             let pending = claim_notifications_best_effort(effects_connection, &wall_time);
             drop(state);
+            reports.publish();
             submit_claimed_timed_alerts(app_handle, timed_alerts);
             submit_claimed_notifications(app_handle, pending);
             return Ok(None);
@@ -695,6 +747,7 @@ impl TimerService {
         let pending = claim_notifications_best_effort(effects_connection, &wall_time);
         trace.stage("publish-after-lock-release");
         drop(state);
+        reports.publish();
         crate::timer_diagnostics::milestone(
             "timer-transition-return",
             "transition_if",
@@ -1338,6 +1391,86 @@ mod tests {
 
     const T0: &str = "2026-09-05T12:00:00Z";
     const T6: &str = "2026-09-05T12:00:06Z";
+
+    #[test]
+    fn poisoned_timer_mutex_fails_closed_and_does_not_corrupt_sqlite_or_session_identity() {
+        use std::sync::Arc;
+        let (mut controller, effects, task_id, path) = fixture();
+        controller
+            .start_task(task_id, TimerMode::CountUp, 0, T0)
+            .unwrap();
+        controller
+            .checkpoint(5_000, "2026-09-05T12:00:05Z")
+            .unwrap();
+        let session = controller.snapshot().runtime.open_session_id.unwrap();
+        drop(controller);
+        drop(effects);
+
+        let service =
+            Arc::new(TimerService::recover_at(Connection::open(&path).unwrap(), T6).unwrap());
+        let injected = Arc::clone(&service);
+        let failed_worker = std::thread::spawn(move || {
+            let _held = injected.state.lock().unwrap();
+            panic!("synthetic Timer failure: test-owned mutex only");
+        });
+        assert!(failed_worker.join().is_err());
+        let refused = service.snapshot().unwrap_err();
+        assert_eq!(refused.code, "TIMER_SERVICE_LOCK_POISONED");
+        let connection = Connection::open(&path).unwrap();
+        let check: String = connection
+            .query_row("PRAGMA quick_check", [], |row| row.get(0))
+            .unwrap();
+        assert_eq!(check, "ok");
+        let open_session = get_open_session(&connection).unwrap().unwrap();
+        assert_eq!(open_session.id, session);
+        assert_eq!(open_session.duration_seconds, 5);
+        drop(connection);
+        drop(service);
+        let restarted = TimerService::recover_at(Connection::open(&path).unwrap(), T6).unwrap();
+        let snapshot = restarted.snapshot().unwrap();
+        assert_eq!(snapshot.runtime.open_session_id, Some(session));
+        assert_eq!(snapshot.runtime.timer.task_id, Some(task_id));
+        assert_eq!(snapshot.runtime.timer.state, TimerStateKind::Paused);
+        drop(restarted);
+        fs::remove_file(path).unwrap();
+    }
+
+    #[test]
+    fn deferred_reports_publish_after_unlock_once_and_flush_on_error() {
+        let gate = Mutex::new(());
+        let (controller, effects, _task_id, path) = fixture();
+        let payload = controller.snapshot();
+        let mut observed = 0;
+        {
+            let mut reports = DeferredTimerReports::new(|_| {
+                assert!(gate.try_lock().is_ok(), "report callback must run unlocked");
+                observed += 1;
+            });
+            let guard = gate.lock().unwrap();
+            reports.record(&payload);
+            drop(guard);
+            reports.publish();
+            reports.publish();
+        }
+        assert_eq!(observed, 1);
+        let failed: Result<(), &'static str> = {
+            let mut reports = DeferredTimerReports::new(|_| {
+                assert!(
+                    gate.try_lock().is_ok(),
+                    "error-path publication must run unlocked"
+                );
+                observed += 1;
+            });
+            let _guard = gate.lock().unwrap();
+            reports.record(&payload);
+            Err("later checkpoint failed")
+        };
+        assert_eq!(failed, Err("later checkpoint failed"));
+        assert_eq!(observed, 2, "committed revision must survive later failure");
+        drop(controller);
+        drop(effects);
+        fs::remove_file(path).unwrap();
+    }
 
     #[test]
     fn normal_exit_checkpoint_preserves_final_interval_identity_and_excludes_downtime() {

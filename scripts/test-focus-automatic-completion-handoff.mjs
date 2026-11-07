@@ -53,6 +53,7 @@ function harness({ next = true, successScreen = false } = {}) {
       return startCall.promise;
     },
     showSuccessScreen: successScreen,
+    doneSettingsPending: false, // Preferences already settled in handoff scenarios.
     preferences: { snapshot: { celebration: { successSoundEnabled: false, funGif: false } } },
     DEFAULT_SUCCESS_SOUND: "none",
     playLocalSound: () => Promise.resolve(),

@@ -186,8 +186,14 @@ unsafe extern "system" fn display_change_subclass_proc(
 ) -> isize {
     if message == WM_ENTERSIZEMOVE {
         INTERACTIVE_MOVE_ACTIVE.store(true, Ordering::Release);
+        if let Some(app) = DISPLAY_APP_HANDLE.get() {
+            crate::floating_placement::begin_user_timer_move(app);
+        }
     } else if message == WM_EXITSIZEMOVE {
         INTERACTIVE_MOVE_ACTIVE.store(false, Ordering::Release);
+        if let Some(app) = DISPLAY_APP_HANDLE.get() {
+            crate::floating_placement::finish_user_timer_move(app);
+        }
         if RECOVERY_DIRTY.load(Ordering::Acquire) {
             schedule_display_recovery();
         }
@@ -218,6 +224,10 @@ unsafe extern "system" fn display_change_subclass_proc(
     }
 
     unsafe { def_subclass_proc(hwnd, message, wparam, lparam) }
+}
+
+pub(crate) fn focus_interactive_move_active() -> bool {
+    INTERACTIVE_MOVE_ACTIVE.load(Ordering::Acquire)
 }
 
 fn handle_power_broadcast(event: usize) {

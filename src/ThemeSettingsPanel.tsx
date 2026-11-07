@@ -19,6 +19,7 @@ type ThemeSettingsPanelViewProps = {
   pending?: boolean;
   error?: string | null;
   onSelectTheme: (theme: ThemePreference) => void;
+  loadingContent?: ReactNode;
   beforeGeneral?: ReactNode;
   generalChildren?: ReactNode;
   timeChildren?: ReactNode;
@@ -36,6 +37,7 @@ export function ThemeSettingsPanelView({
   pending = false,
   error = null,
   onSelectTheme,
+  loadingContent,
   beforeGeneral,
   generalChildren,
   timeChildren,
@@ -49,6 +51,7 @@ export function ThemeSettingsPanelView({
         <p className="theme-settings__intro">Manage Narro's local Windows appearance and shortcuts.</p>
       </header>
 
+      {loadingContent ?? <div className="theme-settings__ready">
       {beforeGeneral}
 
       <section className="theme-settings__section preference-settings__section" aria-labelledby="theme-general-title">
@@ -101,6 +104,7 @@ export function ThemeSettingsPanelView({
       ) : null}
 
       {children}
+      </div>}
     </section>
   );
 }
@@ -129,18 +133,59 @@ function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () =
         onRefreshMonitors={() => void preferences.refreshMonitors()}
       />
     </>
-  ) : (
-    <div className="preference-settings__loading"
-      role={preferences.loading ? "status" : "alert"}>
-      {preferences.loading ? "Loading Preferences…" : "Preferences could not be loaded."}
-      {!preferences.loading && preferences.error ? (
+  ) : null;
+
+  const loadingContent = !preferences.snapshot ? (
+    preferences.loading ? (
+      <div className="preference-settings__skeleton" data-preferences-skeleton="true"
+        role="status" aria-label="Preparing preferences" aria-busy="true">
+        <div aria-hidden="true">
+          <section className="preference-settings__skeleton-section">
+            <strong>Blitz Panel</strong>
+            <div className="preference-settings__skeleton-row">
+              <span>Monitor</span>
+              <div className="preference-settings__skeleton-monitors">
+                {[0, 1, 2].map((index) => (
+                  <div key={index} className="preference-settings__skeleton-monitor">
+                    <span className="preference-settings__skeleton-screen" />
+                    <span className="preference-settings__skeleton-line" />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="preference-settings__skeleton-row">
+              <span>Panel side</span>
+              <span className="preference-settings__skeleton-control" />
+            </div>
+            <div className="preference-settings__skeleton-row">
+              <span>Keep Timer position after restart</span>
+              <span className="preference-settings__skeleton-switch" />
+            </div>
+          </section>
+          <section className="preference-settings__skeleton-section">
+            <strong>General</strong>
+            <div className="preference-settings__skeleton-row">
+              <span>Theme</span>
+              <span className="preference-settings__skeleton-control" />
+            </div>
+            <div className="preference-settings__skeleton-row">
+              <span>Start with Windows</span>
+              <span className="preference-settings__skeleton-switch" />
+            </div>
+          </section>
+        </div>
+      </div>
+    ) : (
+      <div className="preference-settings__status" role="alert">
+        <p>Preferences could not be opened.</p>
+        {preferences.error ? <p>{preferences.error}</p> : null}
         <button type="button" className="motion-interactive" data-preferences-retry="true"
           onClick={preferences.retryInitialLoad}>
-          Retry loading Preferences
+          Retry
         </button>
-      ) : null}
-    </div>
-  );
+      </div>
+    )
+  ) : null;
 
   return (
     <ThemeSettingsPanelView
@@ -148,6 +193,7 @@ function ThemeSettingsPanelContent({ onOpenShortcuts }: { onOpenShortcuts?: () =
       pending={pending}
       error={themeError}
       onSelectTheme={(next) => void saveTheme(next)}
+      loadingContent={loadingContent}
       beforeGeneral={beforeGeneral}
       generalChildren={preferences.snapshot ? (
         <GeneralPreferenceRows
