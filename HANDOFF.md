@@ -1,3 +1,19 @@
+# HANDOFF — local physical-input cleanup and capture retention
+
+## NOW — Codex / 2026-11-07 / CLEANING
+
+Latest user instruction: verify that superseded/unneeded new Narro recordings are deleted, and clean local Narro files so only physical-test inputs remain. Local cleanup is explicitly authorized. Original Blitzit, exact current physical candidates, necessary capture tools and unpublished source work must be preserved. No Narro/installer/recording/AppData/OS action is started.
+
+Read-only inventory found21 Narro checkouts/worktrees across the workspace, NarroUpload and four Codex worktree folders, approximately67.2 GiB logical files including local Git storage. Most bulk is stale Narro evidence/build output. Current source branches and formal acceptance remain unchanged. Receipts are outside Git under the existing 2026-11-06 visualization task directory, named `narro-local-cleanup-*-20261107.json`.
+
+## NEXT ACTION
+
+Finish the protected-source/unpublished-work allowlist, execute the verified local cleanup, independently rehash retained physical software and Blitzit sources, then publish observed results and return the prepared physical next action. Do not infer a live recorder from historical CAPTURING text. Do not start physical testing during cleanup or delete original Blitzit by filename-only classification.
+
+---
+
+## HISTORICAL — prepared physical/source-audit handoff before local cleanup
+
 # HANDOFF — M0–M9 audit complete; fresh physical admission next
 
 ## NOW — Codex / 2026-11-07 / PREPARED
