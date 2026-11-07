@@ -1,6 +1,6 @@
 # HANDOFF — prepare the fresh Windows physical chat
 
-## NOW — Codex / 2026-11-07 / TESTING
+## NOW — Codex / 2026-11-07 / PREPARED
 
 User task: audit/fix the full agent/workflow/handoff/old-tracker path and leave the repository ready for a subsequent chat to begin fresh physical checks. This session prepares only: no Narro executable/installer, recording, AppData reset or OS/hardware change has been run.
 
@@ -10,11 +10,11 @@ The canonical controller is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANC
 - A389 `ec9227a2e09a69c380d4605aaf9623bdd9b9c394` and B419 `6a72cf56ee03ea8026b56644adb47780d15d8692` have independent exact-head3/3 CI and strict8/8 holds; the protocol records their verified packages and hashes.
 - All3 physical ZIPs and9/9 EXE/MSI/NSIS members were independently hash/size/CRC/source/run verified without execution. Local cache: `E:\SystemFiles\Desktop\Narro Project\PhysicalCandidates\20261107\VERIFIED_CANDIDATES.json`. Cache is intentionally retained outside Git; verify live head/hash again at session admission.
 - PR437 includes current431 and436 heads (57/42 ahead,0 behind). Reuse the integrated candidate for overlapping cases rather than rerun the same claims on three binaries. PR418 remains a design/source-contract branch, not a default runtime candidate.
-- Workflow helper branch ix/fresh-physical-session-checklist-20261107 is being aligned to the fresh protocol; check whether its PR already exists before creating another. exact helper PR/checkpoint and final validation will be recorded after publication. Tooling CI artifacts must not be substituted for the admitted application branches.
+- Workflow helper [PR494](https://github.com/MariosGiannakaras/Narro/pull/494) integrated: head `759c3015449a7b7c3733d2d0d30159a52b96737b`, [CI42347227803](https://github.com/MariosGiannakaras/Narro/actions/runs/42347227803) validation/fast/Windows **3/3 SUCCESS**, guarded squash merge `68191719e34c180d5c8c8ae0b707ed43b81f1432`. Resulting-main tree equals the exact green PR tree; its separate [run42348766003](https://github.com/MariosGiannakaras/Narro/actions/runs/42348766003) passed validation and safely skipped duplicate fast/Windows jobs. This is artifact reuse, not another 3/3 run. Tooling CI artifacts must not replace the admitted application branches.
 
 ## NEXT AGENT ACTION
 
-Finish this workflow-helper/source validation and publish the final readiness checkpoint. Then the next physical chat should recheck selected live PR437 head and local EXE hash, verify actual capture/input/process state, prepare one ignored fresh session, and execute the first compatible PR437 batch from the protocol. Do not rebootstrap the old research or request renewed general PA consent. Record unavailable hardware/input as NOT RUN; request only the specific observation/input actually needed.
+Repository preparation is complete. In the next physical chat, recheck the selected live PR437 head and local EXE hash, verify actual capture/input/process state, prepare one ignored fresh session, and execute the first compatible PR437 batch from the protocol. Do not rebootstrap the old research or request renewed general PA consent. Record unavailable hardware/input as NOT RUN; request only the specific observation/input actually needed.
 
 ## USER ACTION REQUIRED
 
@@ -38,4 +38,4 @@ M1–M4 retain their scoped formal acceptance; M5–M9 remain OPEN. M10 requires
 
 Historical cleanup remains DONE5/5 through PR493: zero tracked `work-log/evidence/` files; all86 Blitzit source assets unchanged. Issue491 is closed, temporary tracker retired. Do not resurrect its old denial narrative as a current prohibition. Immutable work logs and exact Git recovery preserve dated findings; old Narro media must not become fresh comparison evidence.
 
-[Workflow/readiness audit receipt](work-log/2026-11-07-codex-workflow-physical-handoff-audit.md) records findings, current evidence, validations and limits. This readiness task changes no application feature or milestone checkbox. Strict source/native holds and M10/M11/M12 boundaries are preserved.
+[Workflow/readiness audit](work-log/2026-11-07-codex-workflow-physical-handoff-audit.md) records findings; [final integration proof](work-log/2026-11-07-codex-physical-readiness-integration.md) records actual CI, integration, protected identities and limits. This readiness task changes no application feature or milestone checkbox. Strict source/native holds and M10/M11/M12 boundaries are preserved.
