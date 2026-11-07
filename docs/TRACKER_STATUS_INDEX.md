@@ -7,6 +7,7 @@ Verified 2026-11-07. A filename containing CURRENT, FINAL or TRACKER is not proo
 | Current operation | HANDOFF.md, STATUS.md | Current owner, exact candidates, readiness versus actual results, next step |
 | Current requirements | TODO.md | Preserve milestone checkboxes; unrun acceptance is not a new source defect |
 | Fresh Windows execution | [Canonical protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) | Admission, verified candidate register, current case matrix and normal-profile policy |
+| Current source/closure audit input | [M0–M9 audit](M0_M9_IMPLEMENTATION_CLOSURE_AUDIT_2026-11-07.md) | Dated source/PR/main distinctions and all59 open M5–M9 criteria; no new roadmap or live task queue |
 | Durable rules | AGENTS.md, AGENT_WORKFLOW.md, ENGINEERING_QUALITY.md, CI_VALIDATION_STRATEGY.md | Actual scope, ownership, correctness and validation; bundled-doc exceptions remain real build inputs |
 | Original source facts | EVIDENCE_ROUTING_MAP.md; BLITZIT_FORENSIC_PASS3_*; BLITZIT_VISUAL_CALIBRATION_*; BLITZIT_VISUAL_SYSTEM.md | Consume completed source/calibration findings; original Blitzit only for fresh comparison. Closed source counters are not a new research queue |
 | Finding reconciliation | AUDIT_IMPLEMENTATION_CROSSWALK.md; relevant canonical finding/risk registers | Required claim/disposition and prevention context; old current-state prose does not override HANDOFF/protocol |

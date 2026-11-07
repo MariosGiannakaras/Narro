@@ -1,28 +1,10 @@
-# HANDOFF — M0–M9 implementation closure audit
-
-## NOW — Codex / 2026-11-07 / ANALYZING
-
-Latest user task: another repository-wide check, especially implementation method and the concrete work remaining until M0–M9 closure. This authorizes the source/requirements/dependency audit; no local Narro/installer, physical capture, AppData or OS/hardware change is being run. M10/M11/M12 remain gated.
-
-Audit base main `c6b396c9621f19beafda34ab2de7ce9589d75ff0`; isolated checkout `E:\SystemFiles\Desktop\Narro Project\narro-m0-m9-closure-audit-20261107`. Current source PR heads remain unchanged. Non-published trial merge of current main + PR437 produced tree `9b5ad06676c6baffc3802328b702f8edddde1301`, local-only commit `45aaed82d28a0f9913d6f969d1aaf79feea5b6b7`. This is audit scaffolding, not an admitted executable or an actual source-PR merge.
-
-Observed so far: 59 open M5–M9 documentary cells, plus one optional M1 harness row; these are not59 missing implementations. PP44-F01 repair, live Taken, native unlock/event, monitor/recovery and other corrections exist on open source branches but are not yet integrated into main. Readiness and physical acceptance remain independent. Trial source merges431/436/437 are mechanically clean; A389/B419 each conflict in package.json. No protected PR was merged or modified.
-
-## NEXT ACTION
-
-Finish the one running combined-tree frontend preflight; log outside Git: `C:\Users\MariosG\.codex\visualizations\2026\11\06\01a1b324-d6de-7583-8b71-e4a2e31a8322\m0-m9-combined-preflight-20261107.log`. Recheck actual process/log completion before retrying. Complete the requirement/source/test/native gap matrix, publish the evidence-backed closure sequence and final audit limits, then recycle the owned temporary checkout. Do not start a physical session or a duplicate audit from this checkpoint. The verified PhysicalCandidates cache and original Blitzit stay untouched.
-
----
-
-## HISTORICAL — prepared physical handoff before this audit
-
-# HANDOFF — prepare the fresh Windows physical chat
+# HANDOFF — M0–M9 audit complete; fresh physical admission next
 
 ## NOW — Codex / 2026-11-07 / PREPARED
 
-User task: audit/fix the full agent/workflow/handoff/old-tracker path and leave the repository ready for a subsequent chat to begin fresh physical checks. This session prepares only: no Narro executable/installer, recording, AppData reset or OS/hardware change has been run.
+Latest user task: another whole-repository check, especially implementation method and what remains through M9. Source/requirements/integration audit COMPLETE; no local Narro executable/installer, recording, AppData reset or OS/hardware change. Formal milestone/source/native holds are preserved.
 
-The canonical controller is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md). It contains the exact source/CI/artifact/EXE register, normal-profile data policy, source admission, concrete PA matrix, A/B gates and session record contract. New acquisition and analysis remain **NOT RUN**; binary readiness is not physical acceptance.
+The execution protocol is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md). It contains the exact source/CI/artifact/EXE register, normal-profile data policy, source admission, concrete PA matrix, A/B gates and session record contract. New acquisition and analysis remain **NOT RUN**; binary readiness is not physical acceptance.
 
 - Default integrated candidate: PR437 `632345026d9c693613a3a0b3e9a8105740fcc6af`; CI41035287020 3/3 SUCCESS; physical artifact12968772574; EXE SHA256 `1f2d90241259dd0ae0216ab000455d8140b7e55406370f9d5948417f2096e878`.
 - A389 `ec9227a2e09a69c380d4605aaf9623bdd9b9c394` and B419 `6a72cf56ee03ea8026b56644adb47780d15d8692` have independent exact-head3/3 CI and strict8/8 holds; the protocol records their verified packages and hashes.
@@ -30,9 +12,15 @@ The canonical controller is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANC
 - PR437 includes current431 and436 heads (57/42 ahead,0 behind). Reuse the integrated candidate for overlapping cases rather than rerun the same claims on three binaries. PR418 remains a design/source-contract branch, not a default runtime candidate.
 - Workflow helper [PR494](https://github.com/MariosGiannakaras/Narro/pull/494) integrated: head `759c3015449a7b7c3733d2d0d30159a52b96737b`, [CI42347227803](https://github.com/MariosGiannakaras/Narro/actions/runs/42347227803) validation/fast/Windows **3/3 SUCCESS**, guarded squash merge `68191719e34c180d5c8c8ae0b707ed43b81f1432`. Resulting-main tree equals the exact green PR tree; its separate [run42348766003](https://github.com/MariosGiannakaras/Narro/actions/runs/42348766003) passed validation and safely skipped duplicate fast/Windows jobs. This is artifact reuse, not another 3/3 run. Tooling CI artifacts must not replace the admitted application branches.
 
+## Completed implementation/closure audit
+
+[Dated source/closure map](docs/M0_M9_IMPLEMENTATION_CLOSURE_AUDIT_2026-11-07.md): all59 open M5–M9 rows mapped (6/13/18/11/11); no numbered M0 and no new milestone counter. Most behavior exists; important431/436/437 fixes, including PP44-F01, are still outside main. [Immutable receipt](work-log/2026-11-07-codex-m0-m9-implementation-closure-audit.md).
+
+Actual combined main+437 local preflight:116 test commands and production build PASS. The unpublished trial is mechanically clean, preserves main rules/helper/CI/cleanup and matches exact437 app/build inputs. A389/B419 each have a package.json conflict and independent8/8 holds. No source PR merged/modified, no new executable admitted and no duplicate Windows CI. Existing first-fault poison and actual movement causality remain unresolved; native/source acceptance stays independent.
+
 ## NEXT AGENT ACTION
 
-Repository preparation is complete. In the next physical chat, recheck the selected live PR437 head and local EXE hash, verify actual capture/input/process state, prepare one ignored fresh session, and execute the first compatible PR437 batch from the protocol. Do not rebootstrap the old research or request renewed general PA consent. Record unavailable hardware/input as NOT RUN; request only the specific observation/input actually needed.
+Admit the existing PR437 exact source/cached EXE and actual capture/input/process state. Prepare one ignored fresh session; first establish measured nonzero native Timer drag (opt-in bounded NARRO_NATIVE_MOVE_TRACE_DIR receipts if needed) and the repaired PP44-F01 edit/delete/read/restart journey. If a real blocking failure remains, freeze its interval/trace and return to the existing source owner before dependent long SNAP/motion batches. Otherwise execute compatible missing/invalidated physical and original-source comparisons from the protocol/59-row audit. Integrate only after actual independent holds close, then verify resulting main and reconcile each complete acceptance criterion. Do not rebootstrap the old research or request renewed general PA consent. Record unavailable hardware/input as NOT RUN; request only the specific observation/input actually needed.
 
 ## USER ACTION REQUIRED
 
@@ -58,4 +46,4 @@ Historical cleanup remains DONE5/5 through PR493: zero tracked `work-log/evidenc
 
 [Workflow/readiness audit](work-log/2026-11-07-codex-workflow-physical-handoff-audit.md) records findings; [final integration proof](work-log/2026-11-07-codex-physical-readiness-integration.md) records actual CI, integration, protected identities and limits. This readiness task changes no application feature or milestone checkbox. Strict source/native holds and M10/M11/M12 boundaries are preserved.
 
-Temporary workspace closure verified 2026-11-07 06:53 UTC: the task-owned `narro-physical-readiness-audit-20261107` clone and four owned preparation scripts were removed via Windows Recycle Bin after all tracked changes were published. The verified `PhysicalCandidates/20261107` software cache is intentionally retained for the next chat; unrelated local checkouts/worktrees and original Blitzit are untouched. Local workspace README now points to live remote main/HANDOFF rather than the stale September checkout. No repository-preparation blocker remains; actual physical admission and all new capture/analysis are the next task.
+Previous readiness workspace remains closed. Current task-owned `narro-m0-m9-closure-audit-20261107` checkout will be recycled after final publication and preservation checks. The verified software cache is intentionally retained; unrelated local worktrees and original Blitzit stay untouched. No preparation blocker is inferred from an old checkout or a historical tracker.

@@ -1,5 +1,7 @@
 # Fresh Windows physical campaign — canonical execution protocol
 
+**2026-11-07 source audit input:** the [M0–M9 closure audit](M0_M9_IMPLEMENTATION_CLOSURE_AUDIT_2026-11-07.md) maps all59 documentary rows to current source and missing proof. Local combined main+437 frontend preflight116 tests/build PASS; this is not a replacement EXE or native PASS. Admit existing437, begin with actual movement/trace health and repaired PP44-F01 accounting, then freeze compatible missing/invalidated cases from the matrix below. Main still awaits integration of the held source fixes.
+
 Revised 2026-11-07. **Repository preparation: PREPARED. New acquisition/analysis: NOT RUN.** This document replaces old execution packets as the route for the next physical chat. It is ordinary M1–M9 PA-01–09 work, not M10 or optional M11/M12. The present workflow audit prepares only; it does not launch Narro, install packages, change AppData/OS settings or start a recording.
 
 ## Authority, data and historical boundaries

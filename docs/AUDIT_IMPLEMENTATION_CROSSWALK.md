@@ -1,5 +1,7 @@
 > **Fresh physical execution:** use [the current protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) and [HANDOFF](../HANDOFF.md). This file preserves dated findings/dispositions; old candidate, pause, profile and media instructions below are not a competing current controller.
 
+**2026-11-07 implementation closure audit:** [59-row current code/owner/proof map](M0_M9_IMPLEMENTATION_CLOSURE_AUDIT_2026-11-07.md). PP44-F01 is repaired/CI-green on current437 but remains absent from main until accepted integration. U-R04/U-R05 are source-implemented, not new feature work. Main+437 local integration preflight116 tests/build PASS; strict native holds and original checkboxes remain OPEN. This is a dated audit input, not a second current controller.
+
 # Reading this crosswalk after evidence retirement — 2026-11-07
 
 Current operation and source heads are in [HANDOFF](../HANDOFF.md). Finding dispositions below are preserved; dated pre-physical audits and old CURRENT/NEXT/CI-running claims are historical checkpoints. PP44-F01 source remediation was subsequently implemented on PR437 head `632345026d9c693613a3a0b3e9a8105740fcc6af`; its new native acceptance remains NOT RUN. Source automation does not close the native gates.
