@@ -2,7 +2,7 @@
 
 ## NOW — Codex / 2026-11-07 / PREPARED
 
-Latest user task: verify new-capture retirement and clean local Narro files down to the necessary physical-test inputs, preserving all Blitzit and unpublished source work. COMPLETE. No local Narro executable/installer, recording, AppData reset, OS/security/permission change or source-PR merge. Formal milestone/source/native holds remain.
+Latest user task: audit continuous diagnostic logging for intermittent failures. Source audit and instruction correction COMPLETE; runtime logging health NOT RUN. Local cleanup/retirement remains COMPLETE, preserving all Blitzit and unpublished source work. No local Narro executable/installer, recording, AppData reset, OS/security/permission change or source-PR merge. Formal milestone/source/native holds remain.
 
 The execution protocol is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md). It contains the exact source/CI/artifact/EXE register, normal-profile data policy, source admission, concrete PA matrix, A/B gates and session record contract. New acquisition and analysis remain **NOT RUN**; binary readiness is not physical acceptance.
 
@@ -28,9 +28,13 @@ The execution protocol is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_
 
 Actual combined main+437 local preflight:116 test commands and production build PASS. The unpublished trial is mechanically clean, preserves main rules/helper/CI/cleanup and matches exact437 app/build inputs. A389/B419 each have a package.json conflict and independent8/8 holds. No source PR merged/modified, no new executable admitted and no duplicate Windows CI. Existing first-fault poison and actual movement causality remain unresolved; native/source acceptance stays independent.
 
+## Logging admission — explicit limits
+
+[Logging audit receipt](work-log/2026-11-07-codex-diagnostic-logging-readiness.md). Normal `narro.exe` does not automatically enable M7 validation logging. Before the PR437 process starts, explicitly set absolute writable `NARRO_TIMER_DIAGNOSTICS_DIR` and `NARRO_NATIVE_MOVE_TRACE_DIR` under its fresh persistent session, then observe actual timer-start JSONL and valid movement rows before the long batch. The helper neither enables these channels nor redirects stdout/stderr. Timer logging stops around4 MiB/PID; native trace caps at2,048 attempts with queue/drop limits. Keep video/action chronology and check channel health/budgets at safe boundaries. Neither channel exists on the admitted A389/B419 heads; environment variables cannot add it. Filename-gated validation mode requires separate admission. Full same-PID coverage beyond these limits remains a source change, not a completed preparation claim. Detailed capability/activation/limits are in the canonical protocol; no runtime health or physical PASS is claimed.
+
 ## NEXT AGENT ACTION
 
-From the cleaned PhysicalChecks kit, admit the existing PR437 exact source/cached EXE and actual capture/input/process state. Prepare one ignored fresh session; first establish measured nonzero native Timer drag (opt-in bounded NARRO_NATIVE_MOVE_TRACE_DIR receipts if needed) and the repaired PP44-F01 edit/delete/read/restart journey. If a real blocking failure remains, freeze its interval/trace and return to the existing source owner before dependent long SNAP/motion batches. Otherwise execute compatible missing/invalidated physical and original-source comparisons from the protocol/59-row audit. Integrate only after actual independent holds close, then verify resulting main and reconcile each complete acceptance criterion. Do not rebootstrap the old research or request renewed general PA consent. Record unavailable hardware/input as NOT RUN; request only the specific observation/input actually needed.
+From the cleaned PhysicalChecks kit, admit the existing PR437 exact source/cached EXE and actual capture/input/process state. Prepare one ignored fresh session and satisfy logging admission above; first establish measured nonzero native Timer drag (opt-in bounded NARRO_NATIVE_MOVE_TRACE_DIR receipts if needed) and the repaired PP44-F01 edit/delete/read/restart journey. If a real blocking failure remains, freeze its interval/trace and return to the existing source owner before dependent long SNAP/motion batches. Otherwise execute compatible missing/invalidated physical and original-source comparisons from the protocol/59-row audit. Integrate only after actual independent holds close, then verify resulting main and reconcile each complete acceptance criterion. Do not rebootstrap the old research or request renewed general PA consent. Record unavailable hardware/input as NOT RUN; request only the specific observation/input actually needed.
 
 ## USER ACTION REQUIRED
 
