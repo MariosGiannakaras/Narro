@@ -3269,7 +3269,7 @@ pub fn run() {
                 focus_panel_placement_probe,
                 position_focus_panel,
                 present_focus_panel,
-                present_focus_for_blitz
+                present_focus_for_blitz,
                 focus_surface_prepare_v4_plate,
                 focus_surface_prepare_v4_panel_plate,
                 focus_transition_trace_mark,
