@@ -21,7 +21,7 @@ async function waitUntil(label, callback, timeoutMs = 15000, intervalMs = 25) {
     try {
       const value = await callback();
       if (value) return value;
-    } catch (error) { lastError = error; }
+    } catch (error) { if (error?.terminal) throw error; lastError = error; }
     await sleep(intervalMs);
   }
   throw new Error(`${label} did not become ready within ${timeoutMs}ms${lastError ? `: ${lastError}` : ""}`);
@@ -64,12 +64,12 @@ async function waitCheckpoint(phase, timeoutMs = 30000) {
     const file = checkpointPath(phase);
     if (fs.existsSync(file)) {
       const payload = JSON.parse(fs.readFileSync(file, "utf8"));
-      if (payload.error) throw new Error(payload.error);
+      if (payload.error) throw Object.assign(new Error(payload.error), { terminal: true });
       return payload;
     }
     if (phase !== "complete" && fs.existsSync(checkpointPath("complete"))) {
       const complete = JSON.parse(fs.readFileSync(checkpointPath("complete"), "utf8"));
-      if (complete.error) throw new Error(complete.error);
+      if (complete.error) throw Object.assign(new Error(complete.error), { terminal: true });
     }
     return null;
   }, timeoutMs);
@@ -115,7 +115,7 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
       if (code === 0) resolve(sequenceStdout);
       else reject(new Error(`native sequence capture exited ${code}: ${sequenceStderr.trim()}`));
     });
-  });
+  }).then(value => ({ value }), error => ({ error }));
 
   const motion = spawn("powershell.exe", [
     "-NoLogo", "-NoProfile", "-ExecutionPolicy", "Bypass",
@@ -138,7 +138,7 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
       if (code === 0) resolve(motionStdout);
       else reject(new Error(`native motion sampler exited ${code}: ${motionStderr.trim()}`));
     });
-  });
+  }).then(value => ({ value }), error => ({ error }));
 
   await waitUntil(`native transition probes ${name}`, () =>
     fs.existsSync(readyFile) && fs.existsSync(motionReadyFile));
@@ -154,8 +154,11 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
     fs.writeFileSync(stopFile, "settled\n");
   }
 
-  const [sequenceJson, motionJson] = await Promise.all([sequenceFinished, motionFinished]);
+  const [sequenceResult, motionResult] = await Promise.all([sequenceFinished, motionFinished]);
   if (settleFailure) throw settleFailure;
+  if (sequenceResult.error) throw sequenceResult.error;
+  if (motionResult.error) throw motionResult.error;
+  const sequenceJson = sequenceResult.value, motionJson = motionResult.value;
 
   const frames = JSON.parse(sequenceJson.trim().split(/\r?\n/).filter(Boolean).at(-1));
   const motionSamples = JSON.parse(motionJson.trim().split(/\r?\n/).filter(Boolean).at(-1));

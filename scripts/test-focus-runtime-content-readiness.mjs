@@ -1,0 +1,44 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import vm from "node:vm";
+import ts from "typescript";
+
+const driver = fs.readFileSync("src/focusRuntimeVisualDriver.ts", "utf8");
+const source = driver.slice(driver.indexOf("function runtimeContentReady("), driver.indexOf("async function clickRealTimerSizeControl("));
+assert.ok(source.includes("async function waitForPresentation("));
+const code = ts.transpileModule(source, { compilerOptions: { target: ts.ScriptTarget.ES2022 } }).outputText;
+let now = 0, ready = false, disabled = false, inert = false, hidden = false, taskId = "task", onTick = () => {};
+let snapshot = { hydrated: "true", presentation: "panel", activePresentation: "panel", transitionPending: "false", floatingResizePending: "false" };
+const button = { get disabled() { return disabled; }, closest() { return inert ? {} : null; }, getClientRects() { return hidden ? [] : [{}]; } };
+const task = { getAttribute() { return taskId; } };
+const document = { querySelector(selector) { return !ready ? null : selector.includes("live-card") || selector.includes("live-task-id") ? task : button; } };
+const context = vm.createContext({ document, performance: { now: () => now }, runtimeSnapshot: () => snapshot,
+  sleep: async ms => { now += ms; onTick(); } });
+vm.runInContext(code + ";globalThis.tested={runtimeContentReady,waitForPresentation}", context);
+const { runtimeContentReady, waitForPresentation } = context.tested;
+assert.equal(runtimeContentReady("panel"), false, "a hydrated owner with Loading Focus Panel is not capture-ready");
+onTick = () => { if (now >= 50) ready = true; };
+await waitForPresentation("panel"); assert.equal(now, 50, "actual UI content must settle before checkpoint/click");
+disabled = true; assert.equal(runtimeContentReady("panel"), false); disabled = false;
+inert = true; assert.equal(runtimeContentReady("panel"), false); inert = false;
+hidden = true; assert.equal(runtimeContentReady("panel"), false); hidden = false;
+taskId = ""; assert.equal(runtimeContentReady("panel"), false, "empty/unbound content cannot prove the seeded task"); taskId = "task";
+ready = false; now = 0; onTick = () => {};
+await assert.rejects(waitForPresentation("panel"), /did not settle/, "persistent Loading fails within the unchanged8s bound");
+snapshot = { ...snapshot, presentation: "timerExpanded", activePresentation: "timer", floatingResizePending: "true" };
+ready = true; now = 0; onTick = () => { if (now >= 50) snapshot.floatingResizePending = "false"; };
+await waitForPresentation("timerExpanded"); assert.equal(now, 50, "a resize-pending live Timer is not settled");
+
+const harness = fs.readFileSync("scripts/capture-focus-runtime.mjs", "utf8");
+const until = harness.slice(harness.indexOf("async function waitUntil("), harness.indexOf("function readNativeMetadata("));
+let time = 0, sleeps = 0;
+const retry = vm.createContext({ Date: { now: () => time }, sleep: async ms => { time += ms; sleeps++; } });
+vm.runInContext(until + ";globalThis.waitUntil=waitUntil", retry);
+const terminal = Object.assign(new Error("Compact view button missing"), { terminal: true });
+await assert.rejects(retry.waitUntil("checkpoint", () => { throw terminal; }), /Compact view button missing/);
+assert.equal(sleeps, 0, "a declared renderer failure must not be masked by a later sampler timeout");
+let attempts = 0;
+assert.equal(await retry.waitUntil("file", () => { if (++attempts === 1) throw Error("partial JSON write"); return "ready"; }), "ready");
+assert.equal(attempts, 2, "temporary file-read errors still retry");
+assert.ok(!driver.includes('await applyFocusSurfacePresentation("timerCompact")') && !driver.includes('await applyFocusSurfacePresentation("panel")'), "prewarm must traverse the actual ready UI/coordinator owner");
+console.log("Actual packaged runtime content readiness and first-failure propagation: PASS (13 assertions)");

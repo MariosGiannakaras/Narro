@@ -1,5 +1,4 @@
 import { invoke } from "@tauri-apps/api/core";
-import { applyFocusSurfacePresentation } from "./focusSurfaceModeApi";
 import type { HomeSnapshot } from "./HomeDashboard";
 import { createListBoardTask } from "./listBoardApi";
 import { createListFromEditor } from "./listEditorApi";
@@ -103,6 +102,19 @@ function runtimeSnapshot() {
   };
 }
 
+function runtimeContentReady(presentation: "panel" | "timerCompact" | "timerExpanded") {
+  const panel = presentation === "panel";
+  const button = document.querySelector<HTMLButtonElement>(panel
+    ? '[data-focus-panel="main"] [data-focus-compact-control="true"]'
+    : '[aria-label="Return to Focus Panel"]');
+  const task = document.querySelector(panel
+    ? '.focus-panel__live-card[data-task-id]'
+    : '.floating-timer-foundation[data-floating-live-task-id]');
+  const taskId = task?.getAttribute(panel ? "data-task-id" : "data-floating-live-task-id");
+  return Boolean(button && !button.disabled && !button.closest("[inert]")
+    && button.getClientRects().length && taskId);
+}
+
 async function waitForPresentation(presentation: "panel" | "timerCompact" | "timerExpanded") {
   const deadline = performance.now() + 8_000;
   const activePresentation = presentation === "panel" ? "panel" : "timer";
@@ -111,7 +123,8 @@ async function waitForPresentation(presentation: "panel" | "timerCompact" | "tim
     if (snapshot.hydrated === "true" && snapshot.presentation === presentation
       && snapshot.activePresentation === activePresentation
       && snapshot.transitionPending === "false"
-      && snapshot.floatingResizePending !== "true") return snapshot;
+      && snapshot.floatingResizePending !== "true"
+      && runtimeContentReady(presentation)) return snapshot;
     await sleep(25);
   }
   throw new Error(`Focus presentation ${presentation} did not settle for packaged runtime capture`);
@@ -169,10 +182,14 @@ export function startFocusRuntimeVisualDriver() {
     // plans the first Timer at the current Panel position. Seed one distinct,
     // safe placement through the production persistence path before capturing
     // motion, then return to Panel and begin the formal sequence.
-    await applyFocusSurfacePresentation("timerCompact");
+    const warmCompact = document.querySelector<HTMLButtonElement>('[data-focus-compact-control="true"]');
+    if (!warmCompact || warmCompact.disabled) throw new Error("Prewarm Compact control unavailable");
+    warmCompact.click();
     await waitForPresentation("timerCompact");
     await invoke("focus_runtime_capture_seed_timer_placement");
-    await applyFocusSurfacePresentation("panel");
+    const warmPanel = document.querySelector<HTMLButtonElement>('[aria-label="Return to Focus Panel"]');
+    if (!warmPanel || warmPanel.disabled) throw new Error("Prewarm Panel control unavailable");
+    warmPanel.click();
     await checkpoint("panel", await waitForPresentation("panel"));
     await waitForCaptureAck("panel");
 

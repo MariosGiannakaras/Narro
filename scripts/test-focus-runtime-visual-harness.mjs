@@ -289,3 +289,5 @@ invariant(
   "each isolated runtime transition must produce its own fail-closed screen/native QPC correlation",
 );
 console.log("Focus packaged-runtime visual harness contracts passed.");
+
+await import("./test-focus-runtime-content-readiness.mjs");
