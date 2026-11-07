@@ -6,7 +6,10 @@ const source = fs.readFileSync("src/FocusLiveActions.tsx", "utf8");
 
 assert.match(source, /if \(!beginMutation\(action\)\) return;/);
 assert.match(source, /if \(!beginMutation\("skip"\)\) return;/);
-assert.match(source, /if \(!beginMutation\("done"\)\) return;/);
+assert.match(source, /if \(doneSettingsPending \|\| !beginMutation\("done"\)\) return;/,
+  "Done must reject unsettled Preferences BEFORE synchronous native mutation admission");
+assert.match(source, /const doneSettingsPending = !fixtureMode && !preferences\.settled;/,
+  "Pending Preferences must be a genuine native-only Done gate");
 assert.match(source, /actionGate\.tryBegin\(action\)/);
 assert.match(source, /actionGate\.finish\(action\)/);
 assert.match(source, /if \(fixtureMode \|\| busy \|\| actionGate\.current\(\) !== null\) return;/);

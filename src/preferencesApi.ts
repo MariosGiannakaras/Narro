@@ -9,6 +9,7 @@ export type FocusPanelSidePreference = "left" | "right";
 export type GeneralSettingsSnapshot = {
   selectedMonitorKey: string | null;
   focusPanelSide: FocusPanelSidePreference;
+  rememberTimerPositionOnRestart: boolean;
   openOnLogin: boolean;
   autostartEnabled: boolean;
   hideTaskTimes: boolean;
@@ -57,6 +58,7 @@ export type PreferenceSettingsSnapshot = {
 export type PreferenceSettingsPatch = Partial<{
   selectedMonitorKey: string;
   focusPanelSide: FocusPanelSidePreference;
+  rememberTimerPositionOnRestart: boolean;
   openOnLogin: boolean;
   hideTaskTimes: boolean;
   autoParseEstFromTitle: boolean;

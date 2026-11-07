@@ -113,4 +113,5 @@ assert.ok(successFixture.includes("successTiming: (() => {")
   && successValidator.includes("captured.contract.successTiming.notClipped"),
   "B65 Windows captures must measure true rendered timing and overflow");
 await import("./test-focus-success-actual-handler-owners.mjs");
+await import("./test-focus-done-preference-readiness.mjs");
 console.log("Focus success timing and local Fun GIF reaction contracts: PASS");

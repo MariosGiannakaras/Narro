@@ -13,6 +13,7 @@ pub mod focus_entry;
 pub mod focus_frame_capture;
 pub mod focus_frame_hold;
 mod focus_mode_raster;
+mod focus_motion_v4_raster;
 pub mod focus_preferences;
 pub mod focus_webview;
 pub mod home_snapshot;
@@ -22,6 +23,7 @@ pub mod list_editor;
 pub mod list_settings;
 pub mod main_focus_morph;
 mod main_focus_raster;
+mod monitor_display;
 mod normal_shutdown;
 pub mod notifications;
 pub mod persistence;
@@ -62,7 +64,7 @@ use timer_service::{
     timer_start_task, timer_switch_task, TimerService,
 };
 use windows::{
-    clamp_top_left, focus_panel_edge_position, validate_work_area, FocusPanelSide,
+    clamp_top_left, focus_panel_inset_position, validate_work_area, FocusPanelSide,
     MonitorDescriptor, PhysicalPoint as GeometryPoint, PhysicalRect as GeometryRect,
     PhysicalSize as GeometrySize,
 };
@@ -73,6 +75,8 @@ const STATE_CHANGED_EVENT: &str = "state-changed";
 const FOCUS_SURFACE_PRESENTATION_CHANGED_EVENT: &str = "focus-surface-presentation-changed";
 const FOCUS_PANEL_REQUEST_EVENT: &str = "focus-panel-requested";
 const MAX_MONITOR_KEY_LEN: usize = 2048;
+// One existing 16-DIP spacing step (matching --space-4), scaled for DPI.
+pub(crate) const FOCUS_PANEL_EDGE_INSET_DIP: f64 = 16.0;
 const FOCUS_PRESENTATION_UNKNOWN: u8 = 0;
 const FOCUS_PRESENTATION_PANEL: u8 = 1;
 const FOCUS_PRESENTATION_TIMER_COMPACT: u8 = 2;
@@ -92,6 +96,11 @@ struct FocusModeRaster {
     target: FocusSurfacePresentation,
     snapshot: FocusNativeSnapshot,
     outgoing: focus_mode_raster::Image,
+    v4_plate: Option<focus_mode_raster::Image>,
+    v4_layout: Option<focus_motion_v4_raster::Layout>,
+    v4_panel_from_plate: Option<focus_mode_raster::Image>,
+    v4_panel_to_plate: Option<focus_mode_raster::Image>,
+    v4_panel_layout: Option<focus_motion_v4_raster::PanelLayout>,
     hold: focus_frame_hold::Hold,
     native_committed: bool,
     _placement_guard: floating_placement::PlacementTransitionGuard,
@@ -577,6 +586,8 @@ fn monitor_descriptor(
         key,
         index,
         name,
+        friendly_name: None,
+        desktop_preview_data_url: None,
         scale_factor,
         position: GeometryPoint {
             x: position.x,
@@ -695,6 +706,8 @@ mod monitor_selection_tests {
             key: key.to_owned(),
             index,
             name: name.map(str::to_owned),
+            friendly_name: None,
+            desktop_preview_data_url: None,
             scale_factor: 1.0,
             position: GeometryPoint { x: 0, y: 0 },
             size: GeometrySize {
@@ -763,11 +776,19 @@ mod monitor_selection_tests {
 
 #[tauri::command]
 fn list_monitors(app_handle: tauri::AppHandle) -> CommandResult<Vec<MonitorDescriptor>> {
-    enumerate_monitors(&app_handle)?
+    let monitors = enumerate_monitors(&app_handle)?;
+    let mut descriptors = monitors
         .iter()
         .enumerate()
         .map(|(index, monitor)| monitor_descriptor(index, monitor))
-        .collect()
+        .collect::<CommandResult<Vec<_>>>()?;
+    // Placement/monitor lookup never capture desktop content.
+    for descriptor in &mut descriptors {
+        descriptor.friendly_name = monitor_display::friendly_name(descriptor.name.as_deref());
+        descriptor.desktop_preview_data_url =
+            monitor_display::desktop_preview_data_url(descriptor.name.as_deref(), descriptor.size);
+    }
+    Ok(descriptors)
 }
 
 #[derive(Debug, Clone, serde::Serialize)]
@@ -816,8 +837,12 @@ fn focus_panel_placement_probe(
         width: outer_size.width,
         height: outer_size.height,
     };
-    let expected_position = focus_panel_edge_position(descriptor.work_area, actual_size, side)
-        .map_err(CommandError::window_geometry)?;
+    let expected_position = focus_panel_placement_position(
+        descriptor.work_area,
+        actual_size,
+        side,
+        descriptor.scale_factor,
+    )?;
     let clamped_position = clamp_top_left(descriptor.work_area, actual_size, actual_position)
         .map_err(CommandError::window_geometry)?;
     let fits_work_area = actual_size.width <= descriptor.work_area.size.width
@@ -908,6 +933,57 @@ fn preferred_focus_panel_work_area(
         }
     };
     Ok((descriptor.work_area, descriptor.scale_factor, side))
+}
+
+// Unlike the temporary primary fallback, this returns None when the chosen
+// monitor is absent. A live unpinned Timer must retain its original monitor
+// anchor through such a topology change, without persisting a new user drag.
+pub(crate) fn selected_focus_panel_work_area(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<Option<GeometryRect>> {
+    match preferred_focus_panel_work_area(app_handle) {
+        Ok((work_area, _, _)) => Ok(Some(work_area)),
+        Err(error) if error.code == "MONITOR_SELECTION_STALE" => Ok(None),
+        Err(error) => Err(error),
+    }
+}
+
+// An unpinned Timer may be opened by shortcut before the Panel was ever
+// shown. A temporarily disconnected saved Panel monitor must not make that
+// first Timer reveal fail. Keep the saved preference intact for hotplug return.
+fn panel_anchor_for_initial_timer(
+    app_handle: &tauri::AppHandle,
+) -> CommandResult<(GeometryRect, f64, FocusPanelSide)> {
+    match preferred_focus_panel_work_area(app_handle) {
+        Ok(placement) => Ok(placement),
+        Err(error) if error.code == "MONITOR_SELECTION_STALE" => {
+            let (_, side) = load_focus_panel_placement_preferences(app_handle)?;
+            let monitor = app_handle
+                .primary_monitor()
+                .map_err(CommandError::monitor_enumeration)?
+                .ok_or_else(CommandError::no_monitors_available)?;
+            let descriptor = monitor_descriptor(0, &monitor)?;
+            Ok((descriptor.work_area, descriptor.scale_factor, side))
+        }
+        Err(error) => Err(error),
+    }
+}
+
+fn focus_panel_placement_position(
+    work_area: GeometryRect,
+    window_size: GeometrySize,
+    side: FocusPanelSide,
+    scale_factor: f64,
+) -> CommandResult<GeometryPoint> {
+    if !scale_factor.is_finite() || scale_factor <= 0.0 {
+        return Err(CommandError::new(
+            "FOCUS_PRESENTATION_FAILED",
+            "selected monitor has an invalid DPI scale",
+        ));
+    }
+    let pixels = (FOCUS_PANEL_EDGE_INSET_DIP * scale_factor).round() as u32;
+    focus_panel_inset_position(work_area, window_size, side, pixels.max(1))
+        .map_err(CommandError::window_geometry)
 }
 
 fn record_focus_surface_presentation(presentation: FocusSurfacePresentation) {
@@ -1237,17 +1313,16 @@ fn apply_panel_native(
         width: current.width.min(work_area.size.width),
         height: current.height.min(work_area.size.height),
     };
-    let staging = focus_panel_edge_position(work_area, staging_size, side)
-        .map_err(CommandError::window_geometry)?;
+    let staging = focus_panel_placement_position(work_area, staging_size, side, target_scale)?;
     set_focus_position(window, staging, "stage Focus Panel on target monitor")?;
 
     let actual_size = fit_focus_host_for_target_scale(window, work_area, target_scale)?;
-    let final_position = focus_panel_edge_position(work_area, actual_size, side)
-        .map_err(CommandError::window_geometry)?;
+    let final_position =
+        focus_panel_placement_position(work_area, actual_size, side, target_scale)?;
     set_focus_position(
         window,
         final_position,
-        "position Focus Panel at monitor edge",
+        "position Focus Panel with work-area inset",
     )?;
     timer_region::apply_full_host(window)?;
     set_focus_presentation_attributes(window, FocusSurfacePresentation::Panel)
@@ -1263,6 +1338,21 @@ fn apply_timer_native(
     let expanded = target.expanded();
 
     if previous.mode() != FocusSurfaceMode::Timer {
+        // A direct Timer shortcut can be the first Focus reveal after launch.
+        // The hidden HWND then has no committed Panel origin yet. Stage the
+        // real preferred Panel position while hidden only for an *unpinned*
+        // Timer. Never override a stored, possibly user-dragged placement.
+        let already_visible = window.is_visible().map_err(|error| {
+            map_window_error(
+                FOCUS_SURFACE_LABEL,
+                "read Focus visibility before Timer reveal",
+                error,
+            )
+        })?;
+        if !already_visible && !floating_placement::has_effective_timer_position(app_handle)? {
+            let (work_area, scale_factor, side) = panel_anchor_for_initial_timer(app_handle)?;
+            apply_panel_native(window, work_area, scale_factor, side)?;
+        }
         floating_placement::restore_for_timer(app_handle, window, expanded)?;
         timer_region::apply(window, target.region())?;
         return set_focus_presentation_attributes(window, target);
@@ -1334,8 +1424,7 @@ fn planned_focus_presentation_position(
         FocusSurfacePresentation::Panel => {
             let (work_area, scale_factor, side) = preferred_focus_panel_work_area(app_handle)?;
             let target_size = focus_host_size_for_target_scale(work_area, scale_factor)?;
-            focus_panel_edge_position(work_area, target_size, side)
-                .map_err(CommandError::window_geometry)
+            focus_panel_placement_position(work_area, target_size, side, scale_factor)
         }
         FocusSurfacePresentation::TimerCompact | FocusSurfacePresentation::TimerExpanded => {
             floating_placement::planned_timer_position(app_handle, window, target.expanded())
@@ -1382,6 +1471,45 @@ fn fluent_point_to_point_easing(progress: f64) -> f64 {
         FLUENT_POINT_TO_POINT_Y1,
         FLUENT_POINT_TO_POINT_Y2,
     )
+}
+
+/// Semantic Motion v4 eases ONLY validated shared raster sprites; without a
+/// complete staging lease current Fluent Focus behavior remains unchanged.
+fn focus_motion_v4_easing(progress: f64) -> f64 {
+    debug_assert!(progress.is_finite());
+    let t = progress.clamp(0.0, 1.0);
+    t * t * (3.0 - 2.0 * t)
+}
+
+#[cfg(test)]
+mod focus_motion_v4_easing_tests {
+    use super::focus_motion_v4_easing;
+
+    #[test]
+    fn smoothstep_matches_renderer_contract_at_quarter_samples() {
+        for (elapsed, expected) in [
+            (0.0, 0.0),
+            (0.25, 0.15625),
+            (0.5, 0.5),
+            (0.75, 0.84375),
+            (1.0, 1.0),
+        ] {
+            assert!((focus_motion_v4_easing(elapsed) - expected).abs() < 1e-12);
+        }
+        assert_eq!(focus_motion_v4_easing(-1.0), 0.0);
+        assert_eq!(focus_motion_v4_easing(2.0), 1.0);
+    }
+
+    #[test]
+    fn smoothstep_is_bounded_and_monotonic_for_native_frame_steps() {
+        let mut previous = 0.0;
+        for step in 0..=100 {
+            let current = focus_motion_v4_easing(f64::from(step) / 100.0);
+            assert!(current >= previous && current <= 1.0);
+            previous = current;
+        }
+        assert_eq!(previous, 1.0);
+    }
 }
 
 fn interpolate_focus_axis(start: i32, end: i32, step: u64, steps: u64) -> CommandResult<i32> {
@@ -1495,6 +1623,7 @@ fn render_mode_raster_frame(
     lease: &FocusModeRaster,
     incoming: &focus_mode_raster::Image,
     progress: f64,
+    position: Option<GeometryPoint>,
 ) -> CommandResult<()> {
     let scale = window
         .scale_factor()
@@ -1509,8 +1638,49 @@ fn render_mode_raster_frame(
         outer,
         progress,
     )?;
-    let frame = focus_mode_raster::compose(&lease.outgoing, incoming, visible, progress)?;
-    lease.hold.replace_transition_frame(visible, frame)
+    let frame = if let (Some(from_plate), Some(to_plate), Some(layout)) = (
+        &lease.v4_panel_from_plate,
+        &lease.v4_panel_to_plate,
+        &lease.v4_panel_layout,
+    ) {
+        focus_motion_v4_raster::compose_panel(
+            &lease.outgoing,
+            incoming,
+            from_plate,
+            to_plate,
+            visible,
+            progress,
+            layout,
+        )?
+    } else if let (Some(plate), Some(layout)) = (&lease.v4_plate, &lease.v4_layout) {
+        focus_motion_v4_raster::compose(
+            &lease.outgoing,
+            incoming,
+            plate,
+            visible,
+            progress,
+            lease.target == FocusSurfacePresentation::TimerExpanded,
+            layout,
+        )?
+    } else if lease.snapshot.presentation.mode() != lease.target.mode() {
+        // The optional measured Panel/Timer cleanplates can be unavailable
+        // during a task-title marquee or a stale capture. Blending entire
+        // endpoint screenshots would draw the same semantic title and time
+        // twice. Keep a single intact source until the target takes over.
+        focus_mode_raster::compose_single_semantic_surface(
+            &lease.outgoing,
+            incoming,
+            visible,
+            progress,
+        )?
+    } else {
+        focus_mode_raster::compose(&lease.outgoing, incoming, visible, progress)?
+    };
+    lease.hold.replace_transition_frame_at(
+        visible,
+        frame,
+        position.map(|point| tauri::PhysicalPosition::new(point.x, point.y)),
+    )
 }
 
 fn animate_focus_surface_presentation_internal(
@@ -1563,7 +1733,7 @@ fn animate_focus_surface_presentation_internal(
             source_scale,
             target_scale,
         )?;
-        focus_panel_edge_position(area, size, side).map_err(CommandError::window_geometry)?
+        focus_panel_placement_position(area, size, side, target_scale)?
     } else {
         planned_focus_presentation_position(app_handle, &window, target)?
     };
@@ -1578,7 +1748,15 @@ fn animate_focus_surface_presentation_internal(
         // One measured timeline owns position, visible envelope and complete
         // raster content. Work spent presenting a frame is not added as sleep.
         let elapsed = (started.elapsed().as_secs_f64() / (duration_ms as f64 / 1000.0)).min(1.0);
-        let progress = fluent_point_to_point_easing(elapsed);
+        let progress = if (lease.v4_panel_from_plate.is_some()
+            && lease.v4_panel_to_plate.is_some()
+            && lease.v4_panel_layout.is_some())
+            || (lease.v4_plate.is_some() && lease.v4_layout.is_some())
+        {
+            focus_motion_v4_easing(elapsed)
+        } else {
+            fluent_point_to_point_easing(elapsed)
+        };
         let axis = |from: i32, to: i32| -> CommandResult<i32> {
             let value = f64::from(from) + (f64::from(to) - f64::from(from)) * progress;
             if value < f64::from(i32::MIN) || value > f64::from(i32::MAX) {
@@ -1589,15 +1767,16 @@ fn animate_focus_surface_presentation_internal(
             }
             Ok(value.round() as i32)
         };
-        set_focus_position(
+        render_mode_raster_frame(
             &window,
-            GeometryPoint {
+            lease,
+            &incoming,
+            progress,
+            Some(GeometryPoint {
                 x: axis(start.x, target_position.x)?,
                 y: axis(start.y, target_position.y)?,
-            },
-            "move protected Focus host",
+            }),
         )?;
-        render_mode_raster_frame(&window, lease, &incoming, progress)?;
         if progress >= 1.0 {
             break;
         }
@@ -1608,8 +1787,7 @@ fn animate_focus_surface_presentation_internal(
     if target == FocusSurfacePresentation::Panel {
         let (area, scale, side) = preferred_focus_panel_work_area(app_handle)?;
         let size = fit_focus_host_for_target_scale(&window, area, scale)?;
-        let final_position =
-            focus_panel_edge_position(area, size, side).map_err(CommandError::window_geometry)?;
+        let final_position = focus_panel_placement_position(area, size, side, scale)?;
         set_focus_position(
             &window,
             final_position,
@@ -1618,7 +1796,7 @@ fn animate_focus_surface_presentation_internal(
     } else {
         floating_placement::restore_for_timer(app_handle, &window, target.expanded())?;
     }
-    render_mode_raster_frame(&window, lease, &incoming, 1.0)?;
+    render_mode_raster_frame(&window, lease, &incoming, 1.0, None)?;
     set_focus_presentation_attributes(&window, target)?;
     lease.native_committed = true;
     announce_focus_surface_presentation(app_handle, target);
@@ -1801,7 +1979,7 @@ fn focus_runtime_capture_seed_timer_placement(app_handle: tauri::AppHandle) -> C
     focus_webview::set_physical_position(&window, target.x, target.y).map_err(|error| {
         map_window_error(FOCUS_SURFACE_LABEL, "seed capture Timer position", error)
     })?;
-    if !floating_placement::save_if_timer_visible(&app_handle)? {
+    if !floating_placement::seed_capture_timer_position(&app_handle)? {
         return Err(CommandError::new(
             "FOCUS_RUNTIME_CAPTURE_SEED_FAILED",
             "seeded Timer position was not persisted through the production placement path",
@@ -1855,10 +2033,15 @@ async fn focus_surface_prepare_mode_raster(
     }
     let target = parse_focus_surface_presentation(&presentation)?;
     let snapshot = capture_focus_native_snapshot(&window)?;
-    if snapshot.presentation.mode() == target.mode() {
+    // The protected lease also permits the TWO genuine Timer resize states.
+    // Never accept a no-op or non-Timer same-mode transition.
+    if snapshot.presentation == target
+        || (snapshot.presentation.mode() == target.mode()
+            && target.mode() != FocusSurfaceMode::Timer)
+    {
         return Err(CommandError::invalid_argument(
             "presentation",
-            "mode raster requires Panel/Timer transition",
+            "mode raster requires a real Panel/Timer or Timer resize transition",
         ));
     }
     let visible = timer_region::visible_size(&window, snapshot.presentation.region())?;
@@ -1896,6 +2079,11 @@ async fn focus_surface_prepare_mode_raster(
             target,
             snapshot,
             outgoing,
+            v4_plate: None,
+            v4_layout: None,
+            v4_panel_from_plate: None,
+            v4_panel_to_plate: None,
+            v4_panel_layout: None,
             hold,
             native_committed: false,
             _placement_guard: floating_placement::suspend_saves(),
@@ -1904,6 +2092,162 @@ async fn focus_surface_prepare_mode_raster(
         drop(raster);
         arm_mode_raster_watchdog(app_handle, token);
         Ok(token)
+    })
+    .await
+    .map_err(|error| CommandError::new("FOCUS_MODE_RASTER_FAILED", error.to_string()))?
+}
+
+/// Optional experimental B-only cleanplate, captured while the original
+/// raster hold protects the live WebView. Any preparation failure leaves the
+/// original compositor functional; the caller restores the DOM immediately.
+#[tauri::command(rename_all = "camelCase")]
+async fn focus_surface_prepare_v4_plate(
+    window: tauri::WebviewWindow,
+    raster_token: u32,
+    layout: focus_motion_v4_raster::Layout,
+) -> CommandResult<()> {
+    if window.label() != FOCUS_SURFACE_LABEL {
+        return Err(CommandError::new(
+            "FOCUS_MODE_RASTER_FAILED",
+            "Motion v4 requires the Focus renderer",
+        ));
+    }
+    layout.validate()?;
+    let extent =
+        timer_region::visible_size(&window, FocusSurfacePresentation::TimerExpanded.region())?;
+    let png = focus_frame_capture::capture(window).await?;
+    tauri::async_runtime::spawn_blocking(move || {
+        let plate = focus_mode_raster::decode(&png, extent)?;
+        let mut raster = mode_raster_guard()?;
+        let lease = raster.as_mut().ok_or_else(|| {
+            CommandError::new("FOCUS_MODE_RASTER_FAILED", "no raster lease for Motion v4")
+        })?;
+        if lease.token != raster_token
+            || lease.native_committed
+            || lease.snapshot.presentation.mode() != FocusSurfaceMode::Timer
+            || lease.target.mode() != FocusSurfaceMode::Timer
+            || lease.v4_plate.is_some()
+        {
+            return Err(CommandError::new(
+                "FOCUS_MODE_RASTER_FAILED",
+                "stale or incompatible Motion v4 lease",
+            ));
+        }
+        layout.validate_for_native(
+            lease.snapshot.presentation.region().height,
+            lease.target.region().height,
+        )?;
+        lease.v4_plate = Some(plate);
+        lease.v4_layout = Some(layout);
+        Ok(())
+    })
+    .await
+    .map_err(|error| CommandError::new("FOCUS_MODE_RASTER_FAILED", error.to_string()))?
+}
+
+/// Source and target plates are captured under the same owned native
+/// raster hold. The semantic title/time text is temporarily hidden from
+/// CapturePreview, but the outgoing protected pixels stay on screen. If one
+/// stage fails, no partial v4 panel compositor is activated.
+#[tauri::command(rename_all = "camelCase")]
+async fn focus_surface_prepare_v4_panel_plate(
+    window: tauri::WebviewWindow,
+    raster_token: u32,
+    stage: String,
+    layout: Option<focus_motion_v4_raster::PanelLayout>,
+) -> CommandResult<()> {
+    if window.label() != FOCUS_SURFACE_LABEL || (stage != "source" && stage != "target") {
+        return Err(CommandError::new(
+            "FOCUS_MODE_RASTER_FAILED",
+            "invalid Panel Motion v4 stage or renderer",
+        ));
+    }
+    let (from_height, to_height) = {
+        let raster = mode_raster_guard()?;
+        let lease = raster.as_ref().ok_or_else(|| {
+            CommandError::new(
+                "FOCUS_MODE_RASTER_FAILED",
+                "no Panel Motion v4 raster lease",
+            )
+        })?;
+        if lease.token != raster_token
+            || lease.native_committed
+            || current_focus_surface_presentation() != Some(lease.snapshot.presentation)
+            || lease.snapshot.presentation.mode() == lease.target.mode()
+        {
+            return Err(CommandError::new(
+                "FOCUS_MODE_RASTER_FAILED",
+                "stale or unsupported Panel Motion v4 lease",
+            ));
+        }
+        (
+            lease.snapshot.presentation.region().height,
+            lease.target.region().height,
+        )
+    };
+    if stage == "source" && layout.is_some() || stage == "target" && layout.is_none() {
+        return Err(CommandError::new(
+            "FOCUS_MODE_RASTER_FAILED",
+            "Panel Motion v4 requires a final measured layout only for target capture",
+        ));
+    }
+    if let Some(ref measured) = layout {
+        measured.validate_for_native(from_height, to_height)?;
+    }
+    let region = if stage == "source" {
+        from_height
+    } else {
+        to_height
+    };
+    let expected = timer_region::visible_size(
+        &window,
+        if region == 700.0 {
+            FocusSurfacePresentation::Panel.region()
+        } else if region == 300.0 {
+            FocusSurfacePresentation::TimerExpanded.region()
+        } else {
+            FocusSurfacePresentation::TimerCompact.region()
+        },
+    )?;
+    let png = focus_frame_capture::capture(window).await?;
+    tauri::async_runtime::spawn_blocking(move || {
+        let plate = focus_mode_raster::decode(&png, expected)?;
+        let mut raster = mode_raster_guard()?;
+        let lease = raster.as_mut().ok_or_else(|| {
+            CommandError::new(
+                "FOCUS_MODE_RASTER_FAILED",
+                "Panel Motion v4 raster disappeared",
+            )
+        })?;
+        if lease.token != raster_token
+            || lease.native_committed
+            || current_focus_surface_presentation() != Some(lease.snapshot.presentation)
+            || lease.snapshot.presentation.mode() == lease.target.mode()
+        {
+            return Err(CommandError::new(
+                "FOCUS_MODE_RASTER_FAILED",
+                "stale Panel Motion v4 plate after capture",
+            ));
+        }
+        if stage == "source" {
+            if lease.v4_panel_from_plate.is_some() || lease.v4_panel_to_plate.is_some() {
+                return Err(CommandError::new(
+                    "FOCUS_MODE_RASTER_FAILED",
+                    "duplicate Panel Motion v4 source plate",
+                ));
+            }
+            lease.v4_panel_from_plate = Some(plate);
+        } else {
+            if lease.v4_panel_from_plate.is_none() || lease.v4_panel_to_plate.is_some() {
+                return Err(CommandError::new(
+                    "FOCUS_MODE_RASTER_FAILED",
+                    "missing source or duplicate target Panel Motion v4 plate",
+                ));
+            }
+            lease.v4_panel_to_plate = Some(plate);
+            lease.v4_panel_layout = layout;
+        }
+        Ok(())
     })
     .await
     .map_err(|error| CommandError::new("FOCUS_MODE_RASTER_FAILED", error.to_string()))?
@@ -2340,9 +2684,29 @@ pub(crate) fn revalidate_open_timer_after_display_change(
 #[cfg(test)]
 mod focus_position_motion_tests {
     use super::{
-        focus_panel_animation_size, interpolate_blitz_morph_rect, interpolate_focus_axis,
-        GeometryPoint, GeometryRect, GeometrySize,
+        focus_panel_animation_size, focus_panel_placement_position, interpolate_blitz_morph_rect,
+        interpolate_focus_axis, needs_hidden_panel_reveal_anchor, FocusPanelSide,
+        FocusSurfacePresentation, GeometryPoint, GeometryRect, GeometrySize,
     };
+
+    #[test]
+    fn absent_monitor_fallback_applies_only_to_hidden_panel_reveal() {
+        assert!(needs_hidden_panel_reveal_anchor(
+            FocusSurfacePresentation::Panel,
+            false
+        ));
+        assert!(!needs_hidden_panel_reveal_anchor(
+            FocusSurfacePresentation::Panel,
+            true
+        ));
+        for presentation in [
+            FocusSurfacePresentation::TimerCompact,
+            FocusSurfacePresentation::TimerExpanded,
+        ] {
+            assert!(!needs_hidden_panel_reveal_anchor(presentation, false));
+            assert!(!needs_hidden_panel_reveal_anchor(presentation, true));
+        }
+    }
 
     #[test]
     fn contending_ui_presentation_command_returns_busy_without_waiting_for_worker() {
@@ -2351,6 +2715,37 @@ mod focus_position_motion_tests {
         assert_eq!(error.code, "FOCUS_PRESENTATION_BUSY");
         drop(owner);
         assert!(super::presentation_guard().is_ok());
+    }
+
+    #[test]
+    fn native_panel_inset_uses_physical_pixels_from_target_monitor_dpi() {
+        let work_area = GeometryRect {
+            position: GeometryPoint { x: 0, y: 0 },
+            size: GeometrySize {
+                width: 1920,
+                height: 1040,
+            },
+        };
+        let host = GeometrySize {
+            width: 425,
+            height: 875,
+        };
+        assert_eq!(
+            focus_panel_placement_position(work_area, host, FocusPanelSide::Left, 1.0)
+                .expect("one-DIP unit"),
+            GeometryPoint { x: 16, y: 16 }
+        );
+        assert_eq!(
+            focus_panel_placement_position(work_area, host, FocusPanelSide::Right, 1.25)
+                .expect("125%-DPI edge spacing"),
+            GeometryPoint { x: 1475, y: 20 }
+        );
+        assert_eq!(
+            focus_panel_placement_position(work_area, host, FocusPanelSide::Right, 0.0)
+                .unwrap_err()
+                .code,
+            "FOCUS_PRESENTATION_FAILED"
+        );
     }
 
     #[test]
@@ -2553,11 +2948,53 @@ async fn main_window_recreate(app_handle: tauri::AppHandle) -> CommandResult<()>
     Ok(())
 }
 
+fn needs_hidden_panel_reveal_anchor(presentation: FocusSurfacePresentation, visible: bool) -> bool {
+    presentation == FocusSurfacePresentation::Panel && !visible
+}
+
+// A global shortcut must be able to reveal a hidden Panel even if the
+// *saved* Panel monitor is currently disconnected. Only this visibility
+// handoff may use the primary display temporarily; explicit Panel placement
+// and saved monitor selection remain authoritative and unchanged. The Timer
+// toggle arrives afterwards through the existing renderer event.
+fn prepare_hidden_focus_panel_for_reveal(
+    app_handle: &tauri::AppHandle,
+    window: &tauri::WebviewWindow,
+) -> CommandResult<()> {
+    let _presentation_guard = presentation_guard()?;
+    ensure_no_mode_raster()?;
+    let snapshot = capture_focus_native_snapshot(window)?;
+    let (work_area, scale_factor, side) = panel_anchor_for_initial_timer(app_handle)?;
+    let _save_guard = floating_placement::suspend_saves();
+    if let Err(error) = apply_panel_native(window, work_area, scale_factor, side) {
+        return match restore_focus_native_snapshot(window, &snapshot) {
+            Ok(()) => Err(error),
+            Err(recovery) => Err(CommandError::new(
+                "FOCUS_PRESENTATION_RECOVERY_FAILED",
+                format!("{error}; hidden Panel fallback rollback failed: {recovery}"),
+            )),
+        };
+    }
+    announce_focus_surface_presentation(app_handle, FocusSurfacePresentation::Panel);
+    Ok(())
+}
+
 pub(crate) fn show_current_focus_surface(app_handle: &tauri::AppHandle) -> CommandResult<()> {
     let presentation =
         current_focus_surface_presentation().unwrap_or(FocusSurfacePresentation::Panel);
-    apply_focus_surface_presentation_internal(app_handle, presentation, None)?;
     let window = get_window(app_handle, FOCUS_SURFACE_LABEL)?;
+    let visible = window.is_visible().map_err(|error| {
+        map_window_error(
+            FOCUS_SURFACE_LABEL,
+            "read visibility before Focus reveal",
+            error,
+        )
+    })?;
+    if needs_hidden_panel_reveal_anchor(presentation, visible) {
+        prepare_hidden_focus_panel_for_reveal(app_handle, &window)?;
+    } else {
+        apply_focus_surface_presentation_internal(app_handle, presentation, None)?;
+    }
     show_and_focus(&window)
 }
 
@@ -2847,6 +3284,8 @@ pub fn run() {
             focus_surface_apply_presentation,
             focus_surface_capture_compact_frame,
             focus_surface_prepare_mode_raster,
+            focus_surface_prepare_v4_plate,
+            focus_surface_prepare_v4_panel_plate,
             focus_surface_animate_presentation,
             focus_surface_finish_mode_raster,
             focus_surface_mode_snapshot,
@@ -2894,6 +3333,7 @@ pub fn run() {
                 })?;
             let timer_service = TimerService::recover(connection)
                 .map_err(|error| startup_error("recover authoritative timer runtime", error))?;
+            app.manage(timer_service.time_taken_invalidator());
             app.manage(timer_service);
             recurrence_service::install_background_orchestration(background_database_path.clone())
                 .map_err(|error| startup_error("start recurrence orchestration runtime", error))?;

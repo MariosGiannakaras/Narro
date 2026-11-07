@@ -1,6 +1,6 @@
 .focus-surface-coordinator {
   --focus-visible-height: 700px;
-  --focus-geometry-motion-duration: 250ms;
+  --focus-geometry-motion-duration: 500ms;
   --focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1);
   position: relative;
   width: 340px;
@@ -82,6 +82,46 @@
 
 .focus-surface-coordinator__presentation[data-focus-visibility="inactive"] {
   display: none;
+}
+
+/* Only during an opt-in CapturePreview behind the already-owned native
+   raster. The image becomes a clean 300px backing for complete-row/semantic
+   pixel staging; no text is duplicated between DOM and popup captures. */
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation {
+  height: 300px;
+  clip-path: inset(0 0 0 0 round 16px);
+  transition: none;
+}
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__title,
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__timer,
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__actions-wrap,
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__subtask-toolbar,
+.focus-surface-coordinator[data-focus-v4-plate="true"] .floating-timer-foundation__subtask-panel {
+  visibility: hidden !important;
+  transition: none !important;
+}
+
+/* During a native-protected Panel↔Timer transition only the shared
+   title/clock pixels are hidden from the *background* CapturePreview.
+   This never hides the protected owned raster displayed to the user. */
+.focus-surface-coordinator[data-focus-v4-panel-plate="source"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="active"] .focus-panel__live-title,
+.focus-surface-coordinator[data-focus-v4-panel-plate="source"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="active"] .focus-panel__live-timer,
+.focus-surface-coordinator[data-focus-v4-panel-plate="source"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="active"] .floating-timer-foundation__title,
+.focus-surface-coordinator[data-focus-v4-panel-plate="source"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="active"] .floating-timer-foundation__timer,
+.focus-surface-coordinator[data-focus-v4-panel-plate="target"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] .focus-panel__live-title,
+.focus-surface-coordinator[data-focus-v4-panel-plate="target"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] .focus-panel__live-timer,
+.focus-surface-coordinator[data-focus-v4-panel-plate="target"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] .floating-timer-foundation__title,
+.focus-surface-coordinator[data-focus-v4-panel-plate="target"]
+  .focus-surface-coordinator__presentation[data-focus-visibility="preparing"] .floating-timer-foundation__timer {
+  visibility: hidden !important;
+  transition: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

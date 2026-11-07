@@ -30,8 +30,9 @@ assert(close.includes("completionSuccessPending || completionSuccessActionInFlig
   "Close cannot dismiss an executing post-Done command before React publishes pending");
 // Execute the extracted TypeScript *production* function bodies, not a
 // separate imitation mutex, with one real shared closure/ref and delayed IPC.
+const projection = between("  const publishTimerProjection = useCallback(", "\n\n  const setTimerResizeBusy = useCallback(");
 const actualHandlers = ts.transpileModule(
-  `${next}\n${close}\n${rest}\n({ startNextTaskFromSuccess, takeRestBetweenTasks, closeCompletionSuccess });`,
+  `${projection}\n${next}\n${close}\n${rest}\n({ startNextTaskFromSuccess, takeRestBetweenTasks, closeCompletionSuccess });`,
   { compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.None } },
 ).outputText;
 function deferred() {
@@ -41,7 +42,7 @@ function deferred() {
 }
 const idle = { runtime: { timer: { state: "idle", task_id: null } } };
 function harness({ snapshot, start } = {}) {
-  const calls = { snapshot: 0, start: 0, cleared: 0, pending: [], errors: [], statuses: [], focus: 0 };
+  const calls = { snapshot: 0, start: 0, cleared: 0, pending: [], errors: [], statuses: [], focus: 0, projected: [] };
   const ctx = {
     completionSuccess: { nextTask: { id: "task-next", mode: { kind: "count_up" } } },
     completionSuccessPending: false, // intentionally stale same-render React closure
@@ -59,7 +60,8 @@ function harness({ snapshot, start } = {}) {
     },
     applyTimerSessionProjection: (_previous, payload) => payload,
     timerProjectionRef: { current: null },
-    setTimerProjection: (callback) => { callback(null); },
+    useCallback: (callback) => callback,
+    setTimerProjection: (next) => { calls.projected.push(next); },
     setCompletionSuccess: (value) => { if (value === null) calls.cleared++; },
     setPanelRefreshKey: (callback) => callback(0),
     setTimerRefreshKey: (callback) => callback(0),
@@ -96,6 +98,8 @@ function harness({ snapshot, start } = {}) {
   write.resolve({ runtime: { timer: { state: "running" } } });
   await first;
   assert.equal(calls.cleared, 1);
+  assert.equal(calls.projected.length, 1, "Next must publish exactly one authoritative timer projection");
+  assert.equal(ctx.timerProjectionRef.current, calls.projected[0], "live task ref must update before queued React commit");
   assert.equal(ctx.completionSuccessActionInFlightRef.current, false);
 }
 // Take a Break never starts a phantom native session, and it excludes Next
