@@ -12,7 +12,7 @@ Revised 2026-11-07. **Repository preparation: PREPARED. New acquisition/analysis
 - All old Narro recordings were retired by the completed cleanup. Historical verdicts remain dated facts; old films/screenshots/traces/ZIPs must not be restored as the fresh campaign's evidence or comparison side. Software executables from unchanged exact-head green CI remain valid candidates; an old capture and a validated binary are different kinds of asset.
 - New recordings start NOT RUN. CI/fixtures/source inspection prove their own claims only. Static geometry can use fresh exact-build screenshots; motion/transient claims require continuous original intervals and actual frame timestamps. No blanket pixel/motion PASS from endpoints or nominal FPS.
 
-## Verified candidate register — preparation snapshot, recheck before execution
+## Existing candidate register — source snapshot, observer refresh required
 
 | Candidate | Role | Exact source | Green CI run | Physical artifact | EXE SHA-256 |
 | --- | --- | --- | --- | --- | --- |
@@ -27,7 +27,7 @@ PR437 contains the current PR431 head `3c3b72b06eaa841bce9429dace83a6b5c33ba701`
 
 PR389 and PR419 have **separate strict 8/8 physical-before-merge gates** and are not interchangeable with PR437. PR418 is an open design/source-contract branch, not another default runtime acceptance candidate. A newer main or workflow-helper CI binary is not a replacement for these branch-specific application sources.
 
-## Admission — one next executable action in the physical chat
+## Admission — after test-only observer source/artifact validation
 
 1. Read current main HANDOFF and recheck the selected live PR head. Confirm it still matches this register and the required source claim. If it moved, update only that candidate's exact-head CI/artifact proof; do not reuse a stale binary or rebuild unchanged candidates merely because a new chat starts.
 2. Verify the local EXE SHA-256 against the admitted artifact manifest before launch. Record source SHA, CI run/attempt, artifact ID/ZIP digest and EXE path/hash in the new session's admission record. Never infer source identity from filename or installer version.
@@ -36,35 +36,17 @@ PR389 and PR419 have **separate strict 8/8 physical-before-merge gates** and are
 5. Freeze the compatible case batch before substantial capture. Create the test lists/tasks through normal UI on normal disposable Narro data. Record expected behavior and the source requirement/claim ID. Do not change product behavior to make a test easier.
 6. The optional helper `scripts/prepare-m7-physical-session.ps1` records environment and can verify a provided hash; its `-Launch` flag is explicit. It is not a substitute for this source/run/artifact admission and does not grant a PASS. Invoke it from the current checkout root with the selected EXE, `-ExpectedSha256` from the register and a fresh ignored `-EvidenceRoot`. Prepare-only omits `-Launch`; the physical chat can launch the admitted candidate when ready without a new blanket permission request.
 
-## Diagnostic logging — admission before intermittent-failure checks
+## Automatic full-stack observation — current user requirement
 
-**Source audit 2026-11-07; runtime health NOT RUN.** Logging is not universally enabled or unlimited. A normal `narro.exe` does not activate the filename-gated automatic M7 logger. Do not infer logging readiness from a green build, a writable directory or a successful launch.
+Follow [the test-only session contract](PHYSICAL_SESSION_OBSERVABILITY.md). Logging is for successful actions/state changes as well as failures, acquired automatically from startup through exit and analyzed with original video, actions and exact build identity. This supersedes manual opt-in bounded probes as the campaign's general logging method.
 
-| Exact admitted candidate/mode | Available channel | Activation and limits |
-| --- | --- | --- |
-| PR437 normal `narro.exe` | Timer milestones, committed transitions, first poison per lock category and Rust panic/backtrace | Set absolute writable `NARRO_TIMER_DIAGNOSTICS_DIR` before process creation. Approximately4 MiB per PID; once full, later records are silently omitted. Successful periodic timer ticks and every UI error are not journaled. |
-| PR437 normal `narro.exe` | Native movement messages/rectangles/cursor/DPI | Set absolute writable `NARRO_NATIVE_MOVE_TRACE_DIR` before process creation. At most2,048 attempted records, queue256; queue drops can occur and are counted in subsequent rows. This is a bounded diagnostic probe, not a full-session movement journal. |
-| Current A389/B419 normal `narro.exe` | Neither of the two channels above | Both exact heads lack `timer_diagnostics.rs` and `windows/move_trace.rs`. Setting those environment variables does not instrument their existing binaries. Mark unavailable channels UNAVAILABLE. |
-| Dedicated `narro-m7-validation.exe` mode | M7 session/events/C5 logger | Selected by executable stem, not by either environment variable. Treat as a separately admitted diagnostic mode; do not silently rename a candidate or transfer native/performance acceptance between modes. |
+**Implementation/validation is in progress.** The existing cached437/A389/B419 binaries predate the full-stack observer and remain protected software, not admitted candidates for this new acquisition requirement. Do not start the long campaign until its relevant application source has a validated physical-observability artifact and actual supervisor/capture/logging admission. Do not substitute a main tooling build for the held437/A/B app sources.
 
-Before launching PR437 through the existing hash/process-guarded helper, set the following **in the launching process**, using a fresh absolute session root under persistent `PhysicalEvidence`:
+The owned supervisor starts the recorder before Narro, preserves a single recording across normal Quit/relaunch, checks actual PID/path/hash/source and logging handshake, and finalizes an indexed packet automatically. The physical/resuming chat reads EVIDENCE_INDEX.json, ANALYSIS_BRIEF.md and TIMELINE.jsonl and jointly inspects the relevant original video/PTS and log records before diagnosis. A stopped chat is not a background collector; another-machine/repository-only chat needs explicit packet transfer.
 
-```powershell
-# $sessionRoot is this session's admitted absolute evidence directory.
-$env:NARRO_TIMER_DIAGNOSTICS_DIR = Join-Path $sessionRoot 'timer-logs'
-$env:NARRO_NATIVE_MOVE_TRACE_DIR = Join-Path $sessionRoot 'move-logs'
-# Invoke the existing admitted-candidate helper with -ExpectedSha256 and -Launch.
-```
+The observer is compiled only into the test build; the final product/default release excludes it. Preserve explicit gaps, crash tails, queue/write failures and async observations without proven causal context. SQLite precommit observation is not durable acceptance. Quiet performance uses the separate uninstrumented exact-source protocol. Audio and frame-exact UTC alignment are not promised by this recorder.
 
-These variables are opt-in instrumentation, inherited only by newly created processes; changing them afterward does not enable or rotate a running process's logger. Record their values with candidate/mode/source/EXE hash, actual PID/HWND and UTC session start. They add diagnostic I/O; record instrumentation state when comparing candidates. Quiet CPU/memory claims use their separate non-recording protocol and disclose any enabled diagnostics.
-
-Before the long batch, observe the actual PID's `timer-diagnostics-<PID>.jsonl`, parse its `timer-diagnostics-start` record and verify current UTC/PID. During the initial real nonzero drag, verify that `native-move-<PID>-<timestamp>.tsv` gains valid rows with measured displacement. A directory, header or missing file alone is not proof. The helper does not set these variables or redirect stdout/stderr for you. Capture process/recorder stderr where supported and verify that capture independently; this release uses the Windows GUI subsystem, so terminal redirection alone is not proof of working error capture.
-
-Keep continuous original video and an operator action/case/UTC/PTS chronology for intermittent visual/interaction failures. Logs complement those observations; they do not cover every frontend error, native hard crash, forced termination or power loss. Absence of a panic record does not establish absence of a failure.
-
-At safe phase boundaries check last timestamps, file growth, byte/row budgets, drop counts, recorder health and reported write errors. Do not grade a later operation as logged after a channel caps/stops. Preserve the useful failure interval and mark missing diagnostic coverage INCOMPLETE. A fresh process/segment is possible only at a legitimate scenario boundary, with its own PID/admission/chronology; do not truncate active files or restart in the middle of a persistence/timing case. Keep both pre-Quit and post-relaunch packets while that claim needs them.
-
-**Remaining implementation limit:** unbounded same-PID logging/rotation and equivalent Timer/native instrumentation on the current A/B binaries are not implemented by these instructions. If a case needs that coverage, return the narrow logging requirement to its source owner for a validated source change/new artifact before claiming that diagnostic coverage. Do not rebuild unchanged candidates merely to repeat preparation. Existing bounded PR437 probes can proceed once their runtime health is actually observed.
+Older branch-specific Timer/panic/native-move probes may supplement a narrow investigation, but their former4 MiB/2,048-record limits and filename-gated M7 mode do not constitute this new campaign-wide coverage. No renaming/environment variable can add missing modules to an old executable.
 
 ## Current case matrix — every new result starts NOT RUN
 
