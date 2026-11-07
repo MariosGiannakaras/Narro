@@ -1,21 +1,24 @@
-# HANDOFF — historical Narro cleanup DONE 5/5
+# HANDOFF — prepare the fresh Windows physical chat
 
-## NOW — Codex / 2026-11-07 / DONE
+## NOW — Codex / 2026-11-07 / TESTING
 
-The user-requested historical evidence retirement and independent workflow/handoff cleanup are complete. PR493 head `b2cf211527bcd378be08d6f5a2d0f9173b6989ff` was expected-head guarded-merged at `cc5138444bbcf41f48a2dbda3229fec7c3e1406c`. Local and remote complete-tree checks prove exactly 4,065 evidence removals, zero other changes in that PR, and actual merge tree `fa7c5483fc73342c3545745654ff4b35675e5ac7` identical to the intended candidate.
+User task: audit/fix the full agent/workflow/handoff/old-tracker path and leave the repository ready for a subsequent chat to begin fresh physical checks. This session prepares only: no Narro executable/installer, recording, AppData reset or OS/hardware change has been run.
 
-- Historical Narro checkout cleanup: **DONE 5/5**. [PR493](https://github.com/MariosGiannakaras/Narro/pull/493) removed the final **27 folders /4,065 paths /2,340,643,868 logical bytes**; actual merge `cc5138444bbcf41f48a2dbda3229fec7c3e1406c` was verified against the complete candidate tree `fa7c5483fc73342c3545745654ff4b35675e5ac7`. **0 tracked files remain under `work-log/evidence/`**.
-- Original Blitzit: **86/86 manifest assets unchanged** — 46 screenshots, 19 MP4, 19 SRT, two labeled source-derived VE005 frames. All comparison sources stay at `reference/original-blitzit/`.
-- Frozen historical 700 video/ZIP cohort: **700 retired /0 remain in checkout**. Cumulative historical Narro-evidence retirement: **36,601 paths**; the 14 root helpers removed in PR492 are a separate maintenance count. Git history/recovery is preserved; no remote Git object-size saving is claimed.
-- Only fresh Narro acquisitions may provide new native acceptance; historical verdicts remain dated evidence. All new physical recording groups remain **NOT RUN**. Cleanup changes no application behavior or milestone acceptance.
+The canonical controller is [the fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md). It contains the exact source/CI/artifact/EXE register, normal-profile data policy, source admission, concrete PA matrix, A/B gates and session record contract. New acquisition and analysis remain **NOT RUN**; binary readiness is not physical acceptance.
 
-## Validation and recovery
+- Default integrated candidate: PR437 `632345026d9c693613a3a0b3e9a8105740fcc6af`; CI41035287020 3/3 SUCCESS; physical artifact12968772574; EXE SHA256 `1f2d90241259dd0ae0216ab000455d8140b7e55406370f9d5948417f2096e878`.
+- A389 `ec9227a2e09a69c380d4605aaf9623bdd9b9c394` and B419 `6a72cf56ee03ea8026b56644adb47780d15d8692` have independent exact-head3/3 CI and strict8/8 holds; the protocol records their verified packages and hashes.
+- All3 physical ZIPs and9/9 EXE/MSI/NSIS members were independently hash/size/CRC/source/run verified without execution. Local cache: `E:\SystemFiles\Desktop\Narro Project\PhysicalCandidates\20261107\VERIFIED_CANDIDATES.json`. Cache is intentionally retained outside Git; verify live head/hash again at session admission.
+- PR437 includes current431 and436 heads (57/42 ahead,0 behind). Reuse the integrated candidate for overlapping cases rather than rerun the same claims on three binaries. PR418 remains a design/source-contract branch, not a default runtime candidate.
+- Workflow helper branch ix/fresh-physical-session-checklist-20261107 is being aligned to the fresh protocol; check whether its PR already exists before creating another. exact helper PR/checkpoint and final validation will be recorded after publication. Tooling CI artifacts must not be substituted for the admitted application branches.
 
-- [Final PR493 cleanup receipt](work-log/2026-11-07-codex-pr493-final-cleanup.md) owns the full scope, recovery, complete-tree comparison and post-deletion audit. Archive-only CI is NOT RUN; no tests or workflow conditions were weakened. The unchanged application source retains PR492 exact-head CI42312821108 3/3 SUCCESS. Post-deletion local frontend preflight/build results are recorded separately in the receipt.
-- Previous refusal descriptions lacked an original diagnostic and were incorrectly treated as proof of a current blanket restriction. The fresh current-user-directed local index deletion, commit, push and normal guarded merge succeeded. No permission setting or safety control was disabled, and no actual current denial of this operation occurred.
-- Complete deleted cohort is recoverable at `5abf8f312d922293676b00a5ebdb1626c88472e7`. Historical receipts retain dated findings; old missing media links are recovery addresses, not current physical acceptance.
-- The temporary deletion progress tracker is removed after actual closure. [Issue #491](https://github.com/MariosGiannakaras/Narro/issues/491) is **CLOSED / completed**, with the actual PR493 deletion and full resulting-main proof recorded. The prior independent helper/workflow change remains documented in PR492 and its immutable receipts.
-- Temporary local repository `narro-cleanup-20261107-final` was **recycled and its original path verified absent**, including owned node_modules/dist/generated-icon outputs. The task-only closure script, obsolete unsent support draft and superseded proposal were also recycled. The transient cleanup branch is absent after merge. Unrelated existing local worktrees, uncommitted work and authoritative Blitzit originals are preserved.
+## NEXT AGENT ACTION
+
+Finish this workflow-helper/source validation and publish the final readiness checkpoint. Then the next physical chat should recheck selected live PR437 head and local EXE hash, verify actual capture/input/process state, prepare one ignored fresh session, and execute the first compatible PR437 batch from the protocol. Do not rebootstrap the old research or request renewed general PA consent. Record unavailable hardware/input as NOT RUN; request only the specific observation/input actually needed.
+
+## USER ACTION REQUIRED
+
+None for this repository preparation. The later physical session needs an available Windows operator/tool and, for hardware-only clauses, the specific human action. These are execution prerequisites, not a blanket user pause. No physical session is started by this preparation request.
 
 ## Independent implementation and physical gates
 
@@ -31,10 +34,8 @@ These PR states were checked read-only on 2026-11-07; recheck live heads before 
 
 M1–M4 retain their scoped formal acceptance; M5–M9 remain OPEN. M10 requires the post-M9 user review and explicit approval; M11/M12 remain independently inactive. No milestone checkboxes change. First-fault poisoned-lock diagnosis and other unclosed native/source-parity claims are not closed by this cleanup. See the [fresh physical ledger](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md), [TODO](TODO.md), [crosswalk](docs/AUDIT_IMPLEMENTATION_CROSSWALK.md) and per-PR owners for exact missing requirements. Ordinary PA authority exists under the latest user rules; cleanup does not launch the app or change AppData.
 
-## NEXT AGENT ACTION
+## Completed cleanup and provenance
 
-No historical cleanup action remains. Do not recreate the old blocked-deletion queue or regenerate its frozen audit outputs. Existing source/native work retains its current owner and independent acceptance gates; recheck live PR heads before a separately scoped continuation. Cleanup does not authorize M10, M11, M12 or a new physical session.
+Historical cleanup remains DONE5/5 through PR493: zero tracked `work-log/evidence/` files; all86 Blitzit source assets unchanged. Issue491 is closed, temporary tracker retired. Do not resurrect its old denial narrative as a current prohibition. Immutable work logs and exact Git recovery preserve dated findings; old Narro media must not become fresh comparison evidence.
 
-## USER ACTION REQUIRED
-
-None for the completed repository cleanup. Existing hardware/native acceptance still requires its appropriate Windows operator when separately scheduled.
+[Workflow/readiness audit receipt](work-log/2026-11-07-codex-workflow-physical-handoff-audit.md) records findings, current evidence, validations and limits. This readiness task changes no application feature or milestone checkbox. Strict source/native holds and M10/M11/M12 boundaries are preserved.

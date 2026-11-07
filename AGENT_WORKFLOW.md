@@ -4,6 +4,10 @@ Narro is maintained so different coding AIs can alternate without prior chat con
 
 `AGENTS.md` remains authoritative for durable product/scope/correctness rules. `ENGINEERING_QUALITY.md` is authoritative for implementation quality, error handling, robustness, validation and pre-CI discipline.
 
+## Current physical execution route
+
+Use `docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md` for fresh session admission, exact candidates, current PA scope and evidence layout. It supersedes dated execution packets on candidate/recording/data policy; old detailed case requirements remain historical reference. Repository readiness, verified software artifacts and actual physical PASS are separate states. This preparation workflow does not start a session in a preparation-only chat; a subsequent physical task resumes the prepared route without re-inventing consent or source-research gates.
+
 ## Narro Windows test-data policy — current user decision 2026-10-30
 
 The user confirmed there is **no real Narro personal data to protect**. PA-01–09 uses the **ordinary Windows profile and regular Narro data paths**, treating all Narro-created tasks, sessions, preferences and positions as disposable test data. Agents may create/edit/delete/reset **Narro-only** data when a case needs a clean start (only with Narro stopped), and must retain data for persistence/restart tests. Do not introduce isolated Windows accounts, special temporary databases, prophylactic backups, or consent gates for this Narro-only data. Maintain exact EXE SHA, PID/path provenance and per-case evidence; do not touch unrelated files, registry/OS/hardware or installers outside their actual scenario safeguards. Any older repository references to mandatory isolated profiles/backups for normal PA are historical, not current directions.
@@ -252,7 +256,7 @@ For affected features requiring physical Windows acceptance, enforce **record �
 
 This is **deep inspection of the affected behavior and dependency fan-out**, including relevant error, concurrency, restart, native, visual and accessibility states; it is neither a blanket audit of the entire application nor the separate user-opt-in dedicated candidate-wide audit. Record the exact SHA, inspected versus uncovered states, related previous failures, regression results, pending physical probes and cross-milestone invalidations; reuse still-valid evidence. An agent assigned **workflow-only** changes may edit these authoritative process documents without taking ownership of another agent's source PR, source tests, current HANDOFF or milestone counts. Follow `docs/TRACKER_STATUS_INDEX.md` and coordinate only actual conflicts.
 
-PA-01–09 are **ACTIVE in dependency-ordered M1–M9**. Pair the deep affected-surface analysis/pre-physical/relevant CI with compatible actual native acceptance in one Windows session when an exact candidate and operator are ready; independently grade each scenario. A physically blocking acceptance must be obtained before dependent changes/merge, while unrelated safe work may advance. No repeat case-by-case permission for ordinary isolated tests; unrelated AppData/OS/hardware changes retain separate protections; normal Narro AppData tests are expressly authorized. Preserve PR389/PR419 `PHYSICAL_BEFORE_MERGE` holds and M10's post-M9 user review/approval.
+PA-01–09 are **ACTIVE in dependency-ordered M1–M9**. Pair the deep affected-surface analysis/pre-physical/relevant CI with compatible actual native acceptance in one Windows session when an exact candidate and operator are ready; independently grade each scenario. A physically blocking acceptance must be obtained before dependent changes/merge, while unrelated safe work may advance. No repeat case-by-case permission for ordinary Narro tests on the normal profile; unrelated files/OS/hardware retain their case-specific safeguards. Preserve PR389/PR419 `PHYSICAL_BEFORE_MERGE` holds and M10's post-M9 user review/approval.
 
 ## Pre-CI discipline
 
@@ -288,7 +292,7 @@ Authoritative implementation instructions and tracking must not remain stranded 
 
 When a change is **documentation/process/evidence-only** and does not alter runtime, build, test, packaging, dependency or CI semantics:
 - write it directly to `main` with a normal forward commit; do not create a documentation-only feature branch or PR;
-- Markdown is already ignored by Windows CI through `paths-ignore`. For non-Markdown evidence-only artifacts (for example sanitized `work-log/evidence/**` captures), use a direct-main commit message containing `[skip ci]` so the push does not start Windows CI;
+- Most Markdown is excluded by ordered positive/negative `paths` patterns; the four bundled validation docs listed in CI_VALIDATION_STRATEGY remain build inputs. For non-Markdown evidence-only artifacts (for example sanitized `work-log/evidence/**` captures), use a direct-main commit message containing `[skip ci]` so the push does not start Windows CI;
 - update `HANDOFF.md`, `TODO.md`, `STATUS.md`, `AGENTS.md`, `AGENT_WORKFLOW.md`, `AI_START_HERE.md`, relevant `docs/*.md`, and new immutable `work-log/*.md` entries on `main` as soon as that truth is established;
 - do **not** run Windows CI for the documentation-only commit;
 - do not change the validated application source baseline because of that commit;

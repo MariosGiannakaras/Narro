@@ -1,5 +1,7 @@
 # TODO — current gates and preserved milestone ledger
 
+**Next phase: fresh physical preparation (2026-11-07).** Use the [canonical fresh protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) and HANDOFF. Verified local software artifacts are prepared; all new acquisition/analysis remains NOT RUN. Current workflow-helper publication/validation is tracked separately; it does not replace branch-specific PR437/A389/B419 source candidates. Normal Narro test data is authorized; old execution pauses/isolation rules are historical. No milestone checkbox is changed by this readiness audit.
+
 **Current checkpoint: 2026-11-07.** Use [HANDOFF](HANDOFF.md) for the active branch/PR, exact verification and one next operation. This reconciliation changes **no milestone checkbox**. The detailed ledger below remains the original requirements/disposition record; old dated source/artifact links are provenance, not current executable acceptance.
 
 - Historical Narro checkout cleanup: **DONE 5/5**. [PR493](https://github.com/MariosGiannakaras/Narro/pull/493) removed the final **27 folders /4,065 paths /2,340,643,868 logical bytes**; actual merge `cc5138444bbcf41f48a2dbda3229fec7c3e1406c` was verified against the complete candidate tree `fa7c5483fc73342c3545745654ff4b35675e5ac7`. **0 tracked files remain under `work-log/evidence/`**.

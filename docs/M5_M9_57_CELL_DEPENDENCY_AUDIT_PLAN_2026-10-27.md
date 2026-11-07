@@ -1,3 +1,5 @@
+> **HISTORICAL EXECUTION SNAPSHOT — not the current session controller.** Candidate SHA, CI/PR state, pause/permission, isolated-profile/backup requirements, old media pointers and next actions below describe their dated context. The current [fresh-capture protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) and [HANDOFF](../HANDOFF.md) supersede them. Preserve detailed case findings as history; do not restore old Narro recordings as fresh evidence, re-run closed source research, or invent a current restriction from this snapshot.
+
 # M5–M9: exhaustive 57-cell dependency/logic/code audit plan — 2026-10-27
 
 **User directive:** audit all 57 existing documentary acceptance cells *deeply*, prioritize failure-prone M7. This is a **new, bounded source-analysis workstream**, separate from prephysical readiness **3/5; 8/13** and formal roadmap **M1–M4 4/10**. The previous [57-cell triage](M5_M9_OPEN_PREPHYSICAL_RECONCILIATION_2026-10-27.md) is **57/57 labels classified**, NOT 57/57 exhaustive code review. Never equate source-review disposition to native Windows PASS or original Blitzit parity.

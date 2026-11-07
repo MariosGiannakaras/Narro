@@ -195,7 +195,7 @@ Do **not** optimize for line count. Split the batch when changes are unrelated, 
 
 A physical Windows check may be deferred and consolidated with later compatible checks only when subsequent work is independent of its outcome. Keep the gate OPEN until real evidence exists; never convert deferred physical validation into automated PASS.
 
-Documentation/process/tracking/evidence-only changes should be committed directly to `main` and should not consume Windows CI when they do not affect executable/build/test/CI behavior. Markdown is already path-ignored; non-Markdown evidence-only commits use `[skip ci]`. Workflow files, scripts/tests, manifests, runtime/build configuration and other tooling-consumed files are not documentation-only even if they contain no application feature code.
+Documentation/process/tracking/evidence-only changes should be committed directly to `main` and should not consume Windows CI when they do not affect executable/build/test/CI behavior. The four bundled validation docs named in CI_VALIDATION_STRATEGY are build inputs even though their suffix is Markdown. Markdown is already path-ignored; non-Markdown evidence-only commits use `[skip ci]`. Workflow files, scripts/tests, manifests, runtime/build configuration and other tooling-consumed files are not documentation-only even if they contain no application feature code.
 
 ## CI contract
 

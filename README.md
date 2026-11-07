@@ -37,20 +37,16 @@ Canonical continuation files:
 - `STATUS.md` — concise project-level truth and architecture/capability state;
 - `work-log/*.md` — preferred immutable per-slice implementation/validation logs for new work;
 - [`docs/TRACKER_STATUS_INDEX.md`](docs/TRACKER_STATUS_INDEX.md) — active vs frozen tracker ownership, exact immutable history snapshots;
-- [`docs/REPOSITORY_HYGIENE_SHALLOW_PASS_2026-10-12.md`](docs/REPOSITORY_HYGIENE_SHALLOW_PASS_2026-10-12.md) — source/branch/CI/roadmap superficial hygiene findings;
+- [`docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md`](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) — current fresh-session admission, candidates and execution matrix;
 - `WORK_LOG.md` — legacy historical archive retained for older context.
 
 Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instructions.md` are thin pointers to the same canonical state. `prompts/*` are optional historical/slice aids, not required onboarding.
 
-## Current phase — evidence-scoped 2026-10-23
+## Current phase — fresh physical preparation, 2026-11-07
 
-- **Roadmap:** mandatory M1–M4 accepted, M5–M10 awaiting their individual acceptance criteria. Closed historical source investigations are preserved as evidence, not active tasks or recurring report counters.
-- **Current source candidate:** [PR #389](https://github.com/MariosGiannakaras/Narro/pull/389) **OPEN/DRAFT**, HEAD `f709214bbbcd07e199865d2c1bf2842d6fa9d1cf`. [Windows CI 39861577759](https://github.com/MariosGiannakaras/Narro/actions/runs/39861577759) **3/3 PASS** after narrowly fixing watchdog recovery-lock contention and unbounded critical Focus/Timer frame waits, including regression coverage.
-- **Native status:** this new source **0/8 physical cases NOT RUN**. Previously automated-green same-surface candidate physically failed **4/8** with mixed compositor hierarchies. PR389 therefore has an evidence-backed **PR-only physical-before-merge hold**; independent low-risk green PRs use the normal guarded integration policy.
-- **Artifact identity:** the previously verified ZIP/EXE from old PR389 HEAD `15c0649f` (CI `39848609179`, artifact `12457776202`) is **not** a valid physical-test candidate for the new HEAD. The new exact-head artifact **12463188111** is independently hash/CRC/manifest-verified and ready for Codex eight-case native capture; see [HANDOFF](HANDOFF.md).
-- **Scope:** prior PA01–08 reviewed within their exact original physical/environment coverage (HDMI hardware hotplug NOT RUN). Do not infer a new-build physical PASS. Protect user-approved Spectrum Core picker, image upload and 218 offline icons. M11 and M12 require independent explicit opt-in.
+Historical Narro recording cleanup is complete. The next physical chat follows [HANDOFF](HANDOFF.md) and the [fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md), with a verified default PR437 candidate and independent A389/B419 controls. Artifacts are verified; new native acquisition/analysis remains NOT RUN. A newer main/workflow build does not replace an unmerged feature candidate merely by date.
 
-See [TODO](TODO.md) for the mandatory roadmap, [STATUS](STATUS.md) for validated claims, and [HANDOFF](HANDOFF.md) for the only current agent action.
+Normal Windows profile and Narro-only disposable test data are already authorized. Old execution packets, pauses, isolated-profile requirements, branch/build IDs and raw Narro films are historical; only original Blitzit is the comparison source for fresh captures. Strict per-PR native holds remain. M10 requires its later user review/approval; M11/M12 are independent opt-ins. See current tracking for actual prerequisites and source/CI/native distinctions.
 
 ## Product scope
 

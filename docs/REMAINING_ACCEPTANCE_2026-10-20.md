@@ -1,3 +1,5 @@
+> **HISTORICAL EXECUTION SNAPSHOT — not the current session controller.** Candidate SHA, CI/PR state, pause/permission, isolated-profile/backup requirements, old media pointers and next actions below describe their dated context. The current [fresh-capture protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) and [HANDOFF](../HANDOFF.md) supersede them. Preserve detailed case findings as history; do not restore old Narro recordings as fresh evidence, re-run closed source research, or invent a current restriction from this snapshot.
+
 # Remaining mandatory acceptance snapshot — 2026-10-20
 
 Current truth remains TODO/HANDOFF, not this snapshot. **4/10 mandatory milestones formally accepted (M1–M4).** PR387 SuccessON correction is merged9e631952 with PRCI3/3 and native3/3PASS; exact resulting-mainCI39389033088 also3/3SUCCESS with actualWindows4/4x9 and packageidentity verified; this RA batch is COMPLETE. [Final native closure](PR387_NATIVE_ACCEPTANCE_2026-10-20.md). RA01 native4/4 is closed and its actual TODO checkbox reconciled; no repetition of unaffected Board/OFF/rest checks.

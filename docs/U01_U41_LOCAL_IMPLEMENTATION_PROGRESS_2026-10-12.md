@@ -1,3 +1,5 @@
+> **HISTORICAL EXECUTION SNAPSHOT — not the current session controller.** Candidate SHA, CI/PR state, pause/permission, isolated-profile/backup requirements, old media pointers and next actions below describe their dated context. The current [fresh-capture protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) and [HANDOFF](../HANDOFF.md) supersede them. Preserve detailed case findings as history; do not restore old Narro recordings as fresh evidence, re-run closed source research, or invent a current restriction from this snapshot.
+
 # U01–U41 Narro-local implementation progress — fixed denominator and evidence boundaries
 
 ## CURRENT 2026-10-12 — U01–U41 **41/41** Narro-local functional release accepted; original local gaps **9/9** repaired

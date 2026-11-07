@@ -88,6 +88,10 @@ Do not use exact source-string assertions as the primary proof of ordinary behav
 
 When touching an existing brittle source-text test, prefer migrating it toward the semantic boundary rather than adding more implementation-string coupling.
 
+## Bundled Markdown exceptions
+
+The main CI workflow uses ordered `paths` patterns, not a blanket docs exemption. These four Markdown files are shipped in validation artifacts and intentionally trigger CI: `docs/M7_AUTOMATIC_VALIDATION_LOGGING.md`, `docs/M1_FLOATING_PERFORMANCE_MEASUREMENT.md`, `docs/M1_WINDOWS_RUNTIME_VALIDATION.md`, `docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md`. Scripts, tests, workflow YAML and parsed manifests are also executable/tooling changes regardless of prose content. Ordinary tracking/protocol Markdown does not invalidate an application candidate.
+
 ## 5. Physical validation
 
 Physical Windows validation is one consolidated evidence session whenever practical.
@@ -179,7 +183,7 @@ This is a **new evidence type**, not a request to replay all prior test scripts 
 
 For each material candidate risk, log: **subsystem/invariant → real state and error-path owner → relevant current code and historical evidence → plausible failure sequence → why the earlier PASS/tests would not expose it → severity and reproducibility/confidence → minimally sufficient deterministic evidence/guard → result and residual risk**. Distinguish (a) demonstrated bug, (b) credible mechanism not yet reproduced, (c) historical unexplained event, (d) covered invariant, and (e) accepted bounded limitation. Never infer that a historical poisoned mutex was cured simply because subsequent tests passed; separate missing original panic traceback, present-day prevention guarantees and any remaining unproven root cause.
 
-Test credible gaps with targeted unit/integration/fault-injection or isolated Windows probes, as appropriate: lock/panic/unwind ordering, SQLite transaction and restart integrity, after-commit event publication and partial failure, concurrent IPC and duplicate commands, cancel/retry/reentrancy, stale UI projections, monitor/window reconnection, timer ledger reconciliation, migration rollback and security exposure. Check raw persisted invariants (e.g. SQLite `quick_check`, logically relevant queries) only in disposable test profiles, with privacy-safe redacted logs. **No changes to user AppData, physical OS configuration or real personal data** under this audit. Use narrow validation first; escalate only when a proof obligation requires it.
+Test credible gaps with targeted unit/integration/fault-injection or isolated Windows probes, as appropriate: lock/panic/unwind ordering, SQLite transaction and restart integrity, after-commit event publication and partial failure, concurrent IPC and duplicate commands, cancel/retry/reentrancy, stale UI projections, monitor/window reconnection, timer ledger reconciliation, migration rollback and security exposure. Check raw persisted invariants (e.g. SQLite `quick_check`, logically relevant queries) only in authorized disposable Narro test data on the normal profile, with narrowly scoped logs. The user explicitly permits Narro-only AppData changes with Narro stopped for resets and data retained through persistence cases. This does not authorize unrelated user data or global OS/hardware changes under this audit. Use narrow validation first; escalate only when a proof obligation requires it.
 
 Findings must link to exact SHA and proof or `NOT RUN/UNKNOWN`; confirmed high-impact defects get focused fixes/guards and only invalidated dependent tests/physical acceptance rerun. Credible unresolved release-threatening risks require an explicit blocker or documented user risk disposition. No pseudo-PASS from static inspection, compile success, flaky green retries or absent logs. The audit record becomes an input to the required Final Comprehensive Review, which should not rerun resolved M10 forensic work absent new evidence.
 

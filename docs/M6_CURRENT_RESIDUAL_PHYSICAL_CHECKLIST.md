@@ -1,3 +1,5 @@
+> **HISTORICAL EXECUTION SNAPSHOT — not the current session controller.** Candidate SHA, CI/PR state, pause/permission, isolated-profile/backup requirements, old media pointers and next actions below describe their dated context. The current [fresh-capture protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) and [HANDOFF](../HANDOFF.md) supersede them. Preserve detailed case findings as history; do not restore old Narro recordings as fresh evidence, re-run closed source research, or invent a current restriction from this snapshot.
+
 # M6 current residual physical/source acceptance
 
 Status: current residual checklist for the replacement single-`focusSurface` M6 acceptance bundle.

@@ -1,3 +1,5 @@
+> **Fresh physical execution:** use [the current protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) and [HANDOFF](../HANDOFF.md). This file preserves dated findings/dispositions; old candidate, pause, profile and media instructions below are not a competing current controller.
+
 # Reading this crosswalk after evidence retirement — 2026-11-07
 
 Current operation and source heads are in [HANDOFF](../HANDOFF.md). Finding dispositions below are preserved; dated pre-physical audits and old CURRENT/NEXT/CI-running claims are historical checkpoints. PP44-F01 source remediation was subsequently implemented on PR437 head `632345026d9c693613a3a0b3e9a8105740fcc6af`; its new native acceptance remains NOT RUN. Source automation does not close the native gates.

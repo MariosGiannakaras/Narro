@@ -1,3 +1,5 @@
+> **HISTORICAL EXECUTION SNAPSHOT — not the current session controller.** Candidate SHA, CI/PR state, pause/permission, isolated-profile/backup requirements, old media pointers and next actions below describe their dated context. The current [fresh-capture protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) and [HANDOFF](../HANDOFF.md) supersede them. Preserve detailed case findings as history; do not restore old Narro recordings as fresh evidence, re-run closed source research, or invent a current restriction from this snapshot.
+
 # Historical PA356 residual physical session — not the current Windows candidate
 
 **Status:** This existing path previously presented an October 15 PA356 executable as the “current” Windows session. It is **historical**: PA356 acquisition/review and targeted acceptance were scoped to the earlier source/build. The older report remains valid evidence, but does **not** authorize executing its binary for the new PR389 acceptance.
