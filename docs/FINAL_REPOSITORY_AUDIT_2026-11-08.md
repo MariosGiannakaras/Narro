@@ -31,3 +31,18 @@ Apply the narrow correction set to default437 and independent A/B while preservi
 ## Remaining acceptance
 
 M5–M9 retain their independent open source/native requirements. Default437 first needs actual movement/capture/input/trace health plus repaired accounting; A389 and B419 each retain their own strict8/8 physical-before-merge holds. Quiet CPU/RAM uses each exact source's separate quiet package without observer/recorder. No source/VM/CI/black-video test establishes physical pixels, motion, input delivery, durable relaunch state, DWM scanout, monitor/DPI/SNAP behavior or hardware/installer acceptance. M10 remains behind post-M9 user review/approval; M11/M12 stay inactive. A later real failure returns to causal diagnosis and a scoped correction/retest, not a promise that preparation eliminates all possible defects.
+
+
+## Final correction and preparation closure
+
+F01–F05 are implemented in merged PR496; source/lifecycle/negative/panic regressions and full local frontend builds passed. F06 was discovered during final delivery: repeated official WiX/NSIS/plugin release-download504 errors after native compilation/full visuals. Merged PR497 now preloads the exact CLI2.11.4 tools through official immutable GitHub asset API IDs with pinned SHA256/size, safe extraction, complete cache checks and token-safe HTTPS redirects before costly validation. Bounded download-only fallback preserves first failures and never retries compiler/assertion/checksum/404/installer errors. Real API/cache/compiler-version smoke and actual child/CLI/hash/ZIP/redirect tests passed. Final main/default Windows jobs both verified bootstrap, then normal and physical bundles each succeeded in one attempt with **zero release-website downloads**; all required runtime/logging/quiet isolation checks passed.
+
+| Candidate | Exact source | CI (attempt1) | Physical / quiet artifacts |
+| --- | --- | --- | --- |
+| PR437 | `ccdd993ca9808e36f0c23e626dbcc4eea62e9a49` | [42470316206](https://github.com/MariosGiannakaras/Narro/actions/runs/42470316206) 3/3 SUCCESS | 13613239808 / 13613644051 |
+| PR389 | `606b5671f570e5c2675542661cfae266fb5bc1fa` | [42462337268](https://github.com/MariosGiannakaras/Narro/actions/runs/42462337268) 3/3 SUCCESS | 13610343105 / 13610419507 |
+| PR419 | `8e0845f89fe2ee21f2c8179364b31ffbe06ffd96` | [42462338050](https://github.com/MariosGiannakaras/Narro/actions/runs/42462338050) 3/3 SUCCESS | 13611255556 / 13611275735 |
+
+PR496 CI42462082195 and PR497 CI42470313707 independently3/3 SUCCESS; resulting-main direct tree differences from each validated head were only nonbundled HANDOFF. Duplicate resulting-main runs were cancelled after input identity proof. Subsequent finalization edits are human Markdown only. All six ZIPs/digests/CRC and33 members verified; controller source identity, physical admission without launch and quiet exclusion verified. A/B require no CI-only tooling port before their own physical suites; their app/native/reference/dependency inputs remain unchanged.
+
+Owned repository (four temporary checkouts), obsolete six-package cache and executable baseline reproductions/source excerpts retired via Windows Recycle Bin after replacements/regressions were verified. Compact before/after/source/blob/package/retirement receipts remain; old fault scripts are not current runnable checks. All86 canonical Blitzit and unpublished-source recovery rehashed MATCH after retirement. No local Narro/installer/desktop capture/profile mutation; physical acceptance NOT RUN. See current HANDOFF for the sole next action and all independent M5–M9/A/B/M10 gates. The first CLI-fixture readiness failure's original renderer/timing cause remains unknown; it was not relabeled a product fix or physical PASS.

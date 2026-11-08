@@ -2,7 +2,7 @@
 
 User decision,2026-11-07: acquire logs automatically from process start through exit during physical checks, collect them with original video and provenance, and require the executing/resuming chat to analyze the packet together. This is **not final-product logging**, cloud telemetry or automatic access to other chats.
 
-**Implementation status: ALL THREE CANDIDATES PREPARED.** Observer PR495 CI42390609215 and resulting-main CI42393274239 independently3/3 SUCCESS. Default437/CI42393556625 attempt2, A389/CI42423129558 and B419/CI42426782541 independently3/3 SUCCESS; all3 source-specific physical +3 quiet packages are cached and verified (33 manifest members). Actual supervisor/capture/input health and product acceptance remain native session work. Current HANDOFF/register supplies exact source identities; old software is retired.
+**Implementation status: FINAL AUDIT CORRECTIONS AND ALL THREE CANDIDATES PREPARED (2026-11-08).** Main PR496/497 integrated after exact-head3/3 validation and resulting-input identity proof. Default437/CI42470316206, A389/CI42462337268 and B419/CI42462338050 independently3/3 SUCCESS; all6 physical/quiet packages and33 manifest members are locally verified. Current HANDOFF/register owns exact source/controller identities. Superseded software/temp repositories retired; all original Blitzit protected. Actual native acquisition/input/capture/trace admission and product acceptance remain NOT RUN.
 
 ## Architecture and scope
 
@@ -44,11 +44,11 @@ node $physicalCandidate.controllerPath recover --root '<SESSION_ROOT>' --ffprobe
 node $physicalCandidate.controllerPath collect --root '<FROZEN_SESSION_ROOT>' --ffprobe '<ffprobe.exe>'
 ```
 
-Recovery checks owned-process/supervisor state and produces an explicitly incomplete interrupted-session packet. Inspect it before repeating any acquisition. Hardware/input/tool dependencies and independent per-PR holds still apply.
+Recovery/collection proves supervisor, recorder and all launched Narro PIDs exited before mutating packet files; stale heartbeat alone is insufficient. Unknown/denied ownership or a reused live PID fails closed; never manually clear state/PID flags to bypass it. Recorder shutdown always attempts bounded q/close/owned-recorder termination even after diagnostic write failure, with early PID persistence and explicit incomplete state. Narro is never killed to finish a persistence case. Recovery produces an explicitly incomplete interrupted-session packet. Inspect it before repeating any acquisition. Hardware/input/tool dependencies and independent per-PR holds still apply.
 
 ## Packet and mandatory chat consumption
 
-The session root contains source/run/EXE admission, process identities and log chunks, original desktop video, recorder diagnostics, acknowledged operator actions, probe output, `TIMELINE.jsonl`, `EVIDENCE_INDEX.json` and `ANALYSIS_BRIEF.md`. Collection records size/SHA256 of raw inputs and detects missing chunks/sequences/pages/tails, drops, source mismatches and recorder/probe failures. Packet integrity is separate from a product verdict.
+The session root contains source/run/EXE admission, process identities and log chunks, original desktop video, recorder diagnostics, acknowledged operator actions, probe output, `TIMELINE.jsonl`, `EVIDENCE_INDEX.json` and `ANALYSIS_BRIEF.md`. Collection records size/SHA256 of raw inputs and detects missing chunks/sequences/pages/tails, drops, source mismatches and recorder/probe failures. Packet integrity is separate from a product verdict. Valid source/PID-bound panic sidecars join the timeline and brief even when ordinary trace parsing fails; malformed rows remain explicit gaps. The current index.applicationFailures summary contains observed Rust panics; IPC/JS/frontend errors remain in the joint timeline as well. A zero panic count or COMPLETE packet does not mean an error-free application.
 
 The physical/resuming chat must:
 1. Read current HANDOFF and inspect actual owned process/recorder/partial-file state.
