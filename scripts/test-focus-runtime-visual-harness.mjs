@@ -173,7 +173,7 @@ invariant(uploadIndex > captureIndex, "packaged runtime visual artifact must be 
 invariant(
   physicalBuildIndex > uploadIndex
     && workflow.includes('$env:CARGO_TARGET_DIR = Join-Path $PWD "src-tauri/target-physical"')
-    && workflow.includes("npm run tauri:physical-ci"),
+    && workflow.includes("npm run ci:bundle:physical"),
   "physical release must be rebuilt after capture into an isolated target directory",
 );
 invariant(
