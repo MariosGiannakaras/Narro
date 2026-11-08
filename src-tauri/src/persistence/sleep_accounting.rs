@@ -4,7 +4,7 @@ use crate::domain::preferences::{
 };
 use crate::persistence::preferences::{get_preferences, PreferenceStoreError};
 use chrono::DateTime;
-use rusqlite::{params, Connection, OptionalExtension};
+use rusqlite::{params, Connection, OptionalExtension, TransactionBehavior};
 use std::fmt::{Display, Formatter};
 
 #[derive(Debug)]
@@ -117,7 +117,7 @@ pub fn set_task_sleep_accounting_override(
     now: &str,
 ) -> Result<TaskSleepAccountingOverride, SleepAccountingStoreError> {
     validate_timestamp(now)?;
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let exists: bool = tx.query_row(
         "SELECT EXISTS(SELECT 1 FROM tasks WHERE id = ?1)",
         [task_id.to_string()],

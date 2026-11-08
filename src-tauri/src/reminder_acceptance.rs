@@ -7,7 +7,7 @@ use crate::scheduling::{
     resolve_local_datetime_strict, validate_timezone_identifier, SchedulingError,
 };
 use chrono::{DateTime, NaiveDate, NaiveTime};
-use rusqlite::{params, Connection, OpenFlags, OptionalExtension};
+use rusqlite::{params, Connection, OpenFlags, OptionalExtension, TransactionBehavior};
 use serde::Serialize;
 use std::fmt::{Display, Formatter};
 use std::path::Path;
@@ -197,7 +197,7 @@ fn schedule_probe_in_connection(
     let task_id = TaskId::generate();
     let reminder_id = ReminderId::generate();
 
-    let tx = conn.transaction()?;
+    let tx = conn.transaction_with_behavior(TransactionBehavior::Immediate)?;
     let list_rank = next_list_rank(&tx)?;
     tx.execute(
         "INSERT INTO lists (

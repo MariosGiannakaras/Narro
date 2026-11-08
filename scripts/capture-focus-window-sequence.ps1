@@ -56,7 +56,10 @@ while ($true) {
   $height = $rect.Bottom - $rect.Top
   $source = New-Object System.Drawing.Bitmap $width, $height
   $graphics = [System.Drawing.Graphics]::FromImage($source)
+  $captureQpcBefore = [System.Diagnostics.Stopwatch]::GetTimestamp()
   $graphics.CopyFromScreen($rect.Left, $rect.Top, 0, 0, $source.Size)
+  $captureQpcAfter = [System.Diagnostics.Stopwatch]::GetTimestamp()
+  $captureUtcAfter = [DateTime]::UtcNow.ToString("o")
   $graphics.Dispose()
   $target = New-Object System.Drawing.Bitmap 340, 700
   $targetGraphics = [System.Drawing.Graphics]::FromImage($target)
@@ -69,6 +72,10 @@ while ($true) {
   $frames += [pscustomobject]@{
     index = $index
     elapsedMs = $started.ElapsedMilliseconds
+    capturedUtcAfter = $captureUtcAfter
+    captureQpcBefore = $captureQpcBefore
+    captureQpcAfter = $captureQpcAfter
+    captureQpcFrequency = [System.Diagnostics.Stopwatch]::Frequency
     fileName = $fileName
     native = [pscustomobject]@{
       visible = [NarroFocusSequence]::IsWindowVisible($found)

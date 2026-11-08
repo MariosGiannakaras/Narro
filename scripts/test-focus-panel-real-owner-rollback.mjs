@@ -62,7 +62,7 @@ function harness() {
     applyTimerSessionProjection:(_current,payload)=>payload,
     refreshBoard:async()=>{calls.refresh++;},
     pauseTimerForFocusHome:async()=>{calls.pauses++; return timer;},
-    waitForPresentedFrame:async()=>{},
+    waitForPresentedFrameOrThrow:async()=>{},
     invoke:async(command)=>{assert.equal(command,"focus_surface_exit_to_main"); calls.exits++;},
     resumeTimerFromFocusHome:async()=>{calls.resumes++;return timer;},
     createListBoardTask:async()=>{calls.adds++;return "added";},
@@ -113,6 +113,19 @@ function harness() {
   assert.match(String(h.calls.errors.at(-1)),/native focus exit rejected/);
   await h.makeTaskLive(task);
   assert.equal(h.calls.lives,1);
+}
+// A suspended painter must fail closed and undo its guarded Home pause,
+// without dispatching native Focus exit or allowing another command to race.
+{
+  const h=harness();
+  h.ctx.waitForPresentedFrameOrThrow=async()=>{throw new Error("paint deadline expired");};
+  await h.exitFocusHome();
+  assert.equal(h.calls.pauses,1);
+  assert.equal(h.calls.exits,0,"Home must not exit when the PAUSED frame failed to paint");
+  assert.equal(h.calls.resumes,1,"paint deadline failure must restore the guarded pause lease");
+  assert.equal(h.ctx.focusMutationOwnerRef.current,null);
+  assert.deepEqual(h.calls.homePending,[true,false]);
+  assert.match(String(h.calls.errors.at(-1)),/paint deadline expired/);
 }
 // A committed add must close its editor before an independently failed board
 // refresh, and release both the shared owner and local Add owner.

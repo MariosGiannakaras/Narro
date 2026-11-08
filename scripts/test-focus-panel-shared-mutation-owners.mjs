@@ -41,7 +41,7 @@ const live = source.slice(source.indexOf("  const makeTaskLive = async"),source.
 assert(live.includes("Task is live, but Focus could not refresh."),
   "Successful live switch must not be misreported as a failed timer mutation");
 const home = source.slice(source.indexOf("  const exitFocusHome = async"),source.indexOf("  const submitAddTask = "));
-assert(home.includes("await waitForPresentedFrame();")
+assert(home.includes("await waitForPresentedFrameOrThrow();")
   && home.includes('await invoke<void>("focus_surface_exit_to_main");')
   && home.includes("await resumeTimerFromFocusHome();"),
   "Home retains native pause->frame->exit and rollback ordering");

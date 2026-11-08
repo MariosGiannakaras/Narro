@@ -288,3 +288,126 @@ fn deferred_read_upgrade_reproduces_busy_without_waiting_for_reserved_writer() {
         matches!(error, rusqlite::Error::SqliteFailure(code, _) if code.code == ErrorCode::DatabaseBusy)
     );
 }
+
+#[test]
+fn related_mutations_wait_for_competing_writer_instead_of_failing_read_upgrade() {
+    use super::notes::set_task_note;
+    use super::sleep_accounting::set_task_sleep_accounting_override;
+    use super::subtasks::create_subtask;
+    use crate::domain::notes::{NoteBlock, NoteDocument, NoteTextRun};
+    use crate::domain::preferences::TaskSleepAccountingOverride;
+    use crate::domain::subtasks::NewSubtaskInput;
+
+    let path = std::env::temp_dir().join(format!(
+        "narro-related-contention-{}.sqlite",
+        uuid::Uuid::new_v4()
+    ));
+    let mut writer = Connection::open(&path).expect("open isolated writer");
+    run_migrations(&mut writer).expect("migrate isolated database");
+    let list = create_list(
+        &mut writer,
+        NewListInput {
+            title: "Contention".into(),
+            color: None,
+            icon_asset: None,
+        },
+        NOW,
+    )
+    .unwrap()
+    .id;
+    let task = create_task(
+        &mut writer,
+        NewTaskInput {
+            list_id: list,
+            title: "Parent".into(),
+            manual_lane: PlanningLane::Today,
+            est_seconds: Some(600),
+        },
+        NOW,
+    )
+    .unwrap()
+    .id;
+
+    // Each mutation must independently wait on a held writer. Running all
+    // three mutations after only one blocked acquire does not test the latter
+    // two code paths for the historical read-to-write upgrade failure.
+    for mutation in ["subtask", "note", "sleep_accounting"] {
+        let tx = writer
+            .transaction_with_behavior(TransactionBehavior::Immediate)
+            .expect("hold competing writer");
+        tx.execute(
+            "UPDATE tasks SET est_seconds = 1200 WHERE id = ?1",
+            [task.to_string()],
+        )
+        .expect("hold real write reservation");
+
+        let (started_tx, started_rx) = mpsc::channel();
+        let (finished_tx, finished_rx) = mpsc::channel();
+        let worker_path = path.clone();
+        let worker = std::thread::spawn(move || {
+            let mut conn = Connection::open(worker_path).expect("open worker connection");
+            configure_connection(&conn).expect("configure worker");
+            conn.busy_timeout(Duration::from_secs(10))
+                .expect("allow bounded write wait");
+            started_tx.send(()).expect("signal worker start");
+            let result: Result<(), String> = match mutation {
+                "subtask" => create_subtask(
+                    &mut conn,
+                    NewSubtaskInput {
+                        task_id: task,
+                        title: "Child".into(),
+                    },
+                    NOW,
+                )
+                .map(|_| ())
+                .map_err(|e| e.to_string()),
+                "note" => set_task_note(
+                    &mut conn,
+                    task,
+                    NoteDocument {
+                        blocks: vec![NoteBlock::Paragraph {
+                            runs: vec![NoteTextRun {
+                                text: "Note".into(),
+                                bold: false,
+                                italic: false,
+                                strikethrough: false,
+                                link: None,
+                            }],
+                        }],
+                    },
+                    NOW,
+                )
+                .map(|_| ())
+                .map_err(|e| e.to_string()),
+                "sleep_accounting" => set_task_sleep_accounting_override(
+                    &mut conn,
+                    task,
+                    TaskSleepAccountingOverride::Count,
+                    NOW,
+                )
+                .map(|_| ())
+                .map_err(|e| e.to_string()),
+                _ => unreachable!("known test mutation"),
+            };
+            finished_tx.send(result).expect("signal mutation result");
+        });
+
+        started_rx
+            .recv_timeout(Duration::from_secs(10))
+            .expect("worker started");
+        let early = finished_rx.recv_timeout(Duration::from_millis(100));
+        assert!(
+            matches!(early, Err(mpsc::RecvTimeoutError::Timeout)),
+            "{mutation} must wait for the writer"
+        );
+        tx.commit().expect("release competing writer");
+        finished_rx
+            .recv_timeout(Duration::from_secs(10))
+            .expect("worker finished after writer release")
+            .unwrap_or_else(|e| panic!("{mutation} must complete after release: {e}"));
+        worker.join().expect("worker joined");
+    }
+
+    drop(writer);
+    std::fs::remove_file(path).expect("remove isolated database");
+}

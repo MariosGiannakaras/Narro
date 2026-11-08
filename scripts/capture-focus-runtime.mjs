@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { execFileSync, spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { correlateFocusTrace } from "./analyze-focus-compositor-trace.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const executable = path.resolve(root, process.argv[2] ?? "src-tauri/target/release/narro.exe");
@@ -188,18 +189,45 @@ try {
     "panel-to-timer-runtime", "panel-to-timer-start", "panel", "timer-compact", "timerCompact",
   );
   const compact = await captureSettled("floating-timer-runtime", "timer-compact", "timerCompact", 340, 110);
+  const compactToExpanded = await captureTransition(
+    "compact-to-expanded-runtime",
+    "timer-compact-to-expanded-start", "timerCompact", "timer-expanded", "timerExpanded",
+  );
   const expanded = await captureSettled("floating-timer-expanded-runtime", "timer-expanded", "timerExpanded", 340, 300);
+  const expandedToCompact = await captureTransition(
+    "expanded-to-compact-runtime",
+    "timer-expanded-to-compact-start", "timerExpanded", "timer-compact-returned", "timerCompact",
+    true,
+  );
   const timerToPanel = await captureTransition(
     "timer-to-panel-runtime", "timer-to-panel-start", "timerCompact", "panel-returned", "panel", true,
   );
   await waitCheckpoint("complete");
+
+  // Automatically bind native call/renderer phases to real screen-grab QPC
+  // brackets. Trace records are buffered outside the frame presentation loop.
+  // Fail closed: missing or inconsistent clock evidence is not a screenshot PASS.
+  const tracePath = path.join(outputDirectory, "focus-transition-trace.jsonl");
+  invariant(fs.existsSync(tracePath), "A02 native phase/QPC trace missing");
+  const records = fs.readFileSync(tracePath, "utf8").split(/\r?\n/).filter(Boolean)
+    .map((line) => JSON.parse(line));
+  for (const sequence of [panelToTimer, compactToExpanded, expandedToCompact, timerToPanel]) {
+    const report = correlateFocusTrace(records, sequence.frames);
+    fs.writeFileSync(
+      path.join(outputDirectory, sequence.name, "qpc-correlation.json"),
+      JSON.stringify(report, null, 2) + "\n",
+    );
+  }
 
   const manifest = {
     executable,
     captureTransport: "win32-screen-plus-environment-gated-renderer-checkpoints",
     captures: {
       panel: panel.name, compact: compact.name, expanded: expanded.name,
-      panelToTimer: panelToTimer.name, timerToPanel: timerToPanel.name,
+      panelToTimer: panelToTimer.name,
+      compactToExpanded: compactToExpanded.name,
+      expandedToCompact: expandedToCompact.name,
+      timerToPanel: timerToPanel.name,
     },
   };
   fs.writeFileSync(path.join(outputDirectory, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);
