@@ -1,3 +1,11 @@
+# HANDOFF — final audit corrections in progress
+
+## NOW — Codex / 2026-11-08 / FIXING
+
+The final repository audit reproduced five preparation defects: Focus board-read lifetime across equal-owner timer ticks; recorder shutdown after diagnostic-stream failure; recovery/collection while packet writers remain alive; panic records missing from the combined timeline/brief; and patched development dependency advisories. The user explicitly authorized correction and validation before their next physical chat. Source owner: `fix/prephysical-audit-20261108`, local owned checkout `C:\Users\MariosG\.codex\worktrees\narro-final-audit-20261108\Narro` from b9446c3b5c2c6bdc5345bdc10b519cefab8d7e50. No new source PR/CI opened yet. Batch fixes and meaningful failure/lifecycle tests before publishing one coherent slice; retain A/B QPC/compositor and 437 accounting changes. Refresh all three exact packages and local START_HERE only after required CI and member/hash verification. **Do not start physical acquisition on the superseded packages below.** Originals and existing verified packages remain protected until verified replacement. Physical checks remain **NOT RUN**; source/VM/synthetic black-video probes are not physical evidence. PR389/419 independent physical-before-merge holds and M10 approval hold remain.
+
+## Previous preparation checkpoint — superseded by audit remediation
+
 # HANDOFF — all three physical candidates prepared
 
 ## NOW — Codex / 2026-11-08 / PREPARED
