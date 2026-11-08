@@ -404,3 +404,5 @@ await import("./test-focus-panel-single-flight.mjs");
 await import("./test-focus-panel-shared-mutation-owners.mjs");
 await import("./test-focus-automatic-completion-handoff.mjs");
 console.log("Focus Panel hierarchy/live timer/workflow/actions/metrics/subtasks contract checks passed.");
+
+await import("./test-focus-panel-read-lifetime.mjs");
