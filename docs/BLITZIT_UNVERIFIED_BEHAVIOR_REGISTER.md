@@ -1,10 +1,12 @@
 # Unverified Blitzit behavior register — implementation decisions and later source checks
 
+Current execution/source corrections: [HANDOFF](../HANDOFF.md) and [M1-M12 closure route](M1_M12_CLOSURE_MAP.md). This register owns durable inferred-behavior decisions and source limits. Dated coverage/native/phase counters below are evidence for their named snapshots, not live task or package selectors; preserve the binding continuity rule and approved design.
+
 ## 2026-10-30 bounded Narro decision — live Taken cadence
 
-PR437853180fd implements responsive native-authoritative Time Taken display from the persisted effective total and only uncheckpointed native work. VE-016 paused editing remains confirmed; exact Blitzit live repaint cadence is unobserved. This is a Narro reliability/clarity decision, not a new source-parity assertion or U-item. Native/CI acceptance is pending; U01–U41 inventory and optional M11/M12 activation remain unchanged. Accounting, evidence and verification boundaries (historical Narro capture retired).
+PR437853180fd implements responsive native-authoritative Time Taken display from the persisted effective total and only uncheckpointed native work. VE-016 paused editing remains confirmed; exact Blitzit live repaint cadence is unobserved. This is a Narro reliability/clarity decision, not a new source-parity assertion or U-item. At that checkpoint native/CI acceptance was pending; current CI/source/package identity is in HANDOFF and native proof remains independently OPEN; U01–U41 inventory and optional M11/M12 activation remain unchanged. Accounting, evidence and verification boundaries (historical Narro capture retired).
 
-## CURRENT 2026-10-15 — evidence limits and cross-version continuity
+## User decision 2026-10-15 - evidence limits and cross-version continuity
 
 User clarification: U01-U41 are implemented Narro-local decisions, not a queue of missing features or 41 wholly unevidenced surfaces. The completed ten-batch review consulted existing screenshots/videos through canonical Pass-3 and related evidence records; the closeout explicitly did not replay every original MP4. This checkpoint verifies all 41 unique register IDs and the ten review logs, not a fresh exhaustive re-analysis of the media.
 
@@ -14,7 +16,7 @@ User clarification: U01-U41 are implemented Narro-local decisions, not a queue o
 
 Approved Spectrum Core picker, image upload and 218 icons remain locked. U01-U41 local functional coverage remains **41/41**, nine repaired local gaps **9/9**; this does not certify source parity. PA01-08 **8/8 dispositioned within documented scope**, M1-M4 **4/10** mandatory milestones, PA09 existing-corpus comparison active, M10 blocked. M11 is optional future live-app acquisition, not active now. See [provenance and current routing](../work-log/2026-10-15-source-unknown-provenance-and-version-continuity.md).
 
-## CURRENT 2026-10-12 — reconciled source/local coverage 41/41, 9/9 concrete gaps; no exhaustive Blitzit parity claim
+## Historical 2026-10-12 local-coverage acceptance - no exhaustive Blitzit parity claim
 
 **Τρέχουσα λειτουργική κατάσταση:** το σταθερό σύνολο U01–U41 είναι **41/41 λειτουργικά καλυμμένο στον Narro**, με **9/9 τεκμηριωμένα επιμέρους κενά** διορθωμένα. Δεν πρόκειται για 41 επιβεβαιωμένα Blitzit bugs ούτε για απόδειξη ότι έχουν εντοπιστεί *όλες* οι πιθανές αθέατες λειτουργίες. Οι U04, U06, U09, U12, U21, U22, U23, U35, U40 έχουν ενσωματωθεί με source+automated Windows acceptance. Τελευταία U04 [PR #343](https://github.com/MariosGiannakaras/Narro/pull/343), guarded merge `ec7673c921e08c83de11c986bd25fbb3600475ce`, 13/13 matching source blobs, [PR CI 38284568221](https://github.com/MariosGiannakaras/Narro/actions/runs/38284568221) **3/3 SUCCESS**, [resulting-main CI 38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890) **3/3 SUCCESS** στο ίδιο executable SHA και [genuine production artifact 11765510661](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890/artifacts/11765510661) CRC + ZIP/EXE/NSIS/MSI SHA256 verified. [Final immutable evidence](../work-log/2026-10-12-chatgpt-u04-resulting-main-threejob-production-fourhash-visual-41of41-accepted.md).
 

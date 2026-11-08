@@ -1,0 +1,9 @@
+# Codex workflow/repository/milestone reconciliation - 2026-11-08
+
+Base main:2a266a5a727c9c2d00161d4925c52c8e6c40e5b9. Scope: user-requested continuation of the deep unfinished-work audit into workflow, repository files, agent rules, handoff, evidence lifecycle and M1-M12 consistency. No application source/config/test change, Windows build, physical app/capture, profile/OS/hardware mutation or optional activation.
+
+[Audit report](../docs/WORKFLOW_REPOSITORY_AUDIT_2026-11-08.md) records W01-W06, coverage and limits. Reconciled competing stale source/physical directions, M11/M12 sequencing/counts, raw-media versus compact historical records, old gate advice and the retired-root-log pointer. Preserved every checkbox state and canonical finding row; no accepted functionality was restarted.
+
+Existing CI tiering/bundle-tool contracts PASS; impact/risk planner PASS; offline recurrence18/18 PASS. Local proof under PhysicalChecks/verification/20261108-workflow-repository-audit records path/link/ledger/input identity, publication, protected86 corpus and temporary-checkout retirement. Work logs and old scoped native results remain dated evidence, not live NEXT instructions. Windows CI NOT RUN because only unconsumed human Markdown changes; no live recurrence scanner/issue creation.
+
+HANDOFF/STATUS/TODO and the local kit point to the same closure route. Remaining source D01-D03 is OPEN, D04/D05 keep their stated limits, all59 M5-M9 acceptance rows remain OPEN, native acceptance remains NOT RUN/OPEN. The next application action remains the existing owner's narrow dependency-safe correction/regression batch and exact-source validation, followed by affected physical proof; independent ready cases may proceed. Strict per-source holds, M10 post-M9 user approval, M11/M12 opt-ins, original Blitzit, exact software and unpublished-source recovery remain intact.

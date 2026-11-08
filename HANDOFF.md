@@ -1,6 +1,6 @@
-# HANDOFF - open-scope deep review complete; source correction next
+# HANDOFF - source and workflow audits complete; source correction next
 
-## NOW - Codex / 2026-11-08 / DONE audit; affected source claims OPEN
+## NOW - Codex / 2026-11-08 / DONE source + workflow audits; affected source claims OPEN
 
 The user requested the deepest practical logical/programming review of unfinished work, excluding completed scopes. [Open M5-M9 deep review](docs/OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) records the actual source-bound witnesses, coverage and limits. It supersedes the earlier blanket no-known-code-task/all-physical-ready claim only for the affected open criteria. Package identity, earlier source CI and completed F01-F06 corrections remain valid within their own scope.
 
@@ -9,6 +9,8 @@ The user requested the deepest practical logical/programming review of unfinishe
 - D03 / M7: default's expired raster watchdog exits on a busy presentation gate before dropping its Rust lease. A/B already have the relevant retry implementation/tests; reconcile that existing remedy into default. Native fault execution remains NOT RUN.
 - D04: existing NER-007 PARTIAL still applies to synchronous Reports reads/Edit/Delete; Create already offloads. SQLite contention probe is supporting library evidence, not an observed Narro freeze.
 - D05: the Reports read-owner test failed on CRLF before exercising callbacks, then passed on exact Git text without semantic source changes. Treat as test portability, not a product failure.
+
+[Workflow/repository audit](docs/WORKFLOW_REPOSITORY_AUDIT_2026-11-08.md) is also complete: corrected stale README/crosswalk/TODO execution directions, reconciled independent M11/M12 sequencing/counts, aligned raw-media retirement with compact historical verdicts, and replaced obsolete optional gate advice with the current contracts. Existing CI tiering/impact and18 offline recurrence tests PASS; no pipeline/source/test/bundled-doc changes or new Windows CI. Source and optional-stage ownership/holds remain unchanged.
 
 All original milestone checkbox states and59 M5-M9 acceptance rows remain unchanged. No new native/source-parity PASS, M10 approval or M11/M12 activation. [Current closure route](docs/M1_M12_CLOSURE_MAP.md) and TODO still own the existing requirement sequence.
 
@@ -34,7 +36,7 @@ Default437 includes the431/436 contribution;418 is a design/source contract, not
 
 ## Evidence, protection and local handoff
 
-Open audit witnesses/source hashes and the59-row scope manifest are in PhysicalChecks/verification/20261108-open-scope-deep-audit/. The source-correction slice is their named consumer; retire superseded probe inputs when permanent guards/validated replacements satisfy that consumer. Prior preparation receipts remain dated evidence, not current all-clear instructions.
+Open audit witnesses/source hashes and the59-row scope manifest are in PhysicalChecks/verification/20261108-open-scope-deep-audit/. Workflow inventory/link/ledger/publication/retirement proof is in PhysicalChecks/verification/20261108-workflow-repository-audit/. The source-correction slice is their named consumer; retire superseded probe inputs when permanent guards/validated replacements satisfy that consumer. Prior preparation receipts remain dated evidence, not current all-clear instructions.
 
 All original Blitzit/media/reference/approved-branding locations, the canonical86 corpus, unpublished-source recovery and current software are protected. Earlier obsolete repositories/packages/instruction metadata are retired; Git history and Windows Bin recovery remain, with no space-saving claim. The owned temporary audit checkout is disposable only after publication and receipt/source protection checks; its actual retirement is recorded in the local audit receipt.
 

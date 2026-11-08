@@ -163,6 +163,8 @@ Evidence:
 
 A resumed chat once reported a completed slice as 4/6 despite repository evidence proving 6/6. Later M7 tracking used denominator 14 until a direct TODO recount established 15. Forensic closure also required follow-up reconciliation when stale source attribution survived an earlier audit.
 
+**2026-11-08 workflow refinement:** a current HANDOFF alone did not prevent older CURRENT/NEXT prose in linked crosswalk/ledger sections, the retired-root-log instruction in work-log/README, or M11-only sequencing from misleading a new agent. Reconcile the linked operational instructions as well as root headers; distinguish immutable dated verdicts from live executable directions, and account for M11 and M12 independently. [Workflow audit](WORKFLOW_REPOSITORY_AUDIT_2026-11-08.md) records the bounded link/stale-directive scan, unchanged checkbox sequence and canonical-row checks. These process checks do not establish source or native PASS.
+
 Evidence:
 - `work-log/2026-09-05-1740-chatgpt-progress-continuity-hardening.md`
 - `work-log/2026-09-29-chatgpt-m7-current-counter-correction.md`

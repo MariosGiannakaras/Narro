@@ -8,8 +8,7 @@ The original root `WORK_LOG.md` became large and was accidentally overwritten du
 
 Therefore:
 
-- root `WORK_LOG.md` is retained as **legacy historical archive**;
-- do not delete or rewrite its prior history;
+- the retired root `WORK_LOG.md` is recoverable in Git; do not recreate it as another current log or overwrite its history;
 - all **new** coherent work/validation slices should create one new Markdown file in this directory;
 - new work-log entries are authoritative tracking artifacts and should be committed directly to `main` without Windows CI, even while the source implementation they describe lives on a feature branch. Markdown entries are path-ignored by CI; sanitized non-Markdown evidence under `work-log/evidence/` may also be published directly with `[skip ci]`. They record branch/SHA/validation state; they do not themselves validate or merge that source.
 
@@ -56,6 +55,6 @@ Distinguish:
 
 For recent context, read the newest relevant entries in `work-log/` first.
 
-Use root `WORK_LOG.md` only when older Milestone 1 history/rationale is needed.
+Use Git history for the retired root log only when a specific older Milestone 1 decision is needed. Current source work and acceptance are selected by HANDOFF and TODO, not that archive.
 
 `HANDOFF.md` remains the authoritative current continuation state and should not be replaced by log history.

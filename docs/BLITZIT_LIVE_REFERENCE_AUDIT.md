@@ -65,22 +65,22 @@ A valid activation must explicitly refer to Milestone 11 / the live Blitzit audi
 
 If M11 is never explicitly activated, it is **skipped by design**, does not count as incomplete work, does not block release, and the normal path is:
 
-`M1–M10 -> Final Comprehensive Review -> release closure`.
+`M1–M10 -> M12 if separately activated -> Final Comprehensive Review -> release closure`.
 
 If M11 is explicitly activated, the path becomes:
 
-`M1–M10 -> M11 capture campaign -> frozen corpus -> analysis/reconciliation -> Narro remediation/validation -> Final Comprehensive Review -> release closure`.
+`M1–M10 -> M11 capture campaign -> frozen corpus -> analysis/reconciliation -> Narro remediation/validation -> M12 if separately activated -> Final Comprehensive Review -> release closure`.
 
 ## Activation bookkeeping
 
 When the user explicitly activates M11:
 1. record the activation in `HANDOFF.md`, `STATUS.md` and a new immutable work log;
-2. change the roadmap denominator from 10 to 11 for user-facing progress from that point onward;
+2. keep 10 mandatory milestones separate; only if an expanded count is requested, use 10 plus the number of independently activated optionals (11 for one, 12 for both);
 3. record the exact validated post-M10 Narro source SHA that forms the initial M11 comparison baseline;
 4. confirm the live Blitzit reference environment is available;
 5. create the M11 capture plan before starting the first substantive live-source session.
 
-While M11 remains dormant, the denominator stays 10 and none of its checklist items affect progress.
+While M11 remains dormant, none of its checklist items affect mandatory progress or block release. M12 remains independently opt-in. Its activation never activates M11; any expanded reporting count includes only actually activated optional stages.
 
 # Phase 0 — Reference-environment provenance
 

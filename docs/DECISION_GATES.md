@@ -1,172 +1,18 @@
-# Decision Gates
+# Optional risk prompts for existing milestone closure
 
-Status: **Proposal / implementation steering aid — not mandatory process**
+Status: reference aid, not an additional gate or work queue. Reconciled 2026-11-08.
 
-Last reviewed: 2026-08-20
+Use [the M1-M12 closure route](M1_M12_CLOSURE_MAP.md), [HANDOFF](../HANDOFF.md), [TODO](../TODO.md) and [the validation strategy](CI_VALIDATION_STRATEGY.md) for actual order, current candidates and required acceptance. The initial pre-product Gate A-G steering checklist is retired from present execution; its dated wording remains in Git. Do not restart accepted M1-M4 work, reconsider the framework, or rerun all physical cases merely because this file lists a risk area.
 
-These gates are suggested checkpoints for avoiding expensive implementation mistakes. They are not release bureaucracy and they are not a reason to block a clearly superior implementation path.
+| Risk area | Relevant current contract |
+| --- | --- |
+| Windows lifecycle and placement | Preserve main plus one persistent focusSurface; verify only missing/invalidated native lifecycle, input, placement and topology claims. Reopen the selected architecture only on exact-build evidence and a documented decision. |
+| Domain, persistence and timer | Preserve transactional storage, stable identity, recurrence and authoritative elapsed-time invariants. Add causal regressions for an actual changed owner; prior acceptance is reusable within its scope. |
+| Source fidelity and interaction | Consume canonical Pass-3/calibration and the audit crosswalk. Maximum observable parity is the default; a discretionary visual improvement is not an exception. Preserve approved Spectrum Core/upload/218-icon behavior. |
+| Floating resources and motion | Use exact-source continuous evidence for compositor/motion claims and the separate quiet package for CPU/RAM. Neither fixture endpoints nor observer overhead establishes native or idle-resource acceptance. |
+| Reports and history | Reconcile stored sessions, manual offsets, edit/delete/CAS, restart and independent report aggregates. Unknown source formulas require an explicit tested Narro-local decision; do not overwrite an accepted ledger by guessing. |
+| Release and optional stages | M10 requires M1-M9 closure plus subsequent user review/explicit approval. M11 and M12 are independently opt-in; complete only activated stages before the required Final Comprehensive Review. |
 
-Codex may combine, simplify, reorder, or replace a gate if the same risk is addressed more effectively. The important part is the evidence gathered, not following this document literally.
+For a changed surface, use the mandatory scoped pre-physical review in [ENGINEERING_QUALITY](../ENGINEERING_QUALITY.md). This aid may help identify a missed dependency; it does not add a whole-app audit prerequisite or an alternative route around the current holds.
 
-## Gate A — Windows desktop viability
-
-Suggested timing: before polished product UI.
-
-Question: does the current starting architecture actually behave well enough on the target Windows machine?
-
-Suggested evidence:
-- app startup and secondary-window startup feel acceptable;
-- global shortcut registration works and conflict handling is understood;
-- tray/background lifecycle works;
-- Windows notification path works while the process is alive;
-- autostart can be controlled locally;
-- main window can be closed/destroyed and recreated without losing domain state;
-- Focus Panel can target a monitor edge;
-- Floating Timer is movable and remains always-on-top where Windows allows;
-- monitor connect/disconnect/scaling changes do not strand windows;
-- idle CPU and memory are measured for main, focus, and floating-only states;
-- repeated Focus↔Floating switching preserves the same Focus HWND/WebView identity, creates no additional renderer/window instance, and does not use Focus WebView hide/show/create/destroy/ordinary resize as the switch mechanism.
-
-Current corrective architecture: validate Tauri 2 + WebView2 with exactly `main` + one persistent fixed-host `focusSurface`. Focus Panel/compact Timer/expanded Timer are dynamic React presentations inside that host; ordinary presentation switching must not create/destroy, hide/show, or resize the Focus WebView.
-
-Possible conclusion examples:
-- **Proceed unchanged** — measurements and behavior are good.
-- **Optimize current design** — architecture is sound but implementation has avoidable overhead.
-- **Change window strategy** — another Tauri window/webview composition is measurably better.
-- **Evaluate native overlay** — only the floating surface is problematic.
-- **Reconsider shell/framework** — a concrete blocker makes the current starting stack the wrong choice.
-
-No conclusion is predetermined.
-
-## Gate B — Core correctness
-
-Suggested timing: after persistence/timer/scheduling foundations, before depending on them throughout UI.
-
-Question: can the local domain model be trusted?
-
-Suggested evidence:
-- SQLite migrations work from a clean data directory and across at least one upgrade;
-- create/edit/move/reorder preserve stable IDs;
-- reorder never changes task count;
-- recurrence materialization is idempotent;
-- date-only schedules stay on the intended calendar day;
-- local date-time schedules remain correct across DST/timezone tests;
-- future-timed Today tasks are not started early;
-- work and break sessions remain separate;
-- pause/resume/switch/complete preserve accumulated time;
-- completion cannot convert tracked work to `00:00`;
-- app interruption/recovery behavior is explicit and tested.
-
-If a simpler schema or timer model proves more reliable than the current architecture sketch, prefer the better model and update the docs.
-
-## Gate C — Core product fidelity
-
-Suggested timing: after the main planning and Focus surfaces are functional.
-
-Question: does Narro still feel like the intended Blitzit-style workflow rather than a generic task manager?
-
-Suggested validation:
-- create a task with very little friction;
-- prioritize Today quickly;
-- enter Focus without unnecessary navigation;
-- identify the active task immediately;
-- work primarily from Focus/Floating without reopening the dashboard;
-- switch task, pause, break, note, subtask, and complete actions are easy to discover;
-- long titles remain usable;
-- hover/focus controls never jump under the pointer;
-- dark/light hierarchy resembles current screenshots at a glance;
-- UI is compact without becoming hard to target.
-
-Pixel identity is not required where a better Windows-native or accessibility treatment improves the experience without losing the visual/product character.
-
-## Gate D — Floating surface quality
-
-Suggested timing: after real Floating Timer UI exists.
-
-Question: is the always-visible surface light, stable, and pleasant enough to leave running for hours?
-
-Suggested measurements/tests:
-- collapsed idle CPU;
-- expanded idle CPU;
-- timer-running CPU;
-- memory with main destroyed;
-- memory before/after 100 Focus↔Floating transitions;
-- memory before/after repeated Notes/subtask expansion;
-- no continuous decorative animation while idle;
-- title/timer geometry does not jitter every second;
-- safe position survives restart and monitor topology changes;
-- always-on-top behavior is tested over ordinary/maximized/borderless-fullscreen applications.
-
-Do not use an arbitrary RAM target as the sole pass/fail criterion. Compare against the measured baseline and the actual user experience.
-
-## Gate E — UI polish and accessibility
-
-Suggested timing: once the product loop is stable.
-
-Question: do motion and refinement improve understanding without adding fragility or resource cost?
-
-Suggested validation:
-- visible focus states;
-- keyboard alternatives for pointer-only interactions;
-- useful tooltips for ambiguous icons;
-- reduced-motion behavior;
-- short, one-shot animation only;
-- no hover layout shift;
-- no timer-number width jitter;
-- no animation delaying persistence/domain transitions;
-- Windows scaling at 100/125/150/200%;
-- locale-aware date/time presentation.
-
-Animation timings in `UI_UX_SPEC.md` are starting values. Tune or replace them if direct testing feels better.
-
-## Gate F — Reports/history consistency
-
-Suggested timing: before considering reporting complete.
-
-Question: can every report total be explained from stored local data?
-
-Suggested validation:
-- report totals reconcile with session/task fixtures;
-- manual session edits immediately update aggregates;
-- break filtering is correct;
-- archived records behave intentionally;
-- permanent deletion semantics are consistent;
-- date filtering honors local dates/timezone;
-- exports are generated entirely locally.
-
-If the source product's exact aggregation formula is unclear, prefer a transparent, internally consistent Narro definition and document it.
-
-## Gate G — Release candidate
-
-Suggested timing: before treating the app as stable for daily use.
-
-Suggested scenario pass:
-- fresh install;
-- restart/reboot;
-- sleep/wake;
-- lock/unlock;
-- monitor unplug/replug;
-- task creation/reorder/scheduling/recurrence;
-- multi-hour focus session;
-- pause/break/overtime/completion;
-- crash/interruption recovery;
-- reports/session editing;
-- upgrade/migration;
-- tray Quit;
-- Windows DPI and locale changes.
-
-The gate passes when known failures are acceptable and documented, not merely because every checkbox in this proposal was executed literally.
-
-## Recording a gate result
-
-A short `STATUS.md` note is enough:
-
-```text
-Gate A — Windows desktop viability
-Result: proceed with current Tauri focusSurface model.
-Evidence: measured X/Y, shortcut/tray/monitor tests pass.
-Remaining concern: ...
-Revisit if: ...
-```
-
-Long reports are unnecessary unless the evidence is genuinely useful later.
+Record the exact claim, source/package, observed or automated evidence and PASS/FAIL/OPEN/NOT RUN disposition in the existing handoff/work log. Keep dated verdict/provenance receipts; retire raw Narro media after verified replacement and satisfaction of named consumers under [retention](EVIDENCE_RETENTION_POLICY.md). Original Blitzit remains protected everywhere.

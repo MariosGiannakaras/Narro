@@ -14,7 +14,7 @@ Revised 2026-11-08. **Software packages: VERIFIED. Affected source corrections: 
 - All old Narro recordings were retired by the completed cleanup. Historical verdicts remain dated facts; old films/screenshots/traces/ZIPs must not be restored as the fresh campaign's evidence or comparison side. Software executables from unchanged exact-head green CI remain valid candidates; an old capture and a validated binary are different kinds of asset.
 - New recordings start NOT RUN. CI/fixtures/source inspection prove their own claims only. Static geometry can use fresh exact-build screenshots; motion/transient claims require continuous original intervals and actual frame timestamps. No blanket pixel/motion PASS from endpoints or nominal FPS.
 
-## Candidate register — all three prepared for physical admission
+## Verified software register - admission is claim-dependent
 
 | Candidate | Role | Identity authority |
 | --- | --- | --- |
@@ -87,4 +87,4 @@ Prefer persistent local `Narro Project/PhysicalEvidence/<source>/<session>/` out
 
 HANDOFF is the single current operation: owner, last observed time, phase PREPARED/CAPTURING/FROZEN/ANALYZING/FIXING/CI_WAIT/DONE, exact source/candidate/session path, completed atomic operation, required next step and protected in-flight state. It does not prove a process remains alive. Resume actual process/artifact state after interruption; do not repeat completed acquisition because a chat changed.
 
-Preparation/CI never closes physical or source-parity TODO rows. Hardware-only observations need the available human operator; ordinary Narro tests do not need repeated global consent. Keep strict per-PR holds and M10/M11/M12 boundaries. The completed historical cleanup is not a reason to restart cleanup or resurrect old tracker blockers. The next physical chat starts with candidate/tool admission above and the first compatible PR437 batch; it does not need a new planning conversation.
+Preparation/CI never closes physical or source-parity TODO rows. Hardware-only observations need the available human operator; ordinary Narro tests do not need repeated global consent. Keep strict per-PR holds and M10/M11/M12 boundaries. The completed historical cleanup is not a reason to restart cleanup or resurrect old tracker blockers. The next physical chat starts with candidate/tool admission and dependency-ready cases; affected D01-D03 acceptance follows its corrected exact-source candidate. No new planning or blanket-consent loop is required.

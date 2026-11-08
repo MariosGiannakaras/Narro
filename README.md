@@ -42,9 +42,9 @@ Canonical continuation files:
 
 Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instructions.md` are thin pointers to the same canonical state. Retired kickoff prompts are not part of present onboarding.
 
-## Current phase - prepared candidates; native/source acceptance open, 2026-11-08
+## Current phase - source corrections open; software identities verified, 2026-11-08
 
-Historical Narro recording cleanup is complete. The next physical chat follows [HANDOFF](HANDOFF.md) and the [fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md), with a verified default PR437 candidate and independent A389/B419 controls. Artifacts are verified; new native acquisition/analysis remains NOT RUN. A newer main/workflow build does not replace an unmerged feature candidate merely by date.
+Historical Narro recording cleanup is complete. The [unfinished-source review](docs/OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) found D01 Preferences reply ordering, D02 image-selection/Save races and D03 missing default watchdog contention recovery. These affected open criteria need source correction; D04/D05 retain their separate Reports/test limits. [Workflow and repository audit](docs/WORKFLOW_REPOSITORY_AUDIT_2026-11-08.md) reconciles the current instructions without changing application code or acceptance. Current HANDOFF selects that source batch; unaffected dependency-ready physical cases remain authorized. A physical chat follows [HANDOFF](HANDOFF.md) and the [fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md), with a verified default PR437 candidate and independent A389/B419 controls. Artifacts are verified; new native acquisition/analysis remains NOT RUN. A newer main/workflow build does not replace an unmerged feature candidate merely by date.
 
 Normal Windows profile and Narro-only disposable test data are already authorized. Old execution packets, pauses, isolated-profile requirements, branch/build IDs and raw Narro films are historical; only original Blitzit is the comparison source for fresh captures. Strict per-PR native holds remain. M10 requires its later user review/approval; M11/M12 are independent opt-ins. See current tracking for actual prerequisites and source/CI/native distinctions.
 

@@ -7,6 +7,7 @@
 | Original requirements and checkboxes | TODO.md |
 | Remaining M1-M12 route and activation gates | [Closure map](M1_M12_CLOSURE_MAP.md) |
 | Fresh native acquisition, acceptance and evidence | [Physical protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md), [automatic observation](PHYSICAL_SESSION_OBSERVABILITY.md) |
+| Current unfinished-source findings and workflow audit | [D01-D05 review](OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md), [workflow/repository reconciliation](WORKFLOW_REPOSITORY_AUDIT_2026-11-08.md); these are findings/receipts, not alternate queues |
 | Detailed59 M5-M9 criteria and code owners | [Closure audit](M0_M9_IMPLEMENTATION_CLOSURE_AUDIT_2026-11-07.md) |
 | Durable product/quality/ownership/validation rules | AGENTS.md, ENGINEERING_QUALITY.md, AGENT_WORKFLOW.md, CI_VALIDATION_STRATEGY.md |
 | Protected source facts and parity claims | EVIDENCE_ROUTING_MAP.md, canonical Pass-3/calibration, AUDIT_IMPLEMENTATION_CROSSWALK.md |

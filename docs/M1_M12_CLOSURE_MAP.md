@@ -20,7 +20,7 @@ Current candidates are default PR437, independent A/PR389 and B/PR419. Read [HAN
 
 1. Use the [fresh physical protocol](PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) and prepared local PhysicalChecks/START_HERE.md.
 2. Recheck the selected live PR head against its verified package. Use that package's own controller, EXE and manifest. Preparation does not prove actual screen/input/trace health.
-3. Begin default437 with actual nonzero movement/capture/input/trace admission and PP44-F01 closed-history edit/delete/restart accounting; then batch compatible missing PA-01-09 claims.
+3. For dependency-ready default437 cases, begin with actual nonzero movement/capture/input/trace admission and PP44-F01 closed-history edit/delete/restart accounting; then batch compatible missing PA-01-09 claims. D01-D03 affected acceptance requires the corrected source-specific candidate; retain current HANDOFF priority without pausing unrelated ready cases.
 4. A and B each require their own strict8/8 normal/reduced compositor acceptance. Functional routes, CI or another candidate cannot satisfy either hold.
 5. Read observer index/brief/timeline, original video/actual PTS and relevant raw logs together before diagnosis. Performance uses the separate quiet package without observer/recorder.
 6. Record PASS/FAIL/INCONCLUSIVE/NOT RUN by claim. Correct a real defect through scoped causal review/regression and invalidated revalidation. Integrate only after that source's holds clear, preserving newer main instructions.

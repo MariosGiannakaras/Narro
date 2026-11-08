@@ -1,6 +1,8 @@
 # Blitzit → Narro: consolidated known gaps and evidence limits (2026-10-11)
 
-## CURRENT 2026-10-12 — reconciled source/local coverage 41/41, 9/9 concrete gaps; no exhaustive Blitzit parity claim
+**Closed historical ledger, not a current queue.** U01-U41 local coverage and its original gap remedies are accepted within their dated scope. Old milestone fractions, USER-PAUSED, CI-pending and NEXT statements below describe those snapshots only. Use [HANDOFF](../HANDOFF.md), [the closure route](M1_M12_CLOSURE_MAP.md) and the current behavior register for present source corrections, ACTIVE ordinary PA and independent optional gates. Do not reopen completed local features from this ledger.
+
+## HISTORICAL 2026-10-12 — reconciled source/local coverage 41/41, 9/9 concrete gaps; no exhaustive Blitzit parity claim
 
 **Τρέχουσα λειτουργική κατάσταση:** το σταθερό σύνολο U01–U41 είναι **41/41 λειτουργικά καλυμμένο στον Narro**, με **9/9 τεκμηριωμένα επιμέρους κενά** διορθωμένα. Δεν πρόκειται για 41 επιβεβαιωμένα Blitzit bugs ούτε για απόδειξη ότι έχουν εντοπιστεί *όλες* οι πιθανές αθέατες λειτουργίες. Οι U04, U06, U09, U12, U21, U22, U23, U35, U40 έχουν ενσωματωθεί με source+automated Windows acceptance. Τελευταία U04 [PR #343](https://github.com/MariosGiannakaras/Narro/pull/343), guarded merge `ec7673c921e08c83de11c986bd25fbb3600475ce`, 13/13 matching source blobs, [PR CI 38284568221](https://github.com/MariosGiannakaras/Narro/actions/runs/38284568221) **3/3 SUCCESS**, [resulting-main CI 38287299890](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890) **3/3 SUCCESS** στο ίδιο executable SHA και [genuine production artifact 11765510661](https://github.com/MariosGiannakaras/Narro/actions/runs/38287299890/artifacts/11765510661) CRC + ZIP/EXE/NSIS/MSI SHA256 verified. [Final immutable evidence](../work-log/2026-10-12-chatgpt-u04-resulting-main-threejob-production-fourhash-visual-41of41-accepted.md).
 

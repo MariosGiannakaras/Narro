@@ -177,7 +177,7 @@ Before the first M10 validation is allowed, reconcile `TODO.md`, `HANDOFF.md`, `
 
 **Distinct mandatory M10 deep-risk investigation (2026-10-26):** Supplement release-candidate functional checks with a final-production architecture/invariant coverage map, then forensic causal review of **relevant** Narro defect history, Git changes/PRs, recurrent CI first-failure logs, NER and Blitzit risk families, user-reported incidents and runtime/SQLite evidence. Trace high-impact code/state owners and failure paths, ask **how the defect could evade existing PASS**, and examine lifecycle, error/recovery, races/locks/poison/panics, IPC, transactionality, callbacks, stale state and local privacy/security. Exercise only justified isolated fault/negative/restart/concurrency/data-integrity probes. Record exact risk/evidence/result and nonproven causes; do not interpret historical green tests as proof of absence. Fix evidence-backed material issues through normal PR/CI/physical dependency gates; explicitly disposition unresolved high-impact risks. Reuse this M10 audit in the subsequent Final Comprehensive Review; only revisit invalidated findings. Consult `TODO.md` and `docs/CI_VALIDATION_STRATEGY.md` for the executable protocol.
 
-### Optional Milestone 11 hard opt-in gate
+### Independent optional Milestone 11 and 12 gates
 
 Milestone 11 is the optional **Live Blitzit Reference Audit** defined in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`.
 
@@ -186,12 +186,12 @@ Milestone 11 is the optional **Live Blitzit Reference Audit** defined in `docs/B
 While M11 is dormant:
 - its TODO checkboxes do not represent open required work;
 - it does not block release or the Final Comprehensive Review;
-- the progress denominator remains 10;
-- the normal continuation after validated M10 is the Final Comprehensive Review.
+- the mandatory denominator remains 10; report any separately activated M12 independently;
+- after validated M10, perform M12 if separately activated; otherwise proceed to the Final Comprehensive Review.
 
 If the user explicitly activates M11:
 - record the activation in current-truth tracking before starting;
-- change the roadmap denominator to 11;
+- retain the mandatory denominator of 10; if an expanded count is requested, add only separately activated optionals (11 for one, 12 for both);
 - require a validated M10 baseline first;
 - follow the phase order in `docs/BLITZIT_LIVE_REFERENCE_AUDIT.md`: **PLAN -> CAPTURE EVERYTHING -> FREEZE CORPUS -> ANALYZE -> RECONCILE/PLAN -> IMPLEMENT -> REVALIDATE**;
 - capture user-visible evidence and the observable client/backend/state contract on a synchronized timeline where legitimately available from ordinary authorized use;
@@ -199,7 +199,9 @@ If the user explicitly activates M11:
 - complete/freeze the evidence corpus before substantive analysis; complete the full-corpus findings register and remediation plan before changing Narro;
 - complete and validate any chosen M11 corrections before freezing the Final Comprehensive Review baseline.
 
-The Final Comprehensive Review remains separately blocked until Milestone 10 is fully validated and its exact candidate SHA is frozen; when M11 is explicitly activated, Final Review is additionally blocked until M11 is complete and the post-M11 candidate SHA is frozen.
+M12 independently requires explicit user activation and the validated relevant candidate under `docs/NARRO_OPTIONAL_USER_QA.md`. General continuation, M10 completion or M11 activation does not activate it. Its scope is ordinary in-app user QA, not OS/display/hardware, installation or internal fault testing. When both optionals are active, complete M11 before M12; either may remain skipped by design.
+
+The Final Comprehensive Review requires validated M10 plus completion of every separately activated optional stage. Freeze the latest validated post-stage candidate, record each optional as COMPLETE or NOT ACTIVATED / SKIPPED BY DESIGN, and do not count dormant optionals as missing mandatory work.
 
 For every milestone completion report, include the milestone's **total source diff** in the exact compact form `+A/-B` lines. Compute it from the milestone's validated starting source SHA to its final validated source SHA. Documentation/tracking-only commits do not replace the validated source baseline and are excluded from this source-diff figure. Record the compared SHAs with the completion evidence so another agent can reproduce the count.
 
@@ -288,7 +290,7 @@ If physical validation later fails, branch narrowly from current `main`, fix the
 
 A branch that has already accumulated a validated source generation must not become the container for successive future generations merely because the milestone is still open.
 
-After an expected-head guarded merge, compare the validated PR-head Git tree with the resulting main tree. If they are identical, the exact-head CI validates that source tree; do not manually dispatch another equivalent CI run. An automatically triggered duplicate main run may be cancelled after identity is proven when the validated PR artifact is suitable for any pending Windows test. Record that cancellation, and identify the PR artifact precisely. If the trees differ, validate the resulting main before claiming its source is covered. Physical Windows behavior still requires observation.
+After an expected-head guarded merge, compare the validated PR-head Git tree with resulting main. Identical trees need no duplicate full run. If only human Markdown differs, prove identical source/build/test/workflow and all other consumed inputs, including the four bundled-doc exceptions, under `docs/CI_VALIDATION_STRATEGY.md`; a commit date or file-extension guess is insufficient. An automatically triggered duplicate may be cancelled only after that proof and verification that the exact PR artifact is suitable for pending Windows tests. Record cancellation as cancellation, the source-coverage proof separately, and the artifact's actual source identity. Material input divergence requires resulting-main validation. Physical acceptance still requires observation.
 
 ### Documentation/process changes go directly to main
 
@@ -343,7 +345,7 @@ Never overwrite another work-log entry. Corrections get a new file. Obsolete evi
 Keep the **active top block** of `HANDOFF.md` short and operational; older explicitly marked `HISTORICAL` snapshots below its first separator are retained for provenance but are **not** routine startup reading. It must clearly contain:
 
 - current milestone/slice;
-- current compact user-facing progress line (or the authoritative source values needed to derive it), including active milestone/roadmap size, active small-slice progress, and active-milestone top-level TODO progress;
+- compact actual task status and independently evidenced source/CI/native/parity states; include a bounded counter only when useful and its scope is defined, without requiring historical milestone fractions in every handoff;
 - verified baseline/artifact/commits when relevant;
 - what is proven vs merely implemented;
 - `NEXT AGENT ACTION`;

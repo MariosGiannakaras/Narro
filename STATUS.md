@@ -1,4 +1,4 @@
-# STATUS - unfinished M5-M9 source review, 2026-11-08
+# STATUS - source and workflow audits reconciled, 2026-11-08
 
 [HANDOFF](HANDOFF.md) owns current operation/source identities; [TODO](TODO.md) preserves every original milestone checkbox and the [closure map](docs/M1_M12_CLOSURE_MAP.md) preserves sequencing.
 
@@ -8,4 +8,4 @@ These affected source claims need narrow correction before a blanket readiness/c
 
 M1-M4 remain accepted within recorded scopes and were not restarted. All59 M5-M9 documentary rows (6/13/18/11/11) remain open, not59 unimplemented features. Source correction, independent native/source proof, held-source integration and resulting-main verification remain distinct. A/B strict8/8, M10 post-M9 user approval and dormant M11/M12 remain unchanged.
 
-Legacy instruction cleanup remains complete. Canonical source findings, approved Spectrum Core/upload/218-icon design, all86 Blitzit assets, software/controllers and unpublished-source recovery remain protected. Current local starting point: PhysicalChecks/START_HERE.md; read the newer open-audit status before treating old preparation receipts as an all-clear. No physical/native/source-parity PASS occurred.
+[Workflow/repository audit](docs/WORKFLOW_REPOSITORY_AUDIT_2026-11-08.md) corrected stale active directions, independent optional-stage accounting and raw-media versus compact-receipt rules. Existing tiering/impact/18 recurrence tests passed; application/pipeline/bundled inputs were unchanged. Legacy recording and temporary-checkout cleanup remains complete within its recorded scope. Canonical source findings, approved Spectrum Core/upload/218-icon design, all86 Blitzit assets, software/controllers and unpublished-source recovery remain protected. Current local starting point: PhysicalChecks/START_HERE.md; read the newer open-audit status before treating old preparation receipts as an all-clear. No physical/native/source-parity PASS occurred.
