@@ -84,6 +84,7 @@ try {
                         "--no-first-run",
                         "--force-device-scale-factor=1",
                         "--window-size=420,$windowHeight",
+                        "--virtual-time-budget=3000",
                         "--user-data-dir=`"$profile`"",
                         "--screenshot=`"$screenshot`"",
                         "--dump-dom",

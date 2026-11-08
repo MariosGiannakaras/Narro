@@ -1,5 +1,5 @@
 .floating-timer-foundation {
-  --floating-timer-geometry-motion-duration: 270ms;
+  --floating-timer-geometry-motion-duration: 500ms;
   position: relative;
   width: 100%;
   height: 110px;
@@ -14,6 +14,29 @@
   background: var(--color-surface-raised);
   text-align: left;
   transition: clip-path var(--floating-timer-geometry-motion-duration) var(--motion-ease-enter);
+}
+
+/* Explanatory text can overlap a neighboring hit target in the compact host.
+   Keep the text visible without making it an input surface. */
+.floating-timer-foundation .overlay-tooltip[data-open="true"] {
+  pointer-events: none;
+}
+
+/* During a protected compact resize, show the single source heading rather
+   than snapshotting hover-only action pixels as the semantic title. Once busy
+   clears, the original compact hover/focus grammar automatically returns. */
+.floating-timer-foundation[data-floating-expanded="false"][data-floating-resize-pending="true"] .floating-timer-foundation__heading {
+  opacity: 1;
+}
+.floating-timer-foundation[data-floating-expanded="false"][data-floating-resize-pending="true"] .floating-timer-foundation__actions-wrap {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The native raster owns geometry while the full target is painted beneath it. */
+.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] {
+  clip-path: inset(0 0 0 0 round 16px);
+  transition: none;
 }
 
 .floating-timer-foundation[data-floating-expanded="true"] {
@@ -37,6 +60,10 @@
 
 /* The native raster takes the complete incoming frame, never a partly faded
    expanded heading/action strip. Ordinary compact hover keeps its crossfade. */
+.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] .floating-timer-foundation__heading,
+.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] .floating-timer-foundation__actions-wrap,
+.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] .floating-timer-foundation__drag-handle,
+.floating-timer-foundation[data-floating-resize-phase="raster-preparing"] .floating-timer-foundation__content,
 .floating-timer-foundation[data-floating-resize-phase="clipping"] .floating-timer-foundation__heading,
 .floating-timer-foundation[data-floating-resize-phase="clipping"] .floating-timer-foundation__actions-wrap {
   transition: none;
@@ -219,6 +246,17 @@
 .floating-timer-foundation[data-floating-expanded="false"][data-floating-compact-actions="true"] .floating-timer-foundation__actions-wrap {
   opacity: 1;
   pointer-events: auto;
+}
+/* This later, more specific rule wins over compact hover's normal
+   action-only state after a resize starts, so source CapturePreview receives
+   the real heading and not an invisible title with action controls. */
+.floating-timer-foundation[data-floating-expanded="false"][data-floating-compact-actions="true"][data-floating-resize-pending="true"] .floating-timer-foundation__heading {
+  opacity: 1;
+  pointer-events: auto;
+}
+.floating-timer-foundation[data-floating-expanded="false"][data-floating-compact-actions="true"][data-floating-resize-pending="true"] .floating-timer-foundation__actions-wrap {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .floating-timer-foundation[data-floating-expanded="false"] .floating-timer-foundation__actions {

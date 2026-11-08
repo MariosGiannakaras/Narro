@@ -15,12 +15,14 @@ import {
   type ListBoardTask,
 } from "./listBoardApi";
 import { Tooltip } from "./overlayPrimitives";
-import { waitForPresentedFrame } from "./presentationFrame";
+import { waitForPresentedFrameOrThrow } from "./presentationFrame";
 import {
   applyTimerSessionProjection,
   connectLiveTimerSessionProjection,
   type TimerSessionPayload,
 } from "./timerSessionApi";
+import { motionV4Duration } from "./focusMotionV4";
+import { measureMotionV4Timer, type MotionV4MeasuredTimer } from "./focusMotionV4Geometry";
 import "./floatingTimerFoundation.css";
 
 export type FloatingTimerFoundationProps = {
@@ -42,19 +44,16 @@ export type FloatingTimerFoundationProps = {
   focusTarget?: ListBoardRequestTarget;
   presentationActive?: boolean;
   controlledExpanded?: boolean;
-  onRequestExpanded?: (expanded: boolean, compactFrame?: number[]) => Promise<void>;
+  onRequestExpanded?: (expanded: boolean, prepareRenderer: (expanded: boolean) => void, source: MotionV4MeasuredTimer | null) => Promise<void>;
   fixtureExpanded?: boolean;
   fixtureSubtasks?: BoardSubtaskSnapshot | null;
   onCompletionSuccess?: (state: FocusCompletionSuccessState) => void;
 };
 
-const FLOATING_TIMER_GEOMETRY_MOTION_MS = 270;
 const ALL_FOCUS_TARGET: ListBoardRequestTarget = { kind: "all" };
 
 async function waitForFloatingTimerGeometryMotion(): Promise<void> {
-  const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ? 1
-    : FLOATING_TIMER_GEOMETRY_MOTION_MS;
+  const duration = motionV4Duration(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   await new Promise<void>((resolve) => {
     window.setTimeout(resolve, duration);
   });
@@ -107,7 +106,7 @@ export function FloatingTimerFoundation({
   const [regionExpanded, setRegionExpanded] = useState(initialExpanded);
   const [resizePending, setResizePending] = useState(false);
   const [resizePhase, setResizePhase] = useState<
-    "idle" | "prepainting" | "revealing-start" | "revealing" | "contracting-start" | "contracting" | "clipping"
+    "idle" | "raster-preparing" | "prepainting" | "revealing-start" | "revealing" | "contracting-start" | "contracting" | "clipping"
   >("idle");
   const resizeRequestInFlightRef = useRef(false);
   const [resizeError, setResizeError] = useState<string | null>(null);
@@ -267,12 +266,39 @@ export function FloatingTimerFoundation({
       return true;
     }
 
+    // Capture source anchors before the renderer is switched or protected.
+    // A missing/mismatched task automatically retains the old native path.
+    const sourceAnchors = onRequestExpanded ? measureMotionV4Timer(document) : null;
+    // The parent marks the Timer section inert while native pixels own it.
+    // Remember only the resize trigger, not arbitrary focused controls:
+    // re-establish keyboard continuity if inert moved focus to <body>.
+    const restoreResizeTriggerFocus =
+      document.activeElement instanceof HTMLButtonElement
+      && document.activeElement.dataset.floatingSubtaskControl === "expand";
     resizeRequestInFlightRef.current = true;
     onResizePendingChange?.(true);
     setResizePending(true);
     setResizeError(null);
     let nativeRegionCommitted = false;
     try {
+      if (onRequestExpanded) {
+        // A compact hover may currently hide the heading. The pending-state
+        // CSS restores that single source title before CapturePreview takes
+        // the outgoing pixels; keyboard and pointer both use the same path.
+        await waitForPresentedFrameOrThrow();
+        // The coordinator acquires the outgoing native raster before invoking
+        // this callback. Never expose an intermediate clipped React hierarchy.
+        await onRequestExpanded(nextExpanded, (preparedExpanded) => {
+          flushSync(() => {
+            setExpanded(preparedExpanded);
+            setRegionExpanded(preparedExpanded);
+            setResizePhase("raster-preparing");
+          });
+        }, sourceAnchors);
+        nativeRegionCommitted = true;
+        return true;
+      }
+      // Standalone native fallback; the application uses the coordinator above.
       if (nextExpanded) {
         // Prepaint the full 300px hierarchy while Win32 still clips the host to
         // 110px. After the native region expands, reveal those already-painted
@@ -281,15 +307,14 @@ export function FloatingTimerFoundation({
           setExpanded(true);
           setResizePhase("prepainting");
         });
-        await waitForPresentedFrame();
-        if (onRequestExpanded) await onRequestExpanded(true);
-        else await setFloatingTimerExpanded(true);
+        await waitForPresentedFrameOrThrow();
+        await setFloatingTimerExpanded(true);
         nativeRegionCommitted = true;
         flushSync(() => {
           setRegionExpanded(true);
           setResizePhase("revealing-start");
         });
-        await waitForPresentedFrame();
+        await waitForPresentedFrameOrThrow();
         flushSync(() => setResizePhase("revealing"));
         await waitForFloatingTimerGeometryMotion();
       } else {
@@ -297,7 +322,7 @@ export function FloatingTimerFoundation({
         // before Win32 clips/restores the compact origin. The host WebView never
         // resizes or hides during this ordinary presentation change.
         flushSync(() => setResizePhase("contracting-start"));
-        await waitForPresentedFrame();
+        await waitForPresentedFrameOrThrow();
         flushSync(() => setResizePhase("contracting"));
         await waitForFloatingTimerGeometryMotion();
         // The compact hierarchy, not a clipped expanded hierarchy, is the
@@ -307,10 +332,9 @@ export function FloatingTimerFoundation({
           setResizePhase("clipping");
           setExpanded(false);
         });
-        await waitForPresentedFrame();
+        await waitForPresentedFrameOrThrow();
         const compactFrame = await captureCompactTimerFrame();
-        if (onRequestExpanded) await onRequestExpanded(false, compactFrame);
-        else await setFloatingTimerExpanded(false, compactFrame);
+        await setFloatingTimerExpanded(false, compactFrame);
         nativeRegionCommitted = true;
         flushSync(() => {
           setRegionExpanded(false);
@@ -331,6 +355,23 @@ export function FloatingTimerFoundation({
       onResizePendingChange?.(false);
       setResizePhase("idle");
       setResizePending(false);
+      if (restoreResizeTriggerFocus) {
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            // Never steal focus back if the user deliberately moved elsewhere
+            // during the native transition or the Timer left the screen.
+            if (!document.hasFocus()
+              || (document.activeElement !== document.body
+                && document.activeElement !== document.documentElement)) return;
+            const trigger = document.querySelector<HTMLButtonElement>(
+              '.floating-timer-foundation [data-floating-subtask-control="expand"]',
+            );
+            if (trigger && !trigger.disabled && !trigger.closest("[inert]")) {
+              trigger.focus({ preventScroll: true });
+            }
+          });
+        });
+      }
     }
   };
 

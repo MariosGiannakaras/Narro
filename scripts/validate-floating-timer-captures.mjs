@@ -80,6 +80,12 @@ function validateSharedGeometry(contract, label, theme, state) {
 }
 
 function validateCollapsed(dom, contract, label) {
+  const hitMatch = dom.match(/<script id="floating-timer-tooltip-hit-contract" type="application\/json">([\s\S]*?)<\/script>/);
+  invariant(hitMatch, `${label} actual tooltip hit-test contract is missing`);
+  const hit = JSON.parse(hitMatch[1]);
+  invariant(hit.tooltipOpen && hit.tooltipText === "Return to Focus Panel", `${label} tooltip probe was not exercised`);
+  invariant(hit.targets.length === 2 && hit.targets.every((target) => target.receivesPointer),
+    `${label} explanatory tooltip blocks a neighboring Timer control: ${JSON.stringify(hit.targets)}`);
   for (const needle of [
     'data-floating-expanded="false"',
     "Prepare BFCM strategy",

@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { execFileSync, spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { correlateFocusTrace } from "./analyze-focus-compositor-trace.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const executable = path.resolve(root, process.argv[2] ?? "src-tauri/target/release/narro.exe");
@@ -20,7 +21,7 @@ async function waitUntil(label, callback, timeoutMs = 15000, intervalMs = 25) {
     try {
       const value = await callback();
       if (value) return value;
-    } catch (error) { lastError = error; }
+    } catch (error) { if (error?.terminal) throw error; lastError = error; }
     await sleep(intervalMs);
   }
   throw new Error(`${label} did not become ready within ${timeoutMs}ms${lastError ? `: ${lastError}` : ""}`);
@@ -63,12 +64,12 @@ async function waitCheckpoint(phase, timeoutMs = 30000) {
     const file = checkpointPath(phase);
     if (fs.existsSync(file)) {
       const payload = JSON.parse(fs.readFileSync(file, "utf8"));
-      if (payload.error) throw new Error(payload.error);
+      if (payload.error) throw Object.assign(new Error(payload.error), { terminal: true });
       return payload;
     }
     if (phase !== "complete" && fs.existsSync(checkpointPath("complete"))) {
       const complete = JSON.parse(fs.readFileSync(checkpointPath("complete"), "utf8"));
-      if (complete.error) throw new Error(complete.error);
+      if (complete.error) throw Object.assign(new Error(complete.error), { terminal: true });
     }
     return null;
   }, timeoutMs);
@@ -114,7 +115,7 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
       if (code === 0) resolve(sequenceStdout);
       else reject(new Error(`native sequence capture exited ${code}: ${sequenceStderr.trim()}`));
     });
-  });
+  }).then(value => ({ value }), error => ({ error }));
 
   const motion = spawn("powershell.exe", [
     "-NoLogo", "-NoProfile", "-ExecutionPolicy", "Bypass",
@@ -137,7 +138,7 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
       if (code === 0) resolve(motionStdout);
       else reject(new Error(`native motion sampler exited ${code}: ${motionStderr.trim()}`));
     });
-  });
+  }).then(value => ({ value }), error => ({ error }));
 
   await waitUntil(`native transition probes ${name}`, () =>
     fs.existsSync(readyFile) && fs.existsSync(motionReadyFile));
@@ -153,8 +154,11 @@ async function captureTransition(name, startPhase, startPresentation, endPhase, 
     fs.writeFileSync(stopFile, "settled\n");
   }
 
-  const [sequenceJson, motionJson] = await Promise.all([sequenceFinished, motionFinished]);
+  const [sequenceResult, motionResult] = await Promise.all([sequenceFinished, motionFinished]);
   if (settleFailure) throw settleFailure;
+  if (sequenceResult.error) throw sequenceResult.error;
+  if (motionResult.error) throw motionResult.error;
+  const sequenceJson = sequenceResult.value, motionJson = motionResult.value;
 
   const frames = JSON.parse(sequenceJson.trim().split(/\r?\n/).filter(Boolean).at(-1));
   const motionSamples = JSON.parse(motionJson.trim().split(/\r?\n/).filter(Boolean).at(-1));
@@ -188,18 +192,45 @@ try {
     "panel-to-timer-runtime", "panel-to-timer-start", "panel", "timer-compact", "timerCompact",
   );
   const compact = await captureSettled("floating-timer-runtime", "timer-compact", "timerCompact", 340, 110);
+  const compactToExpanded = await captureTransition(
+    "compact-to-expanded-runtime",
+    "timer-compact-to-expanded-start", "timerCompact", "timer-expanded", "timerExpanded",
+  );
   const expanded = await captureSettled("floating-timer-expanded-runtime", "timer-expanded", "timerExpanded", 340, 300);
+  const expandedToCompact = await captureTransition(
+    "expanded-to-compact-runtime",
+    "timer-expanded-to-compact-start", "timerExpanded", "timer-compact-returned", "timerCompact",
+    true,
+  );
   const timerToPanel = await captureTransition(
     "timer-to-panel-runtime", "timer-to-panel-start", "timerCompact", "panel-returned", "panel", true,
   );
   await waitCheckpoint("complete");
+
+  // Automatically bind native call/renderer phases to real screen-grab QPC
+  // brackets. Trace records are buffered outside the frame presentation loop.
+  // Fail closed: missing or inconsistent clock evidence is not a screenshot PASS.
+  const tracePath = path.join(outputDirectory, "focus-transition-trace.jsonl");
+  invariant(fs.existsSync(tracePath), "A02 native phase/QPC trace missing");
+  const records = fs.readFileSync(tracePath, "utf8").split(/\r?\n/).filter(Boolean)
+    .map((line) => JSON.parse(line));
+  for (const sequence of [panelToTimer, compactToExpanded, expandedToCompact, timerToPanel]) {
+    const report = correlateFocusTrace(records, sequence.frames);
+    fs.writeFileSync(
+      path.join(outputDirectory, sequence.name, "qpc-correlation.json"),
+      JSON.stringify(report, null, 2) + "\n",
+    );
+  }
 
   const manifest = {
     executable,
     captureTransport: "win32-screen-plus-environment-gated-renderer-checkpoints",
     captures: {
       panel: panel.name, compact: compact.name, expanded: expanded.name,
-      panelToTimer: panelToTimer.name, timerToPanel: timerToPanel.name,
+      panelToTimer: panelToTimer.name,
+      compactToExpanded: compactToExpanded.name,
+      expandedToCompact: expandedToCompact.name,
+      timerToPanel: timerToPanel.name,
     },
   };
   fs.writeFileSync(path.join(outputDirectory, "manifest.json"), `${JSON.stringify(manifest, null, 2)}\n`);

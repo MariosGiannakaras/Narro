@@ -1,5 +1,5 @@
-//! Finite Panel/Timer raster composition. Whole images share one envelope;
-//! changing its height never crops semantic rows from the incoming Panel.
+//! Finite Panel/Timer geometry with one pixel-preserving hierarchy per frame.
+//! Clip natural content; only actual DPI/width changes may scale both axes.
 use crate::error::{CommandError, CommandResult};
 
 pub(crate) struct Image {
@@ -64,18 +64,15 @@ pub(crate) fn envelope(
     Ok(visible)
 }
 
-// Endpoint-preserving resampling keeps the bottom semantic row visible even
-// when a tall Panel is represented inside a smaller intermediate envelope.
+// Pixel-center sampling uses the SAME width-derived scale on both axes.
+// The changing visible height clips rows; it never compresses a whole Panel.
 fn source_offset(image: &Image, destination: tauri::PhysicalSize<u32>, x: u32, y: u32) -> usize {
-    let axis = |point: u32, output: u32, input: u32| {
-        if output <= 1 {
-            0
-        } else {
-            (u64::from(point) * u64::from(input - 1) / u64::from(output - 1)) as u32
-        }
+    let sample = |point: u32| {
+        ((2 * u64::from(point) + 1) * u64::from(image.size.width)
+            / (2 * u64::from(destination.width))) as u32
     };
-    let sx = axis(x, destination.width, image.size.width);
-    let sy = axis(y, destination.height, image.size.height);
+    let sx = sample(x).min(image.size.width - 1);
+    let sy = sample(y).min(image.size.height - 1);
     (sy as usize * image.size.width as usize + sx as usize) * 4
 }
 
@@ -93,20 +90,31 @@ pub(crate) fn compose(
     {
         return Err(invalid());
     }
-    let incoming_weight = (progress * 256.0).round() as u32;
+    // Keep the outgoing endpoint exact. A growing envelope reveals the ready
+    // incoming hierarchy; a shrinking one clips the outgoing hierarchy until
+    // the final incoming handoff. Never manufacture a double text hierarchy
+    // by crossblending captures or flatten semantic rows by vertical scaling.
+    let growing = u64::from(incoming.size.height) * u64::from(outgoing.size.width)
+        > u64::from(outgoing.size.height) * u64::from(incoming.size.width);
+    let image = if progress >= 1.0 || (progress > 0.0 && growing) {
+        incoming
+    } else {
+        outgoing
+    };
+    let scaled_height = (u64::from(image.size.height) * u64::from(visible.width)
+        + u64::from(image.size.width) / 2)
+        / u64::from(image.size.width);
+    // Rounded DPI endpoints may duplicate the final pixel row, but an
+    // uncovered extent is a failed transaction, not permission to stretch.
+    if u64::from(visible.height) > scaled_height {
+        return Err(invalid());
+    }
     let mut frame = vec![0; count];
     for y in 0..visible.height {
         for x in 0..visible.width {
-            let old = source_offset(outgoing, visible, x, y);
-            let new = source_offset(incoming, visible, x, y);
+            let source = source_offset(image, visible, x, y);
             let destination = (y as usize * visible.width as usize + x as usize) * 4;
-            for channel in 0..3 {
-                frame[destination + channel] = ((u32::from(outgoing.bgra[old + channel])
-                    * (256 - incoming_weight)
-                    + u32::from(incoming.bgra[new + channel]) * incoming_weight
-                    + 128)
-                    / 256) as u8;
-            }
+            frame[destination..destination + 3].copy_from_slice(&image.bgra[source..source + 3]);
             frame[destination + 3] = 255;
         }
     }
@@ -117,7 +125,7 @@ pub(crate) fn compose(
 mod tests {
     use super::*;
     #[test]
-    fn intermediate_frame_contains_complete_bottom_row_instead_of_panel_crop() {
+    fn growing_frame_reveals_natural_rows_without_squeezing_or_ghost_text() {
         let outgoing = Image {
             size: tauri::PhysicalSize::new(1, 1),
             bgra: vec![0, 0, 0, 255],
@@ -128,8 +136,73 @@ mod tests {
         };
         assert_eq!(
             compose(&outgoing, &incoming, tauri::PhysicalSize::new(1, 2), 0.5).unwrap(),
-            [5, 5, 5, 255, 120, 120, 120, 255]
+            [10, 10, 10, 255, 100, 100, 100, 255]
         );
+    }
+    #[test]
+    fn shrinking_frame_clips_one_hierarchy_until_atomic_final_handoff() {
+        let outgoing = Image {
+            size: tauri::PhysicalSize::new(1, 3),
+            bgra: vec![10, 10, 10, 255, 100, 100, 100, 255, 240, 240, 240, 255],
+        };
+        let incoming = Image {
+            size: tauri::PhysicalSize::new(1, 1),
+            bgra: vec![80, 80, 80, 255],
+        };
+        for progress in [0.1, 0.5, 0.9] {
+            assert_eq!(
+                compose(
+                    &outgoing,
+                    &incoming,
+                    tauri::PhysicalSize::new(1, 2),
+                    progress
+                )
+                .unwrap(),
+                outgoing.bgra[..8]
+            );
+        }
+        assert_eq!(
+            compose(&outgoing, &incoming, incoming.size, 1.0).unwrap(),
+            incoming.bgra
+        );
+    }
+    #[test]
+    fn direction_uses_dpi_normalized_geometry_instead_of_raw_capture_height() {
+        let outgoing = Image {
+            size: tauri::PhysicalSize::new(1, 3),
+            bgra: vec![10, 10, 10, 255, 100, 100, 100, 255, 240, 240, 240, 255],
+        };
+        // Higher-DPI compact pixels are physically taller than the outgoing
+        // low-DPI sample, but their logical aspect is shorter, not growing.
+        let incoming = Image {
+            size: tauri::PhysicalSize::new(4, 4),
+            bgra: [80, 80, 80, 255].repeat(16),
+        };
+        assert_eq!(
+            compose(&outgoing, &incoming, tauri::PhysicalSize::new(1, 2), 0.5).unwrap(),
+            outgoing.bgra[..8]
+        );
+    }
+    #[test]
+    fn dpi_width_scaling_preserves_square_pixel_proportions_and_rejects_uncovered_rows() {
+        let image = Image {
+            size: tauri::PhysicalSize::new(2, 2),
+            bgra: vec![
+                10, 10, 10, 255, 20, 20, 20, 255, 30, 30, 30, 255, 40, 40, 40, 255,
+            ],
+        };
+        let frame = compose(&image, &image, tauri::PhysicalSize::new(4, 4), 0.5).unwrap();
+        let gray: Vec<_> = frame
+            .as_chunks::<4>()
+            .0
+            .iter()
+            .map(|pixel| pixel[0])
+            .collect();
+        assert_eq!(
+            gray,
+            [10, 10, 20, 20, 10, 10, 20, 20, 30, 30, 40, 40, 30, 30, 40, 40]
+        );
+        assert!(compose(&image, &image, tauri::PhysicalSize::new(4, 5), 0.5).is_err());
     }
     #[test]
     fn exact_endpoints_and_cross_dpi_geometry_are_preserved() {

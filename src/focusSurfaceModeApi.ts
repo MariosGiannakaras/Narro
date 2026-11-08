@@ -1,4 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
+import type { MotionV4RasterLayout } from "./focusMotionV4Geometry";
+import type { MotionV4PanelLayout } from "./focusMotionV4PanelGeometry";
 
 export type FocusSurfacePresentation = "panel" | "timerCompact" | "timerExpanded";
 export type FocusSurfaceMode = "panel" | "timer";
@@ -40,8 +42,51 @@ export async function prepareFocusSurfaceModeRaster(presentation: FocusSurfacePr
   return invoke<number>("focus_surface_prepare_mode_raster", { presentation });
 }
 
+/** Optional B-only native plate; failure falls back to existing compositor. */
+export async function prepareFocusMotionV4Plate(
+  rasterToken: number,
+  layout: MotionV4RasterLayout,
+): Promise<void> {
+  await invoke<void>("focus_surface_prepare_v4_plate", { rasterToken, layout });
+}
+
+/** Source and target backgrounds are captured behind the same native hold. */
+export async function prepareFocusMotionV4PanelPlate(
+  rasterToken: number,
+  stage: "source" | "target",
+  layout?: MotionV4PanelLayout,
+): Promise<void> {
+  await invoke<void>("focus_surface_prepare_v4_panel_plate", { rasterToken, stage, layout });
+}
+
 export async function finishFocusSurfaceModeRaster(rasterToken: number, rollback = false): Promise<void> {
   await invoke<void>("focus_surface_finish_mode_raster", { rasterToken, rollback });
+}
+
+export type FocusTransitionTraceStage =
+  | "renderer.raster-ready"
+  | "renderer.target-prepared"
+  | "renderer.native-request"
+  | "renderer.native-finished"
+  | "renderer.commit"
+  | "renderer.release-request"
+  | "renderer.rollback";
+
+/**
+ * Best-effort, bounded technical marker for opt-in packaged physical capture.
+ * The native endpoint writes nothing without NARRO_FOCUS_CAPTURE_DIR; markers
+ * contain no task strings or pixel data. Do not await this diagnostic command:
+ * diagnostics cannot be allowed to change transition ordering or failures.
+ */
+export function markFocusTransitionTrace(
+  stage: FocusTransitionTraceStage,
+  rasterToken?: number,
+): void {
+  // Normal Narro has no diagnostic IPC cost. The dedicated Focus replay page
+  // alone may emit markers, and native also requires a disposable capture dir.
+  if (new URLSearchParams(window.location.search).get("runtimeVisual") !== "1") return;
+  void invoke<void>("focus_transition_trace_mark", { stage, rasterToken })
+    .catch(() => { /* diagnostic only; never interfere with Focus recovery */ });
 }
 
 export async function presentFocusPanel(): Promise<void> {
