@@ -1,5 +1,7 @@
 # M1-M12 closure route
 
+**Latest open-source review:** [2026-11-08 deep findings](OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) supersede the blanket all-ready/no-code-task claim for D01-D03. Software preparation remains verified; the affected pending criteria require source correction. D04/D05 preserve their exact validation limits. Existing milestone checkboxes, completed foundation scopes and independent holds remain unchanged.
+
 This is the current index for closing the existing milestones. HANDOFF owns the active operation and exact source/CI/artifact identities; TODO owns the original criteria. This index adds no milestone, feature backlog or acceptance result.
 
 | Milestones | Present state | Required closure |

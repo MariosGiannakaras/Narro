@@ -1,5 +1,7 @@
 # TODO - existing M1-M12 requirements and acceptance ledger
 
+**Open-scope deep review (2026-11-08):** [D01-D05](docs/OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) identify actual Preferences save/recovery and list-icon validation races, missing default watchdog contention recovery, the existing partial Reports executor boundary and a CRLF-sensitive test. These are corrections/validation within the existing open M5/M7/M8/M9 criteria, not new milestones or59 new features. The earlier blanket no-code-task readiness is superseded for affected claims. HANDOFF selects the narrow source-correction batch; cached software identity is unchanged and physical acceptance remains NOT RUN.
+
 Current operation and exact candidates: [HANDOFF](HANDOFF.md). The [M1-M12 closure route](docs/M1_M12_CLOSURE_MAP.md) selects the remaining execution/acceptance path; this ledger preserves every existing checkbox. M1-M4 remain accepted within recorded scopes. M5-M9 retain59 open documentary rows (6/13/18/11/11), not59 absent implementations. Corrected source candidates and physical/quiet packages are prepared; physical/source acceptance and guarded integration remain open.
 
 M10 requires completed M1-M9 acceptance and subsequent explicit user review/approval. M11/M12 need independent activation. Dated source/CI/native details in accepted criteria explain historical scope; they do not select an executable or restart an old implementation.

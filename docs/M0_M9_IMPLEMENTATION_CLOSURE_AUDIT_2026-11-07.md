@@ -1,5 +1,7 @@
 # M0–M9 implementation and closure audit — 2026-11-07
 
+**Latest open-source review:** [2026-11-08 deep findings](OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) supersede the blanket all-ready/no-code-task claim for D01-D03. Software preparation remains verified; the affected pending criteria require source correction. D04/D05 preserve their exact validation limits. Existing milestone checkboxes, completed foundation scopes and independent holds remain unchanged.
+
 This is a dated audit/disposition map, not another live task controller. [HANDOFF](../HANDOFF.md) chooses the next operation; [TODO](../TODO.md) owns the original milestone criteria. No checkbox or physical verdict is changed by this audit.
 
 ## Scope, identities and conclusion

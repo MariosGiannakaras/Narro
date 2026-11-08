@@ -1,0 +1,17 @@
+# Deep review of unfinished M5-M9 - 2026-11-08
+
+User requested the deepest practical logical/programming audit excluding completed work. Base main37322dde0799b96c2f9ffe087d3814bd7ff08380; source default437ccdd993ca9808e36f0c23e626dbcc4eea62e9a49, A389606b5671f570e5c2675542661cfae266fb5bc1fa and B4198e0845f89fe2ee21f2c8179364b31ffbe06ffd96. Upstream431/436/design418 heads were checked against the existing roles. No source branch/PR was edited or merged.
+
+[Full scoped review](../docs/OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) maps findings to the existing59 open M5-M9 criteria and exact source owners. Local proof: PhysicalChecks/verification/20261108-open-scope-deep-audit/ (actual callback probes, source-blob identities, native-boundary classification and59-row matrix).
+
+D01: six actual compiled-provider save/recovery ordering witnesses regressed newer event state. Default initial-read negative control preserved it; older A/B providers did not. D02: actual validator/handlers with valid PNG reads reproduced old selection winning and Save committing keep-original during selected-file validation. Existing preference-write and list-editor contracts still PASS; their coverage misses these new interleavings.
+
+D03: source review proves default's expiry cleanup can return on temporary presentation-gate contention before dropping its Rust lease. A/B already contain the retry remedy and two regressions; reuse that evidence and reconcile the missing default port. Native expiry execution was NOT RUN. Queued GUI timeout/late-execution remains a source risk requiring a targeted native test, not a claimed observed late mutation or explanation of old Timer poison.
+
+D04: existing NER-007 remains partial in Reports sync read/Edit/Delete paths; Create already offloads. An isolated two-connection SQLite writer probe waited under contention; no native Narro freeze or DB corruption was reproduced. D05: Reports read-owner test initially aborted on a CRLF slice marker. On exact Git text it passed semantic callbacks; the original failure/control is retained and not relabeled a product bug.
+
+Executed existing scoped checks: preference-write admission PASS; protected resize21/21 PASS; live Taken renderer/reducer PASS; pure Motion v4 geometry PASS; List editor contract PASS; Reports actual stale/filter/post-mutation reads PASS after the documented LF control. No broad replay of completed M1-M4/F01-F06 tests, new full build, Windows CI, Narro/installer/desktop recording, profile or OS mutation. Local native Rust compilation NOT RUN; no MSVC linker was available.
+
+Source/app/build/test/workflow/dependency/bundled-doc and all reference assets are unchanged. Original milestone checkbox states and59-row counts remain intact; no native/source-parity PASS or M10/M11/M12 activation. Existing software identity/CI remains valid for its actual scope, but the affected newly found source cases need correction. HANDOFF now selects the source slice instead of presenting a blanket physical-ready all-clear.
+
+Only unbundled human Markdown changed on main: report, this receipt and authoritative continuation/requirement notes. No new CI is needed for this audit publication. Preserve all original Blitzit and source recovery; the owned audit checkout is retired after publication and local proof retention, with final local receipt recording actual cleanup. No remote history rewrite or disk-space saving is claimed.
