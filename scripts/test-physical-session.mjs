@@ -1,10 +1,11 @@
 import assert from "node:assert/strict";
 import vm from "node:vm";
+import { spawnSync } from "node:child_process";
 import { mkdtemp, mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
 import { randomUUID } from "node:crypto";
-import { admitCandidate, collect, digest, request } from "./physical-session.mjs";
+import { admitCandidate, collect, digest, request, recover } from "./physical-session.mjs";
 import { physicalTracePlugin } from "./physical-trace-vite.mjs";
 
 const root = await mkdtemp(join(tmpdir(), "narro-physical-session-test-"));
@@ -82,13 +83,16 @@ try {
   manifest.observationFeatures = []; await writeFile(manifestPath, JSON.stringify(manifest));
   await assert.rejects(admitCandidate(exe, manifestPath), /old packages/); assertions += 3;
 
+  const exited = spawnSync(process.execPath, ["-e", ""], { windowsHide: true });
+  assert.equal(exited.status, 0);
+  const fixturePid = exited.pid;
   const packet = join(root, "packet"), logs = join(packet, "logs", "process-12");
   await mkdir(logs, { recursive: true }); await mkdir(join(packet, "media")); await mkdir(join(packet, "control"));
-  const session = { schema: "narro-physical-session/v1", id: "fixture", state: "FROZEN", candidate: admitted,
-    recording: { file: "media/desktop.mkv", exitCode: 0 }, processes: [{ pid: 12 }] };
+  const session = { schema: "narro-physical-session/v1", id: "fixture", state: "FROZEN", candidate: admitted, supervisorPid: fixturePid,
+    recording: { file: "media/desktop.mkv", exitCode: 0, recorderPid: fixturePid }, processes: [{ pid: fixturePid }] };
   const write = (file, value) => writeFile(file, JSON.stringify(value));
   await write(join(packet, "session.json"), session);
-  await write(join(logs, "process.json"), { pid: 12, sourceSha: admitted.sourceSha });
+  await write(join(logs, "process.json"), { pid: fixturePid, sourceSha: admitted.sourceSha });
   const rows = [
     { seq: 1, utc: "2026-11-07T10:00:00Z", event: "process-start" },
     { seq: 2, utc: "2026-11-07T10:00:01Z", event: "frontend", data: { record: { page: "p", seq: 1, event: "frontend-start", utc: "2026-11-07T10:00:01Z", lost: 0 } } },
@@ -102,6 +106,45 @@ try {
   assert.equal(index.gaps.length, 1); assert.match(index.gaps[0], /not probed/);
   assert.equal(index.processes[0].records, 4);
   assert.ok(index.files.every(x => /^[a-f0-9]{64}$/.test(x.sha256))); assertions += 4;
+  const panic = { event: "rust-panic", pid: fixturePid, utc: "2026-11-07T10:00:02.500Z", traceId: "request-1", location: "fixture.rs:12", backtrace: "fixture stack" };
+  await writeFile(join(logs, "panic.jsonl"), JSON.stringify(panic) + "\n");
+  index = await collect(packet);
+  assert.equal(index.applicationFailures.length, 1);
+  assert.match(await readFile(join(packet, "TIMELINE.jsonl"), "utf8"), /fixture stack/);
+  assert.match(await readFile(join(packet, "ANALYSIS_BRIEF.md"), "utf8"), /Application failures: \*\*1/);
+  await writeFile(join(logs, "events-00000.jsonl"), "broken ordinary trace\n");
+  const damagedTrace = await collect(packet);
+  assert.equal(damagedTrace.applicationFailures.length, 1, "panic remains visible even if the ordinary trace is damaged");
+  assert.equal(damagedTrace.coverage, "INCOMPLETE");
+  await writeRows(rows);
+  const recollected = await collect(packet);
+  assert.equal(recollected.applicationFailures.length, 1);
+  assert(!recollected.files.some(x => ["EVIDENCE_INDEX.json", "ANALYSIS_BRIEF.md"].includes(x.path)));
+  await writeFile(join(logs, "panic.jsonl"), "broken JSON\n" + JSON.stringify({ ...panic, pid: -1 }) + "\n" + JSON.stringify(panic) + "\n");
+  index = await collect(packet);
+  assert.equal(index.applicationFailures.length, 1);
+  assert.equal(index.gaps.filter(x => /Invalid panic record/.test(x)).length, 2);
+  assert.equal(index.processes[0].records, 4, "invalid panic must not discard the ordinary trace");
+  await rm(join(logs, "panic.jsonl"));
+  const before = await readFile(join(packet, "EVIDENCE_INDEX.json"), "utf8");
+  for (const owner of ["supervisor", "recorder"]) {
+    const blocked = structuredClone(session);
+    if (owner === "supervisor") blocked.supervisorPid = process.pid;
+    else blocked.recording.recorderPid = process.pid;
+    await write(join(packet, "session.json"), blocked);
+    await assert.rejects(collect(packet, { supervisorPid: process.pid }), /still live/);
+    if (process.platform === "win32") await assert.rejects(recover(packet), /still live/);
+    assert.deepEqual(JSON.parse(await readFile(join(packet, "session.json"), "utf8")), blocked);
+    assert.equal(await readFile(join(packet, "EVIDENCE_INDEX.json"), "utf8"), before);
+  }
+  if (process.platform === "win32") {
+    await write(join(packet, "supervisor-health.json"), { id: "fixture", utc: new Date(0).toISOString() });
+    await write(join(packet, "session.json"), { ...session, state: "INCOMPLETE", activeOwnedNarroPid: fixturePid });
+    const recovered = await recover(packet);
+    assert.equal(recovered.coverage, "INCOMPLETE");
+    assert.equal(JSON.parse(await readFile(join(packet, "session.json"), "utf8")).activeOwnedNarroPid, null);
+  }
+  await write(join(packet, "session.json"), session);
   await writeRows(rows.filter(x => x.seq !== 3));
   index = await collect(packet);
   assert.ok(index.gaps.some(x => /Native trace incomplete/.test(x)));
@@ -117,5 +160,7 @@ try {
   await assert.rejects(request(packet, "mark", "PA-01"), /liveness is stale/); assertions += 2;
   session.state = "INCOMPLETE"; session.activeOwnedNarroPid = 12; await write(join(packet, "session.json"), session);
   await assert.rejects(collect(packet), /live-process ownership/); assertions++;
-  console.log(`Physical session observer, admission, freeze/recovery and integrity regressions: PASS (${assertions} assertions; no Narro/desktop launched)`);
+  console.log(`Physical session observer, admission, freeze/recovery and integrity regressions: PASS (base assertions: ${assertions}; plus panic/recollection/writer-exclusion cases; no Narro/desktop launched)`);
 } finally { await rm(root, { recursive: true, force: true }); }
+
+await import("./test-physical-session-lifecycle.mjs");

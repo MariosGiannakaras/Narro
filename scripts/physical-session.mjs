@@ -11,6 +11,43 @@ import { fileURLToPath } from "node:url";
 const schema = "narro-physical-session/v1";
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const utc = () => new Date().toISOString();
+// Only the supervisor's own finalizer may collect before its PID exits.
+const finalizingSupervisor = Symbol("closed recorder / supervisor finalizer");
+
+export function verifyPacketWritersStopped(session, { probe = pid => process.kill(pid, 0), supervisorPid = null } = {}) {
+  const owners = [["supervisor", session.supervisorPid], ["recorder", session.recording?.recorderPid],
+    ...(session.processes || []).map(x => ["Narro", x.pid])];
+  for (const [name, pid] of owners) {
+    if (!Number.isSafeInteger(pid) || pid <= 0) throw Error(`Unknown ${name} PID ownership; preserve the packet for inspection.`);
+    if (name === "supervisor" && pid === supervisorPid) continue;
+    try { probe(pid); }
+    catch (error) {
+      if (error.code === "ESRCH") continue;
+      throw Error(`Cannot prove ${name} PID ${pid} exited; preserve the packet: ${error.message}`);
+    }
+    // A reused live PID is conservatively blocked too. Never kill it or infer
+    // death from a stale heartbeat, filename, or serialized session state.
+    throw Error(`${name} PID ${pid} is still live; resolve it before collection/recovery.`);
+  }
+}
+
+async function closedWithin(closed, ms) {
+  let timer;
+  try { return await Promise.race([closed.then(() => true), new Promise(done => { timer = setTimeout(() => done(false), ms); })]); }
+  finally { clearTimeout(timer); }
+}
+
+export async function stopOwnedRecorder(recorder, closed, { graceMs = 10000, killMs = 5000 } = {}) {
+  // Diagnostic sink failure is independent from process liveness. Always stop
+  // this owned child, even after ENOSPC/EPIPE, without an unbounded final wait.
+  recorder.stdin?.on("error", () => {});
+  if (recorder.exitCode === null && recorder.signalCode === null) {
+    try { recorder.stdin?.write("q\n"); } catch { /* bounded termination below */ }
+  }
+  if (await closedWithin(closed, graceMs)) return { closed: true, forced: false };
+  try { recorder.kill(); } catch { /* report unresolved ownership below */ }
+  return { closed: await closedWithin(closed, killMs), forced: true };
+}
 export async function digest(file) {
   const hash = createHash("sha256");
   for await (const chunk of createReadStream(file)) hash.update(chunk);
@@ -134,8 +171,10 @@ export async function supervise(options) {
     elapsedUs: ((process.hrtime.bigint() - monotonicStart) / 1000n).toString(), ...row }) + "\n");
   let recordingExit = null, recordingError = null, firstFrame = null, current = null, finished = false, handling = false;
   let framesSeen = 0, lastFrameAt = Date.now();
+  const logClosures = [];
   const logStream = file => {
     const output = createWriteStream(file);
+    logClosures.push(new Promise(done => { output.on("finish", done); output.on("close", done); output.on("error", done); }));
     output.on("error", error => { recordingError = "Diagnostic stream write failed: " + error.message; });
     return output;
   };
@@ -144,6 +183,8 @@ export async function supervise(options) {
   const recorder = spawn(ffmpeg, ["-hide_banner", "-y", "-f", "gdigrab", "-framerate", "60", "-draw_mouse", "1",
     "-i", "desktop", "-c:v", "libx264", "-preset", "ultrafast", "-crf", "18", "-pix_fmt", "yuv420p",
     "-progress", "pipe:3", join(root, session.recording.file)], { stdio: ["pipe", "ignore", "pipe", "pipe"], windowsHide: true });
+  session.recording.recorderPid = recorder.pid ?? null;
+  recorder.stdin.on("error", () => {});
   recorder.stderr.pipe(diagnostics);
   const recorderClosed = new Promise(done => {
     recorder.on("error", e => { recordingError = e.message; done(); });
@@ -172,6 +213,7 @@ export async function supervise(options) {
     child.stderr.pipe(logStream(join(root, `process-${child.pid}.stderr.log`)));
     child.on("error", error => { segment.error = error.message; });
     child.on("close", code => { segment.exitCode = code; segment.exitedUtc = utc(); });
+    await save(join(root, "session.json"), session);
     await journal({ event: "process-created", pid: child.pid, executable: candidate.executable });
     await sleep(1000);
     segment.identity = await processIdentity(child, candidate);
@@ -202,11 +244,12 @@ export async function supervise(options) {
     throw Error("No live frontend/backend logging handshake within20s. Freeze diagnostics; do not score acceptance.");
   }
   try {
+    // Persist ownership before waiting for a frame or launching the product.
+    await save(join(root, "session.json"), session);
     const deadline = Date.now() + 20000;
     while (!firstFrame && recordingExit === null && !recordingError && Date.now() < deadline) await sleep(100);
-    if (!firstFrame) throw Error("Recorder produced no first frame; application was not launched.");
+    if (!firstFrame) throw Error(recordingError || "Recorder produced no first frame; application was not launched.");
     session.recording.firstFrameObservedUtc = firstFrame;
-    session.recording.recorderPid = recorder.pid;
     session.state = "CAPTURING";
     await save(join(root, "session.json"), session);
     await save(join(root, "supervisor-health.json"), { id, pid: process.pid, utc: utc() });
@@ -216,7 +259,7 @@ export async function supervise(options) {
     const handled = new Set();
     let nextHealthCheck = 0;
     while (!finished) {
-      if (recordingExit !== null || recordingError) throw Error("Recorder stopped unexpectedly; capture coverage is incomplete.");
+      if (recordingExit !== null || recordingError) throw Error(recordingError || "Recorder stopped unexpectedly; capture coverage is incomplete.");
       if (Date.now() - lastFrameAt > 10000) throw Error("Recorder produced no new frame for10s; freeze the stalled capture for analysis.");
       if (current?.exitCode === null && Date.now() >= nextHealthCheck) {
         nextHealthCheck = Date.now() + 1000;
@@ -260,12 +303,13 @@ export async function supervise(options) {
     await sleep(500); // Keep the actual process exit visible before final recorder stop.
   } catch (error) { failure = error; }
   finally {
-    if (recordingExit === null && !recordingError) {
-      recorder.stdin.on("error", () => {}); recorder.stdin.write("q\n");
-      const closed = await Promise.race([recorderClosed.then(() => true), sleep(10000).then(() => false)]);
-      if (!closed) { recorder.kill(); failure ||= Error("Recorder required forced termination; verify the surviving media."); }
-    }
-    await recorderClosed;
+    const stopped = await stopOwnedRecorder(recorder, recorderClosed);
+    if ((!current || current.exitCode !== null) && !await closedWithin(Promise.all(logClosures), 5000))
+      failure ||= Error("Diagnostic streams did not drain within bounded shutdown.");
+    if (recordingError) failure ||= Error(recordingError);
+    if (stopped.forced) failure ||= Error("Recorder required forced termination; verify the surviving media.");
+    if (!stopped.closed) failure ||= Error("Recorder did not close within bounded shutdown; preserve its ownership and files.");
+    session.recording.closed = stopped.closed;
     session.recording.exitCode = recordingExit;
     session.recording.framesSeen = framesSeen;
     session.state = failure ? "INCOMPLETE" : "FROZEN";
@@ -273,8 +317,8 @@ export async function supervise(options) {
     session.activeOwnedNarroPid = current?.exitCode === null ? current.pid : null;
     await save(join(root, "session.json"), session);
     await journal({ event: "supervisor-end", state: session.state, activeOwnedNarroPid: session.activeOwnedNarroPid });
-    if (!session.activeOwnedNarroPid) await collect(root, { ffprobe });
-    else console.error("Owned Narro is still live. Preserve its logs, Quit normally, then use recover --root " + root);
+    if (!session.activeOwnedNarroPid && stopped.closed) await collect(root, { ffprobe }, finalizingSupervisor);
+    else console.error("Packet writer ownership remains unresolved. Preserve all files; Quit Narro normally if live, inspect the owned recorder, then use recover --root " + root);
   }
   if (failure) throw Error(failure.message + "; preserved session: " + root);
   return root;
@@ -289,18 +333,34 @@ async function traceRows(root) {
   return rows;
 }
 
-export async function collect(root, { ffprobe } = {}) {
+export async function collect(root, { ffprobe } = {}, finalizer) {
   root = await realpath(root);
   const session = await json(join(root, "session.json"));
   if (session.schema !== schema) throw Error("Not a Narro physical session.");
   if (["CAPTURING", "STARTING"].includes(session.state)) throw Error("Freeze or recover the active session before collection; do not rewrite in-flight evidence.");
   if (session.activeOwnedNarroPid) throw Error("Session has unresolved live-process ownership; use recover after normal Quit.");
-  const gaps = [], processes = [], timeline = [];
+  verifyPacketWritersStopped(session, { supervisorPid: finalizer === finalizingSupervisor ? process.pid : null });
+  const gaps = [], processes = [], timeline = [], applicationFailures = [];
   if (session.state !== "FROZEN") gaps.push("Supervisor did not finish normally: " + session.state);
   for (const directory of (await readdir(join(root, "logs"), { withFileTypes: true })).filter(x => x.isDirectory())) {
     const folder = join(root, "logs", directory.name);
     try {
       const info = await json(join(folder, "process.json"));
+      const panicFile = join(folder, "panic.jsonl");
+      if (await exists(panicFile)) {
+        const lines = (await readFile(panicFile, "utf8")).split(/\r?\n/);
+        for (const [offset, line] of lines.entries()) {
+          if (!line.trim()) continue;
+          try {
+            const panic = JSON.parse(line);
+            if (info.sourceSha !== session.candidate.sourceSha || !session.processes?.some(x => x.pid === info.pid)
+                || panic.pid !== info.pid || panic.event !== "rust-panic" || !Number.isFinite(Date.parse(panic.utc)))
+              throw Error("panic source/PID/event/time does not match the admitted process");
+            const failure = { ...panic, source: inside(root, panicFile), line: offset + 1 };
+            timeline.push(failure); applicationFailures.push(failure);
+          } catch (error) { gaps.push(`Invalid panic record ${inside(root, panicFile)}:${offset + 1}: ${error.message}`); }
+        }
+      }
       const health = await json(join(folder, "health.json"));
       const rows = await traceRows(folder), sequences = new Set(rows.map(x => x.seq));
       if (info.sourceSha !== session.candidate.sourceSha) gaps.push("Source mismatch for PID " + info.pid);
@@ -361,11 +421,23 @@ export async function collect(root, { ffprobe } = {}) {
       const pts = createWriteStream(join(root, "media", "video-pts.csv"));
       const frames = spawn(ffprobe, ["-v", "error", "-select_streams", "v:0", "-show_frames", "-show_entries",
         "frame=best_effort_timestamp_time", "-of", "csv=p=0", media], { windowsHide: true, stdio: ["ignore", "pipe", "pipe"] });
-      frames.stdout.pipe(pts);
-      frames.stderr.pipe(createWriteStream(join(root, "media", "pts-probe.stderr.log")));
-      const code = await new Promise(done => { frames.on("error", () => done(-1)); frames.on("close", done); });
-      await new Promise(done => { if (pts.writableFinished) done(); else pts.on("finish", done); });
-      if (code !== 0 || !(await stat(join(root, "media", "video-pts.csv"))).size) gaps.push("Frame PTS extraction incomplete.");
+      let probeError = null, probeCode = null;
+      const diagnostic = createWriteStream(join(root, "media", "pts-probe.stderr.log"));
+      const sinks = [pts, diagnostic].map(output => new Promise(done => {
+        output.on("finish", done); output.on("close", done);
+        output.on("error", error => { probeError = error.message; frames.kill(); done(); });
+      }));
+      frames.stdout.pipe(pts); frames.stderr.pipe(diagnostic);
+      const probeClosed = new Promise(done => {
+        frames.on("error", error => { probeError = error.message; done(); });
+        frames.on("close", code => { probeCode = code; done(); });
+      });
+      if (!await closedWithin(probeClosed, 30000)) {
+        frames.kill(); probeError = "PTS probe timed out";
+        if (!await closedWithin(probeClosed, 5000)) throw Error("PTS probe still live; preserve the packet and retry after it exits.");
+      }
+      if (!await closedWithin(Promise.all(sinks), 5000)) throw Error("PTS probe streams still open; preserve the packet.");
+      if (probeError || probeCode !== 0 || !(await stat(join(root, "media", "video-pts.csv"))).size) gaps.push("Frame PTS extraction incomplete: " + (probeError || probeCode));
     }
   } else gaps.push("Recording readability/PTS not probed; provide --ffprobe.");
   if (session.recording.exitCode !== 0) gaps.push("Recorder did not exit successfully.");
@@ -376,13 +448,13 @@ export async function collect(root, { ffprobe } = {}) {
     inventory.push({ path, bytes: (await stat(file)).size, sha256: await digest(file) });
   }
   const index = { schema, id: session.id, collectedUtc: utc(), candidate: session.candidate,
-    coverage: gaps.length ? "INCOMPLETE" : "COMPLETE", gaps, processes,
+    coverage: gaps.length ? "INCOMPLETE" : "COMPLETE", gaps, processes, applicationFailures,
     video: { ...session.recording, probe: probe ? "media/ffprobe.json" : null, framePts: probe ? "media/video-pts.csv" : null },
     timeline: "TIMELINE.jsonl", files: inventory,
     verdict: "NOT RUN — packet integrity/coverage does not grade product acceptance",
     analysis: "Read this index and brief, then inspect original video intervals/PTS together with matching timeline/trace records; log absence is not failure absence." };
   await save(join(root, "EVIDENCE_INDEX.json"), index);
-  await writeFile(join(root, "ANALYSIS_BRIEF.md"), `# Physical session ${session.id}\n\nSource: ${session.candidate.sourceSha}\nEXE SHA256: ${session.candidate.sha256}\nTrace coverage: **${index.coverage}**\n\nStart with EVIDENCE_INDEX.json and TIMELINE.jsonl. All raw inputs have path/size/SHA256. Compare original video and actual PTS with action, IPC, state, SQLite and native observations. Preserve independent PASS/FAIL/INCONCLUSIVE/NOT RUN per requirement.\n\n${gaps.map(x => "- " + x).join("\n") || "No detected packet-integrity gap."}\n\nIPC success and SQLite commit-request are not visual or durable-state acceptance. Async/thread/time proximity is not causal linkage. Coalesced DOM observations are not every paint. No audio is recorded. Follow the normal retention policy after the named consumer closes.\n`);
+  await writeFile(join(root, "ANALYSIS_BRIEF.md"), `# Physical session ${session.id}\n\nSource: ${session.candidate.sourceSha}\nEXE SHA256: ${session.candidate.sha256}\nTrace coverage: **${index.coverage}**\n\nApplication failures: **${applicationFailures.length}** (packet completeness is not product success).\n${applicationFailures.map(x => `- ${x.utc} PID ${x.pid}: ${x.event} at ${x.location || "unknown location"}; ${x.source}:${x.line}`).join("\n")}\n\nStart with EVIDENCE_INDEX.json and TIMELINE.jsonl. All raw inputs have path/size/SHA256. Compare original video and actual PTS with action, IPC, state, SQLite and native observations. Preserve independent PASS/FAIL/INCONCLUSIVE/NOT RUN per requirement.\n\n${gaps.map(x => "- " + x).join("\n") || "No detected packet-integrity gap."}\n\nIPC success and SQLite commit-request are not visual or durable-state acceptance. Async/thread/time proximity is not causal linkage. Coalesced DOM observations are not every paint. No audio is recorded. Follow the normal retention policy after the named consumer closes.\n`);
   return index;
 }
 
@@ -391,6 +463,7 @@ export async function recover(root, options = {}) {
   const session = await json(join(root, "session.json"));
   if (session.schema !== schema) throw Error("Not a physical session.");
   if (process.platform !== "win32") throw Error("Ownership recovery requires the original Windows host.");
+  verifyPacketWritersStopped(session);
   const live = windowsProcesses();
   if (live.some(x => session.processes?.some(p => p.pid === x.ProcessId)))
     throw Error("An owned Narro PID is still running; inspect identity and Quit it normally before recovery.");
