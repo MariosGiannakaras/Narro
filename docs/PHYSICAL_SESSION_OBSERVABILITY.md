@@ -16,7 +16,7 @@ User decision,2026-11-07: acquire logs automatically from process start through 
 
 ## One owned campaign, automatic acquisition
 
-Use the selected manifest-verified package's own `controllerPath` from `PhysicalCandidates/20261108/VERIFIED_CANDIDATES.json` for every command, Node, and the already prepared FFmpeg/FFprobe tools. The preparation helper is preparation-only; its old direct -Launch path is retired. The supervisor validates EXE bytes against the artifact's `physical.json` (including the observation feature), refuses duplicate Narro processes, starts loss-resistant MKV desktop video **before** launching Narro, assigns a fresh persistent session root and sets process log directories. It verifies the actual PID/path/hash, embedded source/feature and frontend/backend logging handshake.
+Use the selected manifest-verified package's own `controllerPath` from `PhysicalCandidates/20261108/VERIFIED_CANDIDATES.json` for every command. Run it with Node and the already prepared FFmpeg/FFprobe tools. The preparation helper is preparation-only; its old direct -Launch path is retired. The supervisor validates EXE bytes against the artifact's `physical.json` (including the observation feature), refuses duplicate Narro processes, starts loss-resistant MKV desktop video **before** launching Narro, assigns a fresh persistent session root and sets process log directories. It verifies the actual PID/path/hash, embedded source/feature and frontend/backend logging handshake.
 
 ```powershell
 $physicalKitRoot = "E:\SystemFiles\Desktop\Narro Project"
