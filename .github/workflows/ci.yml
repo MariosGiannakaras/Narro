@@ -285,7 +285,7 @@ jobs:
         retention-days: 1
 
     - name: Build Tauri Release
-      run: npm run tauri:ci
+      run: npm run ci:bundle:normal
 
     - name: Capture Packaged Focus Runtime
       run: npm run test:focus-runtime-visual:windows
@@ -315,7 +315,7 @@ jobs:
       run: |
         $env:CARGO_TARGET_DIR = Join-Path $PWD "src-tauri/target-physical"
         $env:NARRO_VALIDATION_SOURCE_SHA = "${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
-        npm run tauri:physical-ci
+        npm run ci:bundle:physical
 
     - name: Verify Physical Validation Build
       shell: pwsh
@@ -411,3 +411,12 @@ jobs:
           docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md
           artifacts/ci-provenance/diagnostic.json
         if-no-files-found: error
+
+    - name: Preserve Bundler Download Attempt Logs
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: narro-ci-bundle-download-attempts
+        path: artifacts/ci-bundle-downloads/**
+        if-no-files-found: warn
+        retention-days: 1

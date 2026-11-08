@@ -92,6 +92,8 @@
     "test:ui-focus-toggle-shortcut": "node scripts/test-ui-focus-toggle-shortcut.mjs",
     "test:shortcut-retry": "node --experimental-strip-types scripts/test-shortcut-retry.mjs",
     "tauri:ci": "tauri build --config src-tauri/tauri.ci.conf.json",
+    "ci:bundle:normal": "node scripts/ci-bundle-download-retry.mjs normal",
+    "ci:bundle:physical": "node scripts/ci-bundle-download-retry.mjs physical",
     "test:ui-m5-parity-reconciliation": "node scripts/test-ui-m5-parity-reconciliation.mjs",
     "test:ui-m6-parity-reconciliation": "node scripts/test-ui-m6-parity-reconciliation.mjs",
     "test:in-app-shortcuts": "node --experimental-strip-types scripts/test-in-app-shortcuts.mjs",

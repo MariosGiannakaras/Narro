@@ -127,6 +127,7 @@ for (const required of [
 
 invariant(
   !fastBlock.includes("test:visual-regression:windows")
+    && !fastBlock.includes("ci:bundle:")
     && !fastBlock.includes("tauri:ci")
     && !fastBlock.includes("tauri:physical-ci")
     && !fastBlock.includes("tauri:diagnostic-ci"),
@@ -145,8 +146,8 @@ for (const required of [
   "npm run test:rust",
   "npm run test:performance-harness",
   "npm run test:visual-regression:windows",
-  "npm run tauri:ci",
-  "npm run tauri:physical-ci",
+  "npm run ci:bundle:normal",
+  "npm run ci:bundle:physical",
   "Verify Physical Validation Build",
   "narro-m7-physical-windows-x64",
   "npm run tauri:diagnostic-ci",
@@ -158,8 +159,8 @@ for (const required of [
 const packagingPrepIndex = candidateBlock.indexOf("npm run prepare:icons");
 const rustCheckIndex = candidateBlock.indexOf("npm run check:rust");
 const visualIndex = candidateBlock.indexOf("npm run test:visual-regression:windows");
-const releaseIndex = candidateBlock.indexOf("npm run tauri:ci");
-const physicalIndex = candidateBlock.indexOf("npm run tauri:physical-ci");
+const releaseIndex = candidateBlock.indexOf("npm run ci:bundle:normal");
+const physicalIndex = candidateBlock.indexOf("npm run ci:bundle:physical");
 const diagnosticIndex = candidateBlock.indexOf("npm run tauri:diagnostic-ci");
 invariant(
   packagingPrepIndex >= 0
@@ -232,3 +233,10 @@ invariant(
 );
 
 console.log("CI fast/candidate tiering contracts passed.");
+
+for (const kind of ["normal", "physical"]) {
+  invariant(candidateBlock.includes(`npm run ci:bundle:${kind}`), `${kind} bundle must use bounded network retry`);
+  invariant(packageJson.scripts[`ci:bundle:${kind}`] === `node scripts/ci-bundle-download-retry.mjs ${kind}`, "Retry wrapper must stay wired to real builds");
+}
+invariant(candidateBlock.includes("path: artifacts/ci-bundle-downloads/**"), "Preserve first bundler download failures even after recovery");
+await import("./test-ci-bundle-download-retry.mjs");
