@@ -12,6 +12,10 @@ The requested preparation is complete. F01–F05 are corrected: Focus read lifet
 
 All three exact heads are independently validation/fast/Windows **3/3 SUCCESS**. All6 physical/quiet ZIPs have published digest/size/CRC verified, all33 manifest members verified, exact source/run/attempt/feature and source-specific controller checked. Actual candidate admission without launch PASS; quiet packages are rejected for physical acquisition and have no general-observer marker. Register: `PhysicalCandidates/20261108/VERIFIED_CANDIDATES.json`; current folders `pr437-audit`, `pr389-audit`, `pr419-audit`. There is no remaining known code, port, build, CI wait, download or temporary-checkout cleanup task for these candidates.
 
+## Instruction and residual cleanup - 2026-11-08
+
+The legacy review retired superseded kickoff prompts, old executable packets, duplicate tracker archives and closed cleanup metadata. [M1-M12 closure route](docs/M1_M12_CLOSURE_MAP.md) indexes remaining work; TODO preserves original milestone checkboxes. Protocol identity resolves through this HANDOFF/local register. Stale Motion v4 NOT IMPLEMENTED and M1-scaffold restrictions are removed. Canonical findings, requirements, protected sources and all application/build/test/workflow inputs remain unchanged. Dated work logs are evidence only. [Cleanup receipt](work-log/2026-11-08-codex-legacy-instruction-retirement.md) records scope and validation.
+
 ## NEXT — actual physical chat
 
 Start locally at `PhysicalChecks/START_HERE.md`, recheck the selected live PR head against the register, and follow [the fresh protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md). This workspace is a physical kit, not a development checkout; no new clone/build is needed just to start the checks. Use the selected package's **own registered controller** for every start/mark/launch/finish/recover/collect action. The copied main controller is reference only. Ordinary disposable Narro test data is authorized; old isolation/pause directions are historical. Preserve normal Quit/relaunch state; unrelated OS/hardware actions keep their actual case safeguards.

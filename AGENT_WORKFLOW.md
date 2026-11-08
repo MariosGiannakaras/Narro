@@ -93,7 +93,7 @@ On **every resumed turn**, consult last concrete results before broad repository
 7. Read the **active top block of `STATUS.md`**, then inspect only a relevant architecture/capability section or cited receipt if needed.
 8. Inspect the implementation/tests/CI referenced by the handoff.
 9. Read only the relevant specs/evidence.
-10. Read the newest relevant files under `work-log/` when recent rationale/evidence is needed; use root `WORK_LOG.md` only for older legacy history.
+10. Read only relevant dated work-log evidence. Retired historical material is recoverable in Git; it is not startup input.
 11. Continue the highest-priority unblocked action in `HANDOFF.md`.
 
 Do not ask the user for a kickoff prompt or previous-chat summary when repository state already answers what to do. Ask only for genuine unresolved product decisions, required permissions, destructive approval, or physical Windows evidence that cannot be automated.
@@ -107,9 +107,8 @@ Do not ask the user for a kickoff prompt or previous-chat summary when repositor
 - `TODO.md` — ordered executable work; `[x]` means implemented and validated.
 - `STATUS.md` — concise project-level truth and durable capability/architecture state.
 - `work-log/*.md` — preferred immutable per-slice logs for all new work.
-- `WORK_LOG.md` — legacy historical archive; preserve it and do not truncate/rewrite it.
 - `docs/*` — specs, evidence and validation procedures.
-- `prompts/*` — historical/slice-specific aids only; not required onboarding unless `HANDOFF.md` explicitly references one.
+- docs/M1_M12_CLOSURE_MAP.md — present route through the remaining milestones.
 
 ## User-choice checkpoint for material product alternatives (2026-10-27)
 
@@ -235,7 +234,7 @@ Key synchronization rules:
 - a forensic agent records source truth and does not patch implementation;
 - an implementation agent consumes canonical `SOURCE_COMPLETE` findings rather than repeating raw-media analysis;
 - a reconciliation step updates the audit crosswalk and affected roadmap/tracking before an evidenced discrepancy is implemented or a user-visible milestone is closed;
-- new high-confidence contradictions to an already-built surface are reconciled immediately rather than waiting for 19/19 Pass-3 completion;
+- reconcile new high-confidence contradictions against completed canonical findings immediately; do not restart the closed source pass;
 - if materially relevant source videos for a surface are still OPEN, nonvisual/domain/API work may continue, but final visual/interaction parity for that surface remains open;
 - M10/final review re-verifies original references and accepted parity; it is not the first parity comparison.
 
@@ -337,7 +336,7 @@ Each entry records:
 - blockers;
 - exact continuation point.
 
-Never overwrite another work-log entry. Corrections get a new file. Root `WORK_LOG.md` is legacy history and must not be truncated or replaced.
+Never overwrite another work-log entry. Corrections get a new file. Obsolete evidence may be retired under explicit cleanup/retention scope with Git provenance; never rewrite a past verdict as current-source acceptance.
 
 ## HANDOFF.md protocol
 
@@ -438,9 +437,9 @@ For material deviations, record reasoning/evidence in the work log, update `STAT
 
 Never silently change explicit user decisions, local-only scope, data-integrity invariants or confirmed product semantics.
 
-## Milestone 1 rule
+## Existing milestone foundations
 
-Milestone 1 validates Windows/Tauri/WebView2 capability and performance; it is not polished product UI. Temporary diagnostic controls are acceptable. Do not start polished UI or Milestone 2 while a blocking M1 validation remains in `HANDOFF.md`.
+M1-M4 are accepted within recorded scopes. Do not restart the scaffold, plain diagnostic UI or an old kickoff campaign. Reopen only a foundation claim invalidated by changed dependencies or a reproduced regression; use the current M1-M12 closure route.
 
 ## Capture replacement and local housekeeping
 

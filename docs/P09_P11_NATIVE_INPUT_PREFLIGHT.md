@@ -1,8 +1,8 @@
-# P09/P11 — focused native input pre-physical handoff (2026-10-26)
+# Native input delivery - targeted evidence method
 
 ## Scope and authority
 
-This prepares **evidence collection** for two observed native intended-outcome failures on validated production source `efe6cadd8fb7d1a4785cd584c6d3d18e17523142`: P11 Ctrl+F displayed WebView2 Find instead of Narro Search; Ctrl+Alt+T did not show the quick-create palette; P09 Compact Timer attempts did not displace the host HWND. Source ownership is **UNKNOWN** until input delivery is measured. The probe is **not a source fix**, **not native physical acceptance**, and cannot turn the prior FAIL into PASS.
+This prepares **evidence collection** for two observed native intended-outcome failures on an earlier source (historical observations; select the current admitted source from HANDOFF): P11 Ctrl+F displayed WebView2 Find instead of Narro Search; Ctrl+Alt+T did not show the quick-create palette; P09 Compact Timer attempts did not displace the host HWND. Source ownership is **UNKNOWN** until input delivery is measured. The probe is **not a source fix**, **not native physical acceptance**, and cannot turn the prior FAIL into PASS.
 
 The probe is strictly read-only: it injects temporary capture-phase DOM observers via CDP into an **already running** Narro instance. It does not send keys, click, move the pointer/window, invoke Tauri APIs, take task text, record arbitrary keystrokes or alter storage. Only Ctrl+F / Ctrl+Alt+T key metadata, Compact Timer pointer metadata, geometry/focus/modals and limited structural hit-test info are retained. Output is a new explicit JSON file, never overwritten. `--self-test` is part of frontend preflight and **cannot** replace the Windows observation.
 

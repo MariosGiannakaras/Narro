@@ -12,7 +12,7 @@ On an existing chat, `continue`, interruption or status question, resume the las
 2. Read `AGENTS.md`, `ENGINEERING_QUALITY.md`, `AGENT_WORKFLOW.md`, current `HANDOFF.md`, the current top of `STATUS.md` and the relevant `TODO.md` requirements once. Do not read all historical logs by default.
 3. For the next fresh Windows session, read [the canonical fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md). Its candidate register, admission procedure and test matrix are the current route. Old dated packets supply case history only.
 4. Recheck the selected live source PR/head, exact CI and actual artifact. Main documentation SHA and an unmerged application candidate SHA are different identities. A newer main build is not automatically a replacement for PR437/389/419.
-5. Perform the one next action in HANDOFF. Expand only into referenced source/evidence needed for that action. A genuine unavailable input, hardware action or product decision may require the user; routine sequencing does not.
+5. Use [the M1-M12 closure route](docs/M1_M12_CLOSURE_MAP.md) for the remaining stages, then perform the one next action in HANDOFF. Expand only into referenced source/evidence needed for that action. A genuine unavailable input, hardware action or product decision may require the user; routine sequencing does not.
 
 
 ## Automatic observation for physical checks (user decision2026-11-07)

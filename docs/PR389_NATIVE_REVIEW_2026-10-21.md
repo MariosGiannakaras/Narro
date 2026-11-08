@@ -1,4 +1,4 @@
-# PR389 exact-build native review — 2026-10-21
+# PR389 historical native failure - current hold rationale
 
 **Acquired8/8; reviewed8/8;4scoped visualPASS/4FAIL. PR389 NOT MERGED.** Source77a6b13903cf6bf3f4ba67c3e6edddb1d0402ad1, exactCI39560130498 **3/3SUCCESS**, actual validation/normal EXE byte-identical SHA256`31cc0db9be9acf4dd7b4c1176fd31668f9ec407f4d9c2c126967c12cc3839a79`, embedded sourceSHA matches. Original personal profiles restored/DB hash identical; no owned app/recorder remains.
 
@@ -13,7 +13,7 @@ All8DOM target receipts show expected final presentation/pendingfalse. Paused05:
 
 ## Evidence and bounds
 
-[Frozen packet](../work-log/evidence/pr389-native-20261021/README.md). Two original **full actual desktop** Desktop Duplication streams: normal28.934s/1724decoded frames; reduced28.900s/1726frames,2560x1080. Nominal60fps; max observed PTS gap34ms, so absence of every sub-frame artifact is not proven. Renderer media deliberately emulated and read back false/true; this is not Windows Settings UI acceptance.
+Frozen packet (historical Narro capture retired). Two original **full actual desktop** Desktop Duplication streams: normal28.934s/1724decoded frames; reduced28.900s/1726frames,2560x1080. Nominal60fps; max observed PTS gap34ms, so absence of every sub-frame artifact is not proven. Renderer media deliberately emulated and read back false/true; this is not Windows Settings UI acceptance.
 
 Pixel-change bursts are located using mean-delta0.7 solely to find intervals. **Every decoded frame** within each burst±250ms is then preserved by sequential original decode with exact ordinal+PTS;235normal+197reduced frame occurrences (overlapping margins duplicate some). Ten contact sheets were visually reviewed, plus full-resolution failure frames. Original videos are authoritative for lower-delta/outside-window details. Native ROI2220,0,340x700 is derived from actual final window bounds and verified before/end Focus handle5375194. The full videos preserve any movement outside the crop. Final host340x700/region340x700; before/end identity matches, not an all-topology acceptance.
 
@@ -27,10 +27,8 @@ The natural-pixel arithmetic and protected sequencing are locally/CI validated, 
 
 This repeats the same single-hierarchy acceptance failure after another separately corrected, CI-validated physical candidate. Stop successive redraw/delay/arithmetic patches to the same native-child mechanism. Reassess composition ownership and compare a materially different scoped path. Candidate performance sampling is **NOT RUN**, deliberately deferred because this candidate fails visual acceptance; preserve the published3/3current-main baseline for the eventual acceptable alternative.
 
-**Next comparison decision (before source changes):** evaluate an owned nonactivating/input-transparent **layered native bitmap popup** above the same Focus HWND, with atomic position/size/pixel presentation via UpdateLayeredWindow. It is a bounded transient GDI/DWM bridge, not another WebView/timer authority or a persistent Focus window. Keep the same two normal WebViews/fixed host, tokens, rollback and watchdog. Add explicit owner-hide cleanup (owned popups do not automatically hide merely when their owner hides), owner destruction/minimize handling, exact geometry/z-order/input/idle-resource proofs and matched performance. Native child vs this alternative must be compared with the same8transition protocol before selecting/merging. Source/rendering changes remain on existing PR389; no new PR/freshness PASS from API documentation.
+The earlier proposed alternative was subsequently implemented and automated-validated on held candidates; do not execute that old source-change plan again. Current exact sources and remaining strict gates are in HANDOFF and the M1-M12 closure map.
 
-Primary platform basis: [owned window relationships and layered input transparency](https://learn.microsoft.com/en-us/windows/win32/winmsg/window-features), [UpdateLayeredWindow](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-updatelayeredwindow), [NOACTIVATE/tool window styles](https://learn.microsoft.com/en-us/windows/win32/winmsg/extended-window-styles). These support a scoped alternative, not a Narro fix claim.
+## Historical gate scope
 
-## Gate reuse / continuation
-
-M7C26–28/C35/affectedC19 remain **FAIL/OPEN** overall; the two expansion observations and tooltip2/2are scoped improvements only. M1same-Focus-handle observation is retained; candidate replacement composition/quiet footprint still OPEN before merge. Other M5/M6/M8/M9 surfaces were not sufficiently exercised here. Mandatory4/10 unchanged/M10blocked; optionalM11/M12dormant. Approved Spectrum Core/upload/218icons untouched. No user action is required for the next source/native-layer comparison.
+M7C26–28/C35/affectedC19 remain **FAIL/OPEN** overall; the two expansion observations and tooltip2/2are scoped improvements only. M1same-Focus-handle observation is retained; candidate replacement composition/quiet footprint still OPEN before merge. Other M5/M6/M8/M9 surfaces were not sufficiently exercised here. Mandatory4/10 unchanged/M10blocked; optionalM11/M12dormant. Approved Spectrum Core/upload/218icons untouched. Current physical sequencing belongs to HANDOFF; no previous implementation order is revived here.

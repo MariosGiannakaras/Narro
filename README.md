@@ -38,11 +38,11 @@ Canonical continuation files:
 - `work-log/*.md` — preferred immutable per-slice implementation/validation logs for new work;
 - [`docs/TRACKER_STATUS_INDEX.md`](docs/TRACKER_STATUS_INDEX.md) — active vs frozen tracker ownership, exact immutable history snapshots;
 - [`docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md`](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md) — current fresh-session admission, candidates and execution matrix;
-- `WORK_LOG.md` — legacy historical archive retained for older context.
+- [M1-M12 closure route](docs/M1_M12_CLOSURE_MAP.md) — remaining acceptance, integration and independently gated stages.
 
-Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instructions.md` are thin pointers to the same canonical state. `prompts/*` are optional historical/slice aids, not required onboarding.
+Agent-specific files such as `GEMINI.md`, `CLAUDE.md` and `.github/copilot-instructions.md` are thin pointers to the same canonical state. Retired kickoff prompts are not part of present onboarding.
 
-## Current phase — fresh physical preparation, 2026-11-07
+## Current phase - prepared candidates; native/source acceptance open, 2026-11-08
 
 Historical Narro recording cleanup is complete. The next physical chat follows [HANDOFF](HANDOFF.md) and the [fresh-capture protocol](docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md), with a verified default PR437 candidate and independent A389/B419 controls. Artifacts are verified; new native acquisition/analysis remains NOT RUN. A newer main/workflow build does not replace an unmerged feature candidate merely by date.
 

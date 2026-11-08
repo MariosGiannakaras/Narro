@@ -225,7 +225,7 @@ Focus Panel ↔ Floating Timer:
 - the recording does **not** establish Blitzit's internal native-window count or component/rendering architecture;
 - **[SOURCE-ARTIFACT]** the recording exposes clipped/sparse intermediate content; Narro should preserve continuity without deliberately reproducing that artifact;
 - **[NARRO IMPROVEMENT]** content may use a restrained crossfade/scale as needed, but domain state must remain continuous;
-- **[NARRO IMPLEMENTATION PLAN / UNVALIDATED]** use one fixed-maximum-size Focus WebView with React presentation switching and a DPI-aware clipped native visible region; see `docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`;
+- **[NARRO IMPLEMENTATION PLAN / UNVALIDATED]** use one fixed-maximum-size Focus WebView with React presentation switching and a DPI-aware clipped native visible region; see `docs/M1_M12_CLOSURE_MAP.md`;
 - never drive native resize with high-frequency JS loops.
 
 Find Timer:

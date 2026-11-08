@@ -95,7 +95,7 @@ expose the corresponding visible rectangle without resizing or hiding the HWND
 on ordinary presentation changes. The now-closed, unmerged PR #191 second
 `floatingTimer` WebView is an unsuccessful historical physical candidate, not the target architecture.
 The replacement architecture is implemented on current `main`; its historical design/validation path remains in
-`docs/M7_SINGLE_FOCUS_SURFACE_PLAN.md`. Current remaining physical/source acceptance is tracked in `HANDOFF.md`, `TODO.md` and `docs/M7_CLOSURE_PLAN.md`.
+`docs/M1_M12_CLOSURE_MAP.md`. Current remaining physical/source acceptance is tracked in `HANDOFF.md`, `TODO.md` and `docs/M1_M12_CLOSURE_MAP.md`.
 
 ### `main`
 

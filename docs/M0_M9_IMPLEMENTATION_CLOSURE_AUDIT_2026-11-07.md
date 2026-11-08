@@ -24,14 +24,13 @@ The existing architecture is suitable to continue this closure cycle: Rust/domai
 
 ## Existing source changes still outside main
 
-| Existing source owner / scope | Verified source and automation | Actual remaining action |
-| --- | --- | --- |
-| [PR431](https://github.com/MariosGiannakaras/Narro/pull/431): Settings/Search readiness, Reports request-key isolation, Timer callback-after-unlock, preferred-monitor return, optional restart persistence, actual monitor names/previews | `3c3b72b06eaa841bce9429dace83a6b5c33ba701`; [CI40573065951](https://github.com/MariosGiannakaras/Narro/actions/runs/40573065951) SUCCESS | Scoped native V10/P431-10, U-R04/U-R05, cold Done/Reports and changed dependent paths; honor current source hold. Do not reimplement the already-coded requests. |
-| [PR436](https://github.com/MariosGiannakaras/Narro/pull/436): four-corner native Timer snapping on the current431 ancestor | `3561597d27a4a7e7e389105888c6f88137c368b5`; [CI40589906072](https://github.com/MariosGiannakaras/Narro/actions/runs/40589906072) SUCCESS | Actual movement and SNAP-01–08 / work-area / topology observations on the joined source; no stationary-transition substitute. |
-| [PR437](https://github.com/MariosGiannakaras/Narro/pull/437): joined431/436 + Motion v4/raster ownership + synchronous Timer revision + live Taken + PP44-F01 history repair + move diagnostics | `632345026d9c693613a3a0b3e9a8105740fcc6af`; [CI41035287020](https://github.com/MariosGiannakaras/Narro/actions/runs/41035287020) SUCCESS | Default combined candidate for overlapping native requirements; verify real movement, history edit/delete/read/restart, source-visible states and remaining topology/motion gates. Keep draft/unmerged until its scoped gates close. |
-| [PR389 A](https://github.com/MariosGiannakaras/Narro/pull/389): independent compositor control | `ec9227a2e09a69c380d4605aaf9623bdd9b9c394`; [CI40084188512](https://github.com/MariosGiannakaras/Narro/actions/runs/40084188512) SUCCESS | Own strict8/8 normal/reduced compositor gate and package conflict reconciliation before any integration; its result cannot come from437. |
-| [PR419 B](https://github.com/MariosGiannakaras/Narro/pull/419): experimental comparator | `6a72cf56ee03ea8026b56644adb47780d15d8692`; [CI40648382276](https://github.com/MariosGiannakaras/Narro/actions/runs/40648382276) SUCCESS | Separate strict8/8 and upstream dependency; package conflict remains. This is not an instruction to install/merge a second production implementation. |
-| [PR418](https://github.com/MariosGiannakaras/Narro/pull/418): choreography source/preview/test contract | `5f0723a50aa1fe07e85211443ad63dfe17892f70` | Source/design reference, not a standalone runtime acceptance candidate. No blind merge of all six PRs. |
+| Source role | Current use |
+| --- | --- |
+| PR437 | Default joined431/436 + Motion v4/accounting/recovery candidate; exact source/CI/package owned by HANDOFF |
+| A/PR389 and B/PR419 | Independent strict8/8 sources/quiet packages; no verdict transfer |
+| PR431 and PR436 | Upstream requirements represented in default source; preserve independent claim coverage |
+| PR418 | Design/source contract, not another physical binary |
+
 
 ### Confirmed accounting defect versus an already-authored repair
 

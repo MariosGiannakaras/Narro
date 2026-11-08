@@ -60,7 +60,7 @@ Never infer current Pass-3 progress from the older 19/19 trackers.
 
 ### Source-forensics chat
 
-`PASS3_HANDOFF → REAUDIT_PLAN → PASS3_TRACKER → relevant canonical findings → raw source`.
+The original source pass is complete. Consume relevant canonical findings/calibration; reopen the matching original for a real ambiguity, contradiction or direct parity check, not a new whole-corpus source campaign.
 
 Do not patch implementation or use current Narro as a reason to stop source inspection early.
 
