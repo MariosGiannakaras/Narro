@@ -49,3 +49,6 @@ const rows=JSON.parse(process.env.FAILURES);if(n<=rows.length){console.error(row
   }
   console.log("Bundler retry actual-child tests: transient WiX/NSIS recovery, retained first errors, fatal/no-retry and bounded exhaustion PASS");
 } finally { await rm(root, { recursive: true, force: true }); }
+
+const pythonTest = await promisify(execFile)(process.platform === "win32" ? "python" : "python3", ["scripts/test-windows-bundle-tools.py"], { windowsHide: true });
+console.log("Pinned asset hash/ZIP containment/redirect credentials/transient API failure tests: PASS");

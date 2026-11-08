@@ -238,5 +238,7 @@ for (const kind of ["normal", "physical"]) {
   invariant(candidateBlock.includes(`npm run ci:bundle:${kind}`), `${kind} bundle must use bounded network retry`);
   invariant(packageJson.scripts[`ci:bundle:${kind}`] === `node scripts/ci-bundle-download-retry.mjs ${kind}`, "Retry wrapper must stay wired to real builds");
 }
-invariant(candidateBlock.includes("path: artifacts/ci-bundle-downloads/**"), "Preserve first bundler download failures even after recovery");
+invariant(candidateBlock.includes("artifacts/ci-bundle-downloads/**"), "Preserve first bundler download failures even after recovery");
 await import("./test-ci-bundle-download-retry.mjs");
+
+invariant(candidateBlock.indexOf("python scripts/prepare-windows-bundle-tools.py") >= 0 && candidateBlock.indexOf("python scripts/prepare-windows-bundle-tools.py") < candidateBlock.indexOf("- name: Setup Rust"), "Verified vendor tool API/cache admission must fail before expensive Rust/visual work");

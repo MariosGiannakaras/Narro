@@ -207,6 +207,11 @@ jobs:
         node-version: '24'
         cache: 'npm'
 
+    - name: Prepare Verified Windows Bundle Tools
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: python scripts/prepare-windows-bundle-tools.py
+
     - name: Setup Rust
       uses: dtolnay/rust-toolchain@stable
       with:
@@ -417,6 +422,8 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: narro-ci-bundle-download-attempts
-        path: artifacts/ci-bundle-downloads/**
+        path: |
+          artifacts/ci-bundle-downloads/**
+          artifacts/ci-bundle-tools-downloads/*.json
         if-no-files-found: warn
         retention-days: 1
