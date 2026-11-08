@@ -1,8 +1,10 @@
 # Fresh Windows physical campaign — canonical execution protocol
 
+**Latest open-source review:** [D01-D03](OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) require scoped source correction before an all-clear for their affected M5/M7/M8 claims. Package identities remain verified. Current HANDOFF selects the corrective slice; unaffected dependency-ready physical cases remain authorized. D04/D05 retain their stated validation limits. This supersedes earlier blanket no-code-task readiness, without reopening completed foundation work or changing milestone checkboxes.
+
 **2026-11-08 preparation checkpoint:** default437 and independent A389/B419 have exact-head CI3/3 SUCCESS and locally verified source-specific physical/quiet packages. The [M0–M9 closure audit](M0_M9_IMPLEMENTATION_CLOSURE_AUDIT_2026-11-07.md) still maps all59 open proof rows. No local app/installer/desktop recording ran; product native/source acceptance remains NOT RUN/OPEN. Main still awaits acceptance/integration of the held application fixes.
 
-Revised 2026-11-08. **Repository preparation: PREPARED. New acquisition/analysis: NOT RUN.** This document replaces old execution packets as the route for the next physical chat. It is ordinary M1–M9 PA-01–09 work, not M10 or optional M11/M12. The present workflow audit prepares only; it does not launch Narro, install packages, change AppData/OS settings or start a recording.
+Revised 2026-11-08. **Software packages: VERIFIED. Affected source corrections: OPEN. New acquisition/analysis: NOT RUN.** This document replaces old execution packets as the route for the next physical chat. It is ordinary M1–M9 PA-01–09 work, not M10 or optional M11/M12. The present workflow audit prepares only; it does not launch Narro, install packages, change AppData/OS settings or start a recording.
 
 ## Authority, data and historical boundaries
 
