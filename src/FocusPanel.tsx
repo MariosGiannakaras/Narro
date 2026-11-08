@@ -520,6 +520,8 @@ export function FocusPanel({
   const externalBoardRefreshRevisionRef = useRef(0);
   // Shared cross-path read epoch: response completion order must not decide freshness.
   const boardReadRevisionRef = useRef(0);
+  const boardReadLifetimeRef = useRef({ mounted: true });
+  const sharedBoardRefreshOwnerRef = useRef<string | null>(null);
   const focusPointerDragCleanupRef = useRef<(() => void) | null>(null);
   currentTargetKeyRef.current = currentTargetKey;
   const latestSharedTimerProjectionRef = useRef<TimerSessionPayload | null>(
@@ -549,6 +551,15 @@ export function FocusPanel({
     refreshKey,
     changeRevision: timer?.change ? timer.revision : null,
   });
+
+  useEffect(() => {
+    const lifetime = boardReadLifetimeRef.current;
+    lifetime.mounted = true;
+    return () => {
+      lifetime.mounted = false;
+      boardReadRevisionRef.current += 1;
+    };
+  }, []);
 
   useEffect(() => () => {
     focusPointerDragCleanupRef.current?.();
@@ -689,18 +700,29 @@ export function FocusPanel({
       const projected = sharedTimerProjection.payload;
       setTimer(projected);
       setTimerSettled(sharedTimerProjection.settled);
-      if (projected?.change) {
+      const owner = projected ? JSON.stringify([
+        projected.revision, projected.runtime.timer.task_id, projected.runtime.open_session_id,
+        currentTargetKey, currentRefreshKeyRef.current,
+      ]) : null;
+      const previousOwner = sharedBoardRefreshOwnerRef.current;
+      sharedBoardRefreshOwnerRef.current = owner;
+      if (projected && (projected.change || (previousOwner !== null && previousOwner !== owner))) {
+        const lifetime = boardReadLifetimeRef.current;
         const refreshTarget = target;
         const readRevision = ++boardReadRevisionRef.current;
         const expectedTargetKey = currentTargetKey;
+        const expectedRefreshKey = currentRefreshKeyRef.current;
         const expectedRevision = projected.revision;
         const expectedTaskId = projected.runtime.timer.task_id;
         const expectedSessionId = projected.runtime.open_session_id;
         const refreshStillCurrent = () => {
           const latest = latestSharedTimerProjectionRef.current;
-          return !disposed
+          // Progress samples dispose this effect without changing the read's owner.
+          // Only unmount, a newer read or a semantic owner change invalidates it.
+          return lifetime.mounted
             && readRevision === boardReadRevisionRef.current
             && currentTargetKeyRef.current === expectedTargetKey
+            && currentRefreshKeyRef.current === expectedRefreshKey
             && latest?.revision === expectedRevision
             && latest.runtime.timer.task_id === expectedTaskId
             && latest.runtime.open_session_id === expectedSessionId;
@@ -724,6 +746,7 @@ export function FocusPanel({
       };
     }
 
+    sharedBoardRefreshOwnerRef.current = null;
     let stopListening: (() => void) | undefined;
     setTimerSettled(false);
     void connectLiveTimerSessionProjection(
