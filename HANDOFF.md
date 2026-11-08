@@ -1,8 +1,16 @@
-# HANDOFF — final audit corrections in progress
+# HANDOFF — final audit corrections / exact-head Windows validation
 
-## NOW — Codex / 2026-11-08 / FIXING
+## NOW — Codex / 2026-11-08 / CI_AND_PACKAGE_REFRESH
 
-The final repository audit reproduced five preparation defects: Focus board-read lifetime across equal-owner timer ticks; recorder shutdown after diagnostic-stream failure; recovery/collection while packet writers remain alive; panic records missing from the combined timeline/brief; and patched development dependency advisories. The user explicitly authorized correction and validation before their next physical chat. Source owner: `fix/prephysical-audit-20261108`, local owned checkout `C:\Users\MariosG\.codex\worktrees\narro-final-audit-20261108\Narro` from b9446c3b5c2c6bdc5345bdc10b519cefab8d7e50. No new source PR/CI opened yet. Batch fixes and meaningful failure/lifecycle tests before publishing one coherent slice; retain A/B QPC/compositor and 437 accounting changes. Refresh all three exact packages and local START_HERE only after required CI and member/hash verification. **Do not start physical acquisition on the superseded packages below.** Originals and existing verified packages remain protected until verified replacement. Physical checks remain **NOT RUN**; source/VM/synthetic black-video probes are not physical evidence. PR389/419 independent physical-before-merge holds and M10 approval hold remain.
+The five final-audit defects are implemented, with actual-callback/finalizer and negative lifecycle/panic/recovery regressions. Main correction [PR496](https://github.com/MariosGiannakaras/Narro/pull/496), head `681b165f41f834b5cbcc1bf14bfabbab7dc5bc8c`, [CI42462082195](https://github.com/MariosGiannakaras/Narro/actions/runs/42462082195). Source owner remains this active Codex chat and the owned temporary `C:\Users\MariosG\.codex\worktrees\narro-final-audit-20261108` wrapper. All four full frontend preflight/builds, Rust formatting and meaningful source/lifecycle fault tests PASS; full npm audits show zero findings. Synthetic six-frame black-video packet and owned synthetic FFmpeg stop PASS; no Narro/desktop/profile action. Local Rust compile NOT RUN (MSVC linker unavailable); Windows CI is the authoritative automated native gate.
+
+| Held candidate | Corrected exact head | Required CI |
+| --- | --- | --- |
+| PR437 | `9cee16f8136a707efa37112548ba41b2393589b3` | [42462332844](https://github.com/MariosGiannakaras/Narro/actions/runs/42462332844) |
+| PR389 | `606b5671f570e5c2675542661cfae266fb5bc1fa` | [42462337268](https://github.com/MariosGiannakaras/Narro/actions/runs/42462337268) |
+| PR419 | `8e0845f89fe2ee21f2c8179364b31ffbe06ffd96` | [42462338050](https://github.com/MariosGiannakaras/Narro/actions/runs/42462338050) |
+
+At this checkpoint all four validation/fast gates passed and Windows candidate jobs are in progress. Resume these exact runs; do not create another branch or rerun unchanged sources. All Rust/native compositor/accounting files and original Blitzit are unchanged by each candidate's narrow eight-file correction. A/B QPC and B runtime-harness fixes are preserved. **Do not start acquisition using superseded cached packages.** Next: finish exact-head CI, guarded-merge only ordinary PR496, prove resulting-main source/build/test identity, verify/cache the three physical plus three quiet replacements, refresh registry/kit, then recycle superseded packages and this owned wrapper. Existing packages stay protected until replacement verification. PR437/389/419 stay draft/unmerged with their own native gates. Physical acquisition/acceptance is NOT RUN; M10 review hold and inactive M11/M12 remain. Full audit: PR496 `docs/FINAL_REPOSITORY_AUDIT_2026-11-08.md`; durable local checkpoint `PhysicalChecks/verification/20261108-final-repository-audit/CORRECTION_CHECKPOINT.json`.
 
 ## Previous preparation checkpoint — superseded by audit remediation
 
