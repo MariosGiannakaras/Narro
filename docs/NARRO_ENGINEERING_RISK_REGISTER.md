@@ -1,5 +1,7 @@
 # Narro Engineering Risk Register
 
+**2026-11-08 final-audit prevention refinement:** [F01–F05](FINAL_REPOSITORY_AUDIT_2026-11-08.md) reproduce how green contracts missed equal-owner effect disposal, failed diagnostic sink shutdown and stale-heartbeat recovery. Execute actual deferred callbacks/finalizers, distinguish read owner from effect lifetime, bounded-stop owned diagnostic processes on every failure, and prove all packet writers exited before recovery/index mutation. Merge first-fault panic sidecars even when ordinary trace parsing fails; malformed records expose gaps. Keep exact-source CI/package provenance and physical verdicts separate. HANDOFF owns final integration and native acceptance; these controls do not grant PASS or activate M10.
+
 **2026-10-30 NER-003/014 scoped guard:** PR437853180fd live Taken uses a task/session/checkpoint/history-owned cached durable basis; same-task native samples update the production component while edit CAS stays persisted. Failed/stale/mismatched reads fail closed without touching ledger authority. The full local preflight caught Reports directly referencing TimerService; corrected using independently managed atomic post-commit invalidation, retaining the original Reports separation contract unchanged. Actual create/edit/delete plus unavailable-table/no-hot-query regressions authored; Windows execution pending. [Full receipt](../work-log/evidence/pr437-live-taken-move-preflight-20261030/README.md). No physical or milestone PASS from these prevention measures.
 
 Status: **BINDING PREVENTION INDEX**
