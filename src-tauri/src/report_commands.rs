@@ -809,7 +809,10 @@ pub async fn export_report_overview_pdf(
             format!("failed to resolve the local Downloads directory: {error}"),
         )
     })?;
-    let path = write_unique_export(&download_directory, &file_stem, "pdf", &pdf)?;
+    let path = crate::blocking_read::read("REPORT_EXPORT_FAILED", move || {
+        write_unique_export(&download_directory, &file_stem, "pdf", &pdf)
+    })
+    .await?;
 
     Ok(ReportPdfExportPayload {
         path: path.to_string_lossy().into_owned(),
