@@ -64,6 +64,8 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
   const initialReadInFlightRef = useRef(false);
   // Delayed initial reads cannot override newer committed cross-window events.
   const snapshotRevisionRef = useRef(0);
+  // Async saves/readbacks must not publish into a disposed provider.
+  const mountedRef = useRef(true);
 
   const refreshMonitors = async () => {
     try {
@@ -77,6 +79,7 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
 
   useEffect(() => {
     let disposed = false;
+    mountedRef.current = true;
     let stopListening: (() => void) | undefined;
     const readStartRevision = snapshotRevisionRef.current;
 
@@ -116,6 +119,7 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
 
     return () => {
       disposed = true;
+      mountedRef.current = false;
       stopListening?.();
     };
   }, [loadAttempt]);
@@ -131,25 +135,58 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
   const save = async (patch: PreferenceSettingsPatch, key: PreferencePendingKey) => {
     if (saveInFlightRef.current) return false;
     saveInFlightRef.current = true;
+    const revisionAtStart = snapshotRevisionRef.current;
     setPendingKey(key);
     setError(null);
     try {
       const committed = await updatePreferenceSettings(patch);
-      setSnapshot(committed);
+      if (!mountedRef.current) return true;
+      if (snapshotRevisionRef.current === revisionAtStart) {
+        // A successful response can own the view when no newer cross-window
+        // publication arrived. Invalidate an older in-flight initial read.
+        snapshotRevisionRef.current += 1;
+        setSnapshot(committed);
+      } else {
+        // An intervening event may precede OR follow our own committed write.
+        // Do not guess which payload is latest from IPC completion order:
+        // re-read the authoritative persisted snapshot *after* our write.
+        const readRevision = snapshotRevisionRef.current;
+        try {
+          const latest = await getPreferenceSettings();
+          if (mountedRef.current && snapshotRevisionRef.current === readRevision) {
+            snapshotRevisionRef.current += 1;
+            setSnapshot(latest);
+          }
+        } catch (refreshFailure: unknown) {
+          if (mountedRef.current) {
+            setError(`Preferences saved; refresh failed: ${formatInvokeError(refreshFailure)}`);
+          }
+        }
+      }
       return true;
     } catch (failure: unknown) {
+      if (!mountedRef.current) return false;
       setError(formatInvokeError(failure));
+      // A partial native commit can reject after broadcasting its new value.
+      // A recovery read must never override a newer event delivered mid-read.
+      const readRevision = snapshotRevisionRef.current;
       try {
-        setSnapshot(await getPreferenceSettings());
+        const latest = await getPreferenceSettings();
+        if (mountedRef.current && snapshotRevisionRef.current === readRevision) {
+          snapshotRevisionRef.current += 1;
+          setSnapshot(latest);
+        }
       } catch (refreshFailure: unknown) {
-        setError(
-          `${formatInvokeError(failure)} | Preferences refresh failed: ${formatInvokeError(refreshFailure)}`,
-        );
+        if (mountedRef.current) {
+          setError(
+            `${formatInvokeError(failure)} | Preferences refresh failed: ${formatInvokeError(refreshFailure)}`,
+          );
+        }
       }
       return false;
     } finally {
       saveInFlightRef.current = false;
-      setPendingKey(null);
+      if (mountedRef.current) setPendingKey(null);
     }
   };
 
