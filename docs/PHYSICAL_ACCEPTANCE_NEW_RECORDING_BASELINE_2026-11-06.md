@@ -1,6 +1,8 @@
 # Fresh Windows physical campaign — canonical execution protocol
 
-**Latest open-source review:** [D01-D03](OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) require scoped source correction before an all-clear for their affected M5/M7/M8 claims. Package identities remain verified. Current HANDOFF selects the corrective slice; unaffected dependency-ready physical cases remain authorized. D04/D05 retain their stated validation limits. This supersedes earlier blanket no-code-task readiness, without reopening completed foundation work or changing milestone checkboxes.
+**2026-11-09 source correction admission update:** [Draft PR499](https://github.com/MariosGiannakaras/Narro/pull/499) contains the D01–D05 pre-physical code/test corrections as a descendant of held PR437. Its exact head `ae0447c4bebd49215f0c49eb8cd9acf0db8fc80c` passed [Windows CI42632330444](https://github.com/MariosGiannakaras/Narro/actions/runs/42632330444) **3/3** and published physical-validation artifact `13683936109`. **This is a new candidate, not yet admitted on the local Windows physical machine.** Obtain its own EXE/package/manifest, verify actual local hashes and source identity before running corrected D01–D05 claims; do not attribute these fixes to the older PR437 physical artifact. The ordinary already-authorized physical campaign continues by the designated physical agent, subject to candidate/operator/physical dependency checks; Codex-initiated physical actions remain separately paused. No new source-specific real PA/video/PTS/log evidence exists yet. Keep PR499/PR437 and independent PR389/PR419 physical-before-merge holds. All59 M5–M9 rows remain open. Current HANDOFF selects the next operation.
+
+**Historical 2026-11-08 source-review checkpoint (superseded for correction status only):** [D01-D03](OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) required scoped source correction before all-clear for affected M5/M7/M8 claims; D04/D05 retained their stated validation limits. These corrections are now implemented/CI validated in PR499, not physically accepted. The previously prepared PR437/A/B packages retain only their own evidence scope.
 
 **2026-11-08 preparation checkpoint:** default437 and independent A389/B419 have exact-head CI3/3 SUCCESS and locally verified source-specific physical/quiet packages. The [M0–M9 closure audit](M0_M9_IMPLEMENTATION_CLOSURE_AUDIT_2026-11-07.md) still maps all59 open proof rows. No local app/installer/desktop recording ran; product native/source acceptance remains NOT RUN/OPEN. Main still awaits acceptance/integration of the held application fixes.
 
@@ -18,6 +20,7 @@ Revised 2026-11-08. **Software packages: VERIFIED. Affected source corrections: 
 
 | Candidate | Role | Identity authority |
 | --- | --- | --- |
+| PR499 | New corrected D01–D05 default candidate; draft descendant of held PR437 | Exact `ae0447c4` / CI42632330444 3/3; physical artifact 13683936109; **local exact EXE/hash admission NOT RUN** |
 | PR437 | Default integrated M5-M9 | Current main HANDOFF and selected local verified entry |
 | PR389 | Independent A compositor | Own live head, CI and verified physical/quiet packages |
 | PR419 | Independent B Motion v4 comparator | Own live head, CI and verified physical/quiet packages |
