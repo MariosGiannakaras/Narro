@@ -9,7 +9,7 @@ const open = reports.indexOf("  const exportSessions = async () => {");
 const close = reports.indexOf("  const toggleListSelection =", open);
 assert(open >= 0 && close > open, "production Reports export boundary missing");
 const handler = reports.slice(open, close);
-const nativeStart = native.indexOf("pub fn export_report_sessions_csv(");
+const nativeStart = native.indexOf("pub async fn export_report_sessions_csv(");
 const nativeEnd = native.indexOf("#[tauri::command", nativeStart + 1);
 assert(nativeStart >= 0 && nativeEnd > nativeStart
   && native.slice(nativeStart, nativeEnd).includes("write_unique_export("),
