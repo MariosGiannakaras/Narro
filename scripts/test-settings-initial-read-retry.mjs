@@ -92,16 +92,22 @@ function execute(expression, variables) {
 {
   const path = "src/PreferenceSettingsRuntime.tsx";
   const file = ts.createSourceFile(path, source(path), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
-  const effects = [];
+  const effects = [], publishers = [];
   const visit = (node) => {
     if (ts.isCallExpression(node) && node.expression.getText(file) === "useEffect") {
       effects.push(node.arguments[0].getText(file));
+    }
+    if (ts.isVariableDeclaration(node) && node.name.getText(file) === "publishSnapshot"
+      && node.initializer && ts.isArrowFunction(node.initializer)) {
+      publishers.push(node.initializer.getText(file));
     }
     ts.forEachChild(node, visit);
   };
   visit(file);
   assert.equal(effects.length, 1, "Find exactly one production Preferences load effect");
-  const compiled = ts.transpileModule("this.__effect = (" + effects[0] + ");", {
+  assert.equal(publishers.length, 1, "Find exactly one production authoritative snapshot publisher");
+  const compiled = ts.transpileModule(
+    "this.__publisher = (" + publishers[0] + "); this.__effect = (" + effects[0] + ");", {
     compilerOptions: { target: ts.ScriptTarget.ES2022 },
   }).outputText;
   for (const eventFirst of [true, false]) {
@@ -114,6 +120,8 @@ function execute(expression, variables) {
       listen: (_name, handler) => { emit = handler; return Promise.resolve(() => {}); },
       PREFERENCES_CHANGED_EVENT: "preferences-changed",
       snapshotRevisionRef: { current: 0 },
+      latestCommitRevisionRef: { current: null },
+      mountedRef: { current: true },
       getPreferenceSettings: () => initialRead,
       listPreferenceMonitors: async () => [{ key: "monitor-1" }],
       setSnapshot: (value) => { observed.snapshot = value; },
@@ -123,6 +131,7 @@ function execute(expression, variables) {
       initialReadInFlightRef,
     };
     vm.runInNewContext(compiled, ctx);
+    ctx.publishSnapshot = ctx.__publisher;
     const cleanup = ctx.__effect();
     const stale = { general: { focusPanelSide: "left" } };
     const latest = { general: { focusPanelSide: "right" } };
