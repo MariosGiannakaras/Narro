@@ -1,5 +1,12 @@
 """Upload frozen evidence immediately, privately in a draft release; verify remote bytes."""
-import argparse,hashlib,json,pathlib,subprocess,tempfile,zipfile,datetime,os
+import argparse,hashlib,json,pathlib,subprocess,tempfile,zipfile,datetime,os,shutil
+
+def zip_member(name):
+    # Delivery identity depends on evidence bytes, never host metadata or wall clock.
+    info=zipfile.ZipInfo(name,(1980,1,1,0,0,0))
+    info.create_system=3;info.external_attr=0o100644<<16
+    info.compress_type=zipfile.ZIP_DEFLATED
+    return info
 
 def gh(*args, binary=False):
     p=subprocess.run(['gh',*args],capture_output=True)
@@ -19,19 +26,20 @@ def upload(root,repo,tag):
             raise RuntimeError('Refusing an unfrozen/live packet')
     elif not (root/'complete-analysis/FINAL_ANALYSIS.md').exists():raise RuntimeError('Not a collected session or campaign analysis root')
     files=[]
-    for p in sorted(root.rglob('*')):
+    for p in sorted(root.rglob('*'),key=lambda p:p.relative_to(root).as_posix()):
         if p.is_symlink():raise RuntimeError('Symlink in evidence')
-        if p.is_file() and p.name!='UPLOAD_RECEIPT.json':
+        if p.is_file() and p.relative_to(root).as_posix() not in ('UPLOAD_RECEIPT.json','UPLOAD_STATUS.json'):
             p.resolve().relative_to(root)
             files.append({'path':p.relative_to(root).as_posix(),'bytes':p.stat().st_size,'sha256':digest(p)})
     manifest={'schema':'narro-remote-evidence/v1','root':root.name,'files':files,'coverage':'Original coverage gaps and verdicts are preserved; upload is not acceptance.'}
     temp=pathlib.Path(tempfile.mkdtemp(prefix='narro-upload-'))
     archive=temp/(root.name+'.zip')
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=1,allowZip64=True) as z:
-        info=zipfile.ZipInfo('UPLOAD_MANIFEST.json',(1980,1,1,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED
-        z.writestr(info,json.dumps(manifest,indent=2))
+        z.writestr(zip_member('UPLOAD_MANIFEST.json'),json.dumps(manifest,indent=2),compresslevel=1)
         for f in files:
-            p=root/f['path'];z.write(p,root.name+'/'+f['path'])
+            p=root/f['path']
+            with p.open('rb') as source,z.open(zip_member(root.name+'/'+f['path']),'w',force_zip64=True) as target:
+                shutil.copyfileobj(source,target,1024*1024)
             if p.stat().st_size!=f['bytes'] or digest(p)!=f['sha256']:raise RuntimeError('Source changed while packaging')
     sha=digest(archive);asset=root.name+'-'+sha[:16]+'.zip';renamed=temp/asset;archive.rename(renamed)
     try:release=json.loads(gh('release','view',tag,'--repo',repo,'--json','id,isDraft,url'))
