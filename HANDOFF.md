@@ -1,3 +1,11 @@
+# Latest physical delivery checkpoint — 2026-11-09
+
+9/9 evidence ZIPs uploaded and remote SHA256/size verified, including8 session packets plus campaign analyses/quiet runs. [Delivery receipt](work-log/2026-11-09-codex-evidence-upload.md) contains the private draft release/index. No new recording. User instruction: upload every frozen packet immediately; prior no-auto-upload wording is superseded. Workflow PR500 has local preflight/tests and validation/fast PASS; Windows CI/integration pending. Next for this slice: finish PR500 validation/guarded integration. Existing source PR499 and native holds below remain independently owned. Bounded visual analysis is not exhaustive inspection of every RGB crop.
+
+---
+
+## Prior source checkpoint (source-owner details retained)
+
 # HANDOFF - PR499 D01-D05 exact-head Windows CI PASS; native/physical acceptance still held
 
 ## NOW - ChatGPT source owner / 2026-11-09 / PR499 source CI accepted; PR DRAFT / OPEN; native physical holds remain
