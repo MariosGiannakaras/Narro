@@ -1,0 +1,29 @@
+# 2026-11-09 — Exact PR499 CI packaged Focus runtime: 60-frame review
+
+## Source and immutable provenance
+
+- Owner: ChatGPT source/pre-physical evidence review. This is an analysis of an existing GitHub Actions artifact, **not a product code change, native physical PA acceptance, or another CI execution**.
+- Source PR [#499](https://github.com/MariosGiannakaras/Narro/pull/499), draft/held/unmerged at exact head `ae0447c4bebd49215f0c49eb8cd9acf0db8fc80c`. The source's [CI42632330444](https://github.com/MariosGiannakaras/Narro/actions/runs/42632330444) passed validation, fast and Windows candidate, 3/3.
+- GitHub artifact `narro-m7-focus-runtime-visual` ID **13681449536**, returned by the workflow artifact API associated with that exact head, downloaded as ZIP. Downloaded ZIP SHA256 `a438e696c9f38aaba67d32203d5683112853e1fd0ed336ec2c089983efc72785`. This digest identifies the locally reviewed downloaded archive, **not** the Windows EXE.
+- The artifact `manifest.json` declares capture transport `win32-screen-plus-environment-gated-renderer-checkpoints`, packaged executable path `D:\a\Narro\Narro\src-tauri\target\release\narro.exe`, and Panel/Compact/Expanded plus both directions of the runtime transition.
+- The artifact includes `panel-to-timer-runtime/frame-000.png` through `frame-029.png`, `timer-to-panel-runtime/frame-000.png` through `frame-029.png`, both `frames.json` (each with 160 native motion samples), seven `checkpoint-*.json` files, Panel/Compact/Expanded endpoint screenshots, stdout and stderr. Inspected every one of the **60 PNGs** by comparing raw pixels and viewing the full contact sheets, along with the JSON chronology and error output. No continuous user desktop recording or physical-session `EVIDENCE_INDEX.json`/`TIMELINE.jsonl` was included.
+
+## Exact, limited observations
+
+| CI sequence | Frames and time offsets | Distinct screenshot bitmaps | Native motion-sample result |
+| --- | --- | --- | --- |
+| Panel → compact Timer | 30 frames, elapsed 101–1539 ms | 7 unique images (repeat runs 3/2/1/1/1/13/9) | 160 native samples, all reported visible, DPI96, constant 340×700 window; one position switch at sample20 / elapsed **344 ms**, from (668,10) to (388,90), a (-280,+80) displacement. |
+| Compact Timer → Panel | 30 frames, elapsed 100–1453 ms | 6 unique images (repeat runs 3/3/2/1/6/15) | 160 native samples, all reported visible, DPI96, constant 340×700 window; one position switch at sample22 / elapsed **393 ms**, from (388,90) to (668,10), a (+280,-80) displacement. |
+
+- The frames are 340×700 desktop-composited RGB screenshots. Across both 30-frame series the top 110px contains non-uniform rendered image data in all 60 frames; neither sequence contains a fully blank **entire** bitmap. This is a narrow pixel-presence check, **not proof of no brief native occlusion between sampled frames**.
+- The sampled checkpoint snapshots for both sequences report **`prefersReducedMotion: true`**. A single native window relocation in each direction and large spans of unchanged pixels are consistent with this **reduced-motion** CI configuration; they are **not evidence of accepted normal-motion 500ms choreography**.
+- In compact Timer frames, the lower majority of the 340×700 capture shows black console/log output and the Windows desktop/taskbar **through the transparent/non-rendered region** below the compact surface. The screen capture's full bitmap includes this background; it must **not** be classified as Narro text/visual corruption, nor may it be counted as proof of actual application paint in that region. A controlled background or true app-layer alpha/real physical video would be needed for a stronger claim.
+- The motion samples have median adjacent timing 17ms, while screenshots have their separate `elapsedMs` offsets. **These are CI sampler offsets, not source-video PTS or frame-exact UTC**. The artifact has no 100%/125% DPI comparison, normal-motion run, display reconnect, physical drag, input responsiveness, forced renderer-loss or busy-watchdog expiry.
+- `narro.stderr.log` is zero-length and `narro.stdout.log` contains a successful SQLite migration/diagnostic startup line. Neither is full-stack input→IPC→native/SQLite causal evidence for a human session. The checkpoint records show the expected endpoint presentation transition and no unintended scrollers but do not demonstrate the D03 native recovery fault path.
+
+## Disposition, safety, remaining proof
+
+- **CI visual evidence reviewed: 60/60 snapshots and 320/320 native geometry sample entries**. The only defensible verdict is **bounded reduced-motion packaged-runtime capture with stable sampled content and a single native relocation per direction**. There is no demonstrated application-source defect from these records and no justification for a speculative source or capture-tool change.
+- **Ordinary PA-01 compositor, D03 busy watchdog, normal motion, authentic Blitzit parity and PA-05 movement remain NOT RUN** on fresh physical hardware. No M5–M9 closure row changed. PR499/PR437 and independent PR389/PR419 strict 8/8 holds remain unchanged.
+- Existing protocol [PR499 D01–D05 physical delta](../docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md#pr499-d01d05-corrected-source-physical-acceptance-delta) already requires source-exact local EXE admission and real video/PTS/log packet, which this CI artifact does not replace. The physical agent should not label the reduced-motion single-jump sample as normal-motion success or the desktop/console seen under the transparent compact Timer as Narro product UI.
+- The original CI screenshots and sequence metadata stay in GitHub artifact ID 13681449536; this log stores only compact measured results and the ZIP digest, not large raw frames. Next real dependency is physical-agent exact PR499 candidate admission and acquisition of fresh native evidence.
