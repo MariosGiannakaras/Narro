@@ -165,4 +165,18 @@ function mountedProvider() {
   assert.equal(h.render().snapshot, null);
 }
 
+// Rust adds a process-local commit revision. A late event carrying an older
+// revision cannot overwrite a newer committed snapshot, even with reversed
+// event delivery (which request-order guards alone cannot prevent).
+{
+  const h = mountedProvider();
+  await flush();
+  h.emit({ ...snapshot("revision-22"), commitRevision: "22" });
+  h.emit({ ...snapshot("obsolete-revision-21"), commitRevision: "21" });
+  assert.equal(h.render().snapshot.general.timezone, "revision-22");
+  h.emit({ ...snapshot("revision-23"), commitRevision: "23" });
+  assert.equal(h.render().snapshot.general.timezone, "revision-23");
+  h.cleanup();
+}
+
 console.log("Actual Preferences provider: cross-window order, own-later commit, failed recovery, initial read and disposal PASS");
