@@ -1,0 +1,9 @@
+# 2026-11-09 — PR499 physical authority/provenance reconciliation addendum
+
+This addendum supersedes ONLY the generic "PA-01–09 USER-PAUSED" label in the earlier immutable source receipt `work-log/2026-11-09-chatgpt-pr499-exact-head-windows-ci-pass.md`; that original receipt remains unchanged as historical evidence.
+
+The current `AI_START_HERE.md` and `docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md` explicitly state that the **ordinary Windows physical PA-01–09 campaign is ACTIVE under existing user authorization**, conditional on exact source/build/EXE identity, local operator admission, hardware safety, session observation and per-case dependency eligibility. Separately, the project's **Codex-initiated PA actions are paused** and must not install, launch or change local AppData without reactivation. The repository-only ChatGPT/source agent has neither a connected Windows desktop nor an actual new video/log/PTS packet and must not convert CI or fixture captures into a real physical PASS.
+
+Exact new candidate is **PR499** at `ae0447c4bebd49215f0c49eb8cd9acf0db8fc80c`, CI42632330444 **3/3 SUCCESS**, GitHub physical artifact id `13683936109`. This is NOT the same binary as the locally verified prior PR437, independent A389 or B419 candidate packages; do not use a prior locally prepared EXE to claim the D01–D05 corrections. The physical agent must first transfer/read the exact PR499 artifact, verify package EXE hash/source in the actual local kit, check live processes/session, then acquire fresh PA evidence where dependency ready under the existing authorization. PR499 is still DRAFT/OPEN/UNMERGED. A/B strict 8/8 and PR437 native holds are unchanged.
+
+Main HANDOFF, STATUS, TODO and the canonical fresh-recording protocol were updated to reflect this authority and provenance distinction. No physical acquisition, AppData write, installation, branch merge or milestone acceptance occurred in this addendum.
