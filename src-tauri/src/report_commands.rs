@@ -744,7 +744,9 @@ pub async fn get_focus_done_breaks(
     crate::blocking_read::read("FOCUS_BREAK_HISTORY_READ_FAILED", move || {
         let connection = app_database(&app_handle)?;
         recent_closed_focus_breaks(&connection, &start_at, &end_at, list_id)
-            .map_err(|error| CommandError::new("FOCUS_BREAK_HISTORY_READ_FAILED", error.to_string()))?
+            .map_err(|error| {
+                CommandError::new("FOCUS_BREAK_HISTORY_READ_FAILED", error.to_string())
+            })?
             .into_iter()
             .map(|session| {
                 let ended_at = session.ended_at.ok_or_else(|| {
