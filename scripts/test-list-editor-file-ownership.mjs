@@ -164,7 +164,7 @@ function mountEditor() {
   assert.equal(h.saved.length, 1);
   assert.equal(h.saved[0].iconSelection.kind, "upload");
   assert.equal(h.saved[0].iconSelection.filename, "chosen.png");
-  assert.deepEqual(h.saved[0].iconSelection.bytes.slice(0, 8),
+  assert.deepEqual(Array.from(h.saved[0].iconSelection.bytes.slice(0, 8)),
     Array.from(new Uint8Array(png).slice(0, 8)));
 }
 
