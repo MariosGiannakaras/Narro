@@ -18,7 +18,6 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 tauri-build = { version = "2", features = [] }
 
 [features]
-# Deliberately absent from default/release builds. Only the physical-test overlay enables it.
 physical-observability = ["rusqlite/hooks"]
 
 [dependencies]
@@ -38,4 +37,4 @@ uuid = { version = "1.8.0", features = ["v4", "serde"] }
 [target.'cfg(windows)'.dependencies]
 png = "=0.17.16"
 webview2-com = "=0.38.2"
-windows = { version = "=0.61.3", features = ["Win32_System_Com", "Win32_UI_Shell"] }
+windows = { version = "=0.61.3", features = ["Win32_System_Com", "Win32_UI_Shell", "Win32_Devices_Display"] }

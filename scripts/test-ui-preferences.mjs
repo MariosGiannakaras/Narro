@@ -230,13 +230,83 @@ invariant(
     && sections.includes('data-saved-monitor-unavailable="__saved_monitor_unavailable__"'),
   "monitor buttons must preserve persisted identity and explicit unavailable/Automatic recovery",
 );
+const nativeMonitorDisplay = await read("src-tauri/src/monitor_display.rs");
+const nativeDescriptor = await read("src-tauri/src/windows/mod.rs");
+const quickPreferences = await read("src/FocusQuickPreferences.tsx");
+const quickCss = await read("src/focusQuickPreferences.css");
+invariant(
+  nativeDescriptor.includes("pub friendly_name: Option<String>")
+    && nativeDescriptor.includes("pub desktop_preview_data_url: Option<String>")
+    && diagnosticApi.includes("friendlyName?: string | null;")
+    && diagnosticApi.includes("desktopPreviewDataUrl?: string | null;")
+    && lib.includes("descriptor.friendly_name = monitor_display::friendly_name(descriptor.name.as_deref());")
+    && /descriptor\.desktop_preview_data_url\s*=\s*monitor_display::desktop_preview_data_url\(descriptor\.name\.as_deref\(\),\s*descriptor\.size\)/s.test(lib)
+    && lib.includes("fn list_monitors(app_handle: tauri::AppHandle)")
+    && nativeMonitorDisplay.includes("EnumDisplayDevicesW(")
+    && nativeMonitorDisplay.includes("eq_ignore_ascii_case(display_name)")
+    && nativeMonitorDisplay.includes("active_count == 1")
+    && nativeMonitorDisplay.includes("fallback_count == 1"),
+  "U-R04 must resolve display-model labels by the exact placement adapter identity and fail closed on ambiguous devices",
+);
+invariant(
+  nativeMonitorDisplay.includes("CreateDCW(device.as_ptr(), device.as_ptr(), null(), null())")
+    && !nativeMonitorDisplay.includes("GetDC(null_mut())")
+    && nativeMonitorDisplay.includes("CreateCompatibleBitmap(")
+    && nativeMonitorDisplay.includes("PatBlt(")
+    && nativeMonitorDisplay.includes("GetDIBits(")
+    && nativeMonitorDisplay.includes("StretchBlt(")
+    && nativeMonitorDisplay.includes("SetStretchBltMode(memory_dc, HALFTONE)")
+    && nativeMonitorDisplay.includes("PREVIEW_WIDTH: u32 = 192")
+    && nativeMonitorDisplay.includes("PREVIEW_HEIGHT: u32 = 108")
+    && nativeMonitorDisplay.includes("writer.finish().ok()?;")
+    && nativeMonitorDisplay.includes("data:image/png;base64,")
+    && sections.includes('data-preference-monitor-desktop-preview="true"')
+    && quickPreferences.includes('data-focus-quick-monitor-desktop-preview="true"')
+    && sections.includes("monitor.friendlyName?.trim()")
+    && quickPreferences.includes("monitor.friendlyName?.trim()")
+    && diagnosticApi.includes("const compatible = monitors.filter((monitor) => monitor.name === savedName)"),
+  "U-R05 must capture only an ephemeral bounded native desktop image in existing frames without altering the persisted monitor key",
+);
+invariant(
+  !nativeMonitorDisplay.includes("std::fs")
+    && !nativeMonitorDisplay.includes("std::process")
+    && !nativeMonitorDisplay.includes("reqwest")
+    && sections.includes("onSave({ selectedMonitorKey: monitor.key }, \"monitor\")")
+    && quickPreferences.includes('onSave({ selectedMonitorKey: monitor.key }, "monitor")')
+    && (await read("src/preferenceSettingsSections.css")).includes(".preference-settings__monitor-preview-screen > img")
+    && quickCss.includes(".focus-quick-preferences__screen-preview > img"),
+  "monitor desktop thumbnails must be read-only, memory-only, bounded and occupy existing card geometry",
+);
+
 const monitorCss = await read("src/preferenceSettingsSections.css");
 invariant(monitorCss.includes('.preference-settings__monitor-option[data-selected="true"]')
   && monitorCss.includes('linear-gradient(125deg, var(--color-accent-start), var(--color-accent-end)) border-box'),
   "monitor selected border must use calibrated existing accent gradient",
 );
+invariant(
+  sections.includes("with a small top and side gap.")
+    && !sections.includes("work-area edge."),
+  "Panel placement Preferences copy must reflect the nonzero native edge inset, not claim flush alignment",
+);
+invariant(
+  sections.includes('checked={snapshot.general.rememberTimerPositionOnRestart}')
+    && sections.includes('onSave({ rememberTimerPositionOnRestart }, "timerPositionRestart")')
+    && api.includes("rememberTimerPositionOnRestart: boolean;")
+    && rust.includes("remember_timer_position_on_restart")
+    && domain.includes("#[serde(default)]"),
+  "Settings must round-trip Timer restart-position opt-in without breaking old preference payloads",
+);
 invariant(runtime.includes("PREFERENCES_CHANGED_EVENT"), "Preferences runtime must consume cross-window committed updates");
 invariant(!runtime.includes("setInterval("), "Preferences runtime must not poll");
+invariant(
+  rust.includes("let timer_position_sync_error =")
+    && rust.includes("if let Some(error) = timer_position_sync_error")
+    && rust.includes("The Timer restart setting was saved, but the current moved Timer position could not be saved")
+    && rust.indexOf("app_handle.emit(PREFERENCES_CHANGED_EVENT, committed.clone())")
+      < rust.indexOf("if let Some(error) = timer_position_sync_error"),
+  "Partial Timer retention sync failure must broadcast the committed preference and report a truthful error",
+);
+
 invariant(runtime.includes("setSnapshot(await getPreferenceSettings())"), "failed writes must refresh authoritative Preferences");
 
 invariant(
@@ -380,6 +450,19 @@ invariant(
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:ui-preferences"), "frontend preflight must include Preferences contracts");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:local-sound-catalog"), "frontend preflight must include local sound contracts");
 invariant(pkg.scripts["preflight:frontend"].includes("npm run test:est-title-parser"), "frontend preflight must include EST parser tests");
+
+const livePanelQuickSettings = await read("src/FocusQuickPreferences.tsx");
+invariant(
+  livePanelQuickSettings.includes('saveQuickPreferenceWithLivePlacement(')
+    && livePanelQuickSettings.includes('() => applyFocusSurfacePresentation("panel")')
+    && livePanelQuickSettings.includes('pendingKey={preferences.pendingKey ?? livePlacementKey}')
+    && livePanelQuickSettings.includes('error={livePlacementError ?? preferences.error}'),
+  "Focus Quick Preferences must await saved native Panel placement and surface its failure",
+);
+invariant(
+  pkg.scripts["preflight:frontend"].includes("npm run test:quick-preference-placement"),
+  "Frontend preflight must cover committed Quick Preferences native placement ordering",
+);
 
 await import("./test-sound-volume-escape-cancel.mjs");
 await import("./test-settings-initial-read-retry.mjs");

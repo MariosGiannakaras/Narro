@@ -268,6 +268,7 @@ pub struct TimerRuntime {
     closed_break_seconds: u64,
     last_state: TimerStateKind,
     last_checkpoint_ms: Option<u64>,
+    last_checkpoint_work_seconds: u64,
 }
 
 impl Default for TimerRuntime {
@@ -285,6 +286,7 @@ impl TimerRuntime {
             closed_break_seconds: 0,
             last_state: TimerStateKind::Idle,
             last_checkpoint_ms: None,
+            last_checkpoint_work_seconds: 0,
         }
     }
 
@@ -343,6 +345,7 @@ impl TimerRuntime {
                     closed_break_seconds,
                     last_state: snapshot.state,
                     last_checkpoint_ms: Some(now_ms),
+                    last_checkpoint_work_seconds: seconds(snapshot.work_elapsed_ms),
                 };
                 let normalized_payload = runtime.checkpoint_payload(now_ms)?;
                 checkpoint_open_session_with_runtime(
@@ -364,6 +367,12 @@ impl TimerRuntime {
 
     pub fn open_session_id(&self) -> Option<SessionId> {
         self.binding.as_ref().map(|binding| binding.id)
+    }
+
+    /// Raw work already represented by the durable checkpoint. Display-only
+    /// projections subtract this basis; they never add the whole runtime twice.
+    pub(crate) fn checkpointed_work_seconds(&self) -> u64 {
+        self.last_checkpoint_work_seconds
     }
 
     pub fn start_task(
@@ -389,6 +398,7 @@ impl TimerRuntime {
         self.closed_break_seconds = 0;
         self.last_state = snapshot.state;
         self.last_checkpoint_ms = Some(now_ms);
+        self.last_checkpoint_work_seconds = seconds(snapshot.work_elapsed_ms);
         Ok(self.runtime_snapshot(snapshot))
     }
 
@@ -588,6 +598,7 @@ impl TimerRuntime {
         self.engine = engine;
         self.last_state = next_timer.state;
         self.last_checkpoint_ms = Some(now_ms);
+        self.last_checkpoint_work_seconds = seconds(next_timer.work_elapsed_ms);
         Ok(LiveEstimateUpdate {
             runtime: self.runtime_snapshot(next_timer),
             task,
@@ -688,6 +699,7 @@ impl TimerRuntime {
         self.closed_break_seconds = 0;
         self.last_state = result.current.state;
         self.last_checkpoint_ms = Some(now_ms);
+        self.last_checkpoint_work_seconds = seconds(result.current.work_elapsed_ms);
 
         Ok(PersistedTimerSwitch {
             timer: result,
@@ -733,6 +745,7 @@ impl TimerRuntime {
         self.closed_break_seconds = 0;
         self.last_state = TimerStateKind::Idle;
         self.last_checkpoint_ms = None;
+        self.last_checkpoint_work_seconds = 0;
 
         Ok(PersistedTimerExit {
             timer: exit,
@@ -820,6 +833,7 @@ impl TimerRuntime {
         self.last_state = snapshot.state;
         if checkpoint_written {
             self.last_checkpoint_ms = Some(now_ms);
+            self.last_checkpoint_work_seconds = seconds(snapshot.work_elapsed_ms);
         }
         Ok(self.runtime_snapshot(snapshot))
     }

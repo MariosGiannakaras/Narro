@@ -15,6 +15,7 @@ const lib = read("src-tauri/src/lib.rs");
 const focusWebview = read("src-tauri/src/focus_webview.rs");
 const cargoToml = read("src-tauri/Cargo.toml");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+const floatingTimer = read("src/FloatingTimerFoundation.tsx");
 const coordinatorCss = read("src/focusSurfaceCoordinator.css");
 const focusEntry = read("src/focus.tsx");
 const focusDocumentCss = read("src/focusDocument.css");
@@ -111,12 +112,13 @@ invariant(
 );
 invariant(
   coordinator.includes("completionSuccess !== null || hasActiveModalShortcutBoundary()")
-    && coordinator.includes("[presentationHydrated, timerResizePending, completionSuccess]"),
+    && coordinator.includes("if (transitionGateRef.current || timerResizePendingRef.current)")
+    && coordinator.includes("[presentationHydrated, completionSuccess]"),
   "B63 inline success must block new global quick-task shortcuts until next/close",
 );
 invariant(
   coordinator.includes("inert={!panelActive || transitionPending}")
-    && coordinator.includes("inert={!timerActive || transitionPending || completionSuccess !== null}")
+    && coordinator.includes("inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}")
     && coordinator.includes("completionSuccessContent={inlineSuccess && completionSuccess ? (")
     && coordinatorCss.includes('data-focus-visibility="preparing"')
     && coordinatorCss.includes("pointer-events: none"),
@@ -126,11 +128,11 @@ invariant(
   coordinator.includes("animateNativePresentation: (next) =>")
     && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!)")
     && coordinator.includes("runConcurrentMotion: () =>")
-    && coordinator.includes("runGeometryMotion(previousPresentation, targetPresentation, motionDurationMs)")
+    && coordinator.includes("runGeometryMotion(previousPresentation, targetPresentation)")
     && transition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
     && transition.includes("runConcurrentMotion?: () => Promise<void>")
-    && coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
-    && coordinatorCss.includes("--focus-geometry-motion-duration: 250ms")
+    && coordinator.includes("motionV4Duration(")
+    && coordinatorCss.includes("--focus-geometry-motion-duration: 500ms")
     && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
     && coordinator.includes("prepareFocusSurfaceModeRaster(targetPresentation)"),
   "Panel/Timer transition must run finite native position and same-WebView geometry motion concurrently",
@@ -162,7 +164,14 @@ invariant(
     && animatedNativeCommit.includes("std::time::Instant::now()")
     && animatedNativeCommit.includes("deadline.checked_sub(started.elapsed())")
     && animatedNativeCommit.includes("fluent_point_to_point_easing(elapsed)")
-    && animatedNativeCommit.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
+    && lib.includes("fn focus_motion_v4_easing(progress: f64)")
+    && lib.includes("focus_motion_v4_raster::compose_panel(")
+    && /render_mode_raster_frame\(\s*&window,\s*lease,\s*&incoming,\s*progress,\s*Some\(GeometryPoint/.test(animatedNativeCommit)
+    && lib.includes("lease.hold.replace_transition_frame_at(")
+    && frameHold.includes("BeginDeferWindowPos(2)")
+    && frameHold.includes("EndDeferWindowPos(batch)")
+    && frameHold.includes("if moved {")
+    && frameHold.includes("crate::focus_webview::notify_parent_position_changed(&self.window)")
     && !animatedNativeCommit.includes("focus_frame_hold::clear")
     && !animatedNativeCommit.includes("apply_focus_native_target"),
   "one measured finite timeline must own native movement, complete content and visible envelope without clearing protection",
@@ -189,8 +198,20 @@ invariant(
     && finishRaster.includes("lease.token != raster_token")
     && frameHold.indexOf("image.bitmap = bitmap") < frameHold.indexOf("crate::timer_region::apply_native_rect(parent, visible, false)?")
     && region.includes("actual_win32_region_is_exact_and_identical_requests_do_not_replace_it")
-    && frameHold.includes("begin_with_lifetime(window, visible, png, 8_000)"),
+    && frameHold.includes("begin_with_lifetime(window, visible, png, 8_000, true)")
+    && frameHold.includes("begin_with_lifetime(window, visible, png, HOLD_MS, false)"),
   "release must follow renderer paint and validated final DPI capture; stale release is rejected, rollback is protected, GDI content precedes parent exposure and watchdog remains bounded",
+);
+invariant(
+  frameHold.includes('const MODE_CLASS: &str = "NarroFocusTransitionFrame";')
+    && frameHold.includes("if overlay { 0x080800a0 } else { 4 }")
+    && frameHold.includes("if overlay { 0x80000000 } else { 0x44000000 }")
+    && frameHold.includes("GetWindow(found, 4)")
+    && frameHold.includes("owned.is_none_or(|id| found as usize == id)")
+    && frameHold.includes("mode_raster_is_owned_nonactivating_popup_and_region_hold_stays_child")
+    && frameHold.includes("paired_host_overlay_move_preserves_negative_screen_origin_and_extent")
+    && frameHold.includes("expired_or_other_owner_raster_is_never_selected_for_cleanup"),
+  "mode prepaint must be covered above WebView composition by an exact-owned nonactivating popup; regular region holds stay children and native regression cases remain present",
 );
 invariant(
   placement.includes("pub(crate) fn planned_timer_position(")
@@ -232,3 +253,16 @@ invariant(
 );
 
 console.log("Single-host Focus presentation transition contracts passed.");
+
+invariant(
+  coordinator.includes("inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}")
+    && floatingTimer.includes("restoreResizeTriggerFocus")
+    && floatingTimer.includes('document.activeElement.dataset.floatingSubtaskControl === "expand"')
+    && floatingTimer.includes("!document.hasFocus()")
+    && floatingTimer.includes('!trigger.closest("[inert]")')
+    && floatingTimer.includes('trigger.focus({ preventScroll: true })')
+    && floatingTimer.includes('document.activeElement !== document.body')
+    && floatingTimer.includes('document.activeElement !== document.documentElement')
+    && coordinator.includes('onResizePendingChange={setTimerResizeBusy}'),
+  "native Timer resize must restore only the initiating keyboard control after the inert boundary clears",
+);

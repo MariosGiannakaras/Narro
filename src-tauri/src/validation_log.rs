@@ -596,6 +596,7 @@ pub fn record_tray_quit_completed(
     if !enabled() {
         return;
     }
+    let restart_retention = crate::floating_placement::remember_position_after_restart(app_handle);
     record_event(
         app_handle,
         "tray-quit-placement-save-complete",
@@ -613,6 +614,28 @@ pub fn record_tray_quit_completed(
     let Ok(mut state) = lock.lock() else {
         return;
     };
+    // C5 tests the optional cross-process placement contract, not ordinary
+    // in-process drag retention. Never report a false FAIL for the default
+    // session-only setting, and never certify an unexecuted C5 as PASS.
+    if !matches!(restart_retention, Ok(true)) {
+        write_result(
+            &state,
+            if restart_retention.is_ok() {
+                "NOT_RUN"
+            } else {
+                "INCONCLUSIVE"
+            },
+            if restart_retention.is_ok() {
+                "cross-restart-placement-disabled-by-preference"
+            } else {
+                "could-not-read-timer-restart-preference"
+            },
+            json!({ "restartPreference": restart_retention.ok(), "saveError": save_error }),
+        );
+        state.pending = None;
+        let _ = fs::remove_file(state.root.join("pending-c5.json"));
+        return;
+    }
     let max_distance = integer_sqrt(state.max_move_distance_sq) as u64;
     let qualifying_move = max_distance >= QUALIFYING_MOVE_PX as u64;
 
@@ -679,6 +702,7 @@ pub fn record_timer_restore(
     if !enabled() {
         return;
     }
+    let restart_retention = crate::floating_placement::remember_position_after_restart(app_handle);
     record_event(
         app_handle,
         "timer-placement-restored",
@@ -699,6 +723,24 @@ pub fn record_timer_restore(
         return;
     };
     if state.restore_evaluated {
+        return;
+    }
+    if !matches!(restart_retention, Ok(true)) {
+        if state.pending.is_some() {
+            write_result(
+                &state,
+                if restart_retention.is_ok() {
+                    "NOT_RUN"
+                } else {
+                    "INCONCLUSIVE"
+                },
+                "cross-restart-placement-validation-not-applicable-to-current-policy",
+                json!({ "restartPreference": restart_retention.ok() }),
+            );
+            state.pending = None;
+            let _ = fs::remove_file(state.root.join("pending-c5.json"));
+        }
+        state.restore_evaluated = true;
         return;
     }
     let Some(pending) = state.pending.clone() else {

@@ -3,6 +3,10 @@ use crate::domain::tasks::SetTaskTimeTakenInput;
 use crate::domain::timer_events::{TimerSessionChange, TimerSessionPayload};
 use crate::persistence::live_completion::LiveTaskCompletionError;
 use crate::persistence::live_time_taken::LiveTimeTakenError;
+use crate::persistence::live_time_taken_projection::{
+    BasisKey, TimeTakenInvalidation, TimeTakenProjectionCache,
+};
+use crate::persistence::task_metadata::task_time_taken_seconds;
 use crate::timer::runtime::{
     LiveEstimateEditError, LiveEstimateEditInput, TimerRuntime, TimerRuntimeError,
     TimerRuntimeSnapshot,
@@ -75,6 +79,9 @@ pub struct TimerController {
     runtime: TimerRuntime,
     revision: u64,
     published_runtime: TimerRuntimeSnapshot,
+    time_taken_cache: TimeTakenProjectionCache,
+    time_taken_invalidation: TimeTakenInvalidation,
+    time_taken_history_dirty: bool,
 }
 
 impl TimerController {
@@ -85,12 +92,17 @@ impl TimerController {
     ) -> Result<Self, TimerControllerError> {
         let runtime = TimerRuntime::recover(&mut connection, now_ms, wall_time)?;
         let published_runtime = runtime.snapshot(now_ms)?;
-        Ok(Self {
+        let mut controller = Self {
             connection,
             runtime,
             revision: 0,
             published_runtime,
-        })
+            time_taken_cache: TimeTakenProjectionCache::default(),
+            time_taken_invalidation: TimeTakenInvalidation::default(),
+            time_taken_history_dirty: false,
+        };
+        controller.refresh_time_taken_basis();
+        Ok(controller)
     }
 
     /// Return the last Rust-observed, persistence-coherent projection.
@@ -98,7 +110,61 @@ impl TimerController {
     /// This deliberately does not advance the timer from renderer-provided time. Automatic timer
     /// boundaries are applied by `advance`, then published. Renderers remain presentation-only.
     pub fn snapshot(&self) -> TimerSessionPayload {
-        TimerSessionPayload::snapshot(self.revision, self.published_runtime.clone())
+        self.with_live_time_taken(TimerSessionPayload::snapshot(
+            self.revision,
+            self.published_runtime.clone(),
+        ))
+    }
+
+    pub(crate) fn time_taken_invalidator(&self) -> TimeTakenInvalidation {
+        self.time_taken_invalidation.clone()
+    }
+
+    pub(crate) fn pending_time_taken_history_projection(&self) -> Option<TimerSessionPayload> {
+        self.time_taken_history_dirty.then(|| self.snapshot())
+    }
+
+    pub(crate) fn acknowledge_time_taken_history_projection(&mut self) {
+        self.time_taken_history_dirty = false;
+    }
+
+    fn time_taken_basis_key(&self) -> Option<BasisKey> {
+        Some(BasisKey {
+            task_id: self.published_runtime.timer.task_id?,
+            session_id: self.published_runtime.open_session_id,
+            timer_revision: self.revision,
+            checkpoint_work_seconds: self.runtime.checkpointed_work_seconds(),
+            history_revision: self.time_taken_invalidation.revision(),
+        })
+    }
+
+    /// Refresh only on a committed boundary/history invalidation/checkpoint.
+    /// A read failure belongs to the display projection, never rolls back a
+    /// successful Timer mutation, and is retried on the next changed basis.
+    fn refresh_time_taken_basis(&mut self) {
+        let key = self.time_taken_basis_key();
+        if let Some(key) = key {
+            self.time_taken_history_dirty |= self
+                .time_taken_cache
+                .history_revision()
+                .is_some_and(|previous| previous != key.history_revision);
+        } else {
+            self.time_taken_history_dirty = false;
+        }
+        let connection = &self.connection;
+        self.time_taken_cache.refresh(key, || {
+            let key = key.ok_or("LIVE_TIME_TAKEN_UNAVAILABLE")?;
+            task_time_taken_seconds(connection, key.task_id)
+                .map_err(|_| "LIVE_TIME_TAKEN_UNAVAILABLE")
+        });
+    }
+
+    fn with_live_time_taken(&self, mut payload: TimerSessionPayload) -> TimerSessionPayload {
+        payload.live_time_taken = self.time_taken_cache.project(
+            self.time_taken_basis_key(),
+            payload.runtime.timer.work_elapsed_ms / 1_000,
+        );
+        payload
     }
 
     /// Force the already-authoritative runtime projection through the durable session/checkpoint
@@ -113,6 +179,7 @@ impl TimerController {
             .runtime
             .checkpoint(&mut self.connection, now_ms, wall_time)?;
         self.published_runtime = runtime;
+        self.refresh_time_taken_basis();
         Ok(())
     }
 
@@ -155,6 +222,7 @@ impl TimerController {
             || before.open_session_id != after.open_session_id;
         if !boundary_changed {
             self.published_runtime = after;
+            self.refresh_time_taken_basis();
             return Ok(None);
         }
 
@@ -400,7 +468,10 @@ impl TimerController {
             && before.open_session_id == after.open_session_id
         {
             self.published_runtime = after.clone();
-            return Ok(TimerSessionPayload::snapshot(self.revision, after));
+            self.refresh_time_taken_basis();
+            return Ok(
+                self.with_live_time_taken(TimerSessionPayload::snapshot(self.revision, after))
+            );
         }
         Ok(self.publish(next_revision, after, change))
     }
@@ -453,7 +524,11 @@ impl TimerController {
     ) -> TimerSessionPayload {
         self.revision = revision;
         self.published_runtime = runtime.clone();
-        TimerSessionPayload::changed(revision, runtime, change)
+        self.refresh_time_taken_basis();
+        // A semantic payload already carries this refreshed display basis to
+        // all subscribers. Ordinary advances/checkpoints keep the receipt dirty.
+        self.acknowledge_time_taken_history_projection();
+        self.with_live_time_taken(TimerSessionPayload::changed(revision, runtime, change))
     }
 }
 
@@ -479,6 +554,254 @@ mod tests {
     const T0: &str = "2026-09-05T12:00:00Z";
     const T1: &str = "2026-09-05T12:01:00Z";
     const T2: &str = "2026-09-05T12:02:00Z";
+
+    fn displayed_taken(controller: &TimerController) -> String {
+        controller
+            .snapshot()
+            .live_time_taken
+            .expect("active native projection")
+            .seconds
+            .expect("valid display basis")
+    }
+
+    #[test]
+    fn live_taken_advances_without_adding_checkpoints_twice_or_losing_history() {
+        let (mut conn, _, task, _) = fixture();
+        crate::persistence::sessions::create_manual_work_session(
+            &mut conn,
+            task,
+            "2026-09-05T11:58:00Z",
+            T0,
+            90,
+            T0,
+        )
+        .unwrap();
+        let mut c = TimerController::recover(conn, 0, T0).unwrap();
+        c.start_task(task, TimerMode::CountUp, 0, T0).unwrap();
+        assert_eq!(displayed_taken(&c), "90");
+        for (ms, total) in [
+            (999, "90"),
+            (1000, "91"),
+            (29999, "119"),
+            (30000, "120"),
+            (50000, "140"),
+        ] {
+            c.advance(ms, T1).unwrap();
+            assert_eq!(displayed_taken(&c), total);
+        }
+        c.checkpoint(50000, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "140");
+        c.advance(51000, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "141");
+    }
+
+    #[test]
+    fn live_taken_manual_rebase_break_pause_and_recovery_keep_the_native_basis() {
+        let (conn, _, task, _) = fixture();
+        let mut c = TimerController::recover(conn, 0, T0).unwrap();
+        c.start_task(task, TimerMode::CountUp, 0, T0).unwrap();
+        c.pause(50000, T1).unwrap();
+        c.set_time_taken_while_paused(
+            task,
+            50,
+            SetTaskTimeTakenInput { total_seconds: 5 },
+            50000,
+            T1,
+        )
+        .unwrap();
+        assert_eq!(displayed_taken(&c), "5");
+        c.resume(60000, T1).unwrap();
+        c.advance(61000, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "6");
+        c.start_manual_break(60000, 62000, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "7");
+        c.advance(70000, T2).unwrap();
+        assert_eq!(displayed_taken(&c), "7");
+        c.skip_break(71000, T2).unwrap();
+        assert_eq!(c.snapshot().runtime.timer.state, TimerStateKind::Paused);
+        c.advance(72000, T2).unwrap();
+        assert_eq!(displayed_taken(&c), "7");
+        c.resume(72000, T2).unwrap();
+        c.advance(73000, T2).unwrap();
+        assert_eq!(displayed_taken(&c), "8");
+        c.pause(73000, T2).unwrap();
+        let mut recovered = TimerController::recover(c.connection, 0, T2).unwrap();
+        assert_eq!(displayed_taken(&recovered), "8");
+        recovered.advance(100000, T2).unwrap();
+        assert_eq!(displayed_taken(&recovered), "8");
+        recovered.resume(100000, T2).unwrap();
+        recovered.advance(101000, T2).unwrap();
+        assert_eq!(displayed_taken(&recovered), "9");
+    }
+
+    #[test]
+    fn external_history_invalidates_only_after_commit_and_never_polls_on_snapshot() {
+        let (conn, _, task, _) = fixture();
+        let mut c = TimerController::recover(conn, 0, T0).unwrap();
+        c.start_task(task, TimerMode::CountUp, 0, T0).unwrap();
+        c.advance(1000, T0).unwrap();
+        let changed = c.time_taken_invalidator();
+        let manual = crate::persistence::sessions::create_manual_work_session(
+            &mut c.connection,
+            task,
+            "2026-09-05T11:58:00Z",
+            T0,
+            90,
+            T0,
+        )
+        .unwrap();
+        changed.invalidate();
+        assert!(c.snapshot().live_time_taken.unwrap().seconds.is_none());
+        c.advance(2000, T0).unwrap();
+        assert_eq!(displayed_taken(&c), "92");
+        crate::persistence::sessions::edit_closed_session_if_expected(
+            &mut c.connection,
+            manual.id,
+            T0,
+            "2026-09-05T11:58:00Z",
+            T0,
+            60,
+            T1,
+        )
+        .unwrap();
+        changed.invalidate();
+        c.advance(2250, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "62");
+        crate::persistence::sessions::delete_closed_session_if_expected(
+            &mut c.connection,
+            manual.id,
+            T1,
+        )
+        .unwrap();
+        changed.invalidate();
+        c.advance(2500, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "2");
+        // Renaming the table makes any accidental hot snapshot query fail.
+        c.connection
+            .execute_batch("ALTER TABLE sessions RENAME TO projection_unavailable_sessions;")
+            .unwrap();
+        for _ in 0..20 {
+            assert_eq!(displayed_taken(&c), "2");
+        }
+        c.advance(3000, T0).unwrap();
+        assert_eq!(displayed_taken(&c), "3");
+        changed.invalidate();
+        c.advance(4000, T0).unwrap();
+        let p = c.snapshot();
+        assert_eq!(p.runtime.timer.state, TimerStateKind::Running);
+        assert_eq!(
+            p.live_time_taken.unwrap().error.as_deref(),
+            Some("LIVE_TIME_TAKEN_UNAVAILABLE")
+        );
+    }
+
+    #[test]
+    fn task_switch_completion_and_rejected_rebase_do_not_alias_the_display_total() {
+        let (conn, _, first, second) = fixture();
+        let mut c = TimerController::recover(conn, 0, T0).unwrap();
+        c.start_task(first, TimerMode::CountUp, 0, T0).unwrap();
+        c.advance(1200, T0).unwrap();
+        c.switch_task(second, TimerMode::EstCountdown { est_ms: 2000 }, 1200, T0)
+            .unwrap();
+        assert_eq!(displayed_taken(&c), "0");
+        c.advance(3200, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "2");
+        c.extend(3200, T1).unwrap();
+        c.advance(4200, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "3");
+        c.pause(4200, T1).unwrap();
+        let before = c.snapshot();
+        assert!(c
+            .set_time_taken_while_paused(
+                first,
+                3,
+                SetTaskTimeTakenInput { total_seconds: 5 },
+                4200,
+                T1
+            )
+            .is_err());
+        assert_eq!(c.snapshot(), before);
+        c.complete_task(4200, T1).unwrap();
+        assert!(c.snapshot().live_time_taken.is_none());
+        assert_eq!(task_time_taken_seconds(&c.connection, second).unwrap(), 3);
+    }
+
+    #[test]
+    fn pomodoro_boundaries_never_add_break_time_or_duplicate_closed_work() {
+        let (conn, _, task, _) = fixture();
+        let mut c = TimerController::recover(conn, 0, T0).unwrap();
+        c.start_task(
+            task,
+            TimerMode::Pomodoro {
+                work_ms: 2000,
+                break_ms: 1000,
+            },
+            0,
+            T0,
+        )
+        .unwrap();
+        for (ms, total) in [
+            (1000, "1"),
+            (2000, "2"),
+            (2500, "2"),
+            (3000, "2"),
+            (4000, "2"),
+        ] {
+            c.advance(ms, T1).unwrap();
+            assert_eq!(displayed_taken(&c), total);
+        }
+        assert_eq!(c.snapshot().runtime.timer.state, TimerStateKind::Paused);
+        c.resume(4000, T1).unwrap();
+        c.advance(5000, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "3");
+        c.advance(6000, T1).unwrap();
+        assert_eq!(displayed_taken(&c), "4");
+        assert_eq!(c.snapshot().runtime.timer.state, TimerStateKind::Break);
+    }
+
+    #[test]
+    fn paused_history_refresh_is_publishable_once_without_a_timer_transition() {
+        let (conn, _, task, _) = fixture();
+        let mut c = TimerController::recover(conn, 0, T0).unwrap();
+        c.start_task(task, TimerMode::CountUp, 0, T0).unwrap();
+        c.pause(1500, T1).unwrap();
+        let before = c.snapshot();
+        crate::persistence::sessions::create_manual_work_session(
+            &mut c.connection,
+            task,
+            "2026-09-05T11:58:00Z",
+            T0,
+            90,
+            T1,
+        )
+        .unwrap();
+        c.time_taken_invalidator().invalidate();
+        // Even an explicit checkpoint consuming the refresh must retain the
+        // publication receipt: paused renderers deliberately do not poll.
+        c.checkpoint(2000, T1).unwrap();
+        assert!(c.advance(3000, T1).unwrap().is_none());
+        let event = c.pending_time_taken_history_projection().unwrap();
+        assert_eq!(event.revision, before.revision);
+        assert_eq!(event.runtime, before.runtime);
+        assert!(event.change.is_none());
+        assert_eq!(
+            event.live_time_taken.unwrap().seconds.as_deref(),
+            Some("91")
+        );
+        c.acknowledge_time_taken_history_projection();
+        c.advance(4000, T1).unwrap();
+        assert!(c.pending_time_taken_history_projection().is_none());
+
+        c.time_taken_invalidator().invalidate();
+        c.advance(5000, T1).unwrap();
+        assert!(c.pending_time_taken_history_projection().is_some());
+        let resumed = c.resume(5000, T1).unwrap();
+        assert_eq!(
+            resumed.live_time_taken.unwrap().seconds.as_deref(),
+            Some("91")
+        );
+        assert!(c.pending_time_taken_history_projection().is_none());
+    }
 
     fn fixture() -> (Connection, ListId, TaskId, TaskId) {
         let mut connection = Connection::open_in_memory().unwrap();

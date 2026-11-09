@@ -90,8 +90,8 @@ const requestExpanded = slice(foundation, "const requestExpanded = async", "cons
 const expandBranch = slice(requestExpanded, "if (nextExpanded) {", "} else {");
 const collapseBranch = slice(requestExpanded, "} else {", "return true;");
 invariant(
-  expandBranch.indexOf("setExpanded(true)") < expandBranch.indexOf("await waitForPresentedFrame()")
-    && expandBranch.indexOf("await waitForPresentedFrame()") < expandBranch.indexOf("onRequestExpanded"),
+  expandBranch.indexOf("setExpanded(true)") < expandBranch.indexOf("await waitForPresentedFrameOrThrow()")
+    && expandBranch.indexOf("await waitForPresentedFrameOrThrow()") < expandBranch.indexOf("onRequestExpanded"),
   "expanded React content must prepaint before native region exposure",
 );
 invariant(
@@ -112,7 +112,7 @@ invariant(
   "collapse must finish finite same-WebView geometry contraction before native clipping",
 );
 const collapseClip = collapseBranch.indexOf('setResizePhase("clipping")');
-const collapsePresented = collapseBranch.indexOf("await waitForPresentedFrame()", collapseClip);
+const collapsePresented = collapseBranch.indexOf("await waitForPresentedFrameOrThrow()", collapseClip);
 const collapseNativeCommit = collapseBranch.indexOf("onRequestExpanded", collapseClip);
 invariant(
   collapseClip >= 0

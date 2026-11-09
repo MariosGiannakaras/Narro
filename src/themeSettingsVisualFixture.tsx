@@ -61,6 +61,7 @@ const preferenceSnapshot: PreferenceSettingsSnapshot = {
   general: {
     selectedMonitorKey: "fixture-monitor-secondary",
     focusPanelSide: "right",
+    rememberTimerPositionOnRestart: false,
     openOnLogin: true,
     autostartEnabled: true,
     hideTaskTimes: true,
@@ -109,7 +110,8 @@ const preferenceMonitors: MonitorDescriptor[] = [
   {
     key: "fixture-monitor-secondary",
     index: 1,
-    name: "Secondary display",
+    name: String.raw`\\.\DISPLAY2`,
+    friendlyName: "LG UltraFine 27UP850K",
     scaleFactor: 1.25,
     position: { x: 1920, y: 0 },
     size: { width: 2560, height: 1440 },

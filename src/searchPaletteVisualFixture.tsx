@@ -132,10 +132,19 @@ requestAnimationFrame(() => requestAnimationFrame(() => {
   const upperPlacementPass = innerWidth <= 576 || innerHeight < 600
     || paletteRect.top >= 20 && paletteRect.top < innerHeight * 0.35;
   const quickHeadingCasePass = !actionsHeading || getComputedStyle(actionsHeading).textTransform === 'none';
-  const boxedActionGlyphsPass = actionIcons.length === 0 || actionIcons.length === 3 && Array.from(actionIcons).every(icon =>
-    icon.querySelector('svg') && getComputedStyle(icon).backgroundColor !== 'rgba(0, 0, 0, 0)');
+  // This is the current Search design: three visible accent glyphs without the
+  // former opaque icon boxes, each inside a separately outlined action row.
+  const unboxedActionGlyphsPass = actionIcons.length === 0 || actionIcons.length === 3 && Array.from(actionIcons).every(icon => {
+    const option = icon.closest<HTMLElement>('.search-palette__option');
+    const iconStyle = getComputedStyle(icon);
+    const optionStyle = option ? getComputedStyle(option) : null;
+    return Boolean(icon.querySelector('svg'))
+      && iconStyle.backgroundColor === 'rgba(0, 0, 0, 0)'
+      && Boolean(optionStyle && optionStyle.borderTopWidth !== '0px' && optionStyle.borderTopStyle === 'solid')
+      && Boolean(optionStyle && iconStyle.color !== optionStyle.color);
+  });
   contract.textContent = JSON.stringify({ mode, theme, viewport: window.innerWidth, layoutPass, horizontal, geometry,
-    viewportContainmentPass, upperPlacementPass, quickHeadingCasePass, boxedActionGlyphsPass,
+    viewportContainmentPass, upperPlacementPass, quickHeadingCasePass, unboxedActionGlyphsPass,
     paletteGeometry: paletteRect.toJSON() });
   document.body.appendChild(contract);
   document.documentElement.dataset.searchPaletteFixtureReady = "true";
