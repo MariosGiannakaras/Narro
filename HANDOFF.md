@@ -1,6 +1,28 @@
-# HANDOFF - source and workflow audits complete; source correction next
+# HANDOFF - pre-physical D01-D05 source correction PR499; exact-head Windows gate pending
 
-## NOW - Codex / 2026-11-08 / DONE source + workflow audits; affected source claims OPEN
+## NOW - ChatGPT source owner / 2026-11-09 / correction PR499 open, technical acceptance NOT YET PASS
+
+The user's latest request requires deep logical/programmatic review where genuinely unfinished, then a batch of scoped pre-physical corrections. The [2026-11-08 D01-D05 evidence review](docs/OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) supplied actual callback/SQLite/watchdog witnesses; this source session inspected their real owners and implemented a bounded corrective patch rather than replaying completed Blitzit research or accepted M1-M4 work.
+
+- **Current active correction PR:** [#499](https://github.com/MariosGiannakaras/Narro/pull/499), **DRAFT / OPEN / UNMERGED**, branch `fix/prephysical-d01-d05-20261109`, descending from held default [#437](https://github.com/MariosGiannakaras/Narro/pull/437) source `ccdd993ca9808e36f0c23e626dbcc4eea62e9a49`. PR499 targets main for the required CI trigger only: it does not supersede/authorize merging PR437 or any independently held comparator.
+- **Exact application candidate SHA:** `ae0447c4bebd49215f0c49eb8cd9acf0db8fc80c`. **Exact CI:** [run 42632330444](https://github.com/MariosGiannakaras/Narro/actions/runs/42632330444) validation-gate **SUCCESS**, fast-gate **SUCCESS**, Windows-candidate **RUNNING** at this handoff update. Earlier attempts failed on first reported test-harness/source contract or rustfmt guard, were corrected on successive SHAs, and remain historical FAIL. Do not infer Windows PASS or native acceptance from this checkpoint.
+- **D01/M8:** provider save/initial/recovery/event freshness and disposal guards; Rust process-local commit revision serialized by the Preferences gate, added as a typed snapshot field without a database schema change. New real-provider order/disposal tests. A/B comparator binaries not modified.
+- **D02/M5:** List editor synchronous upload-validation/selection owner and Save guard; new actual-handler deferred PNG, older/newer, invalid/newer, builtin cancellation, disposal and blob URL tests. The protected Spectrum picker, image upload and218 builtin icons were not redesigned.
+- **D03/M7:** reconcile existing A/B off-UI-thread presentation-busy watchdog retry and its Rust tests into default. Do not attribute the historical poison first cause to this fix.
+- **D04/M9:** existing blocking-read and manual-write worker boundaries now wrap Reports reads, Focus Break read, CSV/PDF file output and Edit/Delete CAS operations; preserve transaction/error/post-commit invalidation. New command contracts; actual native window contention input remains NOT RUN.
+- **D05/M9:** CRLF-safe real Reports callback extraction with a CRLF equivalence regression. Affected M6/Reports source contracts were updated to require, not bypass, the new async signatures.
+- **Validation boundaries:** preflight and frontend production build passed on the prior source head; current exact-head validation/fast passed. **Windows candidate, live lock/contention behavior, continuous video/logs/PTS, real native movement/compositor, source pixels and PA-01–09 are NOT RUN / PENDING as applicable**. No newly corrected EXE has been physically accepted. M5–M9's 59 documentary rows remain OPEN; M10 requires later user approval; M11/M12 remain dormant.
+
+## NEXT - same source owner, no new branch
+
+Observe run **42632330444** at `ae0447c4` (or verify its actual status if interrupted). On Windows PASS, preserve exact-head/build identity and run the required source-specific pre-physical evidence review/physical dependency gates; on FAIL, inspect the first failing Windows job step/log, classify and correct only the demonstrated cause, then require a new head/run. Maintain PR499 as a held descendant of437; never merge it or437 around independent physical-before-merge holds. Unaffected dependency-ready physical acquisition remains authorized but requires the actual Windows operator/hardware/session evidence, not repository CI. No frame-by-frame capture or native log packet has been made available in this repository-only source session.
+
+---
+
+## Previous audit snapshot — 2026-11-08 (historical context)
+
+
+## Completed audit - Codex / 2026-11-08 / DONE source + workflow audits; affected source claims OPEN
 
 The user requested the deepest practical logical/programming review of unfinished work, excluding completed scopes. [Open M5-M9 deep review](docs/OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) records the actual source-bound witnesses, coverage and limits. It supersedes the earlier blanket no-known-code-task/all-physical-ready claim only for the affected open criteria. Package identity, earlier source CI and completed F01-F06 corrections remain valid within their own scope.
 
@@ -14,7 +36,7 @@ The user requested the deepest practical logical/programming review of unfinishe
 
 All original milestone checkbox states and59 M5-M9 acceptance rows remain unchanged. No new native/source-parity PASS, M10 approval or M11/M12 activation. [Current closure route](docs/M1_M12_CLOSURE_MAP.md) and TODO still own the existing requirement sequence.
 
-## NEXT - existing source owner, narrow correction and verification
+## Previous next operation - now implemented in held PR499, awaiting exact-head validation
 
 First correct D01/D02 and reconcile the already-authored D03 contention recovery into the existing default source. Add meaningful negative/order/disposal/expiry tests and the necessary D05 portability guard in one dependency-safe source/test batch. Resolve D04 for its affected M9 scope under NER-007 using command-level contention/input evidence; preserve the existing CAS/PP44-F01 transaction/accounting fixes. Do not restart completed M1-M4, original Blitzit research or the closed F01-F06 work.
 
