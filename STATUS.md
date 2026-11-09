@@ -1,6 +1,8 @@
-# STATUS - source and workflow audits reconciled, 2026-11-08
+# STATUS - D01-D05 pre-physical corrections in PR499, 2026-11-09
 
 [HANDOFF](HANDOFF.md) owns current operation/source identities; [TODO](TODO.md) preserves every original milestone checkbox and the [closure map](docs/M1_M12_CLOSURE_MAP.md) preserves sequencing.
+
+**Active corrective source stack (2026-11-09):** [draft PR499](https://github.com/MariosGiannakaras/Narro/pull/499) descends from held437 and implements D01–D05 with additional real-handler/ordering tests. Candidate `ae0447c4bebd49215f0c49eb8cd9acf0db8fc80c`: [CI42632330444](https://github.com/MariosGiannakaras/Narro/actions/runs/42632330444) validation/fast SUCCESS, Windows candidate RUNNING at this update; earlier failed attempts are not PASS. Old437/A389/B419 binaries remain unchanged and must not inherit corrected-source acceptance. No fresh Windows capture, full logs/video/PTS, frame-by-frame native review or physical M5-M9 PASS was produced in this source session. The59 acceptance rows, six held source PRs, independent A/B strict8/8, M10 review approval and optional M11/M12 activation remain OPEN/unchanged. See HANDOFF for sole next action.
 
 The [deep review of unfinished work](docs/OPEN_M5_M9_DEEP_REVIEW_2026-11-08.md) is complete. Actual callback probes reproduced D01 stale Preferences save/recovery publication and D02 upload-selection/Save races. D03 identifies missing default watchdog recovery already implemented/tested in A/B. D04 reconciles existing NER-007's remaining Reports executor boundary; D05 records a CRLF-only test failure and the exact-text passing control. Native fault execution remains NOT RUN.
 
