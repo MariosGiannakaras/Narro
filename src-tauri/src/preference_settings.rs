@@ -5,11 +5,15 @@ use crate::persistence;
 use crate::persistence::preferences::{initialize_preferences, mutate_preferences};
 use serde::{Deserialize, Serialize};
 use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Mutex;
 use tauri::{Emitter, Manager};
 
 pub const PREFERENCES_CHANGED_EVENT: &str = "preferences-changed";
 static PREFERENCES_GATE: Mutex<()> = Mutex::new(());
+// Process-local commit order for events and snapshots; not a DB schema version.
+// Every read takes PREFERENCES_GATE to pair the loaded record with its epoch.
+static PREFERENCES_COMMIT_REVISION: AtomicU64 = AtomicU64::new(0);
 
 #[derive(Debug, Clone, Serialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
@@ -63,6 +67,7 @@ pub struct CelebrationSettingsSnapshot {
 #[serde(rename_all = "camelCase")]
 pub struct PreferenceSettingsSnapshot {
     pub schema_version: u32,
+    pub commit_revision: String,
     pub general: GeneralSettingsSnapshot,
     pub focus: FocusSettingsSnapshot,
     pub alerts: AlertSettingsSnapshot,
@@ -304,9 +309,11 @@ fn snapshot(
     schema_version: u32,
     payload: PreferencesPayload,
     autostart_enabled: bool,
+    commit_revision: u64,
 ) -> PreferenceSettingsSnapshot {
     PreferenceSettingsSnapshot {
         schema_version,
+        commit_revision: commit_revision.to_string(),
         general: GeneralSettingsSnapshot {
             selected_monitor_key: payload.general.selected_monitor_key,
             focus_panel_side: match payload.general.focus_panel_side {
@@ -369,11 +376,15 @@ fn load_record(
 pub fn get_preference_settings(
     app_handle: tauri::AppHandle,
 ) -> CommandResult<PreferenceSettingsSnapshot> {
+    let _gate = PREFERENCES_GATE
+        .lock()
+        .map_err(|_| preference_error("Preferences mutation lock is poisoned"))?;
     let (record, autostart_enabled) = load_record(&app_handle)?;
     Ok(snapshot(
         record.schema_version,
         record.payload,
         autostart_enabled,
+        PREFERENCES_COMMIT_REVISION.load(Ordering::SeqCst),
     ))
 }
 
@@ -429,6 +440,9 @@ pub fn update_preference_settings(
         }
     };
 
+    // The DB commit already succeeded, even if later OS verification or Timer
+    // position sync fails and the caller must receive a partial-save error.
+    let commit_revision = PREFERENCES_COMMIT_REVISION.fetch_add(1, Ordering::SeqCst) + 1;
     let observed_autostart = autostart::status(&app_handle)?.enabled;
     if record.payload.general.open_on_login != observed_autostart {
         return Err(preference_error(
@@ -436,7 +450,12 @@ pub fn update_preference_settings(
         ));
     }
 
-    let committed = snapshot(record.schema_version, record.payload, observed_autostart);
+    let committed = snapshot(
+        record.schema_version,
+        record.payload,
+        observed_autostart,
+        commit_revision,
+    );
     let timer_position_sync_error =
         if prepared.patch.remember_timer_position_on_restart == Some(true) {
             // The preference is already committed. If an existing in-session
