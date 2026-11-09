@@ -11,6 +11,12 @@ import { fileURLToPath } from "node:url";
 const schema = "narro-physical-session/v1";
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const utc = () => new Date().toISOString();
+async function uploadFrozenEvidence(root) {
+  await save(join(root, "UPLOAD_STATUS.json"), { status: "UPLOAD_PENDING", utc: utc() });
+  const result = spawnSync("python", [fileURLToPath(new URL("./upload-physical-evidence.py", import.meta.url)), "--root", root], { stdio: "inherit", windowsHide: true });
+  if (result.error || result.status !== 0) throw Error("Frozen evidence upload pending; preserve local packet and retry upload-physical-evidence.py: " + (result.error?.message || result.status));
+  await save(join(root, "UPLOAD_STATUS.json"), { status: "UPLOADED_VERIFIED", utc: utc() });
+}
 // Only the supervisor's own finalizer may collect before its PID exits.
 const finalizingSupervisor = Symbol("closed recorder / supervisor finalizer");
 
@@ -317,7 +323,10 @@ export async function supervise(options) {
     session.activeOwnedNarroPid = current?.exitCode === null ? current.pid : null;
     await save(join(root, "session.json"), session);
     await journal({ event: "supervisor-end", state: session.state, activeOwnedNarroPid: session.activeOwnedNarroPid });
-    if (!session.activeOwnedNarroPid && stopped.closed) await collect(root, { ffprobe }, finalizingSupervisor);
+    if (!session.activeOwnedNarroPid && stopped.closed) {
+      await collect(root, { ffprobe }, finalizingSupervisor);
+      await uploadFrozenEvidence(root);
+    }
     else console.error("Packet writer ownership remains unresolved. Preserve all files; Quit Narro normally if live, inspect the owned recorder, then use recover --root " + root);
   }
   if (failure) throw Error(failure.message + "; preserved session: " + root);
@@ -489,8 +498,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   try {
     const command = process.argv[2], options = argumentsFor(process.argv.slice(3));
     if (command === "start") await supervise(options);
-    else if (command === "collect") console.log(JSON.stringify(await collect(options.root, options), null, 2));
-    else if (command === "recover") console.log(JSON.stringify(await recover(options.root, options), null, 2));
+    else if (command === "collect") { console.log(JSON.stringify(await collect(options.root, options), null, 2)); await uploadFrozenEvidence(options.root); }
+    else if (command === "recover") { console.log(JSON.stringify(await recover(options.root, options), null, 2)); await uploadFrozenEvidence(options.root); }
     else if (["launch", "mark", "finish"].includes(command)) console.log(await request(options.root, command, options.label));
     else throw Error("Use start, launch, mark, finish, collect or recover with --root and required arguments.");
   } catch (error) { console.error(error.message); process.exitCode = 1; }

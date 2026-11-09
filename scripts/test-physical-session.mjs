@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import vm from "node:vm";
 import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { mkdtemp, mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
@@ -164,3 +165,6 @@ try {
 } finally { await rm(root, { recursive: true, force: true }); }
 
 await import("./test-physical-session-lifecycle.mjs");
+const uploadTests = spawnSync(process.platform === "win32" ? "python" : "python3", [fileURLToPath(new URL("./test-physical-evidence-upload.py", import.meta.url))], { encoding: "utf8" });
+assert.equal(uploadTests.status, 0, uploadTests.stderr || uploadTests.error?.message);
+console.log("Frozen packet upload, idempotent remote verification, live/public rejection: PASS");

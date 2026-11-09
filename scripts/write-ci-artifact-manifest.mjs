@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const definitions = Object.freeze({
   physical: {
-    required: ["src-tauri/target-physical/release/narro.exe", "scripts/physical-session.mjs"],
+    required: ["src-tauri/target-physical/release/narro.exe", "scripts/physical-session.mjs", "scripts/upload-physical-evidence.py"],
     bundles: [
       { directory: "src-tauri/target-physical/release/bundle/msi", extension: ".msi" },
       { directory: "src-tauri/target-physical/release/bundle/nsis", extension: ".exe" },
