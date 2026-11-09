@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import vm from "node:vm";
 import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { mkdtemp, mkdir, readFile, writeFile, rm } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
@@ -120,6 +121,23 @@ try {
   const recollected = await collect(packet);
   assert.equal(recollected.applicationFailures.length, 1);
   assert(!recollected.files.some(x => ["EVIDENCE_INDEX.json", "ANALYSIS_BRIEF.md"].includes(x.path)));
+  // The actual collection producer runs again before CLI upload/retry. Its
+  // content-addressed EVIDENCE_INDEX must remain byte-identical when only the
+  // uploader's mutable status/receipt changes (including their timestamps).
+  const immutableIndex = await readFile(join(packet, "EVIDENCE_INDEX.json"), "utf8");
+  await write(join(packet, "UPLOAD_STATUS.json"), { status: "UPLOAD_PENDING", utc: "first" });
+  await write(join(packet, "UPLOAD_RECEIPT.json"), { status: "UPLOADED_VERIFIED", utc: "first" });
+  await new Promise(done => setTimeout(done, 35));
+  const firstRepeat = await collect(packet);
+  assert.equal(await readFile(join(packet, "EVIDENCE_INDEX.json"), "utf8"), immutableIndex);
+  await write(join(packet, "UPLOAD_STATUS.json"), { status: "UPLOAD_PENDING", utc: "second" });
+  await write(join(packet, "UPLOAD_RECEIPT.json"), { status: "UPLOADED_VERIFIED", utc: "second" });
+  await new Promise(done => setTimeout(done, 35));
+  const secondRepeat = await collect(packet);
+  assert.equal(await readFile(join(packet, "EVIDENCE_INDEX.json"), "utf8"), immutableIndex);
+  assert.equal(firstRepeat.collectedUtc, secondRepeat.collectedUtc);
+  assert(!secondRepeat.files.some(x => ["UPLOAD_STATUS.json", "UPLOAD_RECEIPT.json"].includes(x.path)),
+    "upload-owned root metadata must never become frozen-evidence inventory"); assertions += 4;
   await writeFile(join(logs, "panic.jsonl"), "broken JSON\n" + JSON.stringify({ ...panic, pid: -1 }) + "\n" + JSON.stringify(panic) + "\n");
   index = await collect(packet);
   assert.equal(index.applicationFailures.length, 1);
@@ -164,3 +182,6 @@ try {
 } finally { await rm(root, { recursive: true, force: true }); }
 
 await import("./test-physical-session-lifecycle.mjs");
+const uploadTests = spawnSync(process.platform === "win32" ? "python" : "python3", [fileURLToPath(new URL("./test-physical-evidence-upload.py", import.meta.url))], { encoding: "utf8" });
+assert.equal(uploadTests.status, 0, uploadTests.stderr || uploadTests.error?.message);
+console.log("Frozen packet upload, idempotent remote verification, live/public rejection: PASS");

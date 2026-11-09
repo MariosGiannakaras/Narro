@@ -1,5 +1,7 @@
 # Evidence retention policy (2026-10-30)
 
+**User override2026-11-09:** upload each entire safely frozen physical packet immediately, before analysis/another acquisition, with verified remote size/SHA256 and receipt. This supersedes no-automatic-upload clauses below. [Workflow](PHYSICAL_EVIDENCE_UPLOAD.md). Desktop captures use draft releases on the public repository. Upload alone does not authorize deletion; original Blitzit and unique-consumer protections remain.
+
 ## Protected original Blitzit evidence
 
 Never delete, overwrite or automatically prune original Blitzit screenshots, videos, transcripts, or canonical comparison assets, regardless of their directory. Classification is by actual provenance, not just a filename or folder.

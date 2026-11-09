@@ -371,6 +371,7 @@ jobs:
         path: |
           src-tauri/target-physical/release/narro.exe
           scripts/physical-session.mjs
+          scripts/upload-physical-evidence.py
           src-tauri/target-physical/release/bundle/nsis/*.exe
           src-tauri/target-physical/release/bundle/msi/*.msi
           artifacts/ci-provenance/physical.json
