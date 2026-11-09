@@ -3,11 +3,15 @@ import fs from "node:fs";
 import vm from "node:vm";
 import ts from "typescript";
 
-const src = fs.readFileSync("src/ReportsSessions.tsx", "utf8");
+// Source checkout EOLs are not part of the Reports callback contract.
+const normalizeLineEndings = (source) => source.replace(/\r\n?/g, "\n");
+const src = normalizeLineEndings(fs.readFileSync("src/ReportsSessions.tsx", "utf8"));
 const start = src.indexOf("  const refreshSessions = useCallback(async () => {");
 const end = src.indexOf("  useEffect(() => {\n    if (!feedback) return;", start);
 assert(start >= 0 && end > start, "Reports actual filter/mutation read callbacks missing");
 const actual = src.slice(start, end);
+assert.equal(normalizeLineEndings(src.replace(/\n/g, "\r\n")).slice(start, end), actual,
+  "CRLF checkout must exercise the same actual Reports callbacks");
 assert(actual.includes("++sessionsReadRevisionRef.current")
   && actual.includes("++detailReadRevisionRef.current")
   && actual.includes("sessionsActiveRequestKeyRef.current !== requestKey")
