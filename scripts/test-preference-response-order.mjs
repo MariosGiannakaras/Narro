@@ -131,11 +131,14 @@ function mountedProvider() {
   h.writes[0].reject(new Error("persisted toggle, position sync failed"));
   await flush();
   assert.equal(h.reads.length, 2);
+  assert.match(h.render().error, /position sync failed/,
+    "a rejected partial native commit must surface its original failure");
   h.emit(snapshot("newer-event-during-recovery"));
   h.reads[1].resolve(snapshot("outdated-recovery"));
   assert.equal(await pending, false);
   assert.equal(h.render().snapshot.general.timezone, "newer-event-during-recovery");
-  assert.match(h.render().error, /position sync failed/);
+  assert.equal(h.render().error, null,
+    "a later authoritative committed event clears an obsolete write error");
   h.cleanup();
 }
 
