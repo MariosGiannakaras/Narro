@@ -48,6 +48,9 @@ export type CelebrationSettingsSnapshot = {
 
 export type PreferenceSettingsSnapshot = {
   schemaVersion: number;
+  // Monotonic within one Narro process; string preserves full Rust u64 precision.
+  // Optional for older diagnostic fixtures and historical binary compatibility.
+  commitRevision?: string;
   general: GeneralSettingsSnapshot;
   focus: FocusSettingsSnapshot;
   alerts: AlertSettingsSnapshot;
