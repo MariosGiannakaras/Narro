@@ -307,7 +307,12 @@ invariant(
   "Partial Timer retention sync failure must broadcast the committed preference and report a truthful error",
 );
 
-invariant(runtime.includes("setSnapshot(await getPreferenceSettings())"), "failed writes must refresh authoritative Preferences");
+invariant(
+  runtime.includes("const latest = await getPreferenceSettings();")
+    && runtime.includes("snapshotRevisionRef.current === readRevision")
+    && runtime.includes("setSnapshot(latest)"),
+  "failed writes must refresh authoritative Preferences without regressing newer events",
+);
 
 invariant(
   reminderService.includes("schedule_reminders_enabled")
