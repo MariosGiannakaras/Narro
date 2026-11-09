@@ -1,4 +1,5 @@
 import importlib.util,pathlib,tempfile,json,unittest,hashlib,time,os,zipfile,io
+from unittest.mock import patch
 spec=importlib.util.spec_from_file_location('uploader',pathlib.Path(__file__).with_name('upload-physical-evidence.py'));m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class TransferTests(unittest.TestCase):
  def test_frozen_transfer_and_retry(self):
@@ -37,12 +38,46 @@ class TransferTests(unittest.TestCase):
    fail_after_upload[0]=False
    d=m.upload(root,'owner/repo','test')
    self.assertNotEqual(a['sha256'],d['sha256']);self.assertEqual(len(assets),2)
+ def test_upload_failure_cleans_private_staging_and_retains_original(self):
+  with tempfile.TemporaryDirectory() as t:
+   root=pathlib.Path(t)/'session';root.mkdir()
+   (root/'session.json').write_text(json.dumps({'state':'FROZEN','recording':{'closed':True}}))
+   (root/'desktop.mkv').write_bytes(b'original-private-video')
+   staged=[]
+   original_temp=m.tempfile.TemporaryDirectory
+   def capture_temp(*args,**kwargs):
+    candidate=original_temp(*args,**kwargs);staged.append(pathlib.Path(candidate.name));return candidate
+   def failing_gh(*args,binary=False):
+    if args[:2]==('release','view'):return json.dumps({'id':1,'isDraft':True,'url':'https://example.invalid/draft'})
+    if args[:2]==('release','upload'):raise RuntimeError('simulated remote upload failure')
+    if args[0]=='api' and '/assets?' in args[1]:return '[]'
+    if args[0]=='api':return json.dumps([{'id':1,'tag_name':'test'}])
+    raise AssertionError(args)
+   m.gh=failing_gh
+   with patch.object(m.tempfile,'TemporaryDirectory',side_effect=capture_temp):
+    with self.assertRaisesRegex(RuntimeError,'simulated remote upload failure'):
+     m.upload(root,'owner/repo','test')
+   self.assertTrue(staged,'the test must exercise actual ZIP staging')
+   self.assertTrue(all(not directory.exists() for directory in staged),
+                   'staged private ZIP and temporary directory must be erased on error')
+   self.assertEqual((root/'desktop.mkv').read_bytes(),b'original-private-video')
+   self.assertFalse((root/'UPLOAD_RECEIPT.json').exists())
  def test_live_packet_refused(self):
   with tempfile.TemporaryDirectory() as t:
    p=pathlib.Path(t);(p/'session.json').write_text(json.dumps({'state':'CAPTURING'}))
    with self.assertRaisesRegex(RuntimeError,'unfrozen/live'):m.upload(p,'owner/repo','test')
  def test_published_release_refused(self):
   with tempfile.TemporaryDirectory() as t:
-   p=pathlib.Path(t);(p/'session.json').write_text(json.dumps({'state':'FROZEN','recording':{'closed':True}}));m.gh=lambda *a,**k:json.dumps({'id':1,'isDraft':False})
-   with self.assertRaisesRegex(RuntimeError,'published'):m.upload(p,'owner/repo','test')
+   p=pathlib.Path(t);(p/'session.json').write_text(json.dumps({'state':'FROZEN','recording':{'closed':True}}))
+   (p/'desktop.mkv').write_bytes(b'private-evidence')
+   m.gh=lambda *a,**k:json.dumps({'id':1,'isDraft':False})
+   staged=[]
+   original_temp=m.tempfile.TemporaryDirectory
+   def capture_temp(*args,**kwargs):
+    candidate=original_temp(*args,**kwargs);staged.append(pathlib.Path(candidate.name));return candidate
+   with patch.object(m.tempfile,'TemporaryDirectory',side_effect=capture_temp):
+    with self.assertRaisesRegex(RuntimeError,'published'):m.upload(p,'owner/repo','test')
+   self.assertTrue(staged)
+   self.assertTrue(all(not directory.exists() for directory in staged))
+   self.assertEqual((p/'desktop.mkv').read_bytes(),b'private-evidence')
 if __name__=='__main__':unittest.main()
