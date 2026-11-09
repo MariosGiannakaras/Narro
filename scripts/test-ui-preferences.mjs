@@ -310,7 +310,8 @@ invariant(
 invariant(
   runtime.includes("const latest = await getPreferenceSettings();")
     && runtime.includes("snapshotRevisionRef.current === readRevision")
-    && runtime.includes("setSnapshot(latest)"),
+    && runtime.includes("publishSnapshot(latest)")
+    && runtime.includes("revision < latestCommitRevisionRef.current"),
   "failed writes must refresh authoritative Preferences without regressing newer events",
 );
 
