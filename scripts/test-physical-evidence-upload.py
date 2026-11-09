@@ -1,4 +1,4 @@
-import importlib.util,pathlib,tempfile,json,unittest,hashlib
+import importlib.util,pathlib,tempfile,json,unittest,hashlib,time
 spec=importlib.util.spec_from_file_location('uploader',pathlib.Path(__file__).with_name('upload-physical-evidence.py'));m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class TransferTests(unittest.TestCase):
  def test_frozen_transfer_and_retry(self):
@@ -12,7 +12,7 @@ class TransferTests(unittest.TestCase):
     if a[0]=='api':return json.dumps([{'id':1,'tag_name':'test'}])
     raise AssertionError(a)
    m.gh=fake
-   a=m.upload(root,'owner/repo','test');b=m.upload(root,'owner/repo','test')
+   a=m.upload(root,'owner/repo','test');time.sleep(2.1);b=m.upload(root,'owner/repo','test')
    self.assertEqual(a['status'],'UPLOADED_VERIFIED');self.assertEqual(a['sha256'],b['sha256']);self.assertEqual(len(assets),1)
    self.assertEqual((root/'desktop.mkv').read_bytes(),b'original-video')
  def test_live_packet_refused(self):

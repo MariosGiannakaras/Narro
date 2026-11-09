@@ -28,7 +28,8 @@ def upload(root,repo,tag):
     temp=pathlib.Path(tempfile.mkdtemp(prefix='narro-upload-'))
     archive=temp/(root.name+'.zip')
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=1,allowZip64=True) as z:
-        z.writestr('UPLOAD_MANIFEST.json',json.dumps(manifest,indent=2))
+        info=zipfile.ZipInfo('UPLOAD_MANIFEST.json',(1980,1,1,0,0,0));info.compress_type=zipfile.ZIP_DEFLATED
+        z.writestr(info,json.dumps(manifest,indent=2))
         for f in files:
             p=root/f['path'];z.write(p,root.name+'/'+f['path'])
             if p.stat().st_size!=f['bytes'] or digest(p)!=f['sha256']:raise RuntimeError('Source changed while packaging')
