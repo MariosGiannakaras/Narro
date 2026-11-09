@@ -64,8 +64,24 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
   const initialReadInFlightRef = useRef(false);
   // Delayed initial reads cannot override newer committed cross-window events.
   const snapshotRevisionRef = useRef(0);
+  // Rust serializes actual commits; this process-local version is comparable
+  // across read responses and event deliveries even when IPC order inverts.
+  const latestCommitRevisionRef = useRef<bigint | null>(null);
   // Async saves/readbacks must not publish into a disposed provider.
   const mountedRef = useRef(true);
+
+  const publishSnapshot = (next: PreferenceSettingsSnapshot): boolean => {
+    if (!mountedRef.current) return false;
+    if (next.commitRevision !== undefined) {
+      const revision = BigInt(next.commitRevision);
+      if (latestCommitRevisionRef.current !== null
+        && revision < latestCommitRevisionRef.current) return false;
+      latestCommitRevisionRef.current = revision;
+    }
+    snapshotRevisionRef.current += 1;
+    setSnapshot(next);
+    return true;
+  };
 
   const refreshMonitors = async () => {
     try {
@@ -85,9 +101,7 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
 
     void listen<PreferenceSettingsSnapshot>(PREFERENCES_CHANGED_EVENT, (event) => {
       if (!disposed) {
-        snapshotRevisionRef.current += 1;
-        setSnapshot(event.payload);
-        setError(null);
+        if (publishSnapshot(event.payload)) setError(null);
       }
     })
       .then((unlisten) => {
@@ -102,7 +116,7 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
       .then(([settings, monitorList]) => {
         if (disposed) return;
         if (snapshotRevisionRef.current === readStartRevision) {
-          setSnapshot(settings);
+          publishSnapshot(settings);
         }
         setMonitors(monitorList);
         setError(null);
@@ -144,8 +158,7 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
       if (snapshotRevisionRef.current === revisionAtStart) {
         // A successful response can own the view when no newer cross-window
         // publication arrived. Invalidate an older in-flight initial read.
-        snapshotRevisionRef.current += 1;
-        setSnapshot(committed);
+        publishSnapshot(committed);
       } else {
         // An intervening event may precede OR follow our own committed write.
         // Do not guess which payload is latest from IPC completion order:
@@ -154,8 +167,7 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
         try {
           const latest = await getPreferenceSettings();
           if (mountedRef.current && snapshotRevisionRef.current === readRevision) {
-            snapshotRevisionRef.current += 1;
-            setSnapshot(latest);
+            publishSnapshot(latest);
           }
         } catch (refreshFailure: unknown) {
           if (mountedRef.current) {
@@ -173,8 +185,7 @@ export function PreferenceSettingsRuntimeProvider({ children }: { children: Reac
       try {
         const latest = await getPreferenceSettings();
         if (mountedRef.current && snapshotRevisionRef.current === readRevision) {
-          snapshotRevisionRef.current += 1;
-          setSnapshot(latest);
+          publishSnapshot(latest);
         }
       } catch (refreshFailure: unknown) {
         if (mountedRef.current) {
