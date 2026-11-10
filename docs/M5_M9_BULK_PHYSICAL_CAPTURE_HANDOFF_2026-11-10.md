@@ -55,6 +55,29 @@ A physical operator may perform these within one booked Windows campaign, **but 
 
 The normal/reduced modes must be explicitly measured in the actual renderer and packet, not inferred from a toggle. The OS/audio claims require real auditory or toast observation. Do not confuse GDI desktop frames with actual compositor scanout; record limitations of pixel sampling and PTS. A screenshot can prove static geometry, never a 500 ms motion interval. For native failure recovery, do not force arbitrary kernel/SQLite/other-profile corruption to manufacture coverage.
 
+## PR431 inherited targeted acceptance — exactly 14 claims, no duplicate full app run
+
+The [PR431 scoped native contract](PR431_SCOPED_NATIVE_ACCEPTANCE_2026-10-27.md) enumerates **P431-01 through P431-14**, all implemented within the admitted PR437 default candidate lineage (and inherited by PR499, without substituting one source for another's held gate). These are **14 criteria**, not a mandate for 14 new recorders or new independent executables. Preserve each criterion's complete expected/evidence wording in that contract:
+
+| PR431 case | Existing bulk slot | Unique target |
+| --- | --- | --- |
+| P431-01 | Q0 | Exact binary/PID/source/motion-mode admission |
+| P431-02 | Q1 | Cold/warm full Preferences, Light/Dark and truthful errors |
+| P431-03 | Q1 | Cold/warm Quick Preferences and Focus host/focus continuity |
+| P431-04 | Q1/Q2 | Ctrl+F Search geometry, selection, keyboard and dismissal |
+| P431-05 | Q3 | Same-HWND immediate Panel side/monitor change from Quick Preferences |
+| P431-06 | Q3 | Real 16 DIP inset at selected display/DPI |
+| P431-07 | Q3 | Direct Timer shortcut after true new PID with OFF and old position |
+| P431-08 | Q3 | Drag/return/minimize within one PID; Escape cancellation |
+| P431-09 | Q3 | OFF vs ON Timer placement across verified Quit/new PID |
+| P431-10 | Q3, only if safe topology available | Selected-monitor missing/reconnect fallback for hidden Timer |
+| P431-11 | Q1/Q2 | Cold preference read vs Done, committed once, independent optional effects |
+| P431-12 | Q1 | Pending Reports filter/timezone data, request freshness and export admission |
+| P431-13 / U-R04 | Q1/Q3 | Correct monitor model/key/card identity, safe fallback |
+| P431-14 / U-R05 | Q1/Q3 | Actual corresponding desktop thumbnail in existing card, two-screen and capture-unavailable variants |
+
+When physical hardware, cold-read overlap or preview denial cannot be exercised safely, mark that **subcase NOT RUN** instead of inferring PASS from the normal path. Do not weaken existing P431 independence or merge its source before the applicable source-native gate.
+
 ## Freeze → privately transfer → grade → rotate (repeat per source/session)
 
 1. Identify and admit one source and its exact manifest+EXE path; reject stale source identities, and preserve a pre-existing live owned capture.
