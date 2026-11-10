@@ -680,9 +680,9 @@ fn should_remember_session_position(has_saved: bool, completed_user_move: bool) 
 }
 
 // A completed user drag may end outside the visible monitor work area.
- // The saved placement must not claim a corrected position while the live
- // HWND remains partly offscreen. Use the existing native window setter
- // only after WM_EXITSIZEMOVE, when the settled-save callback runs.
+// The saved placement must not claim a corrected position while the live
+// HWND remains partly offscreen. Use the existing native window setter
+// only after WM_EXITSIZEMOVE, when the settled-save callback runs.
 fn reconcile_completed_drag_live_window<F>(
     completed_user_move: bool,
     capture_seed: bool,
@@ -1174,7 +1174,10 @@ mod tests {
             position: PhysicalPoint { x: 0, y: 0 },
             size: PhysicalSize { width: 2560, height: 1080 },
         };
-        let visible = PhysicalSize { width: 340, height: 110 };
+        let visible = PhysicalSize {
+            width: 340,
+            height: 110,
+        };
         let offscreen = PhysicalPoint { x: 2484, y: 0 };
         let safe = clamp_top_left(work_area, visible, offscreen)
             .expect("trace-derived horizontal clamp");
