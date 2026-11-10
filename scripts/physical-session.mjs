@@ -11,6 +11,12 @@ import { fileURLToPath } from "node:url";
 const schema = "narro-physical-session/v1";
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const utc = () => new Date().toISOString();
+async function uploadFrozenEvidence(root) {
+  await save(join(root, "UPLOAD_STATUS.json"), { status: "UPLOAD_PENDING", utc: utc() });
+  const result = spawnSync("python", [fileURLToPath(new URL("./upload-physical-evidence.py", import.meta.url)), "--root", root], { stdio: "inherit", windowsHide: true });
+  if (result.error || result.status !== 0) throw Error("Frozen evidence upload pending; preserve local packet and retry upload-physical-evidence.py: " + (result.error?.message || result.status));
+  await save(join(root, "UPLOAD_STATUS.json"), { status: "UPLOADED_VERIFIED", utc: utc() });
+}
 // Only the supervisor's own finalizer may collect before its PID exits.
 const finalizingSupervisor = Symbol("closed recorder / supervisor finalizer");
 
@@ -317,7 +323,10 @@ export async function supervise(options) {
     session.activeOwnedNarroPid = current?.exitCode === null ? current.pid : null;
     await save(join(root, "session.json"), session);
     await journal({ event: "supervisor-end", state: session.state, activeOwnedNarroPid: session.activeOwnedNarroPid });
-    if (!session.activeOwnedNarroPid && stopped.closed) await collect(root, { ffprobe }, finalizingSupervisor);
+    if (!session.activeOwnedNarroPid && stopped.closed) {
+      await collect(root, { ffprobe }, finalizingSupervisor);
+      await uploadFrozenEvidence(root);
+    }
     else console.error("Packet writer ownership remains unresolved. Preserve all files; Quit Narro normally if live, inspect the owned recorder, then use recover --root " + root);
   }
   if (failure) throw Error(failure.message + "; preserved session: " + root);
@@ -444,7 +453,7 @@ export async function collect(root, { ffprobe } = {}, finalizer) {
   const inventory = [];
   for (const file of await filesUnder(root)) {
     const path = inside(root, file);
-    if (["EVIDENCE_INDEX.json", "ANALYSIS_BRIEF.md"].includes(path) || path.endsWith(".tmp")) continue;
+    if (["EVIDENCE_INDEX.json", "ANALYSIS_BRIEF.md", "UPLOAD_STATUS.json", "UPLOAD_RECEIPT.json"].includes(path) || path.endsWith(".tmp")) continue;
     inventory.push({ path, bytes: (await stat(file)).size, sha256: await digest(file) });
   }
   const index = { schema, id: session.id, collectedUtc: utc(), candidate: session.candidate,
@@ -453,7 +462,21 @@ export async function collect(root, { ffprobe } = {}, finalizer) {
     timeline: "TIMELINE.jsonl", files: inventory,
     verdict: "NOT RUN — packet integrity/coverage does not grade product acceptance",
     analysis: "Read this index and brief, then inspect original video intervals/PTS together with matching timeline/trace records; log absence is not failure absence." };
-  await save(join(root, "EVIDENCE_INDEX.json"), index);
+  // Upload status/receipt are not frozen evidence, and repeat collection must
+  // not create a new remote evidence identity when the actual packet is unchanged.
+  // Preserve the initial collection timestamp only for byte-identical inventories
+  // and identical computed coverage/case metadata. Real source/log changes reindex.
+  const indexPath = join(root, "EVIDENCE_INDEX.json");
+  if (await exists(indexPath)) {
+    let prior;
+    try { prior = await json(indexPath); } catch { /* regenerate malformed metadata */ }
+    if (prior?.schema === schema && prior.id === session.id
+        && typeof prior.collectedUtc === "string" && Number.isFinite(Date.parse(prior.collectedUtc))
+        && JSON.stringify({ ...prior, collectedUtc: null }) === JSON.stringify({ ...index, collectedUtc: null })) {
+      index.collectedUtc = prior.collectedUtc;
+    }
+  }
+  await save(indexPath, index);
   await writeFile(join(root, "ANALYSIS_BRIEF.md"), `# Physical session ${session.id}\n\nSource: ${session.candidate.sourceSha}\nEXE SHA256: ${session.candidate.sha256}\nTrace coverage: **${index.coverage}**\n\nApplication failures: **${applicationFailures.length}** (packet completeness is not product success).\n${applicationFailures.map(x => `- ${x.utc} PID ${x.pid}: ${x.event} at ${x.location || "unknown location"}; ${x.source}:${x.line}`).join("\n")}\n\nStart with EVIDENCE_INDEX.json and TIMELINE.jsonl. All raw inputs have path/size/SHA256. Compare original video and actual PTS with action, IPC, state, SQLite and native observations. Preserve independent PASS/FAIL/INCONCLUSIVE/NOT RUN per requirement.\n\n${gaps.map(x => "- " + x).join("\n") || "No detected packet-integrity gap."}\n\nIPC success and SQLite commit-request are not visual or durable-state acceptance. Async/thread/time proximity is not causal linkage. Coalesced DOM observations are not every paint. No audio is recorded. Follow the normal retention policy after the named consumer closes.\n`);
   return index;
 }
@@ -489,8 +512,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   try {
     const command = process.argv[2], options = argumentsFor(process.argv.slice(3));
     if (command === "start") await supervise(options);
-    else if (command === "collect") console.log(JSON.stringify(await collect(options.root, options), null, 2));
-    else if (command === "recover") console.log(JSON.stringify(await recover(options.root, options), null, 2));
+    else if (command === "collect") { console.log(JSON.stringify(await collect(options.root, options), null, 2)); await uploadFrozenEvidence(options.root); }
+    else if (command === "recover") { console.log(JSON.stringify(await recover(options.root, options), null, 2)); await uploadFrozenEvidence(options.root); }
     else if (["launch", "mark", "finish"].includes(command)) console.log(await request(options.root, command, options.label));
     else throw Error("Use start, launch, mark, finish, collect or recover with --root and required arguments.");
   } catch (error) { console.error(error.message); process.exitCode = 1; }
