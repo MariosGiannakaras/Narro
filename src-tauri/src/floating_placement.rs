@@ -679,6 +679,26 @@ fn should_remember_session_position(has_saved: bool, completed_user_move: bool) 
     has_saved || completed_user_move
 }
 
+// A completed user drag may end outside the visible monitor work area.
+ // The saved placement must not claim a corrected position while the live
+ // HWND remains partly offscreen. Use the existing native window setter
+ // only after WM_EXITSIZEMOVE, when the settled-save callback runs.
+fn reconcile_completed_drag_live_window<F>(
+    completed_user_move: bool,
+    capture_seed: bool,
+    current: PhysicalPoint,
+    safe: PhysicalPoint,
+    apply_position: F,
+) -> CommandResult<()>
+where
+    F: FnOnce(PhysicalPoint) -> CommandResult<()>,
+{
+    if completed_user_move && !capture_seed && current != safe {
+        apply_position(safe)?;
+    }
+    Ok(())
+}
+
 pub fn save_if_timer_visible(app_handle: &tauri::AppHandle) -> CommandResult<bool> {
     remember_visible_timer_position(app_handle, false)
 }
@@ -726,6 +746,25 @@ fn remember_visible_timer_position(
     let selected = best_work_area_for_window(current_window, &areas, &fallback);
     let safe = clamp_top_left(selected.rect, current_window.size, current_window.position)
         .map_err(|error| placement_error("clamp Timer position", error))?;
+    // This is a settled user move, not a display-recovery transition or
+    // capture seed. Apply the same clamp to the actual native window before
+    // recording it as the remembered position. Failing the native correction
+    // must leave USER_PLACEMENT_DIRTY intact for a later safe retry.
+    reconcile_completed_drag_live_window(
+        user_moved,
+        capture_seed,
+        current_window.position,
+        safe,
+        |target| {
+            position_window_if_needed(&window, target)?;
+            confirm_visible_window_in_work_area(
+                &window,
+                selected.rect,
+                crate::current_focus_surface_expanded(),
+            )?;
+            Ok(())
+        },
+    )?;
     let saved = SavedFloatingPlacement {
         version: SavedFloatingPlacement::VERSION,
         position: safe,
@@ -1125,6 +1164,42 @@ mod tests {
         assert!(should_remember_session_position(false, true));
         assert!(should_remember_session_position(true, false));
         assert!(should_remember_session_position(true, true));
+    }
+
+    #[test]
+    fn completed_drag_reconciles_live_hwnd_before_storing_clamped_position() {
+        // Independently captured default-source native move-loop trace:
+        // 2560px work area, 340px visible compact Timer, actual left=2484.
+        let work_area = PhysicalRect {
+            position: PhysicalPoint { x: 0, y: 0 },
+            size: PhysicalSize { width: 2560, height: 1080 },
+        };
+        let visible = PhysicalSize { width: 340, height: 110 };
+        let offscreen = PhysicalPoint { x: 2484, y: 0 };
+        let safe = clamp_top_left(work_area, visible, offscreen)
+            .expect("trace-derived horizontal clamp");
+        assert_eq!(safe, PhysicalPoint { x: 2220, y: 0 });
+
+        let mut applied = Vec::new();
+        reconcile_completed_drag_live_window(true, false, offscreen, safe, |target| {
+            applied.push(target);
+            Ok(())
+        })
+        .expect("user move must apply live correction");
+        assert_eq!(applied, vec![safe]);
+
+        for (user_move, seed, position) in [
+            (false, false, offscreen),
+            (true, true, offscreen),
+            (true, false, safe),
+        ] {
+            reconcile_completed_drag_live_window(user_move, seed, position, safe, |target| {
+                applied.push(target);
+                Ok(())
+            })
+            .expect("no effect outside an offscreen user drag");
+        }
+        assert_eq!(applied, vec![safe], "programmatic/seeded placement must not be moved");
     }
 
     #[test]
