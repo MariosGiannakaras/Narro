@@ -1,3 +1,17 @@
+# STATUS NOW — 2026-11-10 — pre-physical root-cause differential / PR499 CI
+
+**Source owner:** ChatGPT, draft/OPEN/unmerged [PR499](https://github.com/MariosGiannakaras/Narro/pull/499) at `7f6d3258ecc227211021abb8a2989b191f1f1e16`. New [Windows CI42839644180](https://github.com/MariosGiannakaras/Narro/actions/runs/42839644180) exact-head validation **PASS**, fast **PASS**, Windows candidate **RUNNING at last check**, **no current 3/3 PASS**. Initial newer-source CI42839099797 first failed Rustfmt and was replaced after exact compiler-format diff correction; old `5bd4ee75...` run42809351039 3/3 PASS remains historical only.
+
+**Confirmed source defect corrected, not yet CI/native accepted:** the Main→Focus raster's `run_on_main_thread` callback could execute after a 2s caller timeout; new atomic admission fence cancels only still-queued operations and reports started actions as uncertain, with two Rust unit regressions. Its relation to historical PR437 Main duplicate at PTS1243.867 remains **HYPOTHESIS**, not root-cause proof; A389 A-R02 desktop exposure at PTS62.867 and old native Timer drag x2484 versus safe x2220 remain distinct known old-source symptoms, while A389 startup panic cause is UNKNOWN. [Causal review](work-log/2026-11-10-chatgpt-recurrent-native-failure-causal-differential.md) and [existing risk family](docs/NARRO_ENGINEERING_RISK_REGISTER.md).
+
+**Experimental correction strategy:** existing held [PR389 A](https://github.com/MariosGiannakaras/Narro/pull/389) and [PR419 B](https://github.com/MariosGiannakaras/Narro/pull/419) already offer materially different native compositor implementations; reuse matched early-stop physical probes and compare source-specific HWND/PTS/QPC before introducing more builds. A later Main→Focus A/B variant is **conditional** on unresolved evidence, not a speculative current PR. [Existing Q0–Q6 launch sheet updated](docs/M5_M9_BULK_PHYSICAL_CAPTURE_HANDOFF_2026-11-10.md). All **59** M5–M9 ledger rows OPEN (6/13/18/11/11); A/B each keep separate strict **8/8 physical-before-merge**. No current source native Windows execution, install, recorded PA result, M10 authorization or M11/M12 activation. Codex-owned physical PA remains paused under its separate user decision.
+
+**Next:** classify first actual failure in CI42839644180, or on exact success validate newly generated artifact bytes/manifest before admission Q0. Keep PR499 unmerged and do not transfer older artifact PASS to new source.
+
+---
+
+## Historical previous status snapshot (superseded for PR499 source and CI)
+
 **PR499 exact-head preparation VERIFIED (2026-11-10):** draft/unmerged `5bd4ee75e9f1d98f4fbf08ecdb5f9c56db9fb664`, [CI42809351039](https://github.com/MariosGiannakaras/Narro/actions/runs/42809351039) **3/3 PASS**. Downloaded physical artifact **13762487914**, ZIP digest/CRC and manifest **5/5 PASS**; quiet diagnostic **13763801955**, **7/7 PASS**. Physical EXE SHA-256 `2d1e630b1f7edc3a7fb549408d12f6995cd6dbde8848aef39c1f9158e14d3344`. Native execution, video/log/PTS, D01–D04, Timer containment, 59 M5–M9 rows and independent A389/B419 strict 8/8 remain **NOT RUN/OPEN**. No source merge or physical PASS. Next Q0 admission then Q1–Q6 by designated Windows physical agent, respecting separate Codex PA pause.
 
 # STATUS — M5–M9 coordinated physical preparation, 2026-11-10
