@@ -6,7 +6,9 @@ on:
       - .github/workflows/private-evidence-relay.yml
 
 permissions:
-  contents: read
+  # Draft releases require repository write-tier visibility; this temporary
+  # same-repository PR workflow never checks out or executes untrusted code.
+  contents: write
 
 jobs:
   encrypted-relay:
