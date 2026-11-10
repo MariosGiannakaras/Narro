@@ -477,7 +477,10 @@ mod native {
         fn timeout_prevents_a_late_queued_popup_operation() {
             let permit = UiDispatchPermit::default();
             assert!(permit.cancel_if_queued());
-            assert!(!permit.try_start(), "late GUI callback must not create popup");
+            assert!(
+                !permit.try_start(),
+                "late GUI callback must not create popup"
+            );
             assert!(!permit.cancel_if_queued());
         }
 
@@ -489,7 +492,6 @@ mod native {
             assert!(!permit.try_start());
         }
     }
-
 }
 
 #[cfg(not(windows))]
