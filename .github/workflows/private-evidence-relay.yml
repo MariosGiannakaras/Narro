@@ -14,9 +14,9 @@ jobs:
   encrypted-relay:
     if: github.event.pull_request.head.repo.full_name == 'MariosGiannakaras/Narro' && github.event.pull_request.head.ref == 'chore/private-evidence-ci-relay-20261110'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
     steps:
-      - name: Fetch 3 pinned draft-release assets and encrypt before artifact upload
+      - name: Fetch 9 original frozen draft-release assets and encrypt before artifact upload
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
@@ -40,11 +40,16 @@ jobs:
           const tag = 'physical-evidence-20261109';
           const releaseId = 439408831;
           const assets = [
-            {id:728485482,name:'EVIDENCE_UPLOAD_INDEX.json',size:3272,sha:'1bbb97cc8ad1504769ca1e46adbdb4ae1f34c37d4c306f41d3956991deaa6573'},
-            {id:728482363,name:'private-verification-20261109-b5586691d6dcdaaa.zip',size:7874,sha:'b5586691d6dcdaaaf73b00f71079ed57ce992a44431fef16505673faa58f7aa5'},
-            {id:728485364,name:'private-verification-20261109-ba707f509b7ef672.zip',size:8643,sha:'ba707f509b7ef672ea3a8d541359c9ea0a80d24f0587dd55768dc22b905c774a'}
-          ];
-          function gh(args) { return execFileSync('gh',args,{encoding:'utf8',stdio:['ignore','pipe','pipe']}); }
+            {id:728257186,name:'2026-11-08T22-23-35-698Z-1467ba2b-b5792a038c58d312.zip',size:142855089,sha:'b5792a038c58d312d9da0c82d36d555d0ae49479dc4614be218cb9a20a488c16'},
+            {id:728263983,name:'2026-11-08T22-52-56-195Z-75aeeffc-f73241d5434c765f.zip',size:23514134,sha:'f73241d5434c765f8b4bf949fcad43e30ac168edddddb698b263dbb8301d37fe'},
+            {id:728265575,name:'2026-11-08T22-57-44-686Z-d9e291aa-d13b70da9588c437.zip',size:1188995,sha:'d13b70da9588c4376e761858994a377bf6ccf10a87180a6cbf60100921e70efc'},
+            {id:728265971,name:'2026-11-08T22-58-57-838Z-d8c9c0d7-99d38ae981041a73.zip',size:1239872,sha:'99d38ae981041a73ec21f95f75203e0560abc1fcaf3feca1fc673c71d2f0d33d'},
+            {id:728266384,name:'2026-11-08T22-59-23-350Z-7f7251ea-a835a7b1c4071a8d.zip',size:14113340,sha:'a835a7b1c4071a8d3a3bcee5ab36cbb5ceff62af697a990f7701780809be268e'},
+            {id:728267208,name:'2026-11-08T23-01-54-313Z-7e3262bc-9e912407e02d086b.zip',size:18893237,sha:'9e912407e02d086bf3de1f312bc8e9cb4d44dff44653f06f81f1e6047f54c82f'},
+            {id:728268945,name:'2026-11-09T07-50-29-375Z-d130a32f-a9281ccdd4bc99f0.zip',size:232882857,sha:'a9281ccdd4bc99f048846e7c365ce8b5fabc2ef3092a79f626c68b08ad927af7'},
+            {id:728279307,name:'2026-11-09T11-37-49-447Z-560208c4-c778a7e1f7936621.zip',size:57075802,sha:'c778a7e1f7936621fcfc468c9858a4d4a69fe52213d47a8b8aef6000882a95e4'},
+            {id:728282883,name:'campaign-20261109-e77864bbbf32bf6c.zip',size:193106826,sha:'e77864bbbf32bf6cb090ba50536dabc6fbb9212f42fec125363190c73be5332b'}
+          ];          function gh(args) { return execFileSync('gh',args,{encoding:'utf8',stdio:['ignore','pipe','pipe']}); }
           async function digest(file) {
             const hash = createHash('sha256');
             for await (const buf of createReadStream(file)) hash.update(buf);
@@ -83,7 +88,7 @@ jobs:
       - name: Upload encrypted-only artifacts (never raw evidence)
         uses: actions/upload-artifact@v4
         with:
-          name: narro-private-evidence-encrypted-relay
+          name: narro-private-evidence-original-nine-encrypted-relay
           path: encrypted-relay/*.gcm
           if-no-files-found: error
           retention-days: 1
