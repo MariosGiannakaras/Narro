@@ -25,7 +25,7 @@ jobs:
           set -euo pipefail
           export WORK_DIR="$(mktemp -d)"
           trap 'rm -rf "$WORK_DIR"' EXIT
-          mkdir -p encrypted-relay
+          mkdir -p encrypted-relay/sessions-a encrypted-relay/sessions-b encrypted-relay/campaign
           node <<'NODE'
           const fs = require('node:fs');
           const fsp = require('node:fs/promises');
@@ -75,7 +75,8 @@ jobs:
                 id:asset.id,name:asset.name,size:asset.size,sha256:asset.sha,
                 nonce:nonce.toString('base64'),wrappedKey:wrapped.toString('base64')
               };
-              const dest = path.join('encrypted-relay',String(asset.id)+'.gcm');
+              const group = asset.id === 728282883 ? 'campaign' : asset.id === 728268945 ? 'sessions-b' : 'sessions-a';
+              const dest = path.join('encrypted-relay',group,String(asset.id)+'.gcm');
               await fsp.writeFile(dest,JSON.stringify(envelope)+'\n',{flag:'wx'});
               const cipher = createCipheriv('aes-256-gcm',key,nonce);
               await pipeline(createReadStream(original),cipher,createWriteStream(dest,{flags:'a'}));
@@ -85,11 +86,27 @@ jobs:
             }
           })().catch(err=>{console.error('Private relay failed: '+err.message);process.exitCode=1;});
           NODE
-      - name: Upload encrypted-only artifacts (never raw evidence)
+      - name: Upload sessions-a ciphertext (never raw evidence)
         uses: actions/upload-artifact@v4
         with:
-          name: narro-private-evidence-original-nine-encrypted-relay
-          path: encrypted-relay/*.gcm
+          name: narro-private-evidence-sessions-a-encrypted
+          path: encrypted-relay/sessions-a/*.gcm
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+      - name: Upload sessions-b ciphertext (never raw evidence)
+        uses: actions/upload-artifact@v4
+        with:
+          name: narro-private-evidence-sessions-b-encrypted
+          path: encrypted-relay/sessions-b/*.gcm
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+      - name: Upload campaign ciphertext (never raw evidence)
+        uses: actions/upload-artifact@v4
+        with:
+          name: narro-private-evidence-campaign-encrypted
+          path: encrypted-relay/campaign/*.gcm
           if-no-files-found: error
           retention-days: 1
           compression-level: 0
