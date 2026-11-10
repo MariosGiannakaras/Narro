@@ -1172,15 +1172,18 @@ mod tests {
         // 2560px work area, 340px visible compact Timer, actual left=2484.
         let work_area = PhysicalRect {
             position: PhysicalPoint { x: 0, y: 0 },
-            size: PhysicalSize { width: 2560, height: 1080 },
+            size: PhysicalSize {
+                width: 2560,
+                height: 1080,
+            },
         };
         let visible = PhysicalSize {
             width: 340,
             height: 110,
         };
         let offscreen = PhysicalPoint { x: 2484, y: 0 };
-        let safe = clamp_top_left(work_area, visible, offscreen)
-            .expect("trace-derived horizontal clamp");
+        let safe =
+            clamp_top_left(work_area, visible, offscreen).expect("trace-derived horizontal clamp");
         assert_eq!(safe, PhysicalPoint { x: 2220, y: 0 });
 
         let mut applied = Vec::new();
@@ -1202,7 +1205,11 @@ mod tests {
             })
             .expect("no effect outside an offscreen user drag");
         }
-        assert_eq!(applied, vec![safe], "programmatic/seeded placement must not be moved");
+        assert_eq!(
+            applied,
+            vec![safe],
+            "programmatic/seeded placement must not be moved"
+        );
     }
 
     #[test]
