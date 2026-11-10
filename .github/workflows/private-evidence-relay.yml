@@ -1,0 +1,88 @@
+name: One-time encrypted private evidence relay (unmerged)
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/private-evidence-relay.yml
+
+permissions:
+  contents: read
+
+jobs:
+  encrypted-relay:
+    if: github.event.pull_request.head.repo.full_name == 'MariosGiannakaras/Narro' && github.event.pull_request.head.ref == 'chore/private-evidence-ci-relay-20261110'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Fetch 3 pinned draft-release assets and encrypt before artifact upload
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          export WORK_DIR="$(mktemp -d)"
+          trap 'rm -rf "$WORK_DIR" encrypted-relay' EXIT
+          mkdir -p encrypted-relay
+          node <<'NODE'
+          const fs = require('node:fs');
+          const fsp = require('node:fs/promises');
+          const path = require('node:path');
+          const { execFileSync } = require('node:child_process');
+          const { pipeline } = require('node:stream/promises');
+          const { createReadStream, createWriteStream } = require('node:fs');
+          const { createHash, randomBytes, createCipheriv, publicEncrypt, constants } = require('node:crypto');
+          const publicKey = "-----BEGIN PUBLIC KEY-----\nMIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAwBiI+F42QGOdlfUIiz+e\n5aaJfZ6itph/7Y3L6sGemjZ4/Ffh+cFLVABl8r7dtgMG+6z7QGA7ss9WixaXspwN\neK52ac3s0xsWENHI5TUrvGTlZtr8CmLTDm+ScpTwq1AnQiK6DKrXnPluK+ychE2N\npeiDuY6DjjpBefe0cuWAbqSvZVMhGsP7P9zmvTBiZyQl+C5LCMyWI7Q0ZiU1UZTe\nANmWPvV14mAcAieAnC5PFTZdptF0U9TKQIRSbLnKWXYaGSCVq4YgTGWBz38w+wLw\nhfMm35gJoGmQUOEpLpm1o4EDSImTv7LOy0icAGbTTUBQ2dLWhAJbrCDQm0S7BXgb\ndALyjdoXumBwmW/ClBy3PDVgTSta/DEzQJDtqQ00XtEIkjcBE4vRQPrPmOXO/+sJ\nkgrj+6+LlqYB8kKbwthuM/hmK8k0FPTTBofjq4Shf3k67SLdgL1NGax++6zHpEb1\n9HJXvKiq9ZUebt+++Bv64NdBTEvc0ms+hnzrjNTlWZ5VAgMBAAE=\n-----END PUBLIC KEY-----";
+          const repo = process.env.GH_REPO;
+          if (repo !== 'MariosGiannakaras/Narro') throw Error('Unexpected repository');
+          const tag = 'physical-evidence-20261109';
+          const releaseId = 439408831;
+          const assets = [
+            {id:728485482,name:'EVIDENCE_UPLOAD_INDEX.json',size:3272,sha:'1bbb97cc8ad1504769ca1e46adbdb4ae1f34c37d4c306f41d3956991deaa6573'},
+            {id:728482363,name:'private-verification-20261109-b5586691d6dcdaaa.zip',size:7874,sha:'b5586691d6dcdaaaf73b00f71079ed57ce992a44431fef16505673faa58f7aa5'},
+            {id:728485364,name:'private-verification-20261109-ba707f509b7ef672.zip',size:8643,sha:'ba707f509b7ef672ea3a8d541359c9ea0a80d24f0587dd55768dc22b905c774a'}
+          ];
+          function gh(args) { return execFileSync('gh',args,{encoding:'utf8',stdio:['ignore','pipe','pipe']}); }
+          async function digest(file) {
+            const hash = createHash('sha256');
+            for await (const buf of createReadStream(file)) hash.update(buf);
+            return hash.digest('hex');
+          }
+          (async function run() {
+            const release = JSON.parse(gh(['api','repos/'+repo+'/releases/'+releaseId]));
+            if (!release.draft || release.tag_name !== tag) throw Error('Refusing non-draft release');
+            for (const asset of assets) {
+              const meta = JSON.parse(gh(['api','repos/'+repo+'/releases/assets/'+asset.id]));
+              if (meta.name !== asset.name || meta.size !== asset.size || meta.digest !== 'sha256:'+asset.sha || meta.state !== 'uploaded')
+                throw Error('Pinned asset metadata mismatch: '+asset.id);
+              const dir = path.join(process.env.WORK_DIR,String(asset.id));
+              fs.mkdirSync(dir,{recursive:true});
+              gh(['release','download',tag,'--repo',repo,'--pattern',asset.name,'--dir',dir]);
+              const original = path.join(dir,asset.name);
+              if ((await fsp.stat(original)).size !== asset.size || (await digest(original)) !== asset.sha)
+                throw Error('Downloaded content hash mismatch: '+asset.id);
+              const key = randomBytes(32), nonce = randomBytes(12);
+              const wrapped = publicEncrypt({key:publicKey,oaepHash:'sha256',padding:constants.RSA_PKCS1_OAEP_PADDING},key);
+              const envelope = {
+                format:'narro-relay/aes-256-gcm-rsa-oaep-sha256/v1',
+                id:asset.id,name:asset.name,size:asset.size,sha256:asset.sha,
+                nonce:nonce.toString('base64'),wrappedKey:wrapped.toString('base64')
+              };
+              const dest = path.join('encrypted-relay',String(asset.id)+'.gcm');
+              await fsp.writeFile(dest,JSON.stringify(envelope)+'\n',{flag:'wx'});
+              const cipher = createCipheriv('aes-256-gcm',key,nonce);
+              await pipeline(createReadStream(original),cipher,createWriteStream(dest,{flags:'a'}));
+              await fsp.appendFile(dest,cipher.getAuthTag());
+              await fsp.rm(dir,{recursive:true,force:true});
+              console.log('Encrypted and hash verified asset '+asset.id+' ('+asset.size+' bytes) — NO raw bytes printed');
+            }
+          })().catch(err=>{console.error('Private relay failed: '+err.message);process.exitCode=1;});
+          NODE
+      - name: Upload encrypted-only artifacts (never raw evidence)
+        uses: actions/upload-artifact@v4
+        with:
+          name: narro-private-evidence-encrypted-relay
+          path: encrypted-relay/*.gcm
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
