@@ -195,6 +195,8 @@ Evidence:
 
 ### NER-009 — ownership must match lifecycle
 
+**2026-11-10 GUI-queue lifetime refinement (NER-004/NER-009, not an extra failure family):** a `run_on_main_thread` callback remains queued after the caller's `recv_timeout(2s)` unless admission is explicitly cancelled. For Main→Focus, a delayed `main_focus_raster::Raster::begin` callback could create a visible unowned bitmap popup *after* the caller had abandoned the transition and attempted direct handoff. Existing PR499 commit `cc7122eb6770de2a3b2f9a1d4f59b62f5d855b12` adds an atomic queued/started/cancelled permit with two Windows Rust unit regressions; formatting-only replacement `7f6d3258ecc227211021abb8a2989b191f1f1e16` is subject to **new exact-head CI**, not an inherited PASS. This closes the **late, not-yet-started** operation admission gap only; a callback already executing when the receiver times out has uncertain completion, and the real Windows compositor remains ungraded. The same timeout pattern in `focus_frame_hold.rs` and `main_focus_morph.rs` is a bounded WATCH to analyze by original token/HWND/trace evidence rather than a speculative architecture rewrite. [Causal differential](../work-log/2026-11-10-chatgpt-recurrent-native-failure-causal-differential.md).
+
 Finding36 traced wrong Success→Next Task behavior and list reset to one cause: selected Focus scope lived inside a Panel subtree that could unmount, while Floating independently loaded All. Finding35 separately showed local “Task resumed.” copy surviving an authoritative transition into Time's Up. Both are ownership/lifetime mismatches rather than isolated labels.
 
 Evidence:
