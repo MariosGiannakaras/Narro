@@ -22,7 +22,7 @@ jobs:
         run: |
           set -euo pipefail
           export WORK_DIR="$(mktemp -d)"
-          trap 'rm -rf "$WORK_DIR" encrypted-relay' EXIT
+          trap 'rm -rf "$WORK_DIR"' EXIT
           mkdir -p encrypted-relay
           node <<'NODE'
           const fs = require('node:fs');
@@ -86,3 +86,7 @@ jobs:
           if-no-files-found: error
           retention-days: 1
           compression-level: 0
+      - name: Purge encrypted workspace after upload
+        if: always()
+        shell: bash
+        run: rm -rf encrypted-relay
