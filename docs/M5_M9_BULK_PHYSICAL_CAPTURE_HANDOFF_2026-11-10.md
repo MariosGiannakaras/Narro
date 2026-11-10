@@ -11,6 +11,17 @@
 | A compositor [PR389](https://github.com/MariosGiannakaras/Narro/pull/389) | `606b5671f570e5c2675542661cfae266fb5bc1fa` | run42462337268 **3/3 PASS**, physical **13610343105**; diagnostic **13610419507** | Physical **4/4**, quiet **7/7**, CRC PASS; EXE SHA `b3a1256295d8ddea1a06b9aa7b063e1c2b423340dc7d80c8ddbaa416c42b1121`. Actual host admission pending. |
 | B compositor [PR419](https://github.com/MariosGiannakaras/Narro/pull/419) | `8e0845f89fe2ee21f2c8179364b31ffbe06ffd96` | run42462338050 **3/3 PASS**, physical **13611255556**; diagnostic **13611275735** | Physical **4/4**, quiet **7/7**, CRC PASS; EXE SHA `649328783d32aa0ca380f7929aed3e3eaa1c410f256ede3462a0e4126e9136d1`. Actual host admission pending. |
 
+**Independently downloaded ZIP fingerprints for local admission** (SHA-256 of entire GitHub artifact ZIP, not only `narro.exe`):
+
+| Candidate | Role | Artifact ID | ZIP bytes | Full ZIP SHA-256 |
+| --- | --- | ---: | ---: | --- |
+| PR437 | physical | 13613239808 | 16,323,520 | `a1ab049e86b21041d0b2a85d448f200e29a2d8f1de33810ecce2189d4936d7f5` |
+| PR437 | quiet diagnostic | 13613644051 | 5,955,954 | `adb4e73fa3f4c55e5e7a0aa65a8f4dfbbb0e96fb9909a06980bb0f48e283cda7` |
+| PR389 A | physical | 13610343105 | 16,025,819 | `edbc780b8fe78130b67b264c4a2c24695db97c274279a5acff6dacd99fe9c130` |
+| PR389 A | quiet diagnostic | 13610419507 | 5,831,829 | `01d2f19624709fbb33431dcae664270dd8b098652caa4dc3b12523aa78ace07e` |
+| PR419 B | physical | 13611255556 | 16,163,328 | `ce0b3a18aac10b739a5f54b092f23535b68fcd93d8f8f9e850ca011e21560569` |
+| PR419 B | quiet diagnostic | 13611275735 | 5,913,490 | `19d9f68ce344baddb8a18c23c619982e32051fb9fefd9b463ca6ec7bc7e39270` |
+
 All 33 manifest members of the six stable PR437/A/B physical+diagnostic archives were **independently** checked from actual ZIP bytes; **0/33 failures**. Quiet diagnostics have no physical-observability feature and must be measured with **no recorder running**. Physical packages have the expected feature. This confirms archive provenance, **not on-host source/PID/executable admission**. Candidate PR431 and stacked PR436 are **already ancestors** of PR437 for their overlapping current-source claims: do not run redundant full copies just to count their PRs. PR418 is a design/contract source, not another runtime candidate. All of these PRs remain held; **PR389 and PR419 each have independent strict 8/8 physical-before-merge gates**. A/B results are not transferable to the default or to each other.
 
 The branch/CI values above are a **snapshot**. Before physical launch, read current HANDOFF and exact live PR head, and require that the on-host package manifest source/run/artifact/EXE SHA matches the latest source selected for that case. If any source has changed, **hold that candidate only** until exact-head CI and package identity replace this snapshot. Never silently substitute the newer main, the older PR437 executable, or a previously passing PR499 artifact.
