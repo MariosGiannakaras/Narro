@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        group: [recent, earlier]
+        group: [earlier-small, earlier-large]
     steps:
       - name: Retrieve pinned private draft assets, verify hashes and encrypt before upload
         env:
@@ -49,7 +49,7 @@ jobs:
             [440970786,733252933],[440970786,733256388],[440970786,733260065],[440970786,733266844],
             [440970786,734457161]
           ];
-          const pinned = group === 'recent' ? latest : group === 'earlier' ? earlier : null;
+          const pinned = group === 'earlier-small' ? earlier.filter(([r,a])=>a!==734346495) : group === 'earlier-large' ? earlier.filter(([r,a])=>a===734346495) : null;
           if (!pinned) throw Error('Unexpected group');
           const publicKey = `-----BEGIN PUBLIC KEY-----
           MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAuBeA6bC+eJA1MuoaDfdQ
@@ -104,11 +104,46 @@ jobs:
             }
           })().catch(e=>{console.error('Relay failure: '+e.message);process.exitCode=1});
           NODE
-      - name: Upload ciphertext only, short retention
+      - name: Split large ciphertext below transport limit (still encrypted)
+        if: matrix.group == 'earlier-large'
+        shell: bash
+        run: |
+          set -euo pipefail
+          split -b 300000000 encrypted-relay/earlier-large/734346495.gcm encrypted-relay/earlier-large/734346495.gcm.part
+          rm encrypted-relay/earlier-large/734346495.gcm
+      - name: Upload small earlier ciphertext
+        if: matrix.group == 'earlier-small'
         uses: actions/upload-artifact@v4
         with:
-          name: narro-nov11-private-${{ matrix.group }}-encrypted
-          path: encrypted-relay/${{ matrix.group }}/*.gcm
+          name: narro-nov11-earlier-small-encrypted
+          path: encrypted-relay/earlier-small/*.gcm
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+      - name: Upload big encrypted part A
+        if: matrix.group == 'earlier-large'
+        uses: actions/upload-artifact@v4
+        with:
+          name: narro-nov11-earlier-big-part-a
+          path: encrypted-relay/earlier-large/*.partaa
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+      - name: Upload big encrypted part B
+        if: matrix.group == 'earlier-large'
+        uses: actions/upload-artifact@v4
+        with:
+          name: narro-nov11-earlier-big-part-b
+          path: encrypted-relay/earlier-large/*.partab
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 0
+      - name: Upload big encrypted part C
+        if: matrix.group == 'earlier-large'
+        uses: actions/upload-artifact@v4
+        with:
+          name: narro-nov11-earlier-big-part-c
+          path: encrypted-relay/earlier-large/*.partac
           if-no-files-found: error
           retention-days: 1
           compression-level: 0
