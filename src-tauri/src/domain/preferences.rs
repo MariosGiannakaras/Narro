@@ -361,8 +361,7 @@ mod tests {
         for expected in [false, true] {
             let mut saved = serde_json::to_value(PreferencesPayload::default())
                 .expect("serialize shared preferences");
-            saved["general"]["remember_timer_position_on_restart"] =
-                serde_json::json!(expected);
+            saved["general"]["remember_timer_position_on_restart"] = serde_json::json!(expected);
             let mut decoded: PreferencesPayload =
                 serde_json::from_value(saved).expect("decode newer general field");
             assert_eq!(decoded.general.remember_timer_position_on_restart, expected);
