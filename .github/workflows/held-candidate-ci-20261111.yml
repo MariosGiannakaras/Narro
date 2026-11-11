@@ -146,9 +146,9 @@ jobs:
       matrix:
         include:
           - label: A389
-            sha: df7d80757c6fe8cdc4281135ce5b983b6e1f31b4
+            sha: ae02c7327b58653e9d6a4715d38cbb0c09735d29
           - label: B419
-            sha: 3b60e6a11b915d38df17e9b8ee958b81618c0526
+            sha: 9c5fbc3aa2278d23b17e772b7090488b76df3e36
     needs: validation-gate
     if: needs.validation-gate.outputs.skip-full-ci != 'true'
     runs-on: ubuntu-latest
@@ -199,9 +199,9 @@ jobs:
       matrix:
         include:
           - label: A389
-            sha: df7d80757c6fe8cdc4281135ce5b983b6e1f31b4
+            sha: ae02c7327b58653e9d6a4715d38cbb0c09735d29
           - label: B419
-            sha: 3b60e6a11b915d38df17e9b8ee958b81618c0526
+            sha: 9c5fbc3aa2278d23b17e772b7090488b76df3e36
     needs: [validation-gate, fast-gate]
     if: needs.validation-gate.outputs.skip-full-ci != 'true' && needs.fast-gate.result == 'success'
     runs-on: windows-latest
