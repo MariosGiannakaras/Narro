@@ -1,5 +1,7 @@
 # Narro agent entrypoint
 
+**Current physical-operation override (2026-11-11):** The user explicitly STOPPED new physical Windows activities at `2026-11-11T12:13:04Z`. Until explicit user reactivation, do not start Narro/installer or physical capture, run tests on the host, or modify Narro AppData under any older authorization. Read-only evidence review, independent source fixes, GitHub CI and artifact-byte verification remain permitted. The older 2026-11-07 ordinary PA authorization below is historical and **suspended for new physical actions**; it does not itself authorize restarting the campaign. See current `HANDOFF.md` and `STATUS.md` for candidate identities and open physical gates.
+
 This repository must be sufficient for another chat to continue without a copied conversation. Latest explicit user scope and actual current tool controls apply; historical reports are evidence, not new authority or permission bans.
 
 ## Resume-in-place fast path — every continuation message
@@ -25,7 +27,7 @@ Local cleanup on2026-11-07 retired the21 old checkouts after preserving original
 
 ## Current physical scope and data policy
 
-- Ordinary M1–M9 PA-01–09 is ACTIVE under existing user authority once candidate/dependency/operator admission is satisfied. Do not invent a blanket pause, a fresh case-by-case permission gate, or an optional whole-app audit prerequisite.
+- Ordinary M1–M9 PA-01–09 was authorized on 2026-11-07, but **new physical operations are STOPPED as of 2026-11-11T12:13:04Z**. No new capture/launch/install/physical-test/AppData mutation before explicit user reactivation. Once explicitly reactivated, honor candidate/dependency/operator admission and do not invent unrelated barriers or an optional whole-app audit prerequisite.
 - Use the ordinary Windows account and normal Narro AppData as disposable Narro test data. No mandatory separate account, temporary DB or automatic backup. Reset only Narro data with Narro stopped; retain it for the persistence/restart claim until measured. Never extend that permission to unrelated files, global OS settings, hardware or installation outside the selected case's authority.
 - New captures are required. Compare only authentic Blitzit originals with newly acquired Narro evidence. Do not restore retired Narro media as fresh proof or rerun the closed original research by default.
 - Keep exact source/run/artifact/EXE SHA/PID/path and independent per-case PASS/FAIL/NOT RUN/INCONCLUSIVE results. CI, screenshots or static checks do not prove continuous native motion. Use continuous original capture for motion; a stable static claim can use exact-build screenshots.
