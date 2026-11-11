@@ -68,6 +68,11 @@ pub enum FocusPanelSide {
 pub struct GeneralPreferences {
     pub selected_monitor_key: Option<String>,
     pub focus_panel_side: FocusPanelSide,
+    // Forward-compatible passthrough for a newer Narro preference when
+    // this independent compositor candidate reads or rewrites shared AppData.
+    // This branch does not implement the restart-placement feature.
+    #[serde(default)]
+    pub remember_timer_position_on_restart: bool,
     pub open_on_login: bool,
     pub hide_task_times: bool,
     pub auto_parse_est_from_title: bool,
@@ -151,6 +156,7 @@ impl Default for PreferencesPayload {
             general: GeneralPreferences {
                 selected_monitor_key: None,
                 focus_panel_side: FocusPanelSide::Right,
+                remember_timer_position_on_restart: false,
                 open_on_login: false,
                 hide_task_times: false,
                 auto_parse_est_from_title: false,
@@ -346,6 +352,37 @@ mod tests {
         let decoded: PreferencesPayload =
             serde_json::from_value(value).expect("decode legacy preferences");
         assert_eq!(decoded.shortcuts, ShortcutPreferences::default());
+    }
+
+    #[test]
+    fn newer_restart_position_preference_survives_legacy_compositor_round_trip() {
+        // The older independent A/B compositor must open a shared DB last used
+        // by PR499, and must never erase the user's opt-in during a mutation.
+        for expected in [false, true] {
+            let mut saved = serde_json::to_value(PreferencesPayload::default())
+                .expect("serialize shared preferences");
+            saved["general"]["remember_timer_position_on_restart"] =
+                serde_json::json!(expected);
+            let mut decoded: PreferencesPayload =
+                serde_json::from_value(saved).expect("decode newer general field");
+            assert_eq!(decoded.general.remember_timer_position_on_restart, expected);
+            decoded.shortcuts.go_to_narro_enabled = false;
+            let serialized = serde_json::to_value(decoded).expect("serialize mutation");
+            assert_eq!(
+                serialized["general"]["remember_timer_position_on_restart"],
+                serde_json::json!(expected),
+                "shortcut mutation must preserve newer restart-placement setting"
+            );
+        }
+        let mut legacy = serde_json::to_value(PreferencesPayload::default())
+            .expect("serialize legacy preferences");
+        legacy["general"]
+            .as_object_mut()
+            .expect("general preferences")
+            .remove("remember_timer_position_on_restart");
+        let decoded: PreferencesPayload =
+            serde_json::from_value(legacy).expect("old JSON still loads");
+        assert!(!decoded.general.remember_timer_position_on_restart);
     }
 
     #[test]
