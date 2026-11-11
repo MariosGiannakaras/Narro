@@ -1,4 +1,4 @@
-name: Held A/B compositor exact-source CI (temporary)
+name: Held A/B original-source CI (temporary)
 
 on:
   push:
@@ -28,7 +28,7 @@ permissions:
   pull-requests: read
 
 concurrency:
-  group: windows-held-candidates-20261111-${{ github.ref }}
+  group: windows-held-original-20261111-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -223,11 +223,6 @@ jobs:
         node-version: '24'
         cache: 'npm'
 
-    - name: Prepare Verified Windows Bundle Tools
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: python scripts/prepare-windows-bundle-tools.py
-
     - name: Setup Rust
       uses: dtolnay/rust-toolchain@stable
       with:
@@ -306,7 +301,7 @@ jobs:
         retention-days: 1
 
     - name: Build Tauri Release
-      run: npm run ci:bundle:normal
+      run: npm run tauri:ci
 
     - name: Capture Packaged Focus Runtime
       run: npm run test:focus-runtime-visual:windows
@@ -336,7 +331,7 @@ jobs:
       run: |
         $env:CARGO_TARGET_DIR = Join-Path $PWD "src-tauri/target-physical"
         $env:NARRO_VALIDATION_SOURCE_SHA = "${{ matrix.sha }}"
-        npm run ci:bundle:physical
+        npm run tauri:physical-ci
 
     - name: Verify Physical Validation Build
       shell: pwsh
@@ -387,7 +382,6 @@ jobs:
         path: |
           src-tauri/target-physical/release/narro.exe
           scripts/physical-session.mjs
-          scripts/upload-physical-evidence.py
           src-tauri/target-physical/release/bundle/nsis/*.exe
           src-tauri/target-physical/release/bundle/msi/*.msi
           artifacts/ci-provenance/physical.json
@@ -433,14 +427,3 @@ jobs:
           docs/M1_DISPLAY_TOPOLOGY_VALIDATION.md
           artifacts/ci-provenance/diagnostic.json
         if-no-files-found: error
-
-    - name: Preserve Bundler Download Attempt Logs
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: narro-ci-bundle-download-attempts-${{ matrix.label }}
-        path: |
-          artifacts/ci-bundle-downloads/**
-          artifacts/ci-bundle-tools-downloads/*.json
-        if-no-files-found: warn
-        retention-days: 1
