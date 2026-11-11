@@ -4,6 +4,8 @@
 
 This repository must be sufficient for another chat to continue without a copied conversation. Latest explicit user scope and actual current tool controls apply; historical reports are evidence, not new authority or permission bans.
 
+**Future physical execution ownership / user direction (2026-11-11):** After the user explicitly lifts the STOP, **Codex** owns **one consolidated, source-isolated M1–M9 final Windows physical campaign**, covering all applicable PA-01–09 and still-OPEN M5–M9 items under [the executable bulk launch sheet](docs/M5_M9_BULK_PHYSICAL_CAPTURE_HANDOFF_2026-11-10.md). Freeze and privately upload each complete source-identified evidence packet **immediately** through the draft-release uploader before any following recording; verify the remote receipt. Keep separate PR499/PR437 and A/B sources, their 8/8 holds, and actual coverage verdicts. This future instruction does **not** permit any physical work while STOP is active; M10 needs separate user approval, M11/M12 stay optional. **User-facing updates on this task: answer only whether final bulk recordings are ready to start**, unless the user requests detail.
+
 ## Resume-in-place fast path — every continuation message
 
 On an existing chat, `continue`, interruption or status question, resume the last exact operation. Check whether an interrupted write already landed before retrying. Recheck only the relevant PR/head/run/process handle, then act; do not restart full onboarding or duplicate a PR/capture.
