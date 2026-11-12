@@ -85,4 +85,72 @@ function execute(expression, variables) {
       "Shortcut retry admission must be synchronous and single-flight");
   }
 }
-console.log("Actual initial-load recovery callbacks: Preferences and Shortcuts single-flight, lifecycle and disabled states PASS");
+
+/** An initial Preferences read may resolve after a cross-window settings commit.
+ * Exercise the real useEffect callback (not a reimplementation) in both orders.
+ */
+{
+  const path = "src/PreferenceSettingsRuntime.tsx";
+  const file = ts.createSourceFile(path, source(path), ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  const effects = [], publishers = [];
+  const visit = (node) => {
+    if (ts.isCallExpression(node) && node.expression.getText(file) === "useEffect") {
+      effects.push(node.arguments[0].getText(file));
+    }
+    if (ts.isVariableDeclaration(node) && node.name.getText(file) === "publishSnapshot"
+      && node.initializer && ts.isArrowFunction(node.initializer)) {
+      publishers.push(node.initializer.getText(file));
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(file);
+  assert.equal(effects.length, 1, "Find exactly one production Preferences load effect");
+  assert.equal(publishers.length, 1, "Find exactly one production authoritative snapshot publisher");
+  const compiled = ts.transpileModule(
+    "this.__publisher = (" + publishers[0] + "); this.__effect = (" + effects[0] + ");", {
+    compilerOptions: { target: ts.ScriptTarget.ES2022 },
+  }).outputText;
+  for (const eventFirst of [true, false]) {
+    let emit;
+    let resolveRead;
+    const initialRead = new Promise((resolve) => { resolveRead = resolve; });
+    const observed = { snapshot: null, monitors: null, loading: true };
+    const initialReadInFlightRef = { current: true };
+    const ctx = {
+      listen: (_name, handler) => { emit = handler; return Promise.resolve(() => {}); },
+      PREFERENCES_CHANGED_EVENT: "preferences-changed",
+      snapshotRevisionRef: { current: 0 },
+      latestCommitRevisionRef: { current: null },
+      mountedRef: { current: true },
+      getPreferenceSettings: () => initialRead,
+      listPreferenceMonitors: async () => [{ key: "monitor-1" }],
+      setSnapshot: (value) => { observed.snapshot = value; },
+      setMonitors: (value) => { observed.monitors = value; },
+      setLoading: (value) => { observed.loading = value; },
+      setError: () => {},
+      initialReadInFlightRef,
+    };
+    vm.runInNewContext(compiled, ctx);
+    ctx.publishSnapshot = ctx.__publisher;
+    const cleanup = ctx.__effect();
+    const stale = { general: { focusPanelSide: "left" } };
+    const latest = { general: { focusPanelSide: "right" } };
+    if (eventFirst) {
+      emit({ payload: latest });
+      resolveRead(stale);
+    } else {
+      resolveRead(stale);
+      await new Promise((resolve) => setImmediate(resolve));
+      emit({ payload: latest });
+    }
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(observed.snapshot?.general.focusPanelSide, "right",
+      "A live preference commit must supersede a stale initial read; eventFirst=" + eventFirst);
+    assert.equal(observed.monitors?.[0]?.key, "monitor-1");
+    assert.equal(observed.loading, false);
+    assert.equal(initialReadInFlightRef.current, false);
+    cleanup();
+  }
+}
+
+console.log("Actual initial-load recovery callbacks: Preferences and Shortcuts single-flight, lifecycle, stale-event ordering PASS");

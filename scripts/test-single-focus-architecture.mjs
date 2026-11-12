@@ -11,11 +11,13 @@ const lib = read("src-tauri/src/lib.rs");
 const shutdown = read("src-tauri/src/normal_shutdown.rs");
 const focusWebview = read("src-tauri/src/focus_webview.rs");
 const region = read("src-tauri/src/timer_region.rs");
+const frameHold = read("src-tauri/src/focus_frame_hold.rs");
 const placement = read("src-tauri/src/floating_placement.rs");
 const topology = read("src-tauri/src/windows/topology.rs");
 const shortcuts = read("src-tauri/src/shortcuts/mod.rs");
 const focusEntry = read("src/focus.tsx");
 const coordinator = read("src/FocusSurfaceCoordinator.tsx");
+const motionV4 = read("src/focusMotionV4.ts");
 const coordinatorCss = read("src/focusSurfaceCoordinator.css");
 const completionSuccess = read("src/FocusCompletionSuccess.tsx");
 const completionSuccessCss = read("src/focusCompletionSuccess.css");
@@ -87,7 +89,7 @@ invariant(
 );
 invariant(
   coordinator.includes("inert={!panelActive || transitionPending}")
-    && coordinator.includes("inert={!timerActive || transitionPending || completionSuccess !== null}")
+    && coordinator.includes("inert={!timerActive || transitionPending || timerResizePending || completionSuccess !== null}")
     && coordinator.includes("completionSuccessContent={inlineSuccess && completionSuccess ? ("),
   "inactive/preparing presentations and modal backgrounds must be removed from interaction and accessibility navigation",
 );
@@ -100,24 +102,32 @@ invariant(
 );
 
 invariant(
-  coordinator.includes("const FOCUS_GEOMETRY_MOTION_MS = 250")
-    && coordinator.includes("animateNativePresentation: (next) =>")
+  coordinator.includes("animateNativePresentation: (next) =>")
     && coordinator.includes("animateFocusSurfacePresentation(next, motionDurationMs, rasterToken!)")
-    && coordinator.includes("runConcurrentMotion: () =>")
+    && coordinator.includes("runConcurrentMotion: () => runGeometryMotion(previousPresentation, targetPresentation)")
+    && coordinator.includes("motionV4Duration(")
+    && !coordinator.includes("window.setTimeout(resolve, durationMs)")
     && presentationTransition.includes("animateNativePresentation?: (presentation: TPresentation) => Promise<void>")
     && presentationTransition.includes("runConcurrentMotion?: () => Promise<void>")
     && presentationTransition.includes("await Promise.allSettled([")
-    && coordinatorCss.includes("--focus-geometry-motion-duration: 250ms")
+    && coordinatorCss.includes("--focus-geometry-motion-duration: 500ms")
+    && coordinatorCss.includes("--focus-geometry-motion-duration: 1ms")
+    && motionV4.includes("MOTION_V4_DURATION_MS = 500")
+    && motionV4.includes("MOTION_V4_REDUCED_DURATION_MS = 1")
     && coordinatorCss.includes("--focus-geometry-motion-ease: cubic-bezier(0.55, 0.55, 0, 1)")
     && lib.includes("FLUENT_POINT_TO_POINT_X1: f64 = 0.55")
-    && lib.includes("fluent_point_to_point_easing")
+    && lib.includes("fluent_point_to_point_easing(elapsed)")
+    && lib.includes("focus_motion_v4_easing(elapsed)")
+    && lib.includes("lease.v4_panel_from_plate.is_some()")
+    && lib.includes("lease.v4_plate.is_some()")
     && coordinator.includes("prepareFocusSurfaceModeRaster(targetPresentation)")
     && coordinator.includes("afterRendererCommit: async () =>")
     && coordinator.includes("await finishFocusSurfaceModeRaster(rasterToken!)")
     && !coordinatorCss.includes("inset(0 0 590px")
     && !coordinatorCss.includes("inset(0 0 400px"),
-  "Panel/Timer switching must coordinate finite Fluent point-to-point same-WebView geometry and native position continuity",
+  "Panel/Timer must preserve one guarded native clock: 500ms/1ms Motion v4 for staged plates, Fluent fallback for ordinary protected raster, with same-WebView paint and rollback",
 );
+
 invariant(
   coordinatorCss.includes("--focus-visible-height: 700px")
     && coordinatorCss.includes('--focus-visible-height: 110px')
@@ -327,12 +337,13 @@ invariant(
     && lib.includes("fn focus_panel_placement_probe(")
     && lib.includes("window.outer_position()")
     && lib.includes("window.outer_size()")
-    && lib.includes("focus_panel_edge_position(descriptor.work_area, actual_size, side)")
+    && lib.includes("focus_panel_placement_position(")
+    && lib.includes("descriptor.scale_factor")
     && lib.includes("clamp_top_left(descriptor.work_area, actual_size, actual_position)")
     && lib.includes("fully_within_work_area")
     && lib.includes("edge_aligned")
     && lib.includes("focus_panel_placement_probe,"),
-  "physical monitor diagnostics must read actual Focus HWND geometry, compare it with the selected monitor work-area edge, and remain registered",
+  "physical monitor diagnostics must read actual Focus HWND geometry, compare it with the selected monitor work-area inset anchor, and remain registered",
 );
 invariant(
   topology.includes("WM_ENTERSIZEMOVE")
@@ -341,7 +352,9 @@ invariant(
     && placement.includes("pub(crate) fn planned_timer_position(")
     && lib.includes("fn animate_focus_surface_presentation_internal(")
     && lib.includes("windows::suspend_focus_display_recovery()")
-    && lib.includes("render_mode_raster_frame(&window, lease, &incoming, progress)")
+    && /render_mode_raster_frame\(\s*&window,\s*lease,\s*&incoming,\s*progress,\s*Some\(GeometryPoint/.test(lib)
+    && frameHold.includes("BeginDeferWindowPos(2)")
+    && frameHold.includes("EndDeferWindowPos(batch)")
     && lib.includes("focus_frame_hold::begin_mode_transition(&window, visible, &png)")
     && lib.includes("restore_focus_native_snapshot_protected")
     && !lib.includes("FOCUS_CROSS_DPI_VIEWPORT_SETTLE_MS"),

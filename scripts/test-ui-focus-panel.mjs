@@ -153,7 +153,7 @@ for (const [haystack, needle, label] of [
   [read("src/useFocusDoneBreaks.ts"), 'listenForBoardInvalidation(refresh)', "Break Done refreshes after authoritative session mutations"],
   [read("src/useFocusDoneBreaks.ts"), 'expectedRevision === readRevision', "Break history rejects stale read completions"],
   [read("src-tauri/src/persistence/sessions.rs"), 'LIMIT ?4', "Focus Break history SQL must return bounded rows"],
-  [read("src-tauri/src/report_commands.rs"), 'pub fn get_focus_done_breaks(', "validated native Focus Break history command"],
+  [read("src-tauri/src/report_commands.rs"), 'pub async fn get_focus_done_breaks(', "validated native Focus Break history command"],
   [read("src-tauri/src/lib.rs"), 'report_commands::get_focus_done_breaks,', "registered native Focus Break history command"],
   [actions, "<FocusLiveMetrics", "live metric composition"],
   [actions, "fixtureEditor={fixtureMetricEditor}", "paused metric visual fixture wiring"],

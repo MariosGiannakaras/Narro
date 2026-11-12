@@ -228,6 +228,7 @@ export function FocusLiveSubtasks({
       <section
         className="floating-timer-foundation__subtasks"
         data-floating-subtasks={expanded ? "expanded" : "collapsed"}
+        data-floating-subtasks-loading={expanded && loading ? "true" : undefined}
         data-floating-subtask-refresh-blocked={refreshBlocked ? "true" : "false"}
         data-task-id={task.id}
         aria-label={`Subtasks for ${task.title}`}

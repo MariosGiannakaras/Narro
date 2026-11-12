@@ -11,7 +11,15 @@ use crate::windows::PhysicalRect;
 #[cfg(windows)]
 mod native {
     use super::{CommandError, CommandResult, PhysicalRect};
-    use std::{ffi::c_void, ptr, sync::mpsc, time::Duration};
+    use std::{
+        ffi::c_void,
+        ptr,
+        sync::{
+            atomic::{AtomicU8, Ordering},
+            mpsc, Arc,
+        },
+        time::Duration,
+    };
 
     type Handle = *mut c_void;
     const CLASS: &str = "NarroBoardFocusPixels";
@@ -229,6 +237,26 @@ mod native {
         }
     }
 
+    // A timed-out caller must not leave a queued GUI operation that can later
+    // create or move an unowned desktop popup after the transition has failed.
+    // Once a callback starts, its effects cannot safely be cancelled mid-call.
+    #[derive(Default)]
+    struct UiDispatchPermit(AtomicU8);
+
+    impl UiDispatchPermit {
+        fn try_start(&self) -> bool {
+            self.0
+                .compare_exchange(0, 1, Ordering::AcqRel, Ordering::Acquire)
+                .is_ok()
+        }
+
+        fn cancel_if_queued(&self) -> bool {
+            self.0
+                .compare_exchange(0, 2, Ordering::AcqRel, Ordering::Acquire)
+                .is_ok()
+        }
+    }
+
     fn on_window_thread<T: Send + 'static>(
         owner: &tauri::WebviewWindow,
         operation: impl FnOnce() -> CommandResult<T> + Send + 'static,
@@ -241,14 +269,29 @@ mod native {
             return operation();
         }
         let (send, receive) = mpsc::sync_channel(1);
+        let permit = Arc::new(UiDispatchPermit::default());
+        let on_gui_thread = Arc::clone(&permit);
         owner
             .run_on_main_thread(move || {
-                let _ = send.send(operation());
+                if on_gui_thread.try_start() {
+                    let _ = send.send(operation());
+                }
             })
             .map_err(|e| CommandError::new("FOCUS_ENTRY_RASTER_FAILED", e.to_string()))?;
-        receive.recv_timeout(Duration::from_secs(2)).map_err(|e| {
-            CommandError::new("FOCUS_ENTRY_RASTER_FAILED", format!("window thread: {e}"))
-        })?
+        match receive.recv_timeout(Duration::from_secs(2)) {
+            Ok(result) => result,
+            Err(error) => {
+                let detail = if permit.cancel_if_queued() {
+                    "queued native popup operation cancelled before execution"
+                } else {
+                    "native popup operation already started; completion uncertain"
+                };
+                Err(CommandError::new(
+                    "FOCUS_ENTRY_RASTER_FAILED",
+                    format!("window thread: {error}; {detail}"),
+                ))
+            }
+        }
     }
 
     pub(crate) struct Raster {
@@ -424,6 +467,29 @@ mod native {
             if let Err(error) = self.release() {
                 eprintln!("Could not release Board raster: {error}");
             }
+        }
+    }
+    #[cfg(test)]
+    mod dispatch_tests {
+        use super::UiDispatchPermit;
+
+        #[test]
+        fn timeout_prevents_a_late_queued_popup_operation() {
+            let permit = UiDispatchPermit::default();
+            assert!(permit.cancel_if_queued());
+            assert!(
+                !permit.try_start(),
+                "late GUI callback must not create popup"
+            );
+            assert!(!permit.cancel_if_queued());
+        }
+
+        #[test]
+        fn already_started_gui_operation_is_not_falsely_reported_cancelled() {
+            let permit = UiDispatchPermit::default();
+            assert!(permit.try_start());
+            assert!(!permit.cancel_if_queued());
+            assert!(!permit.try_start());
         }
     }
 }

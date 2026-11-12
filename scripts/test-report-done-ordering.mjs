@@ -53,8 +53,8 @@ assert.match(overview, /"Completion date unavailable"/,
   "Invalid historical date rows remain visible under a safe explicit label");
 assert.match(overview, /orderReportDoneTasks\(overview\.doneTasks\)\.map/,
   "The production Overview must order before formatting the localized date label");
-assert.match(overview, /doneTaskPresentation\(overview, locale, timeZone, listColors\)/,
-  "Both interactive Overview and PDF must reuse the same Done presentation");
+assert.match(overview, /doneTaskPresentation\(overviewForCurrentRequest, locale, timeZone, listColors\)/,
+  "Both interactive Overview and PDF must use the same request-keyed newest-first Done presentation");
 assert.match(view, /new Map<string, ReportsDoneTask\[\]>\(\)/,
   "Done group order must be insertion-order-preserving after timestamp ordering");
 assert.match(css, /data-report-pdf-export/,

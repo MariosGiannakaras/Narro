@@ -9,6 +9,7 @@ export type FocusPanelSidePreference = "left" | "right";
 export type GeneralSettingsSnapshot = {
   selectedMonitorKey: string | null;
   focusPanelSide: FocusPanelSidePreference;
+  rememberTimerPositionOnRestart: boolean;
   openOnLogin: boolean;
   autostartEnabled: boolean;
   hideTaskTimes: boolean;
@@ -47,6 +48,9 @@ export type CelebrationSettingsSnapshot = {
 
 export type PreferenceSettingsSnapshot = {
   schemaVersion: number;
+  // Monotonic within one Narro process; string preserves full Rust u64 precision.
+  // Optional for older diagnostic fixtures and historical binary compatibility.
+  commitRevision?: string;
   general: GeneralSettingsSnapshot;
   focus: FocusSettingsSnapshot;
   alerts: AlertSettingsSnapshot;
@@ -57,6 +61,7 @@ export type PreferenceSettingsSnapshot = {
 export type PreferenceSettingsPatch = Partial<{
   selectedMonitorKey: string;
   focusPanelSide: FocusPanelSidePreference;
+  rememberTimerPositionOnRestart: boolean;
   openOnLogin: boolean;
   hideTaskTimes: boolean;
   autoParseEstFromTitle: boolean;

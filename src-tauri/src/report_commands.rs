@@ -672,7 +672,7 @@ fn map_session_error(error: SessionStoreError) -> CommandError {
 }
 
 #[tauri::command(rename_all = "camelCase")]
-pub fn get_report_history(
+pub async fn get_report_history(
     app_handle: tauri::AppHandle,
     start_at: String,
     end_at: String,
@@ -683,14 +683,17 @@ pub fn get_report_history(
         end_at,
         list_ids: parse_list_ids(list_ids)?,
     };
-    let connection = app_database(&app_handle)?;
-    report_history_snapshot(&connection, range)
-        .map(Into::into)
-        .map_err(map_reporting_error)
+    crate::blocking_read::read("REPORT_READ_FAILED", move || {
+        let connection = app_database(&app_handle)?;
+        report_history_snapshot(&connection, range)
+            .map(Into::into)
+            .map_err(map_reporting_error)
+    })
+    .await
 }
 
 #[tauri::command(rename_all = "camelCase")]
-pub fn get_report_overview(
+pub async fn get_report_overview(
     app_handle: tauri::AppHandle,
     start_at: String,
     end_at: String,
@@ -702,17 +705,20 @@ pub fn get_report_overview(
         end_at,
         list_ids: parse_list_ids(list_ids)?,
     };
-    let connection = app_database(&app_handle)?;
-    report_overview(&connection, range, &display_timezone)
-        .map(Into::into)
-        .map_err(map_reporting_error)
+    crate::blocking_read::read("REPORT_READ_FAILED", move || {
+        let connection = app_database(&app_handle)?;
+        report_overview(&connection, range, &display_timezone)
+            .map(Into::into)
+            .map_err(map_reporting_error)
+    })
+    .await
 }
 
 /// Today's closed Focus Breaks for one Focus target; no full Reports scan,
 /// task mutation, or session-write side effects. The UTC instants come from
 /// the board's IANA timezone at local midnight, including DST boundaries.
 #[tauri::command(rename_all = "camelCase")]
-pub fn get_focus_done_breaks(
+pub async fn get_focus_done_breaks(
     app_handle: tauri::AppHandle,
     start_at: String,
     end_at: String,
@@ -735,28 +741,33 @@ pub fn get_focus_done_breaks(
             })
         })
         .transpose()?;
-    let connection = app_database(&app_handle)?;
-    recent_closed_focus_breaks(&connection, &start_at, &end_at, list_id)
-        .map_err(|error| CommandError::new("FOCUS_BREAK_HISTORY_READ_FAILED", error.to_string()))?
-        .into_iter()
-        .map(|session| {
-            let ended_at = session.ended_at.ok_or_else(|| {
-                CommandError::new(
-                    "FOCUS_BREAK_HISTORY_READ_FAILED",
-                    "closed Break has no end time",
-                )
-            })?;
-            Ok(FocusDoneBreakPayload {
-                id: session.id.to_string(),
-                ended_at,
-                duration_seconds: session.duration_seconds.to_string(),
+    crate::blocking_read::read("FOCUS_BREAK_HISTORY_READ_FAILED", move || {
+        let connection = app_database(&app_handle)?;
+        recent_closed_focus_breaks(&connection, &start_at, &end_at, list_id)
+            .map_err(|error| {
+                CommandError::new("FOCUS_BREAK_HISTORY_READ_FAILED", error.to_string())
+            })?
+            .into_iter()
+            .map(|session| {
+                let ended_at = session.ended_at.ok_or_else(|| {
+                    CommandError::new(
+                        "FOCUS_BREAK_HISTORY_READ_FAILED",
+                        "closed Break has no end time",
+                    )
+                })?;
+                Ok(FocusDoneBreakPayload {
+                    id: session.id.to_string(),
+                    ended_at,
+                    duration_seconds: session.duration_seconds.to_string(),
+                })
             })
-        })
-        .collect()
+            .collect()
+    })
+    .await
 }
 
 #[tauri::command(rename_all = "camelCase")]
-pub fn get_report_sessions(
+pub async fn get_report_sessions(
     app_handle: tauri::AppHandle,
     start_at: String,
     end_at: String,
@@ -768,10 +779,13 @@ pub fn get_report_sessions(
         end_at,
         list_ids: parse_list_ids(list_ids)?,
     };
-    let connection = app_database(&app_handle)?;
-    load_sessions_report(&connection, range, show_break_sessions)
-        .map(Into::into)
-        .map_err(map_sessions_report_error)
+    crate::blocking_read::read("REPORT_READ_FAILED", move || {
+        let connection = app_database(&app_handle)?;
+        load_sessions_report(&connection, range, show_break_sessions)
+            .map(Into::into)
+            .map_err(map_sessions_report_error)
+    })
+    .await
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -797,7 +811,10 @@ pub async fn export_report_overview_pdf(
             format!("failed to resolve the local Downloads directory: {error}"),
         )
     })?;
-    let path = write_unique_export(&download_directory, &file_stem, "pdf", &pdf)?;
+    let path = crate::blocking_read::read("REPORT_EXPORT_FAILED", move || {
+        write_unique_export(&download_directory, &file_stem, "pdf", &pdf)
+    })
+    .await?;
 
     Ok(ReportPdfExportPayload {
         path: path.to_string_lossy().into_owned(),
@@ -805,7 +822,7 @@ pub async fn export_report_overview_pdf(
 }
 
 #[tauri::command(rename_all = "camelCase")]
-pub fn export_report_sessions_csv(
+pub async fn export_report_sessions_csv(
     app_handle: tauri::AppHandle,
     start_at: String,
     end_at: String,
@@ -822,36 +839,41 @@ pub fn export_report_sessions_csv(
         export_range_date(&range.start_at),
         export_range_date(&range.end_at)
     );
-    let connection = app_database(&app_handle)?;
-    let payload: ReportSessionsPayload =
-        load_sessions_report(&connection, range, show_break_sessions)
-            .map(Into::into)
-            .map_err(map_sessions_report_error)?;
-    let csv = sessions_csv(&payload);
-    let download_directory = app_handle.path().download_dir().map_err(|error| {
-        CommandError::new(
-            "REPORT_EXPORT_FAILED",
-            format!("failed to resolve the local Downloads directory: {error}"),
-        )
-    })?;
-    let path = write_unique_export(&download_directory, &file_stem, "csv", csv.as_bytes())?;
-
-    Ok(ReportExportPayload {
-        path: path.to_string_lossy().into_owned(),
-        row_count: payload.rows.len().to_string(),
+    crate::blocking_read::read("REPORT_EXPORT_FAILED", move || {
+        let connection = app_database(&app_handle)?;
+        let payload: ReportSessionsPayload =
+            load_sessions_report(&connection, range, show_break_sessions)
+                .map(Into::into)
+                .map_err(map_sessions_report_error)?;
+        let csv = sessions_csv(&payload);
+        let download_directory = app_handle.path().download_dir().map_err(|error| {
+            CommandError::new(
+                "REPORT_EXPORT_FAILED",
+                format!("failed to resolve the local Downloads directory: {error}"),
+            )
+        })?;
+        let path = write_unique_export(&download_directory, &file_stem, "csv", csv.as_bytes())?;
+        Ok(ReportExportPayload {
+            path: path.to_string_lossy().into_owned(),
+            row_count: payload.rows.len().to_string(),
+        })
     })
+    .await
 }
 
 #[tauri::command(rename_all = "camelCase")]
-pub fn get_report_task_sessions(
+pub async fn get_report_task_sessions(
     app_handle: tauri::AppHandle,
     task_id: String,
 ) -> CommandResult<ReportTaskSessionsDetailPayload> {
     let task_id = parse_task_id(&task_id)?;
-    let connection = app_database(&app_handle)?;
-    load_task_sessions_detail(&connection, task_id)
-        .map(Into::into)
-        .map_err(map_sessions_report_error)
+    crate::blocking_read::read("REPORT_READ_FAILED", move || {
+        let connection = app_database(&app_handle)?;
+        load_task_sessions_detail(&connection, task_id)
+            .map(Into::into)
+            .map_err(map_sessions_report_error)
+    })
+    .await
 }
 
 #[tauri::command(rename_all = "camelCase")]
@@ -865,7 +887,7 @@ pub async fn create_manual_report_session(
     let task_id = parse_task_id(&task_id)?;
     run_manual_session_write(move || {
         let mut connection = app_database(&app_handle)?;
-        create_manual_work_session(
+        let session = create_manual_work_session(
             &mut connection,
             task_id,
             &started_at,
@@ -873,8 +895,9 @@ pub async fn create_manual_report_session(
             u64::from(duration_seconds),
             &chrono::Utc::now().to_rfc3339(),
         )
-        .map(Into::into)
-        .map_err(map_session_error)
+        .map_err(map_session_error)?;
+        invalidate_live_time_taken(&app_handle);
+        Ok(session.into())
     })
     .await
 }
@@ -897,7 +920,7 @@ where
 }
 
 #[tauri::command(rename_all = "camelCase")]
-pub fn edit_report_session(
+pub async fn edit_report_session(
     app_handle: tauri::AppHandle,
     session_id: String,
     expected_updated_at: String,
@@ -906,31 +929,48 @@ pub fn edit_report_session(
     duration_seconds: u32,
 ) -> CommandResult<ReportSessionMutationPayload> {
     let session_id = parse_session_id(&session_id)?;
-    let mut connection = app_database(&app_handle)?;
-    edit_closed_session_if_expected(
-        &mut connection,
-        session_id,
-        &expected_updated_at,
-        &started_at,
-        &ended_at,
-        u64::from(duration_seconds),
-        &chrono::Utc::now().to_rfc3339(),
-    )
-    .map(Into::into)
-    .map_err(map_session_error)
+    run_manual_session_write(move || {
+        let mut connection = app_database(&app_handle)?;
+        let session = edit_closed_session_if_expected(
+            &mut connection,
+            session_id,
+            &expected_updated_at,
+            &started_at,
+            &ended_at,
+            u64::from(duration_seconds),
+            &chrono::Utc::now().to_rfc3339(),
+        )
+        .map_err(map_session_error)?;
+        invalidate_live_time_taken(&app_handle);
+        Ok(session.into())
+    })
+    .await
 }
 
 #[tauri::command(rename_all = "camelCase")]
-pub fn delete_report_session(
+pub async fn delete_report_session(
     app_handle: tauri::AppHandle,
     session_id: String,
     expected_updated_at: String,
 ) -> CommandResult<ReportSessionMutationPayload> {
     let session_id = parse_session_id(&session_id)?;
-    let mut connection = app_database(&app_handle)?;
-    delete_closed_session_if_expected(&mut connection, session_id, &expected_updated_at)
-        .map(Into::into)
-        .map_err(map_session_error)
+    run_manual_session_write(move || {
+        let mut connection = app_database(&app_handle)?;
+        let session =
+            delete_closed_session_if_expected(&mut connection, session_id, &expected_updated_at)
+                .map_err(map_session_error)?;
+        invalidate_live_time_taken(&app_handle);
+        Ok(session.into())
+    })
+    .await
+}
+
+fn invalidate_live_time_taken(app: &tauri::AppHandle) {
+    if let Some(signal) =
+        app.try_state::<crate::persistence::live_time_taken_projection::TimeTakenInvalidation>()
+    {
+        signal.invalidate();
+    }
 }
 
 #[cfg(test)]

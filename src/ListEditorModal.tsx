@@ -87,6 +87,10 @@ export function ListEditorModal({ mode, initialList, onRequestClose, onSave }: L
   const openerRef = useRef<HTMLElement | null>(null);
   const colorAtOpen = useRef(initialList?.color ?? COLOR_SWATCHES[0]);
   const savingRef = useRef(false);
+  const iconRequestRef = useRef(0);
+  const iconValidationPendingRef = useRef(false);
+  const iconValidationErrorRef = useRef(false);
+  const mountedRef = useRef(true);
   const [title, setTitle] = useState(initialList?.title ?? "");
   const [color, setColor] = useState(initialList?.color ?? COLOR_SWATCHES[0]);
   const [customColorOpen, setCustomColorOpen] = useState(false);
@@ -95,6 +99,9 @@ export function ListEditorModal({ mode, initialList, onRequestClose, onSave }: L
     mode === "edit" ? { kind: "keep" } : { kind: "letter" },
   );
   const [error, setError] = useState<string | null>(null);
+  const [iconValidationPending, setIconValidationPending] = useState(false);
+  const [iconValidationError, setIconValidationError] = useState(false);
+  const iconDraftRef = useRef<IconDraft>(iconDraft);
   const [saving, setSaving] = useState(false);
   const heading = mode === "create" ? "Create a new list" : "Edit list";
   const submitLabel = mode === "create" ? "Create" : "Save changes";
@@ -106,15 +113,37 @@ export function ListEditorModal({ mode, initialList, onRequestClose, onSave }: L
   const iconLabel = iconDraft.kind === "upload" ? iconDraft.file.name
     : retainedIcon ? "Current local icon retained" : "UPLOAD AN ICON";
   const normalizedTitle = title.trim();
-  const canSubmit = normalizedTitle.length > 0 && !saving;
+  const canSubmit = normalizedTitle.length > 0 && !saving
+    && !iconValidationPending && !iconValidationError;
   const isPresetColor = COLOR_SWATCHES.some((preset) => preset === color.toLowerCase());
   const previewColor = HEX_COLOR.test(color) ? color : COLOR_SWATCHES[0];
 
   useEffect(() => {
+    mountedRef.current = true;
     openerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     titleInputRef.current?.focus();
-    return () => openerRef.current?.focus();
+    return () => {
+      mountedRef.current = false;
+      iconRequestRef.current += 1;
+      openerRef.current?.focus();
+    };
   }, []);
+
+  // A new icon choice invalidates all outstanding file readers synchronously.
+  // React state alone cannot guard Save in the same browser event turn.
+  function cancelIconValidation() {
+    iconRequestRef.current += 1;
+    iconValidationPendingRef.current = false;
+    iconValidationErrorRef.current = false;
+    setIconValidationPending(false);
+    setIconValidationError(false);
+  }
+  function selectIconDraft(draft: IconDraft) {
+    cancelIconValidation();
+    iconDraftRef.current = draft;
+    setIconDraft(draft);
+    setError(null);
+  }
 
   // The blob URL belongs to exactly one draft; changing selection or cancelling
   // revokes it, but never modifies the already-persisted uploaded file.
@@ -178,7 +207,9 @@ export function ListEditorModal({ mode, initialList, onRequestClose, onSave }: L
   }, [customColorOpen, iconPaletteOpen, customColorId, iconPaletteId, saving]);
 
   function requestClose() {
-    if (!savingRef.current) onRequestClose();
+    if (savingRef.current) return;
+    cancelIconValidation();
+    onRequestClose();
   }
   function closeColorPicker() {
     setCustomColorOpen(false);
@@ -212,34 +243,58 @@ export function ListEditorModal({ mode, initialList, onRequestClose, onSave }: L
   async function handleIconChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     event.target.value = "";
-    if (!file || savingRef.current) return;
-    const validationError = await validateIconFile(file);
-    if (savingRef.current) return;
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
-    setIconDraft({ kind: "upload", file, previewUrl: URL.createObjectURL(file) });
-    setIconPaletteOpen(false);
+    if (!file || savingRef.current || !mountedRef.current) return;
+    const request = ++iconRequestRef.current;
+    iconValidationPendingRef.current = true;
+    iconValidationErrorRef.current = false;
+    setIconValidationPending(true);
+    setIconValidationError(false);
     setError(null);
+    try {
+      const validationError = await validateIconFile(file);
+      if (!mountedRef.current || request !== iconRequestRef.current || savingRef.current) return;
+      if (validationError) {
+        iconValidationErrorRef.current = true;
+        setIconValidationError(true);
+        setError(validationError);
+        return;
+      }
+      const draft: IconDraft = { kind: "upload", file, previewUrl: URL.createObjectURL(file) };
+      iconDraftRef.current = draft;
+      setIconDraft(draft);
+      setIconPaletteOpen(false);
+      setError(null);
+    } catch (failure) {
+      if (!mountedRef.current || request !== iconRequestRef.current) return;
+      iconValidationErrorRef.current = true;
+      setIconValidationError(true);
+      setError(failure instanceof Error ? failure.message : String(failure));
+    } finally {
+      if (mountedRef.current && request === iconRequestRef.current) {
+        iconValidationPendingRef.current = false;
+        setIconValidationPending(false);
+      }
+    }
   }
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!canSubmit || savingRef.current) return;
+    if (!canSubmit || savingRef.current || iconValidationPendingRef.current
+      || iconValidationErrorRef.current) return;
     savingRef.current = true;
     setSaving(true);
     setCustomColorOpen(false);
     setIconPaletteOpen(false);
     setError(null);
     try {
-      const iconSelection = iconDraft.kind === "upload"
+      const selectedIcon = iconDraftRef.current;
+      const iconSelection = selectedIcon.kind === "upload"
         ? {
             kind: "upload" as const,
-            filename: iconDraft.file.name,
-            bytes: Array.from(new Uint8Array(await iconDraft.file.arrayBuffer())),
+            filename: selectedIcon.file.name,
+            bytes: Array.from(new Uint8Array(await selectedIcon.file.arrayBuffer())),
           }
-        : iconDraft.kind === "builtin" ? { kind: "builtin" as const, id: iconDraft.id }
-          : iconDraft.kind === "keep" ? { kind: "keep" as const }
+        : selectedIcon.kind === "builtin" ? { kind: "builtin" as const, id: selectedIcon.id }
+          : selectedIcon.kind === "keep" ? { kind: "keep" as const }
             : { kind: "letter" as const };
       await onSave({ title: normalizedTitle, color, iconUpload: null, iconSelection });
     } catch (failure) {
@@ -346,7 +401,7 @@ export function ListEditorModal({ mode, initialList, onRequestClose, onSave }: L
           {iconPaletteOpen && !saving ? (
             <BuiltinIconPalette selectedId={builtinIconId} initial={initial}
               onSelect={(id) => {
-                setIconDraft(id ? { kind: "builtin", id } : { kind: "letter" });
+                selectIconDraft(id ? { kind: "builtin", id } : { kind: "letter" });
                 setIconPaletteOpen(false);
                 iconPaletteButtonRef.current?.focus({ preventScroll: true });
               }}

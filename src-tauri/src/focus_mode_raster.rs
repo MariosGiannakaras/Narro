@@ -113,9 +113,50 @@ pub(crate) fn compose(
     Ok(frame)
 }
 
+// The full-image crossfade is not a safe fallback for Panel <-> Timer:
+// both source images contain the same live task title and time at different
+// coordinates. On a missing measured cleanplate choose one complete surface
+// at each frame, so the task is never simultaneously painted in two places.
+// This preserves exact endpoints, and the measured v4 compositor still owns
+// smooth shared-element motion when its source/target captures are valid.
+pub(crate) fn compose_single_semantic_surface(
+    outgoing: &Image,
+    incoming: &Image,
+    visible: tauri::PhysicalSize<u32>,
+    progress: f64,
+) -> CommandResult<Vec<u8>> {
+    if !progress.is_finite() || !(0.0..=1.0).contains(&progress) {
+        return Err(invalid());
+    }
+    let source = if progress < 0.5 { outgoing } else { incoming };
+    compose(source, source, visible, progress)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn missing_panel_sprite_path_never_crossfades_two_semantic_title_sources() {
+        let old = Image {
+            size: tauri::PhysicalSize::new(2, 1),
+            bgra: vec![10, 10, 10, 255, 0, 0, 0, 255],
+        };
+        let new = Image {
+            size: tauri::PhysicalSize::new(2, 1),
+            bgra: vec![0, 0, 0, 255, 240, 240, 240, 255],
+        };
+        for step in 0..=100 {
+            let progress = f64::from(step) / 100.0;
+            let frame = compose_single_semantic_surface(&old, &new, old.size, progress)
+                .expect("single semantic source");
+            assert!(
+                frame == old.bgra || frame == new.bgra,
+                "a fallback frame may not contain both glyph locations"
+            );
+        }
+        assert!(compose_single_semantic_surface(&old, &new, old.size, f64::NAN).is_err());
+    }
+
     #[test]
     fn intermediate_frame_contains_complete_bottom_row_instead_of_panel_crop() {
         let outgoing = Image {

@@ -58,7 +58,7 @@ for (const [haystack, needle, label] of [
   [lib, "fit_focus_host_for_target_scale(", "deterministic target-monitor host sizing"],
   [lib, "timer_region::apply_full_host(window)", "Panel full-host region independent of stale window DPI"],
   [lib, "fn apply_panel_native(", "single-host native Panel geometry boundary"],
-  [lib, "focus_panel_edge_position(", "validated M1 edge geometry reuse"],
+  [lib, "focus_panel_placement_position(", "native DPI-scaled Panel work-area inset"],
   [lib, "fn position_focus_panel(", "explicit diagnostic/Preferences Panel positioning command"],
   [lib, "fn present_focus_panel(app_handle: tauri::AppHandle)", "production native Focus presentation command"],
   [lib, "preferred_focus_panel_work_area(app_handle)", "preference-aware production placement"],
@@ -74,6 +74,7 @@ for (const [haystack, needle, label] of [
   [preferences, "selected_monitor_key: None", "safe no-selection default"],
   [preferences, "focus_panel_side: FocusPanelSide::Right", "default right side"],
   [windows, "pub fn focus_panel_edge_position(", "M1 physical work-area edge helper"],
+  [windows, "pub fn focus_panel_inset_position(", "M1 work-area-safe nonzero Panel inset helper"],
   [windows, "supports_monitors_with_negative_desktop_coordinates", "negative desktop coordinate regression"],
   [topology, "WM_DISPLAY_CHANGE", "event-driven display-change trigger"],
   [topology, "WM_DPICHANGED", "event-driven DPI trigger"],
@@ -162,6 +163,32 @@ for (const forbidden of [
   }
 }
 
+// V10/P431-10: the global shortcut reveals a hidden *Panel* first, before
+// the renderer receives the Timer-toggle event. Its hidden reveal must use
+// the same safe primary fallback as the first unpinned Timer, not abort on a
+// disconnected saved monitor. Visible Panel commands still reject stale keys.
+const shortcutShowStart = lib.indexOf("pub(crate) fn show_current_focus_surface(");
+const shortcutShowEnd = lib.indexOf("#[tauri::command]", shortcutShowStart);
+const shortcutShow = lib.slice(shortcutShowStart, shortcutShowEnd);
+const hiddenStart = lib.indexOf("fn prepare_hidden_focus_panel_for_reveal(");
+const hiddenEnd = lib.indexOf("pub(crate) fn show_current_focus_surface(", hiddenStart);
+const hiddenPreparation = lib.slice(hiddenStart, hiddenEnd);
+if (
+  shortcutShowStart < 0 || shortcutShowEnd < shortcutShowStart
+  || hiddenStart < 0 || hiddenEnd < hiddenStart
+  || !shortcutShow.includes("needs_hidden_panel_reveal_anchor(presentation, visible)")
+  || !shortcutShow.includes("prepare_hidden_focus_panel_for_reveal(app_handle, &window)?")
+  || !shortcutShow.includes("apply_focus_surface_presentation_internal(app_handle, presentation, None)?")
+  || !hiddenPreparation.includes("panel_anchor_for_initial_timer(app_handle)?")
+  || !hiddenPreparation.includes("apply_panel_native(window, work_area, scale_factor, side)")
+  || !hiddenPreparation.includes("restore_focus_native_snapshot(window, &snapshot)")
+  || !hiddenPreparation.includes("announce_focus_surface_presentation(app_handle, FocusSurfacePresentation::Panel)")
+  || !lib.includes("fn absent_monitor_fallback_applies_only_to_hidden_panel_reveal()")
+  || !lib.includes('Err(error) if error.code == "MONITOR_SELECTION_STALE"')
+) {
+  throw new Error("Hidden initial Focus shortcut must safely fall back only for unavailable saved display, preserve rollback and strict explicit placement");
+}
+
 const savedMonitorBranch = lib.indexOf("Some(monitor_key) =>");
 const savedMonitorResolution = lib.indexOf("resolve_monitor_by_key(app_handle, &monitor_key)?", savedMonitorBranch);
 const primaryFallback = lib.indexOf(".primary_monitor()", savedMonitorResolution);
@@ -216,6 +243,21 @@ if (
   || !applyNativeTargetBlock.includes("apply_panel_native(window, work_area, scale_factor, side)")
 ) {
   throw new Error("Explicit Panel presentation must reapply current monitor/side preferences even when Panel is already the committed mode.");
+}
+
+const applyTimerStart = lib.indexOf("fn apply_timer_native(");
+const applyTimerEnd = lib.indexOf("fn apply_focus_native_target(", applyTimerStart);
+const applyTimerBlock = lib.slice(applyTimerStart, applyTimerEnd);
+if (
+  applyTimerStart < 0
+  || applyTimerEnd < applyTimerStart
+  || !applyTimerBlock.includes("!already_visible && !floating_placement::has_effective_timer_position(app_handle)?")
+  || !applyTimerBlock.includes("panel_anchor_for_initial_timer(app_handle)")
+  || !lib.includes('Err(error) if error.code == "MONITOR_SELECTION_STALE"')
+  || !applyTimerBlock.includes("apply_panel_native(window, work_area, scale_factor, side)?")
+  || !applyTimerBlock.includes("floating_placement::restore_for_timer(app_handle, window, expanded)?")
+) {
+  throw new Error("Hidden first Timer reveal must inherit Panel origin only when no user/legacy Timer position exists.");
 }
 
 const blitzPresentationStart = lib.indexOf("async fn present_focus_for_blitz(");
@@ -324,7 +366,7 @@ if (
 for (const required of [
   "const handleBlitzPanelRequest = useCallback(async (resumeNonce: string | null) => {",
   'await requestModeRef.current("panel");',
-  "await waitForPresentedFrame();",
+  "await waitForPresentedFrameOrThrow();",
   "if (resumeNonce === null) {",
   "setTimerProjectionError(null);",
   "await resumeTimerFromFocusHome(resumeNonce);",
