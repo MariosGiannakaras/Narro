@@ -1,7 +1,42 @@
 import assert from "node:assert/strict";
 import { EventEmitter } from "node:events";
 import { readFile } from "node:fs/promises";
-import { stopOwnedRecorder, verifyPacketWritersStopped } from "./physical-session.mjs";
+import { stopOwnedRecorder, verifyPacketWritersStopped, waitForPtsProbeProgress } from "./physical-session.mjs";
+
+// A long, continuously progressing frame scan must not be discarded simply
+// because it exceeds the historical 30-second wall-clock timeout.
+const makeProbe = () => {
+  const output = new EventEmitter();
+  let close;
+  const closed = new Promise(done => { close = done; });
+  return { output, closed, close };
+};
+{
+  const probe = makeProbe();
+  const pump = setInterval(() => probe.output.emit("data", Buffer.from("frame")), 15);
+  const close = setTimeout(probe.close, 180);
+  try {
+    assert.equal(await waitForPtsProbeProgress(probe.closed, probe.output, { idleMs: 60, totalMs: 300 }), null);
+  } finally {
+    clearInterval(pump); clearTimeout(close);
+  }
+  assert.equal(probe.output.listenerCount("data"), 0);
+}
+{
+  const probe = makeProbe();
+  assert.equal(await waitForPtsProbeProgress(probe.closed, probe.output, { idleMs: 30, totalMs: 300 }), "stalled");
+  assert.equal(probe.output.listenerCount("data"), 0);
+}
+{
+  const probe = makeProbe();
+  const pump = setInterval(() => probe.output.emit("data", Buffer.from("frame")), 10);
+  try {
+    assert.equal(await waitForPtsProbeProgress(probe.closed, probe.output, { idleMs: 60, totalMs: 100 }), "budget");
+  } finally { clearInterval(pump); }
+  assert.equal(probe.output.listenerCount("data"), 0);
+}
+await assert.rejects(waitForPtsProbeProgress(Promise.resolve(), new EventEmitter(), { idleMs: 0 }),
+  /positive finite/);
 
 const limits = { graceMs: 3, killMs: 3 };
 for (const mode of ["normal", "sink-error", "force", "stuck", "pipe-throw", "already-closed"]) {
