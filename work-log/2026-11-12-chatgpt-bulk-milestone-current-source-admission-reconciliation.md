@@ -1,0 +1,17 @@
+# 2026-11-12 — Bulk milestone recording current-source admission reconciliation
+
+## Scope and exact source truth
+User asked to continue in bulk. This was NOT an explicit reactivation of the 2026-11-11T12:13:04Z physical Windows STOP. Therefore this pass did not launch Narro, run installer, record video, mutate AppData, access the physical Windows host, or mark any native acceptance PASS. It did not modify application source, tests, PR branch heads or candidate ZIPs.
+
+Current authoritative HANDOFF and exact-source launch sheet identify source PR499 30dc838c09af2815548e9e8213840bd09d48f59c, A389 24901803a45f67557386f1d168bb6a627a018029 and B419 76d9f7a21efda02e2a23b160b856d950b16ec03d; PR437 ancestor remains ccdd993ca9808e36f0c23e626dbcc4eea62e9a49. PR499/A/B six physical+quiet source ZIPs were previously independently verified 34/34 declared members. These are source/package checks, not native Windows acceptance. Held source PRs were not merged. The full 59 M5–M9 acceptance rows remain OPEN, and each independent A/B strict native 8/8 remains OPEN.
+
+## Concrete stale execution authority repaired, without modifying acceptance counts
+- TODO.md main commit 8c3176409d1e963325666379ab9979657c4b3d0a: replaced misleading 2026-11-09/10 `Current` source SHA/CI-running and ordinary physical authorization paragraphs with a single source-accurate 2026-11-12 current readiness/STOP/exact package section. 418 existing checkbox entries were preserved byte-for-byte below the first milestone heading.
+- docs/M1_M12_CLOSURE_MAP.md main commit 0931e3a9c29d7a467d36e1709e7066ac10b4dead: added current 2026-11-12 owner/source/STOP overlay and explicitly labeled old 2026-11-09/10 `Current` paragraphs as historical. Preserved milestone closure dependencies.
+- docs/PHYSICAL_ACCEPTANCE_NEW_RECORDING_BASELINE_2026-11-06.md main commit 7635a502b88d8a56cf4675c2e2ed8fbcdfa24052: added current 2026-11-12 source identities and immediate-private-upload duty, marking the previous 2026-11-11 source SHA set historical. Existing physical case protocol unchanged.
+
+## Evidence-limited source review
+Compared exact PR499/default, A389 and B419 strict serde PreferencesPayload and all six nested deny_unknown_fields struct keys: the complete persisted preference field sets match across these three candidates after the previous compatibility fix. This does not prove successful host startup or unrelated data compatibility. Read current native Main-to-Focus popup code against the historical 2026-11-08 recorded simultaneous Main/raster visual failure. `main_focus_raster::Raster::begin` shows a native pixel popup before `present_focus_for_blitz` hides Main. This is a concrete possible frame-overlap window in the old source path, but cannot by itself determine DWM compositor frames, actual causality, or how reliably the current descendant reproduces it. Avoided a speculative compositor rewrite that would invalidate held exact-source packages before the planned early Q2 native discriminator.
+
+## Next gate
+FINAL BULK M1–M9 RECORDING READINESS: NO. Respect the explicit physical STOP. On user reactivation, Codex owns the coordinated source-isolated PA campaign with exact on-host source/executable/controller/PID/HWND admission and private draft-release SHA-verified upload after every frozen packet, before any next capture. No M10 auto-approval or M11/M12 activation. Source-only work is restricted to separately verified defects.
