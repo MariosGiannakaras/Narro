@@ -1,0 +1,18 @@
+# 2026-11-12 — PR503 long-video PTS collector progress budget: exact source validated and merged
+
+## Root cause and bounded change
+The 2026-11-10 independent eight-packet evidence audit reported two full-frame PTS extraction timeouts. The previous generic frozen-packet collector `scripts/physical-session.mjs` used a fixed 30-second wall-clock limit for `ffprobe -show_frames` even if the original-video frame scan kept producing output. That conflates a legitimate long scan with a stalled extraction, creating INCOMPLETE video timestamp evidence; it is a tooling limitation, not proof of an application visual failure.
+
+The smallest generic source-side correction keeps original video frames and precise PTS, adding a 30-second **idle-progress** timeout and a 10-minute **hard total safety** bound. The worker is still killed, waited for and reported INCOMPLETE on stall, error, or hard limit. No Narro app, Timer, compositor, preference, source-specific EXE, or native acceptance changed. The portable `scripts/test-physical-session-lifecycle.mjs` exercises progressing scans that exceed a scaled previous deadline, output stalls, hard time bounds, invalid budgets and listener cleanup. Risk-family mapping: NER-004 bounded tooling timeouts; do not downgrade a true incomplete packet.
+
+## Exact GitHub work identity
+- Branch `fix/physical-pts-progress-budget-20261112`, PR [#503](https://github.com/MariosGiannakaras/Narro/pull/503), validated HEAD `5564e8b1eca94efcb39e0af40ac1d8e09a79ee6e`.
+- Source-pinned [PR run43200934040](https://github.com/MariosGiannakaras/Narro/actions/runs/43200934040): validation, fast, and Windows candidate jobs **COMPLETED SUCCESS** (including actual physical-observer test-internal step and Windows candidate build). No physical user-host recording was performed.
+- Exact-head expected-SHA guarded squash merge: [main `a65b07d8912d1845030678d69dddbfee23779874`](https://github.com/MariosGiannakaras/Narro/commit/a65b07d8912d1845030678d69dddbfee23779874). Verified `scripts/physical-session.mjs` and `scripts/test-physical-session-lifecycle.mjs` main blob SHAs exactly match the validated PR head.
+- Resulting-main [run43207454590](https://github.com/MariosGiannakaras/Narro/actions/runs/43207454590) was IN PROGRESS during this record; a future final success or failure must be reported separately and must not rewrite this immutable receipt.
+
+## Limitations and invariants
+The preceding physical evidence packets and previously shipped exact SHA source-bound controllers cannot inherit this fix retroactively; do not call old packets COMPLETE. The user STOP from 2026-11-11T12:13:04Z continues: no new Windows Narro launch, installer, recording, or AppData mutation. Codex owns the future single consolidated M1–M9 physical campaign after explicit reactivation and source-specific on-host admission with immediate private draft-release upload after each frozen packet. Held independent PR389/PR419 strict 8/8 compositor gates and the 59 M5–M9 evidence acceptance rows are unaffected; no merge of held source PRs.
+
+## One next safe action
+Verify the exact resulting-main run43207454590, then reconcile current HANDOFF/STATUS accordingly. At the physical boundary, do not silently substitute a generic collector into an older signed package: first admit the designated exact source/controller and explicitly account for the newer main collector if it will be used to reprocess a frozen packet.
