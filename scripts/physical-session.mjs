@@ -43,6 +43,34 @@ async function closedWithin(closed, ms) {
   finally { clearTimeout(timer); }
 }
 
+// Full-frame PTS extraction can outlive 30 seconds on long recordings.
+// Permit a progressing scan while failing closed on stalled or unbounded work.
+// This affects offline frozen-packet collection only, never Narro execution.
+export async function waitForPtsProbeProgress(closed, output, { idleMs = 30000, totalMs = 600000 } = {}) {
+  if (!Number.isFinite(idleMs) || idleMs <= 0 || !Number.isFinite(totalMs) || totalMs <= 0) {
+    throw Error("PTS probe time limits must be positive finite milliseconds.");
+  }
+  return new Promise(resolve => {
+    let settled = false, idleTimer, totalTimer;
+    function finish(reason) {
+      if (settled) return;
+      settled = true;
+      clearTimeout(idleTimer);
+      clearTimeout(totalTimer);
+      output.off("data", progressed);
+      resolve(reason);
+    }
+    function progressed() {
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => finish("stalled"), idleMs);
+    }
+    output.on("data", progressed);
+    progressed();
+    totalTimer = setTimeout(() => finish("budget"), totalMs);
+    Promise.resolve(closed).then(() => finish(null), () => finish("error"));
+  });
+}
+
 export async function stopOwnedRecorder(recorder, closed, { graceMs = 10000, killMs = 5000 } = {}) {
   // Diagnostic sink failure is independent from process liveness. Always stop
   // this owned child, even after ENOSPC/EPIPE, without an unbounded final wait.
@@ -441,8 +469,14 @@ export async function collect(root, { ffprobe } = {}, finalizer) {
         frames.on("error", error => { probeError = error.message; done(); });
         frames.on("close", code => { probeCode = code; done(); });
       });
-      if (!await closedWithin(probeClosed, 30000)) {
-        frames.kill(); probeError = "PTS probe timed out";
+      const probeLimit = await waitForPtsProbeProgress(probeClosed, frames.stdout);
+      if (probeLimit !== null) {
+        frames.kill();
+        probeError = probeLimit === "stalled"
+          ? "PTS probe stalled without frame output for 30s"
+          : probeLimit === "budget"
+            ? "PTS probe exceeded the 10-minute collection safety limit"
+            : "PTS probe exited unexpectedly";
         if (!await closedWithin(probeClosed, 5000)) throw Error("PTS probe still live; preserve the packet and retry after it exits.");
       }
       if (!await closedWithin(Promise.all(sinks), 5000)) throw Error("PTS probe streams still open; preserve the packet.");
